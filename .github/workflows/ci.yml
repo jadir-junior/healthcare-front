@@ -37,3 +37,12 @@ jobs:
 
       - name: Checking Style Code
         run: npm run style
+
+      - name: Checking Lint
+        run: npm run lint
+
+      - name: Building
+        run: npm run build
+
+      - name: Unit Testing (Jest + Testing Library Angular)
+        run: npm run test
