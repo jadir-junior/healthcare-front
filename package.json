@@ -9,9 +9,17 @@
     "test": "jest",
     "style": "prettier --check '**/src/**/*.{scss,ts}'",
     "style:fix": "prettier --write '**/src/**/*.{scss,ts}'",
-    "lint": "ng lint"
+    "lint": "ng lint --max-warnings=0"
   },
   "private": true,
+  "lint-staged": {
+    "src/**/*.{html,scss,ts}": [
+      "prettier --check"
+    ],
+    "src/**/*.{html,ts}": [
+      "eslint --max-warnings=0"
+    ]
+  },
   "dependencies": {
     "@angular/animations": "~13.3.0",
     "@angular/common": "~13.3.0",
@@ -44,7 +52,9 @@
     "eslint": "^8.17.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "husky": "^8.0.1",
     "jest-preset-angular": "^12.2.0",
+    "lint-staged": "^13.0.3",
     "prettier": "^2.7.1",
     "typescript": "~4.6.2"
   },
