@@ -1,1 +1,23 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import './scss/typography.scss';
+
+:root {
+  --neutral-black: #25282b;
+  --neutral-background: #f6f8fb;
+  --neutral-divider: #e8e8e8;
+  --neutral-gray-light: #cacccf;
+  --neutral-gray: #a0a4a8;
+  --neutral-gray-dark: #52575c;
+
+  --primary-color: #336cfb;
+
+  --red-default: #ff6760;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Lato', sans-serif;
+}

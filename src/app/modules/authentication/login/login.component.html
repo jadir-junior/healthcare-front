@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="wrapper-form">
+    <h1 class="title">Sign in</h1>
+    <p class="body1 description">Sign in to access your Account</p>
+    <form [formGroup]="form">
+      <hc-input placeholder="Login" ariaLabel="login" formControlName="login"></hc-input>
+      <hc-input
+        placeholder="Password"
+        ariaLabel="password"
+        formControlName="password"
+        [type]="isVisiblePassword ? 'text' : 'password'"
+        [appendIcon]="isVisiblePassword ? 'visibility' : 'visibility_off'"
+        (appendIconClickEvent)="toggleVisible()"
+      ></hc-input>
+    </form>
+  </div>
+  <div></div>
+</div>
