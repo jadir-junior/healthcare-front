@@ -22,6 +22,8 @@ import { Component, EventEmitter, Input, Output } from '@angular/core'
   styles: [
     `
       button {
+        display: flex;
+        align-items: center;
         color: var(--neutral-white);
         font-weight: bold;
         font-size: 16px;

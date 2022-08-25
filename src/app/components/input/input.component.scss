@@ -43,11 +43,12 @@ input {
 
 button {
   border: none;
-  background-color: transparent;
+  background-color: var(--neutral-white);
   cursor: pointer;
   padding: 10px 16px;
   color: var(--neutral-gray-light);
   outline: 0;
+  border-radius: 8px;
 }
 
 .icon-error {
