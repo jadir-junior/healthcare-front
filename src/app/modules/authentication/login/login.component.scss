@@ -1,0 +1,18 @@
+.container {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+}
+
+.wrapper-form {
+  padding: 40px 96px;
+}
+
+.title {
+  color: var(--neutral-black);
+  margin-bottom: 12px;
+}
+
+.description {
+  color: var(--neutral-gray-dark);
+  margin-bottom: 40px;
+}
