@@ -1,13 +1,21 @@
+import { render, screen } from '@testing-library/angular'
+
 import { SwitchComponent } from './switch.component'
-import { render } from '@testing-library/angular'
 
 describe('SwitchComponent', () => {
-  const setup = async () => {
-    return render(SwitchComponent)
-  }
-
   it('should create a switch', async () => {
-    const { container } = await setup()
-    expect(container).toBeTruthy()
+    const { container } = await render(SwitchComponent)
+
+    expect(container).toBeInTheDocument()
+  })
+
+  it('should create a switch with label', async () => {
+    await render(SwitchComponent, {
+      componentProperties: {
+        label: 'Remember me',
+      },
+    })
+
+    expect(screen.getByText(/remember me/i)).toBeInTheDocument()
   })
 })
