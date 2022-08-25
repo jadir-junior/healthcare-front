@@ -1,11 +1,6 @@
-import { Component, Input, Provider, forwardRef } from '@angular/core'
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms'
-
-const HC_INPUT_VALUE_ACCESSOR: Provider = {
-  provide: NG_VALUE_ACCESSOR,
-  multi: true,
-  useExisting: forwardRef(() => InputComponent),
-}
+/* eslint-disable @typescript-eslint/no-empty-function */
+import { Component, ElementRef, Input } from '@angular/core'
+import { ControlValueAccessor, NgControl } from '@angular/forms'
 
 @Component({
   selector: 'hc-input',
@@ -13,51 +8,46 @@ const HC_INPUT_VALUE_ACCESSOR: Provider = {
     <input
       #input
       [type]="type"
+      [disabled]="disabled"
       [attr.placeholder]="placeholder"
       [attr.aria-label]="ariaLabel"
       [ngClass]="{
-        'input-focus': isFocus
+        'input-focus': isFocus,
+        'input-error': ngControl.invalid && (ngControl.dirty || ngControl.touched)
       }"
       (focus)="onFocus()"
       (blur)="onBlur()"
       (keyup)="onChange(input.value)"
     />
   `,
-  styles: [
-    `
-      input {
-        width: 100%;
-        font-size: 14px;
-        font-weight: 400;
-        line-height: 20px;
-        padding: 14px 16px;
-        border-radius: 8px;
-        border: 1px solid var(--neutral-gray);
-        color: var(--neutral-black);
-        outline: 0;
-
-        ::placeholder {
-          color: var(--neutral-gray);
-        }
-      }
-
-      .input-focus {
-        border: 1.5px solid var(--primary-color);
-      }
-    `,
-  ],
-  providers: [HC_INPUT_VALUE_ACCESSOR],
+  styleUrls: ['input.component.scss'],
 })
 export class InputComponent implements ControlValueAccessor {
-  @Input() type: 'text' = 'text'
+  @Input() type: 'text' | 'tel' = 'text'
   @Input() placeholder = ''
   @Input() ariaLabel?: string
+  @Input() formControlName!: string
 
+  disabled = false
   isFocus = false
   value!: string
 
   onChange!: (value: string) => void
-  onTouched!: () => void
+  onTouched = () => {}
+
+  constructor(public ngControl: NgControl, private elem: ElementRef) {
+    this.registerNgControl()
+  }
+
+  registerNgControl(): void {
+    if (this.ngControl != null) {
+      this.ngControl.valueAccessor = this
+    } else {
+      throw new Error(
+        `You need pass the ["formControlName"] in the ${this.elem.nativeElement.tagName.toLowerCase()}`
+      )
+    }
+  }
 
   onFocus(): void {
     this.isFocus = true
@@ -65,15 +55,22 @@ export class InputComponent implements ControlValueAccessor {
 
   onBlur(): void {
     this.isFocus = false
+    this.onTouched()
   }
 
   writeValue(value: string): void {
     this.value = value
   }
+
   registerOnChange(fn: (value: string) => void): void {
     this.onChange = fn
   }
+
   registerOnTouched(fn: () => void): void {
     this.onTouched = fn
+  }
+
+  setDisabledState(isDisabled: boolean): void {
+    this.disabled = isDisabled
   }
 }
