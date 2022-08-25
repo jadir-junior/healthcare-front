@@ -12,7 +12,11 @@
         [appendIcon]="isVisiblePassword ? 'visibility' : 'visibility_off'"
         (appendIconClickEvent)="toggleVisible()"
       ></hc-input>
-      <hc-switch formControlName="rememberMe" label="Remember me"></hc-switch>
+      <hc-switch
+        ariaLabel="remember me"
+        formControlName="rememberMe"
+        label="Remember me"
+      ></hc-switch>
       <button type="submit">submit</button>
     </form>
   </div>

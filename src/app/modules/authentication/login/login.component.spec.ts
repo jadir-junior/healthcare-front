@@ -3,12 +3,13 @@ import { render, screen } from '@testing-library/angular'
 import { InputModule } from 'src/app/components/input/input.module'
 import { LoginComponent } from './login.component'
 import { ReactiveFormsModule } from '@angular/forms'
+import { SwitchModule } from 'src/app/components/switch/switch.module'
 import userEvent from '@testing-library/user-event'
 
 describe('LoginComponent', () => {
   const setup = async () => {
     return render(LoginComponent, {
-      imports: [ReactiveFormsModule, InputModule],
+      imports: [ReactiveFormsModule, InputModule, SwitchModule],
     })
   }
 
@@ -21,6 +22,8 @@ describe('LoginComponent', () => {
 
     expect(screen.getByRole('textbox', { name: 'login' })).toBeInTheDocument()
     expect(screen.getByLabelText(/password/i)).toBeInTheDocument()
+    expect(screen.getByRole('checkbox', { name: /remember me/i })).toBeInTheDocument()
+    expect(screen.getByRole('checkbox', { name: 'remember me' })).toBeChecked()
   })
 
   it('should show messages required', async () => {
@@ -32,5 +35,15 @@ describe('LoginComponent', () => {
 
     expect(screen.getByText(/the login is required!/i)).toBeInTheDocument()
     expect(screen.getByText(/the password is required!/i)).toBeInTheDocument()
+  })
+
+  it('should show a password when click in append button', async () => {
+    await setup()
+
+    expect(screen.getByLabelText(/password/i)).toHaveAttribute('type', 'password')
+
+    await userEvent.click(screen.getByRole('button', { name: 'append-icon-button' }))
+
+    expect(screen.getByLabelText(/password/i)).toHaveAttribute('type', 'text')
   })
 })
