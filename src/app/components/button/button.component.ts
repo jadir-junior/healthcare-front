@@ -5,6 +5,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core'
   template: `
     <button
       [type]="type"
+      [disabled]="disabled"
       [ngClass]="{
         'btn-primary': color === 'primary',
         'btn-primary-hover': isHover,
@@ -32,6 +33,11 @@ import { Component, EventEmitter, Input, Output } from '@angular/core'
         transition: 0.3s;
       }
 
+      button:disabled {
+        background-color: var(--neutral-background);
+        color: var(--neutral-divider);
+      }
+
       .btn-primary {
         background-color: var(--primary-default);
       }
@@ -53,6 +59,7 @@ export class ButtonComponent {
   @Input() type: 'submit' | 'button' = 'button'
   @Input() color: 'primary' | 'default' = 'default'
   @Input() ariaLabel?: string
+  @Input() disabled = false
 
   @Output() clickEvent = new EventEmitter()
 

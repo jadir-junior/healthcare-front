@@ -50,4 +50,16 @@ describe('ButtonComponent', () => {
 
     expect(button).toHaveClass('btn-primary-pressed')
   })
+
+  it('button must be disabled', async () => {
+    await render(ButtonComponent, {
+      componentProperties: {
+        color: 'primary',
+        ariaLabel: 'button',
+        disabled: true,
+      },
+    })
+
+    expect(screen.getByRole('button', { name: /button/i })).toBeDisabled()
+  })
 })
