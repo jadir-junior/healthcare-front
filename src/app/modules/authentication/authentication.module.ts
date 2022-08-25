@@ -1,4 +1,5 @@
 import { AuthenticationRoutingModule } from './authentication-routing.module'
+import { ButtonModule } from 'src/app/components/button/button.module'
 import { CommonModule } from '@angular/common'
 import { InputModule } from 'src/app/components/input/input.module'
 import { LoginComponent } from './login/login.component'
@@ -13,6 +14,7 @@ import { SwitchModule } from 'src/app/components/switch/switch.module'
     AuthenticationRoutingModule,
     InputModule,
     SwitchModule,
+    ButtonModule,
     ReactiveFormsModule,
   ],
 })
