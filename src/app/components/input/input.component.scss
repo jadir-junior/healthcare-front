@@ -1,13 +1,19 @@
+.wrapper-input {
+  display: flex;
+  border: 1px solid var(--neutral-gray);
+  border-radius: 8px;
+}
+
 input {
   width: 100%;
   font-size: 16px;
   font-weight: 400;
   line-height: 20px;
   padding: 14px 16px;
-  border-radius: 8px;
-  border: 1px solid var(--neutral-gray);
   color: var(--neutral-black);
   outline: 0;
+  border: none;
+  border-radius: 8px;
 
   &::placeholder {
     font-size: 16px;
@@ -29,4 +35,13 @@ input {
 
 .input-error {
   border: 1px solid var(--red);
+}
+
+button {
+  border: none;
+  background-color: transparent;
+  cursor: pointer;
+  padding: 10px 16px;
+  color: var(--neutral-gray-light);
+  outline: 0;
 }

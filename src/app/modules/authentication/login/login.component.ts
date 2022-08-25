@@ -10,11 +10,17 @@ import { Component } from '@angular/core'
 export class LoginComponent {
   form: FormGroup = this.fb.group({
     login: ['', [Validators.required]],
+    password: ['', [Validators.required]],
   })
+  isVisiblePassword = false
 
   constructor(private fb: FormBuilder) {}
 
   onSubmit({ value }: FormGroup) {
     console.log(value)
+  }
+
+  toggleVisible() {
+    this.isVisiblePassword = !this.isVisiblePassword
   }
 }

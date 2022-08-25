@@ -1,32 +1,49 @@
 /* eslint-disable @typescript-eslint/no-empty-function */
-import { Component, ElementRef, Input } from '@angular/core'
+import { Component, ElementRef, EventEmitter, Input, Output } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
 
 @Component({
   selector: 'hc-input',
   template: `
-    <input
-      #input
-      [type]="type"
-      [disabled]="disabled"
-      [attr.placeholder]="placeholder"
-      [attr.aria-label]="ariaLabel"
+    <div
+      class="wrapper-input"
       [ngClass]="{
         'input-focus': isFocus,
         'input-error': ngControl.invalid && (ngControl.dirty || ngControl.touched)
       }"
-      (focus)="onFocus()"
-      (blur)="onBlur()"
-      (keyup)="onChange(input.value)"
-    />
+    >
+      <input
+        #input
+        [type]="type"
+        [disabled]="disabled"
+        [attr.placeholder]="placeholder"
+        [attr.aria-label]="ariaLabel"
+        (focus)="onFocus()"
+        (blur)="onBlur()"
+        (change)="onChange(input.value)"
+      />
+      <button
+        *ngIf="appendIcon"
+        type="button"
+        class="material-symbols-outlined append-icon"
+        aria-label="append-icon-button"
+        [disabled]="disabled"
+        (click)="onAppendIconClick()"
+      >
+        {{ appendIcon }}
+      </button>
+    </div>
   `,
   styleUrls: ['input.component.scss'],
 })
 export class InputComponent implements ControlValueAccessor {
-  @Input() type: 'text' | 'tel ' = 'text'
+  @Input() type: 'text' | 'tel' | 'password' = 'text'
   @Input() placeholder = ''
   @Input() ariaLabel?: string
   @Input() formControlName!: string
+  @Input() appendIcon?: string
+
+  @Output() appendIconClickEvent = new EventEmitter()
 
   disabled = false
   isFocus = false
@@ -56,6 +73,10 @@ export class InputComponent implements ControlValueAccessor {
   onBlur(): void {
     this.isFocus = false
     this.onTouched()
+  }
+
+  onAppendIconClick() {
+    this.appendIconClickEvent.emit()
   }
 
   writeValue(value: string): void {
