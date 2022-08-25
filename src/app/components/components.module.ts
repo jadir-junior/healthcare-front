@@ -1,7 +1,8 @@
 import { InputModule } from './input/input.module'
 import { NgModule } from '@angular/core'
+import { SwitchModule } from './switch/switch.module'
 
-const modules = [InputModule]
+const modules = [InputModule, SwitchModule]
 
 @NgModule({
   declarations: [],

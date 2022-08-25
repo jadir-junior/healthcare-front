@@ -8,6 +8,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "jest",
     "test:watch": "jest --watch",
+    "test:coverage": "jest --collect-coverage",
     "style": "prettier --check '**/src/**/*.{scss,ts}'",
     "style:fix": "prettier --write '**/src/**/*.{scss,ts}'",
     "lint": "ng lint --max-warnings=0"
