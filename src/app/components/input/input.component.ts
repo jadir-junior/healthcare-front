@@ -5,33 +5,46 @@ import { ControlValueAccessor, NgControl } from '@angular/forms'
 @Component({
   selector: 'hc-input',
   template: `
-    <div
-      class="wrapper-input"
-      [ngClass]="{
-        'input-focus': isFocus,
-        'input-error': ngControl.invalid && (ngControl.dirty || ngControl.touched)
-      }"
-    >
-      <input
-        #input
-        [type]="type"
-        [disabled]="disabled"
-        [attr.placeholder]="placeholder"
-        [attr.aria-label]="ariaLabel"
-        (focus)="onFocus()"
-        (blur)="onBlur()"
-        (change)="onChange(input.value)"
-      />
-      <button
-        *ngIf="appendIcon"
-        type="button"
-        class="material-symbols-outlined append-icon"
-        aria-label="append-icon-button"
-        [disabled]="disabled"
-        (click)="onAppendIconClick()"
+    <div class="wrapper-input-and-error">
+      <div
+        class="wrapper-input"
+        [ngClass]="{
+          'input-focus': isFocus,
+          'input-error': ngControl.invalid && (ngControl.dirty || ngControl.touched)
+        }"
       >
-        {{ appendIcon }}
-      </button>
+        <input
+          #input
+          [type]="type"
+          [disabled]="disabled"
+          [attr.placeholder]="placeholder"
+          [attr.aria-label]="ariaLabel"
+          (focus)="onFocus()"
+          (blur)="onBlur()"
+          (change)="onChange(input.value)"
+        />
+        <button
+          *ngIf="appendIcon"
+          type="button"
+          class="material-symbols-outlined append-icon"
+          aria-label="append-icon-button"
+          [disabled]="disabled"
+          (click)="onAppendIconClick()"
+          [ngClass]="{
+            'icon-error': ngControl.invalid && (ngControl.dirty || ngControl.touched)
+          }"
+        >
+          {{ appendIcon }}
+        </button>
+      </div>
+      <div
+        *ngIf="ngControl.invalid && (ngControl.dirty || ngControl.touched)"
+        class="error-message"
+      >
+        <p *ngIf="ngControl.errors?.['required']">
+          The {{ ngControl.name }} is required!
+        </p>
+      </div>
     </div>
   `,
   styleUrls: ['input.component.scss'],

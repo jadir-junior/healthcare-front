@@ -76,7 +76,8 @@ describe('InputComponent', () => {
     expect(input.parentElement).toHaveClass('input-focus')
     await userEvent.tab()
 
-    expect(input.parentElement).toHaveClass('input-error')
+    expect(screen.getByText('The login is required!'))
+    // expect(input.parentElement).toHaveClass('input-error')
   })
 
   it.skip('input must be disabled', async () => {

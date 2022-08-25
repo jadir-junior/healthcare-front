@@ -1,3 +1,7 @@
+.wrapper-input-and-error {
+  height: 76px;
+}
+
 .wrapper-input {
   display: flex;
   border: 1px solid var(--neutral-gray);
@@ -34,7 +38,7 @@ input {
 }
 
 .input-error {
-  border: 1px solid var(--red);
+  border: 1px solid var(--red-default);
 }
 
 button {
@@ -44,4 +48,13 @@ button {
   padding: 10px 16px;
   color: var(--neutral-gray-light);
   outline: 0;
+}
+
+.icon-error {
+  color: var(--red-default);
+}
+
+.error-message {
+  color: var(--red-default);
+  font-size: 14px;
 }
