@@ -2,7 +2,11 @@ import { Component, Input } from '@angular/core'
 
 @Component({
   selector: 'hc-link',
-  template: ` <a [routerLink]="router"><ng-content></ng-content></a> `,
+  template: `
+    <a [routerLink]="router" [attr.aria-label]="ariaLabel" role="link">
+      <ng-content></ng-content>
+    </a>
+  `,
   styles: [
     `
       a {
@@ -19,4 +23,5 @@ import { Component, Input } from '@angular/core'
 })
 export class LinkComponent {
   @Input() router!: string
+  @Input() ariaLabel?: string
 }

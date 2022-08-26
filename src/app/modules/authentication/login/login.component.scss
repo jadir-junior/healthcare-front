@@ -1,6 +1,7 @@
 .container {
   display: grid;
   grid-template-columns: 1.5fr 2fr;
+  height: 100vh;
 }
 
 .wrapper-form {
@@ -15,4 +16,12 @@
 .description {
   color: var(--neutral-gray-dark);
   margin-bottom: 40px;
+}
+
+.background-login {
+  height: 100%;
+  background-image: url('/assets/imgs/login.jpg');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 }
