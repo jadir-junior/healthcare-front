@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/angular'
 import { ButtonModule } from 'src/app/components/button/button.module'
 import { IconModule } from 'src/app/components/icon/icon.module'
 import { InputModule } from 'src/app/components/input/input.module'
+import { LinkModule } from 'src/app/components/link/link.module'
 import { LoginComponent } from './login.component'
 import { ReactiveFormsModule } from '@angular/forms'
 import { SwitchModule } from 'src/app/components/switch/switch.module'
@@ -11,7 +12,14 @@ import userEvent from '@testing-library/user-event'
 describe('LoginComponent', () => {
   const setup = async () => {
     return render(LoginComponent, {
-      imports: [ReactiveFormsModule, InputModule, SwitchModule, ButtonModule, IconModule],
+      imports: [
+        ReactiveFormsModule,
+        InputModule,
+        SwitchModule,
+        ButtonModule,
+        IconModule,
+        LinkModule,
+      ],
     })
   }
 
