@@ -6,12 +6,13 @@ import { InputModule } from 'src/app/components/input/input.module'
 import { LinkModule } from 'src/app/components/link/link.module'
 import { LoginComponent } from './login/login.component'
 import { NgModule } from '@angular/core'
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component'
 import { ReactiveFormsModule } from '@angular/forms'
 import { RegisterComponent } from './register/register.component'
 import { SwitchModule } from 'src/app/components/switch/switch.module'
 
 @NgModule({
-  declarations: [LoginComponent, RegisterComponent],
+  declarations: [LoginComponent, RegisterComponent, PageNotFoundComponent],
   imports: [
     CommonModule,
     AuthenticationRoutingModule,
