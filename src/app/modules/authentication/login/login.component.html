@@ -18,12 +18,19 @@
         label="Remember me"
       ></hc-switch>
       <div style="margin-top: 40px; margin-bottom: 130px">
-        <hc-button type="submit" color="primary">
+        <hc-button type="submit" color="primary" ariaLabel="sign in">
           <hc-icon icon="login" style="margin-top: 4px; margin-right: 8px"></hc-icon>
           Sign In
         </hc-button>
       </div>
     </form>
+    <div>
+      <hc-link router="/" ariaLabel="forgot password">Forgot password?</hc-link>
+    </div>
+    <div style="margin-top: 8px">
+      <span class="body2">Don't have an account?</span>
+      <hc-link ariaLabel="sign up"> Sign up!</hc-link>
+    </div>
   </div>
-  <div></div>
+  <div class="background-login"></div>
 </div>

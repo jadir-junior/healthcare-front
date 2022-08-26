@@ -3,6 +3,7 @@ import { render, screen } from '@testing-library/angular'
 import { ButtonModule } from 'src/app/components/button/button.module'
 import { IconModule } from 'src/app/components/icon/icon.module'
 import { InputModule } from 'src/app/components/input/input.module'
+import { LinkModule } from 'src/app/components/link/link.module'
 import { LoginComponent } from './login.component'
 import { ReactiveFormsModule } from '@angular/forms'
 import { SwitchModule } from 'src/app/components/switch/switch.module'
@@ -11,7 +12,14 @@ import userEvent from '@testing-library/user-event'
 describe('LoginComponent', () => {
   const setup = async () => {
     return render(LoginComponent, {
-      imports: [ReactiveFormsModule, InputModule, SwitchModule, ButtonModule, IconModule],
+      imports: [
+        ReactiveFormsModule,
+        InputModule,
+        SwitchModule,
+        ButtonModule,
+        IconModule,
+        LinkModule,
+      ],
     })
   }
 
@@ -23,16 +31,20 @@ describe('LoginComponent', () => {
     expect(screen.getByText(/sign in to access your account/i)).toBeInTheDocument()
 
     expect(screen.getByRole('textbox', { name: 'login' })).toBeInTheDocument()
-    expect(screen.getByLabelText(/password/i)).toBeInTheDocument()
+    expect(screen.getByLabelText(/password/i, { selector: 'input' })).toBeInTheDocument()
     expect(screen.getByRole('checkbox', { name: /remember me/i })).toBeInTheDocument()
     expect(screen.getByRole('checkbox', { name: 'remember me' })).toBeChecked()
+    expect(screen.getByRole('button', { name: /sign in/i })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: /forgot password/i })).toBeInTheDocument()
+    expect(screen.getByText(`Don't have an account?`)).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: /sign up/i })).toBeInTheDocument()
   })
 
   it('should show messages required', async () => {
     await setup()
 
     await userEvent.click(screen.getByRole('textbox', { name: 'login' }))
-    await userEvent.click(screen.getByLabelText(/password/i))
+    await userEvent.click(screen.getByLabelText(/password/i, { selector: 'input' }))
     await userEvent.tab()
 
     expect(screen.getByText(/the login is required!/i)).toBeInTheDocument()
@@ -42,10 +54,14 @@ describe('LoginComponent', () => {
   it('should show a password when click in append button', async () => {
     await setup()
 
-    expect(screen.getByLabelText(/password/i)).toHaveAttribute('type', 'password')
+    expect(
+      screen.getByLabelText(/password/i, { selector: 'input', exact: true })
+    ).toHaveAttribute('type', 'password')
 
     await userEvent.click(screen.getByRole('button', { name: 'append-icon-button' }))
 
-    expect(screen.getByLabelText(/password/i)).toHaveAttribute('type', 'text')
+    expect(
+      screen.getByLabelText(/password/i, { selector: 'input', exact: true })
+    ).toHaveAttribute('type', 'text')
   })
 })
