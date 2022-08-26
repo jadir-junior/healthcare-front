@@ -8,6 +8,12 @@
   padding: 40px 96px;
 }
 
+.wrapper-section-page-not-found {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
 .title {
   color: var(--neutral-black);
 }
@@ -30,4 +36,9 @@
 .background-register {
   @include background;
   background-image: url('/assets/imgs/register.jpg');
+}
+
+.background-404 {
+  @include background;
+  background-image: url('/assets/imgs/404.jpg');
 }
