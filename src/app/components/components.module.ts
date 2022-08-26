@@ -3,8 +3,9 @@ import { IconModule } from './icon/icon.module'
 import { InputModule } from './input/input.module'
 import { NgModule } from '@angular/core'
 import { SwitchModule } from './switch/switch.module'
+import { LinkModule } from './link/link.module'
 
-const modules = [InputModule, SwitchModule, ButtonModule, IconModule]
+const modules = [InputModule, SwitchModule, ButtonModule, IconModule, LinkModule]
 
 @NgModule({
   declarations: [],
