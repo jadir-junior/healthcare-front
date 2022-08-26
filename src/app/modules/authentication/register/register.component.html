@@ -1,1 +1,46 @@
-<p>register works!</p>
+<div class="container">
+  <div class="wrapper-form">
+    <h1 class="title" style="margin-bottom: 12px">Sign up</h1>
+    <p class="body1 description" style="margin-bottom: 40px">Create your account</p>
+    <form [formGroup]="form" (submit)="onSubmit(form)">
+      <hc-input
+        placeholder="Name"
+        ariaLabel="name"
+        formControlName="name"
+        [submitted]="submitted"
+      ></hc-input>
+      <hc-input
+        placeholder="Email address"
+        ariaLabel="email"
+        formControlName="email"
+        type="email"
+        [submitted]="submitted"
+      ></hc-input>
+      <hc-input
+        placeholder="Password"
+        ariaLabel="password"
+        formControlName="password"
+        [submitted]="submitted"
+        [type]="isVisiblePassword ? 'text' : 'password'"
+        [appendIcon]="isVisiblePassword ? 'visibility' : 'visibility_off'"
+        (appendIconClickEvent)="toggleVisibilityPassword()"
+      ></hc-input>
+      <hc-switch
+        ariaLabel="terms"
+        formControlName="terms"
+        label="I agree to the Terms and Policy"
+      ></hc-switch>
+      <div style="margin-top: 40px; margin-bottom: 80px">
+        <hc-button type="submit" color="primary" ariaLabel="sign up">
+          <hc-icon icon="login" style="margin-top: 4px; margin-right: 8px"></hc-icon>
+          Sign up
+        </hc-button>
+      </div>
+    </form>
+    <div>
+      <span class="body2">Have an account?</span>
+      <hc-link router="/auth/login"> Sign in!</hc-link>
+    </div>
+  </div>
+  <div class="background-register"></div>
+</div>

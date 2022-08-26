@@ -5,7 +5,7 @@ import { Component } from '@angular/core'
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  styleUrls: ['../scss/authentication.scss'],
 })
 export class LoginComponent {
   form: FormGroup = this.fb.group({

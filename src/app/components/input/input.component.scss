@@ -58,4 +58,6 @@ button {
 .error-message {
   color: var(--red-default);
   font-size: 14px;
+  display: flex;
+  align-items: center;
 }
