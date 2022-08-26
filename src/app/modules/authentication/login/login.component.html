@@ -5,11 +5,17 @@
       Sign in to access your Account
     </p>
     <form [formGroup]="form" (submit)="onSubmit(form)">
-      <hc-input placeholder="Login" ariaLabel="login" formControlName="login"></hc-input>
+      <hc-input
+        placeholder="Login"
+        ariaLabel="login"
+        formControlName="login"
+        [submitted]="submitted"
+      ></hc-input>
       <hc-input
         placeholder="Password"
         ariaLabel="password"
         formControlName="password"
+        [submitted]="submitted"
         [type]="isVisiblePassword ? 'text' : 'password'"
         [appendIcon]="isVisiblePassword ? 'visibility' : 'visibility_off'"
         (appendIconClickEvent)="toggleVisible()"

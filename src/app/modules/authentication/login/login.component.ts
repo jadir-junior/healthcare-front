@@ -14,14 +14,18 @@ export class LoginComponent {
     rememberMe: [{ value: true, disabled: false }],
   })
   isVisiblePassword = false
+  submitted = false
 
   constructor(private fb: FormBuilder) {}
 
-  onSubmit({ value }: FormGroup) {
-    console.log(value)
-  }
-
   toggleVisible() {
     this.isVisiblePassword = !this.isVisiblePassword
+  }
+
+  onSubmit({ value, valid }: FormGroup) {
+    this.submitted = true
+    if (valid) {
+      console.log(value)
+    }
   }
 }
