@@ -70,7 +70,7 @@ const SWITCH_VALUE_ACcESSOR: Provider = {
       }
 
       input:checked + label {
-        background-color: var(--primary-color);
+        background-color: var(--primary-default);
       }
 
       .disabled::after {
