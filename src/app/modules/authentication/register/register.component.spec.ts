@@ -68,4 +68,17 @@ describe('RegisterComponent', () => {
 
     expect(screen.getByText(/invalid email address/i)).toBeInTheDocument()
   })
+
+  it('should show a message error to password is not strength', async () => {
+    await setup()
+
+    await userEvent.type(screen.getByLabelText(/password/i), 'junior')
+    await userEvent.tab()
+
+    expect(
+      screen.getByText(
+        /your password must be 8-20 characters long, contain letters uppercase and lowercase, special characters/i
+      )
+    ).toBeInTheDocument()
+  })
 })

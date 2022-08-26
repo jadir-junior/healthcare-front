@@ -1,6 +1,7 @@
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 
 import { Component } from '@angular/core'
+import { PasswordStrengthValidator } from 'src/app/utils/validations/password-strength/password-strength.validators'
 
 @Component({
   selector: 'app-register',
@@ -11,7 +12,7 @@ export class RegisterComponent {
   form: FormGroup = this.fb.group({
     name: ['', [Validators.required]],
     email: ['', [Validators.required, Validators.email]],
-    password: ['', [Validators.required]],
+    password: ['', [Validators.required, PasswordStrengthValidator]],
     terms: [true],
   })
 

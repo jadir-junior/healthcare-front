@@ -4,57 +4,7 @@ import { ControlValueAccessor, NgControl } from '@angular/forms'
 
 @Component({
   selector: 'hc-input',
-  template: `
-    <div class="wrapper-input-and-error">
-      <div
-        class="wrapper-input"
-        [ngClass]="{
-          'input-focus': isFocus,
-          'input-error':
-            ngControl.invalid && (submitted || ngControl.dirty || ngControl.touched)
-        }"
-      >
-        <input
-          #input
-          [type]="type"
-          [disabled]="disabled"
-          [attr.placeholder]="placeholder"
-          [attr.aria-label]="ariaLabel"
-          (focus)="onFocus()"
-          (blur)="onBlur()"
-          (change)="onChange(input.value)"
-        />
-        <button
-          *ngIf="appendIcon"
-          type="button"
-          class="material-symbols-outlined append-icon"
-          aria-label="append-icon-button"
-          [disabled]="disabled"
-          (click)="onAppendIconClick()"
-          [ngClass]="{
-            'icon-error':
-              ngControl.invalid && (submitted || ngControl.dirty || ngControl.touched)
-          }"
-        >
-          {{ appendIcon }}
-        </button>
-      </div>
-      <div
-        *ngIf="ngControl.invalid && (submitted || ngControl.dirty || ngControl.touched)"
-        class="error-message"
-      >
-        <span
-          class="material-symbols-outlined"
-          style="font-size: 18px; margin-right: 4px; margin-top: 3px"
-          >info</span
-        >
-        <p *ngIf="ngControl.errors?.['required']">
-          The {{ ngControl.name }} is required!
-        </p>
-        <p *ngIf="ngControl.errors?.['email']">Invalid email address</p>
-      </div>
-    </div>
-  `,
+  templateUrl: 'input.component.html',
   styleUrls: ['input.component.scss'],
 })
 export class InputComponent implements ControlValueAccessor {
