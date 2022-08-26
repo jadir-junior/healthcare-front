@@ -4,57 +4,16 @@ import { ControlValueAccessor, NgControl } from '@angular/forms'
 
 @Component({
   selector: 'hc-input',
-  template: `
-    <div class="wrapper-input-and-error">
-      <div
-        class="wrapper-input"
-        [ngClass]="{
-          'input-focus': isFocus,
-          'input-error': ngControl.invalid && (ngControl.dirty || ngControl.touched)
-        }"
-      >
-        <input
-          #input
-          [type]="type"
-          [disabled]="disabled"
-          [attr.placeholder]="placeholder"
-          [attr.aria-label]="ariaLabel"
-          (focus)="onFocus()"
-          (blur)="onBlur()"
-          (change)="onChange(input.value)"
-        />
-        <button
-          *ngIf="appendIcon"
-          type="button"
-          class="material-symbols-outlined append-icon"
-          aria-label="append-icon-button"
-          [disabled]="disabled"
-          (click)="onAppendIconClick()"
-          [ngClass]="{
-            'icon-error': ngControl.invalid && (ngControl.dirty || ngControl.touched)
-          }"
-        >
-          {{ appendIcon }}
-        </button>
-      </div>
-      <div
-        *ngIf="ngControl.invalid && (ngControl.dirty || ngControl.touched)"
-        class="error-message"
-      >
-        <p *ngIf="ngControl.errors?.['required']">
-          The {{ ngControl.name }} is required!
-        </p>
-      </div>
-    </div>
-  `,
+  templateUrl: 'input.component.html',
   styleUrls: ['input.component.scss'],
 })
 export class InputComponent implements ControlValueAccessor {
-  @Input() type: 'text' | 'tel' | 'password' = 'text'
+  @Input() type: 'text' | 'tel' | 'password' | 'email' = 'text'
   @Input() placeholder = ''
   @Input() ariaLabel?: string
   @Input() formControlName!: string
   @Input() appendIcon?: string
+  @Input() submitted = false
 
   @Output() appendIconClickEvent = new EventEmitter()
 

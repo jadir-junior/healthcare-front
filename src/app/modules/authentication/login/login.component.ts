@@ -5,7 +5,7 @@ import { Component } from '@angular/core'
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  styleUrls: ['../scss/authentication.scss'],
 })
 export class LoginComponent {
   form: FormGroup = this.fb.group({
@@ -14,14 +14,18 @@ export class LoginComponent {
     rememberMe: [{ value: true, disabled: false }],
   })
   isVisiblePassword = false
+  submitted = false
 
   constructor(private fb: FormBuilder) {}
 
-  onSubmit({ value }: FormGroup) {
-    console.log(value)
-  }
-
   toggleVisible() {
     this.isVisiblePassword = !this.isVisiblePassword
+  }
+
+  onSubmit({ value, valid }: FormGroup) {
+    this.submitted = true
+    if (valid) {
+      console.log(value)
+    }
   }
 }

@@ -7,10 +7,11 @@ import { LinkModule } from 'src/app/components/link/link.module'
 import { LoginComponent } from './login/login.component'
 import { NgModule } from '@angular/core'
 import { ReactiveFormsModule } from '@angular/forms'
+import { RegisterComponent } from './register/register.component'
 import { SwitchModule } from 'src/app/components/switch/switch.module'
 
 @NgModule({
-  declarations: [LoginComponent],
+  declarations: [LoginComponent, RegisterComponent],
   imports: [
     CommonModule,
     AuthenticationRoutingModule,

@@ -10,18 +10,24 @@
 
 .title {
   color: var(--neutral-black);
-  margin-bottom: 12px;
 }
 
 .description {
   color: var(--neutral-gray-dark);
-  margin-bottom: 40px;
 }
 
-.background-login {
-  height: 100%;
-  background-image: url('/assets/imgs/login.jpg');
+@mixin background {
   background-repeat: no-repeat;
   background-position: center;
   background-size: cover;
+}
+
+.background-login {
+  @include background;
+  background-image: url('/assets/imgs/login.jpg');
+}
+
+.background-register {
+  @include background;
+  background-image: url('/assets/imgs/register.jpg');
 }

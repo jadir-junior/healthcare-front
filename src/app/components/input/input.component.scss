@@ -1,5 +1,5 @@
 .wrapper-input-and-error {
-  height: 76px;
+  height: 84px;
 }
 
 .wrapper-input {
@@ -58,4 +58,6 @@ button {
 .error-message {
   color: var(--red-default);
   font-size: 14px;
+  display: flex;
+  align-items: center;
 }
