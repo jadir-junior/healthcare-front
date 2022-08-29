@@ -4,6 +4,7 @@
 
 :root {
   --neutral-black: #25282b;
+  --neutral-black-rgb: 37, 40, 43;
   --neutral-background: #f6f8fb;
   --neutral-divider: #e8e8e8;
   --neutral-gray-light: #cacccf;
@@ -11,11 +12,20 @@
   --neutral-gray-dark: #52575c;
   --neutral-white: #ffffff;
 
+  --red-default: #ff6760;
+
+  --alpha-button-hover: 0.06;
+  --alpha-button-pressed: 0.12;
+
   --primary-default: #336cfb;
+  --primary-default-rgb: 51, 108, 251;
   --primary-hover: #558eff;
   --primary-dark: #1f58e7;
 
-  --red-default: #ff6760;
+  --secondary-light: #ff7e77;
+  --secondary-default: #ff6760;
+  --secondary-default-rgb: 255, 103, 96;
+  --secondary-dark: #e74f48;
 }
 
 * {
