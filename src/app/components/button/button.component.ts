@@ -6,11 +6,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core'
     <button
       [type]="type"
       [disabled]="disabled"
-      [ngClass]="{
-        'btn-primary': color === 'primary',
-        'btn-primary-hover': isHover,
-        'btn-primary-pressed': isPressed
-      }"
+      [ngClass]="classes"
       [attr.aria-label]="ariaLabel"
       (mouseenter)="onMouseEnter()"
       (mouseleave)="onMouseLeave()"
@@ -19,51 +15,19 @@ import { Component, EventEmitter, Input, Output } from '@angular/core'
       <ng-content></ng-content>
     </button>
   `,
-  styles: [
-    `
-      button {
-        display: flex;
-        align-items: center;
-        color: var(--neutral-white);
-        font-weight: bold;
-        font-size: 16px;
-        padding: 16px 24px;
-        border-radius: 8px;
-        background-color: var(--neutral-gray);
-        border: none;
-        cursor: pointer;
-        transition: 0.3s;
-      }
-
-      button:disabled {
-        background-color: var(--neutral-background);
-        color: var(--neutral-divider);
-      }
-
-      .btn-primary {
-        background-color: var(--primary-default);
-      }
-
-      .btn-primary-hover {
-        background-color: var(--primary-hover);
-      }
-
-      .btn-primary-pressed {
-        background-color: var(--primary-dark);
-      }
-    `,
-  ],
+  styleUrls: ['./button.component.scss'],
 })
 export class ButtonComponent {
   isHover = false
   isPressed = false
 
   @Input() type: 'submit' | 'button' = 'button'
-  @Input() color: 'primary' | 'default' = 'default'
+  @Input() color: 'primary' | 'secondary' | 'default' = 'default'
+  @Input() theme: 'contained' | 'outlined' | 'text' = 'contained'
   @Input() ariaLabel?: string
   @Input() disabled = false
 
-  @Output() clickEvent = new EventEmitter()
+  @Output() clickEvent = new EventEmitter<Event>()
 
   onClick(): void {
     this.isPressed = true
@@ -76,5 +40,14 @@ export class ButtonComponent {
 
   onMouseLeave(): void {
     this.isHover = false
+  }
+
+  public get classes() {
+    return {
+      [`btn-${this.theme}-${this.color}`]: true,
+      [`btn-${this.theme}-disabled`]: this.disabled,
+      [`btn-${this.theme}-${this.color}-hover`]: this.isHover,
+      [`btn-${this.theme}-${this.color}-pressed`]: this.isPressed,
+    }
   }
 }

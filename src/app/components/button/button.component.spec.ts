@@ -10,7 +10,7 @@ describe('ButtonComponent', () => {
     expect(container).toBeInTheDocument()
   })
 
-  it('button should have to primary color', async () => {
+  it('button should have a button with theme "contained" and "primary" color', async () => {
     await render(ButtonComponent, {
       componentProperties: {
         color: 'primary',
@@ -18,10 +18,12 @@ describe('ButtonComponent', () => {
       },
     })
 
-    expect(screen.getByRole('button', { name: /button/i })).toHaveClass('btn-primary')
+    expect(screen.getByRole('button', { name: /button/i })).toHaveClass(
+      'btn-contained-primary'
+    )
   })
 
-  it('button should have a primary color on hover', async () => {
+  it('button should have a button with theme "contained" and "primary" color on hover', async () => {
     await render(ButtonComponent, {
       componentProperties: {
         color: 'primary',
@@ -33,10 +35,10 @@ describe('ButtonComponent', () => {
 
     await userEvent.hover(button)
 
-    expect(button).toHaveClass('btn-primary-hover')
+    expect(button).toHaveClass('btn-contained-primary-hover')
   })
 
-  it('button should have a color pressed when clicked', async () => {
+  it('button should have a button "contained" and "primary" color pressed when clicked', async () => {
     await render(ButtonComponent, {
       componentProperties: {
         color: 'primary',
@@ -48,10 +50,10 @@ describe('ButtonComponent', () => {
 
     await userEvent.click(button)
 
-    expect(button).toHaveClass('btn-primary-pressed')
+    expect(button).toHaveClass('btn-contained-primary-pressed')
   })
 
-  it('button must be disabled', async () => {
+  it('button must be disabled and a contained class disabled', async () => {
     await render(ButtonComponent, {
       componentProperties: {
         color: 'primary',
@@ -61,5 +63,8 @@ describe('ButtonComponent', () => {
     })
 
     expect(screen.getByRole('button', { name: /button/i })).toBeDisabled()
+    expect(screen.getByRole('button', { name: /button/i })).toHaveClass(
+      'btn-contained-disabled'
+    )
   })
 })

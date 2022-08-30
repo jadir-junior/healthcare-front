@@ -1,0 +1,2112 @@
+{
+    "pipes": [],
+    "interfaces": [],
+    "injectables": [],
+    "guards": [],
+    "interceptors": [],
+    "classes": [],
+    "directives": [],
+    "components": [
+        {
+            "name": "AppComponent",
+            "id": "component-AppComponent-6d2e0e46781ef15444f8087113f62a9a789e358727dced2a764ff094b7b94b1005d9e3f32f2d804a32cc50a76a19dae5135b7aa780449bb3a7cac65df1837558",
+            "file": "src/app/app.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-root",
+            "styleUrls": [],
+            "styles": [
+                "\n      .container {\n        background-color: var(--neutral-background);\n      }\n    "
+            ],
+            "template": "<div class=\"container\"><router-outlet></router-outlet></div>",
+            "templateUrl": [],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core'\n\n@Component({\n  selector: 'app-root',\n  template: `<div class=\"container\"><router-outlet></router-outlet></div>`,\n  styles: [\n    `\n      .container {\n        background-color: var(--neutral-background);\n      }\n    `,\n  ],\n})\nexport class AppComponent {}\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "\n      .container {\n        background-color: var(--neutral-background);\n      }\n    \n"
+        },
+        {
+            "name": "ButtonComponent",
+            "id": "component-ButtonComponent-80f4f1bb9bb5be19f4acdac6f3215a7baba0065e937b919548d2df8d6466a36af14f21fb4544e4ce4084515d3c3314749c1247340a9ffc5efac399cfd50273f4",
+            "file": "src/app/components/button/button.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "hc-button",
+            "styleUrls": [
+                "./button.component.scss"
+            ],
+            "styles": [],
+            "template": "<button\n  [type]=\"type\"\n  [disabled]=\"disabled\"\n  [ngClass]=\"classes\"\n  [attr.aria-label]=\"ariaLabel\"\n  (mouseenter)=\"onMouseEnter()\"\n  (mouseleave)=\"onMouseLeave()\"\n  (click)=\"onClick()\"\n>\n  <ng-content></ng-content>\n</button>\n",
+            "templateUrl": [],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "ariaLabel",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 27,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "color",
+                    "defaultValue": "'default'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 25,
+                    "type": "\"primary\" | \"secondary\" | \"default\"",
+                    "decorators": []
+                },
+                {
+                    "name": "disabled",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 28,
+                    "type": "boolean",
+                    "decorators": []
+                },
+                {
+                    "name": "theme",
+                    "defaultValue": "'contained'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 26,
+                    "type": "\"contained\" | \"outlined\" | \"text\"",
+                    "decorators": []
+                },
+                {
+                    "name": "type",
+                    "defaultValue": "'button'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 24,
+                    "type": "\"submit\" | \"button\"",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [
+                {
+                    "name": "clickEvent",
+                    "defaultValue": "new EventEmitter<Event>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 30,
+                    "type": "EventEmitter"
+                }
+            ],
+            "propertiesClass": [
+                {
+                    "name": "isHover",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 21
+                },
+                {
+                    "name": "isPressed",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 22
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "onClick",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 32,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "onMouseEnter",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 37,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "onMouseLeave",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 41,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, EventEmitter, Input, Output } from '@angular/core'\n\n@Component({\n  selector: 'hc-button',\n  template: `\n    <button\n      [type]=\"type\"\n      [disabled]=\"disabled\"\n      [ngClass]=\"classes\"\n      [attr.aria-label]=\"ariaLabel\"\n      (mouseenter)=\"onMouseEnter()\"\n      (mouseleave)=\"onMouseLeave()\"\n      (click)=\"onClick()\"\n    >\n      <ng-content></ng-content>\n    </button>\n  `,\n  styleUrls: ['./button.component.scss'],\n})\nexport class ButtonComponent {\n  isHover = false\n  isPressed = false\n\n  @Input() type: 'submit' | 'button' = 'button'\n  @Input() color: 'primary' | 'secondary' | 'default' = 'default'\n  @Input() theme: 'contained' | 'outlined' | 'text' = 'contained'\n  @Input() ariaLabel?: string\n  @Input() disabled = false\n\n  @Output() clickEvent = new EventEmitter<Event>()\n\n  onClick(): void {\n    this.isPressed = true\n    this.clickEvent.emit()\n  }\n\n  onMouseEnter(): void {\n    this.isHover = true\n  }\n\n  onMouseLeave(): void {\n    this.isHover = false\n  }\n\n  public get classes() {\n    return {\n      [`btn-${this.theme}-${this.color}`]: true,\n      [`btn-${this.theme}-disabled`]: this.disabled,\n      [`btn-${this.theme}-${this.color}-hover`]: this.isHover,\n      [`btn-${this.theme}-${this.color}-pressed`]: this.isPressed,\n    }\n  }\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "button {\n  display: flex;\n  align-items: center;\n  color: var(--neutral-white);\n  font-weight: bold;\n  font-size: 16px;\n  padding: 16px 24px;\n  border-radius: 8px;\n  border: none;\n  cursor: pointer;\n  transition: 0.3s;\n}\n\n/*\n* Styles to Theme Text Button\n*/\n\n// Primary\n\n.btn-text-primary {\n  background-color: var(--neutral-white);\n  color: rgb(var(--primary-default-rgb));\n}\n\n.btn-text-primary-hover {\n  background-color: rgba(var(--primary-default-rgb), var(--alpha-button-hover));\n}\n\n.btn-text-primary-pressed {\n  background-color: rgba(var(--primary-default-rgb), var(--alpha-button-pressed));\n}\n\n// Default\n\n.btn-text-default {\n  background-color: var(--neutral-white);\n  color: var(--neutral-gray);\n}\n\n.btn-text-default-hover {\n  background-color: rgba(var(--neutral-black-rgb), var(--alpha-button-hover));\n}\n\n.btn-text-default-pressed {\n  background-color: rgba(var(--neutral-black-rgb), var(--alpha-button-pressed));\n}\n\n// Secondary\n\n.btn-text-secondary {\n  background-color: var(--neutral-white);\n  color: var(--secondary-default);\n}\n\n.btn-text-secondary-hover {\n  background-color: rgba(var(--secondary-default-rgb), var(--alpha-button-hover));\n}\n\n.btn-text-secondary-pressed {\n  background-color: rgba(var(--secondary-rgb), var(--alpha-button-pressed));\n}\n\n// Disabled\n\n.btn-text-disabled:disabled {\n  background-color: var(--neutral-white);\n  color: var(--neutral-divider);\n}\n\n.btn-contained-default {\n  background-color: var(--neutral-gray);\n}\n\n.btn-contained-default-hover {\n  background-color: var(--neutral-gray-light);\n}\n\n.btn-contained-default-pressed {\n  background-color: var(--neutral-gray-dark);\n}\n\n.btn-contained-primary {\n  background-color: var(--primary-default);\n}\n\n.btn-contained-primary-hover {\n  background-color: var(--primary-hover);\n}\n\n.btn-contained-primary-pressed {\n  background-color: var(--primary-dark);\n}\n\n.btn-contained-disabled:disabled {\n  background-color: var(--neutral-background);\n  color: var(--neutral-divider);\n}\n",
+                    "styleUrl": "./button.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "accessors": {
+                "classes": {
+                    "name": "classes",
+                    "getSignature": {
+                        "name": "classes",
+                        "type": "",
+                        "returnType": "",
+                        "line": 45
+                    }
+                }
+            }
+        },
+        {
+            "name": "IconComponent",
+            "id": "component-IconComponent-adea1210291cd558951acd0cdd9ca4a2eb58d6676e84e446c0844d4ab79c0f4bc6a01abf923c7ae0e51b877f843cb060bbda30b6a273a786f7700c946ec086e9",
+            "file": "src/app/components/icon/icon.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "hc-icon",
+            "styleUrls": [],
+            "styles": [
+                "\n      .wrapper-icon {\n        font-size: 20px;\n      }\n    "
+            ],
+            "template": "<div class=\"material-symbols-outlined wrapper-icon\">{{ icon }}</div>",
+            "templateUrl": [],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "icon",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 15,
+                    "type": "string",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, Input } from '@angular/core'\n\n@Component({\n  selector: 'hc-icon',\n  template: ` <div class=\"material-symbols-outlined wrapper-icon\">{{ icon }}</div> `,\n  styles: [\n    `\n      .wrapper-icon {\n        font-size: 20px;\n      }\n    `,\n  ],\n})\nexport class IconComponent {\n  @Input() icon!: string\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "\n      .wrapper-icon {\n        font-size: 20px;\n      }\n    \n"
+        },
+        {
+            "name": "InputComponent",
+            "id": "component-InputComponent-70e4527055f8ab103bcea0b1ef3c68642f294baab83dccd0e40ab7ca0e91b34307ccca9582a82cbf8b1144aa27cdb0c48d14e5e034a03f782d135f6d9bee25a9",
+            "file": "src/app/components/input/input.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "hc-input",
+            "styleUrls": [
+                "input.component.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "input.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "appendIcon",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 15,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "ariaLabel",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 13,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "formControlName",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 14,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "placeholder",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 12,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "submitted",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 16,
+                    "type": "boolean",
+                    "decorators": []
+                },
+                {
+                    "name": "type",
+                    "defaultValue": "'text'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 11,
+                    "type": "\"text\" | \"tel\" | \"password\" | \"email\"",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [
+                {
+                    "name": "appendIconClickEvent",
+                    "defaultValue": "new EventEmitter()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 18,
+                    "type": "EventEmitter"
+                }
+            ],
+            "propertiesClass": [
+                {
+                    "name": "disabled",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 20
+                },
+                {
+                    "name": "isFocus",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 21
+                },
+                {
+                    "name": "ngControl",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "NgControl",
+                    "optional": false,
+                    "description": "",
+                    "line": 27,
+                    "modifierKind": [
+                        123
+                    ]
+                },
+                {
+                    "name": "onChange",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "function",
+                    "optional": false,
+                    "description": "",
+                    "line": 24
+                },
+                {
+                    "name": "onTouched",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "function",
+                    "optional": false,
+                    "description": "",
+                    "line": 25
+                },
+                {
+                    "name": "value",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 22
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "onAppendIconClick",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 50,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "onBlur",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 45,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "onFocus",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 41,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "registerNgControl",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 31,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "registerOnChange",
+                    "args": [
+                        {
+                            "name": "fn",
+                            "type": "function",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "function": [
+                                {
+                                    "name": "value",
+                                    "type": "string",
+                                    "deprecated": false,
+                                    "deprecationMessage": ""
+                                }
+                            ]
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 58,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "fn",
+                            "type": "function",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "function": [
+                                {
+                                    "name": "value",
+                                    "type": "string",
+                                    "deprecated": false,
+                                    "deprecationMessage": ""
+                                }
+                            ],
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "registerOnTouched",
+                    "args": [
+                        {
+                            "name": "fn",
+                            "type": "function",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "function": []
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 62,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "fn",
+                            "type": "function",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "function": [],
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "setDisabledState",
+                    "args": [
+                        {
+                            "name": "isDisabled",
+                            "type": "boolean",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 66,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "isDisabled",
+                            "type": "boolean",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "writeValue",
+                    "args": [
+                        {
+                            "name": "value",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 54,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "value",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, ElementRef, EventEmitter, Input, Output } from '@angular/core'\nimport { ControlValueAccessor, NgControl } from '@angular/forms'\n\n@Component({\n  selector: 'hc-input',\n  templateUrl: 'input.component.html',\n  styleUrls: ['input.component.scss'],\n})\nexport class InputComponent implements ControlValueAccessor {\n  @Input() type: 'text' | 'tel' | 'password' | 'email' = 'text'\n  @Input() placeholder = ''\n  @Input() ariaLabel?: string\n  @Input() formControlName!: string\n  @Input() appendIcon?: string\n  @Input() submitted = false\n\n  @Output() appendIconClickEvent = new EventEmitter()\n\n  disabled = false\n  isFocus = false\n  value!: string\n\n  onChange!: (value: string) => void\n  onTouched!: () => void\n\n  constructor(public ngControl: NgControl, private elem: ElementRef) {\n    this.registerNgControl()\n  }\n\n  registerNgControl(): void {\n    if (this.ngControl != null) {\n      this.ngControl.valueAccessor = this\n    } else {\n      throw new Error(\n        `You need pass the [\"formControlName\"] in the ${this.elem.nativeElement.tagName.toLowerCase()}`\n      )\n    }\n  }\n\n  onFocus(): void {\n    this.isFocus = true\n  }\n\n  onBlur(): void {\n    this.isFocus = false\n    this.onTouched()\n  }\n\n  onAppendIconClick() {\n    this.appendIconClickEvent.emit()\n  }\n\n  writeValue(value: string): void {\n    this.value = value\n  }\n\n  registerOnChange(fn: (value: string) => void): void {\n    this.onChange = fn\n  }\n\n  registerOnTouched(fn: () => void): void {\n    this.onTouched = fn\n  }\n\n  setDisabledState(isDisabled: boolean): void {\n    this.disabled = isDisabled\n  }\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".wrapper-input-and-error {\n  height: 84px;\n}\n\n.wrapper-input {\n  display: flex;\n  border: 1px solid var(--neutral-gray);\n  border-radius: 8px;\n}\n\ninput {\n  width: 100%;\n  font-size: 16px;\n  font-weight: 400;\n  line-height: 20px;\n  padding: 14px 16px;\n  color: var(--neutral-black);\n  outline: 0;\n  border: none;\n  border-radius: 8px;\n\n  &::placeholder {\n    font-size: 16px;\n    font-weight: 400;\n    color: var(--neutral-gray);\n    line-height: 20px !important;\n    letter-spacing: 0.1px;\n  }\n\n  &:disabled {\n    background-color: var(--neutral-background);\n    border: 1px solid var(--neutral-divider);\n  }\n}\n\n.input-focus {\n  border: 1.5px solid var(--primary-default);\n}\n\n.input-error {\n  border: 1px solid var(--red-default);\n}\n\nbutton {\n  border: none;\n  background-color: var(--neutral-white);\n  cursor: pointer;\n  padding: 10px 16px;\n  color: var(--neutral-gray-light);\n  outline: 0;\n  border-radius: 8px;\n}\n\n.icon-error {\n  color: var(--red-default);\n}\n\n.error-message {\n  color: var(--red-default);\n  font-size: 14px;\n  display: flex;\n  align-items: center;\n}\n",
+                    "styleUrl": "input.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "ngControl",
+                        "type": "NgControl",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "elem",
+                        "type": "ElementRef",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 25,
+                "jsdoctags": [
+                    {
+                        "name": "ngControl",
+                        "type": "NgControl",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "elem",
+                        "type": "ElementRef",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "implements": [
+                "ControlValueAccessor"
+            ],
+            "templateData": "<div class=\"wrapper-input-and-error\">\n  <div\n    class=\"wrapper-input\"\n    [ngClass]=\"{\n      'input-focus': isFocus,\n      'input-error':\n        ngControl.invalid && (submitted || ngControl.dirty || ngControl.touched)\n    }\"\n  >\n    <input\n      #input\n      [type]=\"type\"\n      [disabled]=\"disabled\"\n      [attr.placeholder]=\"placeholder\"\n      [attr.aria-label]=\"ariaLabel\"\n      (focus)=\"onFocus()\"\n      (blur)=\"onBlur()\"\n      (change)=\"onChange(input.value)\"\n    />\n    <button\n      *ngIf=\"appendIcon\"\n      type=\"button\"\n      class=\"material-symbols-outlined append-icon\"\n      aria-label=\"append-icon-button\"\n      [disabled]=\"disabled\"\n      (click)=\"onAppendIconClick()\"\n      [ngClass]=\"{\n        'icon-error':\n          ngControl.invalid && (submitted || ngControl.dirty || ngControl.touched)\n      }\"\n    >\n      {{ appendIcon }}\n    </button>\n  </div>\n  <div\n    *ngIf=\"ngControl.invalid && (submitted || ngControl.dirty || ngControl.touched)\"\n    class=\"error-message\"\n  >\n    <span\n      class=\"material-symbols-outlined\"\n      style=\"font-size: 18px; margin-right: 4px; margin-top: 3px\"\n      >info</span\n    >\n    <p *ngIf=\"ngControl.errors?.['required']\">The {{ ngControl.name }} is required!</p>\n    <p *ngIf=\"ngControl.errors?.['email']\">Invalid email address</p>\n    <p *ngIf=\"ngControl.errors?.['passwordStrength']\">\n      Your password must be 8-20 characters long, contain letters uppercase and lowercase,\n      special characters\n    </p>\n  </div>\n</div>\n"
+        },
+        {
+            "name": "LinkComponent",
+            "id": "component-LinkComponent-6b72850761d5a72ea0320e85ff34723c3fcb22ce078a086268ce978110a7469ea8ff5a25761c5a312a5a8aee5d700f367b1f547d754b4e0c2949c3909860f98a",
+            "file": "src/app/components/link/link.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "hc-link",
+            "styleUrls": [],
+            "styles": [
+                "\n      a {\n        font-size: 14px;\n        line-height: 14px;\n        letter-spacing: 0.2px;\n        font-weight: bold;\n        color: var(--primary-default);\n        cursor: pointer;\n        text-decoration: none;\n      }\n    "
+            ],
+            "template": "<a [routerLink]=\"router\" [attr.aria-label]=\"ariaLabel\" role=\"link\">\n  <ng-content></ng-content>\n</a>\n",
+            "templateUrl": [],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "ariaLabel",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 26,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "router",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 25,
+                    "type": "string",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, Input } from '@angular/core'\n\n@Component({\n  selector: 'hc-link',\n  template: `\n    <a [routerLink]=\"router\" [attr.aria-label]=\"ariaLabel\" role=\"link\">\n      <ng-content></ng-content>\n    </a>\n  `,\n  styles: [\n    `\n      a {\n        font-size: 14px;\n        line-height: 14px;\n        letter-spacing: 0.2px;\n        font-weight: bold;\n        color: var(--primary-default);\n        cursor: pointer;\n        text-decoration: none;\n      }\n    `,\n  ],\n})\nexport class LinkComponent {\n  @Input() router!: string\n  @Input() ariaLabel?: string\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "\n      a {\n        font-size: 14px;\n        line-height: 14px;\n        letter-spacing: 0.2px;\n        font-weight: bold;\n        color: var(--primary-default);\n        cursor: pointer;\n        text-decoration: none;\n      }\n    \n"
+        },
+        {
+            "name": "LoginComponent",
+            "id": "component-LoginComponent-6f5e3bbd2c6654711e862303c9a1969d57d8ca2677bacfc4fb0c075a61605911cbc9b57e2f3fd13188c4f9109fe9a90dccba6d1848faf58645f5cd31bdebf072",
+            "file": "src/app/modules/authentication/login/login.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-login",
+            "styleUrls": [
+                "../scss/authentication.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./login.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "form",
+                    "defaultValue": "this.fb.group({\n    login: ['', [Validators.required]],\n    password: ['', [Validators.required]],\n    rememberMe: [{ value: true, disabled: false }],\n  })",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "FormGroup",
+                    "optional": false,
+                    "description": "",
+                    "line": 11
+                },
+                {
+                    "name": "isVisiblePassword",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 16
+                },
+                {
+                    "name": "submitted",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 17
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "onSubmit",
+                    "args": [
+                        {
+                            "type": "FormGroup",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 25,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "type": "FormGroup",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "toggleVisible",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 21,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { FormBuilder, FormGroup, Validators } from '@angular/forms'\n\nimport { Component } from '@angular/core'\n\n@Component({\n  selector: 'app-login',\n  templateUrl: './login.component.html',\n  styleUrls: ['../scss/authentication.scss'],\n})\nexport class LoginComponent {\n  form: FormGroup = this.fb.group({\n    login: ['', [Validators.required]],\n    password: ['', [Validators.required]],\n    rememberMe: [{ value: true, disabled: false }],\n  })\n  isVisiblePassword = false\n  submitted = false\n\n  constructor(private fb: FormBuilder) {}\n\n  toggleVisible() {\n    this.isVisiblePassword = !this.isVisiblePassword\n  }\n\n  onSubmit({ value, valid }: FormGroup) {\n    this.submitted = true\n    if (valid) {\n      console.log(value)\n    }\n  }\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".container {\n  display: grid;\n  grid-template-columns: 1.5fr 2fr;\n  height: 100vh;\n}\n\n.wrapper-form {\n  padding: 40px 96px;\n}\n\n.wrapper-section-page-not-found {\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n}\n\n.title {\n  color: var(--neutral-black);\n}\n\n.description {\n  color: var(--neutral-gray-dark);\n}\n\n@mixin background {\n  background-repeat: no-repeat;\n  background-position: center;\n  background-size: cover;\n}\n\n.background-login {\n  @include background;\n  background-image: url('/assets/imgs/login.jpg');\n}\n\n.background-register {\n  @include background;\n  background-image: url('/assets/imgs/register.jpg');\n}\n\n.background-404 {\n  @include background;\n  background-image: url('/assets/imgs/404.jpg');\n}\n",
+                    "styleUrl": "../scss/authentication.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "fb",
+                        "type": "FormBuilder",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 17,
+                "jsdoctags": [
+                    {
+                        "name": "fb",
+                        "type": "FormBuilder",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "templateData": "<div class=\"container\">\n  <div class=\"wrapper-form\">\n    <h1 class=\"title\" style=\"margin-bottom: 12px\">Sign in</h1>\n    <p class=\"body1 description\" style=\"margin-bottom: 40px\">\n      Sign in to access your Account\n    </p>\n    <form [formGroup]=\"form\" (submit)=\"onSubmit(form)\">\n      <hc-input\n        placeholder=\"Login\"\n        ariaLabel=\"login\"\n        formControlName=\"login\"\n        [submitted]=\"submitted\"\n      ></hc-input>\n      <hc-input\n        placeholder=\"Password\"\n        ariaLabel=\"password\"\n        formControlName=\"password\"\n        [submitted]=\"submitted\"\n        [type]=\"isVisiblePassword ? 'text' : 'password'\"\n        [appendIcon]=\"isVisiblePassword ? 'visibility' : 'visibility_off'\"\n        (appendIconClickEvent)=\"toggleVisible()\"\n      ></hc-input>\n      <hc-switch\n        ariaLabel=\"remember me\"\n        formControlName=\"rememberMe\"\n        label=\"Remember me\"\n      ></hc-switch>\n      <div style=\"margin-top: 40px; margin-bottom: 100px\">\n        <hc-button type=\"submit\" color=\"primary\" ariaLabel=\"sign in\">\n          <hc-icon icon=\"login\" style=\"margin-top: 4px; margin-right: 8px\"></hc-icon>\n          Sign In\n        </hc-button>\n      </div>\n    </form>\n    <div>\n      <hc-link router=\"/\" ariaLabel=\"forgot password\">Forgot password?</hc-link>\n    </div>\n    <div style=\"margin-top: 8px\">\n      <span class=\"body2\">Don't have an account?</span>\n      <hc-link ariaLabel=\"sign up\" router=\"/auth/register\"> Sign up!</hc-link>\n    </div>\n  </div>\n  <div class=\"background-login\"></div>\n</div>\n"
+        },
+        {
+            "name": "PageNotFoundComponent",
+            "id": "component-PageNotFoundComponent-a16c5fa83f99c90c3afb787fb4759a893a9df296d9ef7e995c2c2354fdff10a8f682c63c18e7dc94d112a5954419cc849b9ef382a7b3db6e53515cff71c2644f",
+            "file": "src/app/modules/authentication/page-not-found/page-not-found.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-page-not-found",
+            "styleUrls": [
+                "../scss/authentication.scss"
+            ],
+            "styles": [],
+            "template": "<div class=\"container\">\n  <div class=\"wrapper-form wrapper-section-page-not-found\">\n    <h1 class=\"title\" style=\"margin-bottom: 16px\">404</h1>\n    <p class=\"body1 description\" style=\"margin-bottom: 48px\">\n      Oops. The page you were looking for doesn't exist.\n    </p>\n    <div>\n      <hc-button\n        routerLink=\"/\"\n        type=\"button\"\n        color=\"primary\"\n        ariaLabel=\"back to home\"\n      >\n        Back to home\n      </hc-button>\n    </div>\n  </div>\n  <div class=\"background-404\"></div>\n</div>\n",
+            "templateUrl": [],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core'\n\n@Component({\n  selector: 'app-page-not-found',\n  template: `\n    <div class=\"container\">\n      <div class=\"wrapper-form wrapper-section-page-not-found\">\n        <h1 class=\"title\" style=\"margin-bottom: 16px\">404</h1>\n        <p class=\"body1 description\" style=\"margin-bottom: 48px\">\n          Oops. The page you were looking for doesn't exist.\n        </p>\n        <div>\n          <hc-button\n            routerLink=\"/\"\n            type=\"button\"\n            color=\"primary\"\n            ariaLabel=\"back to home\"\n          >\n            Back to home\n          </hc-button>\n        </div>\n      </div>\n      <div class=\"background-404\"></div>\n    </div>\n  `,\n  styleUrls: ['../scss/authentication.scss'],\n})\nexport class PageNotFoundComponent {}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".container {\n  display: grid;\n  grid-template-columns: 1.5fr 2fr;\n  height: 100vh;\n}\n\n.wrapper-form {\n  padding: 40px 96px;\n}\n\n.wrapper-section-page-not-found {\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n}\n\n.title {\n  color: var(--neutral-black);\n}\n\n.description {\n  color: var(--neutral-gray-dark);\n}\n\n@mixin background {\n  background-repeat: no-repeat;\n  background-position: center;\n  background-size: cover;\n}\n\n.background-login {\n  @include background;\n  background-image: url('/assets/imgs/login.jpg');\n}\n\n.background-register {\n  @include background;\n  background-image: url('/assets/imgs/register.jpg');\n}\n\n.background-404 {\n  @include background;\n  background-image: url('/assets/imgs/404.jpg');\n}\n",
+                    "styleUrl": "../scss/authentication.scss"
+                }
+            ],
+            "stylesData": ""
+        },
+        {
+            "name": "RegisterComponent",
+            "id": "component-RegisterComponent-ff414e5d76536912e8390f4eab149114f686522acd2d0a8db729b9e56ef0de95f1242519a9690f50383decfbade695bd951d2c5dd75f1f057054c98a4bbfdfa5",
+            "file": "src/app/modules/authentication/register/register.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "app-register",
+            "styleUrls": [
+                "../scss/authentication.scss"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./register.component.html"
+            ],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "form",
+                    "defaultValue": "this.fb.group({\n    name: ['', [Validators.required]],\n    email: ['', [Validators.required, Validators.email]],\n    password: ['', [Validators.required, PasswordStrengthValidator]],\n    terms: [true],\n  })",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "FormGroup",
+                    "optional": false,
+                    "description": "",
+                    "line": 12
+                },
+                {
+                    "name": "isVisiblePassword",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 19
+                },
+                {
+                    "name": "submitted",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 20
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "onSubmit",
+                    "args": [
+                        {
+                            "type": "FormGroup",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 28,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "type": "FormGroup",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "toggleVisibilityPassword",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 24,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { FormBuilder, FormGroup, Validators } from '@angular/forms'\n\nimport { Component } from '@angular/core'\nimport { PasswordStrengthValidator } from 'src/app/utils/validations/password-strength/password-strength.validators'\n\n@Component({\n  selector: 'app-register',\n  templateUrl: './register.component.html',\n  styleUrls: ['../scss/authentication.scss'],\n})\nexport class RegisterComponent {\n  form: FormGroup = this.fb.group({\n    name: ['', [Validators.required]],\n    email: ['', [Validators.required, Validators.email]],\n    password: ['', [Validators.required, PasswordStrengthValidator]],\n    terms: [true],\n  })\n\n  isVisiblePassword = false\n  submitted = false\n\n  constructor(private fb: FormBuilder) {}\n\n  toggleVisibilityPassword(): void {\n    this.isVisiblePassword = !this.isVisiblePassword\n  }\n\n  onSubmit({ value, valid }: FormGroup): void {\n    this.submitted = true\n    if (valid) {\n      console.log(value)\n    }\n  }\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".container {\n  display: grid;\n  grid-template-columns: 1.5fr 2fr;\n  height: 100vh;\n}\n\n.wrapper-form {\n  padding: 40px 96px;\n}\n\n.wrapper-section-page-not-found {\n  display: flex;\n  justify-content: center;\n  flex-direction: column;\n}\n\n.title {\n  color: var(--neutral-black);\n}\n\n.description {\n  color: var(--neutral-gray-dark);\n}\n\n@mixin background {\n  background-repeat: no-repeat;\n  background-position: center;\n  background-size: cover;\n}\n\n.background-login {\n  @include background;\n  background-image: url('/assets/imgs/login.jpg');\n}\n\n.background-register {\n  @include background;\n  background-image: url('/assets/imgs/register.jpg');\n}\n\n.background-404 {\n  @include background;\n  background-image: url('/assets/imgs/404.jpg');\n}\n",
+                    "styleUrl": "../scss/authentication.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "fb",
+                        "type": "FormBuilder",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 20,
+                "jsdoctags": [
+                    {
+                        "name": "fb",
+                        "type": "FormBuilder",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "templateData": "<div class=\"container\">\n  <div class=\"wrapper-form\">\n    <h1 class=\"title\" style=\"margin-bottom: 12px\">Sign up</h1>\n    <p class=\"body1 description\" style=\"margin-bottom: 40px\">Create your account</p>\n    <form [formGroup]=\"form\" (submit)=\"onSubmit(form)\">\n      <hc-input\n        placeholder=\"Name\"\n        ariaLabel=\"name\"\n        formControlName=\"name\"\n        [submitted]=\"submitted\"\n      ></hc-input>\n      <hc-input\n        placeholder=\"Email address\"\n        ariaLabel=\"email\"\n        formControlName=\"email\"\n        type=\"email\"\n        [submitted]=\"submitted\"\n      ></hc-input>\n      <hc-input\n        placeholder=\"Password\"\n        ariaLabel=\"password\"\n        formControlName=\"password\"\n        [submitted]=\"submitted\"\n        [type]=\"isVisiblePassword ? 'text' : 'password'\"\n        [appendIcon]=\"isVisiblePassword ? 'visibility' : 'visibility_off'\"\n        (appendIconClickEvent)=\"toggleVisibilityPassword()\"\n      ></hc-input>\n      <hc-switch\n        ariaLabel=\"terms\"\n        formControlName=\"terms\"\n        label=\"I agree to the Terms and Policy\"\n      ></hc-switch>\n      <div style=\"margin-top: 40px; margin-bottom: 50px\">\n        <hc-button type=\"submit\" color=\"primary\" ariaLabel=\"sign up\">\n          <hc-icon icon=\"login\" style=\"margin-top: 4px; margin-right: 8px\"></hc-icon>\n          Sign up\n        </hc-button>\n      </div>\n    </form>\n    <div>\n      <span class=\"body2\">Have an account?</span>\n      <hc-link router=\"/auth/login\"> Sign in!</hc-link>\n    </div>\n  </div>\n  <div class=\"background-register\"></div>\n</div>\n"
+        },
+        {
+            "name": "SwitchComponent",
+            "id": "component-SwitchComponent-332803fdd995d30b2936295104eeeaef9fc4dd2351933994504aedbfdd20698419b1696fe8462604a51d7c02cf651bfd4c522cae6fb23dc0270512d976c59ff4",
+            "file": "src/app/components/switch/switch.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [
+                {
+                    "name": "SWITCH_VALUE_ACcESSOR"
+                }
+            ],
+            "selector": "hc-switch",
+            "styleUrls": [],
+            "styles": [
+                "\n      .wrapper-switch {\n        display: flex;\n        align-items: center;\n      }\n\n      input[type='checkbox'] {\n        width: 0;\n        height: 0;\n        visibility: hidden;\n      }\n\n      label {\n        display: block;\n        width: 36px;\n        height: 20px;\n        background-color: var(--neutral-gray);\n        border-radius: 100px;\n        position: relative;\n        cursor: pointer;\n        transition: 0.5s;\n      }\n\n      label::after {\n        content: '';\n        width: 16px;\n        height: 16px;\n        background-color: white;\n        position: absolute;\n        border-radius: 70px;\n        top: 2px;\n        left: 2px;\n        transition: 0.5s;\n      }\n\n      input:checked + label:after {\n        left: calc(100% - 2px);\n        transform: translateX(-100%);\n      }\n\n      input:checked + label {\n        background-color: var(--primary-default);\n      }\n\n      .disabled::after {\n        background-color: var(--neutral-gray-light);\n      }\n\n      label.disabled {\n        background-color: var(--neutral-divider);\n      }\n\n      input:checked + label.disabled {\n        background-color: var(--neutral-divider);\n      }\n\n      .label {\n        margin-left: 8px;\n        font-size: 16px;\n        margin-bottom: 4px;\n        font-weight: bold;\n        color: var(--neutral-black);\n      }\n\n      .label.disabled {\n        color: var(--neutral-gray-light);\n      }\n    "
+            ],
+            "template": "<div class=\"wrapper-switch\">\n  <input\n    #input\n    type=\"checkbox\"\n    name=\"switch\"\n    id=\"switch\"\n    [disabled]=\"disabled\"\n    [checked]=\"value\"\n    [attr.aria-label]=\"ariaLabel\"\n    (change)=\"onChange(input.checked)\"\n  />\n  <label for=\"switch\" [ngClass]=\"{ 'disabled': disabled }\"></label>\n  <div *ngIf=\"label\" class=\"label\" [ngClass]=\"{ 'disabled': disabled }\">\n    {{ label }}\n  </div>\n</div>\n",
+            "templateUrl": [],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "ariaLabel",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 105,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "label",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 104,
+                    "type": "string",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "disabled",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 107
+                },
+                {
+                    "name": "onChange",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "function",
+                    "optional": false,
+                    "description": "",
+                    "line": 110
+                },
+                {
+                    "name": "onTouched",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "function",
+                    "optional": false,
+                    "description": "",
+                    "line": 111
+                },
+                {
+                    "name": "value",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "boolean",
+                    "optional": false,
+                    "description": "",
+                    "line": 108
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "registerOnChange",
+                    "args": [
+                        {
+                            "name": "fn",
+                            "type": "function",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "function": [
+                                {
+                                    "name": "value",
+                                    "type": "boolean",
+                                    "deprecated": false,
+                                    "deprecationMessage": ""
+                                }
+                            ]
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 117,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "fn",
+                            "type": "function",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "function": [
+                                {
+                                    "name": "value",
+                                    "type": "boolean",
+                                    "deprecated": false,
+                                    "deprecationMessage": ""
+                                }
+                            ],
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "registerOnTouched",
+                    "args": [
+                        {
+                            "name": "fn",
+                            "type": "function",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "function": []
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 121,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "fn",
+                            "type": "function",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "function": [],
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "setDisabledState",
+                    "args": [
+                        {
+                            "name": "isDisabled",
+                            "type": "boolean",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 125,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "isDisabled",
+                            "type": "boolean",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "writeValue",
+                    "args": [
+                        {
+                            "name": "value",
+                            "type": "boolean",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 113,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "value",
+                            "type": "boolean",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, Input, Provider, forwardRef } from '@angular/core'\nimport { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms'\n\nconst SWITCH_VALUE_ACcESSOR: Provider = {\n  provide: NG_VALUE_ACCESSOR,\n  multi: true,\n  useExisting: forwardRef(() => SwitchComponent),\n}\n\n@Component({\n  selector: 'hc-switch',\n  template: `\n    <div class=\"wrapper-switch\">\n      <input\n        #input\n        type=\"checkbox\"\n        name=\"switch\"\n        id=\"switch\"\n        [disabled]=\"disabled\"\n        [checked]=\"value\"\n        [attr.aria-label]=\"ariaLabel\"\n        (change)=\"onChange(input.checked)\"\n      />\n      <label for=\"switch\" [ngClass]=\"{ 'disabled': disabled }\"></label>\n      <div *ngIf=\"label\" class=\"label\" [ngClass]=\"{ 'disabled': disabled }\">\n        {{ label }}\n      </div>\n    </div>\n  `,\n  styles: [\n    `\n      .wrapper-switch {\n        display: flex;\n        align-items: center;\n      }\n\n      input[type='checkbox'] {\n        width: 0;\n        height: 0;\n        visibility: hidden;\n      }\n\n      label {\n        display: block;\n        width: 36px;\n        height: 20px;\n        background-color: var(--neutral-gray);\n        border-radius: 100px;\n        position: relative;\n        cursor: pointer;\n        transition: 0.5s;\n      }\n\n      label::after {\n        content: '';\n        width: 16px;\n        height: 16px;\n        background-color: white;\n        position: absolute;\n        border-radius: 70px;\n        top: 2px;\n        left: 2px;\n        transition: 0.5s;\n      }\n\n      input:checked + label:after {\n        left: calc(100% - 2px);\n        transform: translateX(-100%);\n      }\n\n      input:checked + label {\n        background-color: var(--primary-default);\n      }\n\n      .disabled::after {\n        background-color: var(--neutral-gray-light);\n      }\n\n      label.disabled {\n        background-color: var(--neutral-divider);\n      }\n\n      input:checked + label.disabled {\n        background-color: var(--neutral-divider);\n      }\n\n      .label {\n        margin-left: 8px;\n        font-size: 16px;\n        margin-bottom: 4px;\n        font-weight: bold;\n        color: var(--neutral-black);\n      }\n\n      .label.disabled {\n        color: var(--neutral-gray-light);\n      }\n    `,\n  ],\n  providers: [SWITCH_VALUE_ACcESSOR],\n})\nexport class SwitchComponent implements ControlValueAccessor {\n  @Input() label?: string\n  @Input() ariaLabel?: string\n\n  disabled = false\n  value!: boolean\n\n  onChange!: (value: boolean) => void\n  onTouched!: () => void\n\n  writeValue(value: boolean): void {\n    this.value = value\n  }\n\n  registerOnChange(fn: (value: boolean) => void): void {\n    this.onChange = fn\n  }\n\n  registerOnTouched(fn: () => void): void {\n    this.onTouched = fn\n  }\n\n  setDisabledState(isDisabled: boolean): void {\n    this.disabled = isDisabled\n  }\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "\n      .wrapper-switch {\n        display: flex;\n        align-items: center;\n      }\n\n      input[type='checkbox'] {\n        width: 0;\n        height: 0;\n        visibility: hidden;\n      }\n\n      label {\n        display: block;\n        width: 36px;\n        height: 20px;\n        background-color: var(--neutral-gray);\n        border-radius: 100px;\n        position: relative;\n        cursor: pointer;\n        transition: 0.5s;\n      }\n\n      label::after {\n        content: '';\n        width: 16px;\n        height: 16px;\n        background-color: white;\n        position: absolute;\n        border-radius: 70px;\n        top: 2px;\n        left: 2px;\n        transition: 0.5s;\n      }\n\n      input:checked + label:after {\n        left: calc(100% - 2px);\n        transform: translateX(-100%);\n      }\n\n      input:checked + label {\n        background-color: var(--primary-default);\n      }\n\n      .disabled::after {\n        background-color: var(--neutral-gray-light);\n      }\n\n      label.disabled {\n        background-color: var(--neutral-divider);\n      }\n\n      input:checked + label.disabled {\n        background-color: var(--neutral-divider);\n      }\n\n      .label {\n        margin-left: 8px;\n        font-size: 16px;\n        margin-bottom: 4px;\n        font-weight: bold;\n        color: var(--neutral-black);\n      }\n\n      .label.disabled {\n        color: var(--neutral-gray-light);\n      }\n    \n",
+            "implements": [
+                "ControlValueAccessor"
+            ]
+        }
+    ],
+    "modules": [
+        {
+            "name": "AppModule",
+            "id": "module-AppModule-7a7ad041f98d19a2453d579460ec69c94df0c01e9a1dc0ee7f3275af55e2f87fc5bf2071ee6157f1ec0021219a3a3f11453591e696f39aba6f1a8b05f84f7f13",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "src/app/app.module.ts",
+            "methods": [],
+            "sourceCode": "import { AppComponent } from './app.component'\nimport { AppRoutingModule } from './app-routing.module'\nimport { BrowserModule } from '@angular/platform-browser'\nimport { NgModule } from '@angular/core'\n\n@NgModule({\n  declarations: [AppComponent],\n  imports: [BrowserModule, AppRoutingModule],\n  providers: [],\n  bootstrap: [AppComponent],\n})\nexport class AppModule {}\n",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": [
+                        {
+                            "name": "AppComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "imports",
+                    "elements": [
+                        {
+                            "name": "AppRoutingModule"
+                        }
+                    ]
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": [
+                        {
+                            "name": "AppComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "AppRoutingModule",
+            "id": "module-AppRoutingModule-4917cc9ef67402994402b6939cbfb98ca20b681ac8ebeda859676ee6c473afacdbf6d87bfed9f7a8fcfb0f57f7f2c922d7f5e5865115b74fe7582c4c483fb567",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "src/app/app-routing.module.ts",
+            "methods": [],
+            "sourceCode": "import { RouterModule, Routes } from '@angular/router'\n\nimport { NgModule } from '@angular/core'\nimport { PageNotFoundComponent } from './modules/authentication/page-not-found/page-not-found.component'\n\nconst routes: Routes = [\n  {\n    path: 'auth',\n    loadChildren: () =>\n      \"import('./modules/authentication/authentication.module').then(\\\n        (m) => m.AuthenticationModule\\\n      )\",\n  },\n  {\n    path: '',\n    redirectTo: 'auth',\n    pathMatch: 'full',\n  },\n  {\n    path: '**',\n    component: PageNotFoundComponent,\n  },\n]\n\n@NgModule({\n  imports: [RouterModule.forRoot(routes)],\n  exports: [RouterModule],\n})\nexport class AppRoutingModule {}\n",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": []
+                },
+                {
+                    "type": "imports",
+                    "elements": []
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "AuthenticationModule",
+            "id": "module-AuthenticationModule-6027c8cb31286076ad50c4643f71ee385b374459128a9915d222f906716a01cd4675586ed6aaa92ec4b9c9105b822b473cbc8f246306ca8eb6156bd5c0183d24",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "src/app/modules/authentication/authentication.module.ts",
+            "methods": [],
+            "sourceCode": "import { AuthenticationRoutingModule } from './authentication-routing.module'\nimport { ButtonModule } from 'src/app/components/button/button.module'\nimport { CommonModule } from '@angular/common'\nimport { IconModule } from 'src/app/components/icon/icon.module'\nimport { InputModule } from 'src/app/components/input/input.module'\nimport { LinkModule } from 'src/app/components/link/link.module'\nimport { LoginComponent } from './login/login.component'\nimport { NgModule } from '@angular/core'\nimport { PageNotFoundComponent } from './page-not-found/page-not-found.component'\nimport { ReactiveFormsModule } from '@angular/forms'\nimport { RegisterComponent } from './register/register.component'\nimport { SwitchModule } from 'src/app/components/switch/switch.module'\n\n@NgModule({\n  declarations: [LoginComponent, RegisterComponent, PageNotFoundComponent],\n  imports: [\n    CommonModule,\n    AuthenticationRoutingModule,\n    InputModule,\n    SwitchModule,\n    ButtonModule,\n    IconModule,\n    LinkModule,\n    ReactiveFormsModule,\n  ],\n})\nexport class AuthenticationModule {}\n",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": [
+                        {
+                            "name": "LoginComponent"
+                        },
+                        {
+                            "name": "PageNotFoundComponent"
+                        },
+                        {
+                            "name": "RegisterComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "imports",
+                    "elements": [
+                        {
+                            "name": "AuthenticationRoutingModule"
+                        },
+                        {
+                            "name": "ButtonModule"
+                        },
+                        {
+                            "name": "IconModule"
+                        },
+                        {
+                            "name": "InputModule"
+                        },
+                        {
+                            "name": "LinkModule"
+                        },
+                        {
+                            "name": "SwitchModule"
+                        }
+                    ]
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "AuthenticationRoutingModule",
+            "id": "module-AuthenticationRoutingModule-cb79e0b62b625dfd1df69a86cac373bc926a74b4940373e8161f5a7e75d237e1c2ac8f54ec3d0f73036b5edf1d991b1407996b8551c95543b7850063ef42dc1d",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "src/app/modules/authentication/authentication-routing.module.ts",
+            "methods": [],
+            "sourceCode": "import { RouterModule, Routes } from '@angular/router'\n\nimport { LoginComponent } from './login/login.component'\nimport { NgModule } from '@angular/core'\nimport { RegisterComponent } from './register/register.component'\n\nconst routes: Routes = [\n  { path: 'login', component: LoginComponent },\n  { path: 'register', component: RegisterComponent },\n  { path: '', redirectTo: 'login', pathMatch: 'full' },\n]\n\n@NgModule({\n  imports: [RouterModule.forChild(routes)],\n  exports: [RouterModule],\n})\nexport class AuthenticationRoutingModule {}\n",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": []
+                },
+                {
+                    "type": "imports",
+                    "elements": []
+                },
+                {
+                    "type": "exports",
+                    "elements": []
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "ButtonModule",
+            "id": "module-ButtonModule-2b85a544057d6ccce6bf344557a4048b61d8f76196550adfecdb1c25ab19a217f780730bb9832f8831c7e0080bf07156efd127aae0692459feba3e2b27ba3659",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "src/app/components/button/button.module.ts",
+            "methods": [],
+            "sourceCode": "import { ButtonComponent } from './button.component'\nimport { CommonModule } from '@angular/common'\nimport { NgModule } from '@angular/core'\n\n@NgModule({\n  declarations: [ButtonComponent],\n  imports: [CommonModule],\n  exports: [ButtonComponent],\n})\nexport class ButtonModule {}\n",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": [
+                        {
+                            "name": "ButtonComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "imports",
+                    "elements": []
+                },
+                {
+                    "type": "exports",
+                    "elements": [
+                        {
+                            "name": "ButtonComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "ComponentsModule",
+            "id": "module-ComponentsModule-2aae3f7399cc02ffe0e5e04b61ccf00bf9b9d3787bf88662effc1ef153d19ef448d8415eac052d5923c1362658aa0f35499a96653ff48bf8ba6a3d84326ff8af",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "src/app/components/components.module.ts",
+            "methods": [],
+            "sourceCode": "import { ButtonModule } from './button/button.module'\nimport { IconModule } from './icon/icon.module'\nimport { InputModule } from './input/input.module'\nimport { NgModule } from '@angular/core'\nimport { SwitchModule } from './switch/switch.module'\nimport { LinkModule } from './link/link.module'\n\nconst modules = [InputModule, SwitchModule, ButtonModule, IconModule, LinkModule]\n\n@NgModule({\n  declarations: [],\n  imports: [modules],\n  exports: [modules],\n})\nexport class ComponentsModule {}\n",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": []
+                },
+                {
+                    "type": "imports",
+                    "elements": [
+                        {
+                            "name": "ButtonModule"
+                        },
+                        {
+                            "name": "IconModule"
+                        },
+                        {
+                            "name": "InputModule"
+                        },
+                        {
+                            "name": "LinkModule"
+                        },
+                        {
+                            "name": "SwitchModule"
+                        }
+                    ]
+                },
+                {
+                    "type": "exports",
+                    "elements": [
+                        {
+                            "name": "ButtonModule"
+                        },
+                        {
+                            "name": "IconModule"
+                        },
+                        {
+                            "name": "InputModule"
+                        },
+                        {
+                            "name": "LinkModule"
+                        },
+                        {
+                            "name": "SwitchModule"
+                        }
+                    ]
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "IconModule",
+            "id": "module-IconModule-b0c8ddfb31ef502feb9e55bf34efbaef41056efb17a45a99010c0e96558e9a77716440eba34eaabd22b3206a274b62d30ee3670de4a63d49001af4a8f3d90dd2",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "src/app/components/icon/icon.module.ts",
+            "methods": [],
+            "sourceCode": "import { CommonModule } from '@angular/common'\nimport { IconComponent } from './icon.component'\nimport { NgModule } from '@angular/core'\n\n@NgModule({\n  declarations: [IconComponent],\n  imports: [CommonModule],\n  exports: [IconComponent],\n})\nexport class IconModule {}\n",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": [
+                        {
+                            "name": "IconComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "imports",
+                    "elements": []
+                },
+                {
+                    "type": "exports",
+                    "elements": [
+                        {
+                            "name": "IconComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "InputModule",
+            "id": "module-InputModule-4b0ccae0bb52d6a5359764a0fb0b9e9bd98ed9eba34d3f6a624166e81f79fd4a2fb036cd619113586d27743e62730878ef1141dec8c9f8707e016ba0f7fcfc86",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "src/app/components/input/input.module.ts",
+            "methods": [],
+            "sourceCode": "import { CommonModule } from '@angular/common'\nimport { InputComponent } from './input.component'\nimport { NgModule } from '@angular/core'\n\n@NgModule({\n  declarations: [InputComponent],\n  imports: [CommonModule],\n  exports: [InputComponent],\n})\nexport class InputModule {}\n",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": [
+                        {
+                            "name": "InputComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "imports",
+                    "elements": []
+                },
+                {
+                    "type": "exports",
+                    "elements": [
+                        {
+                            "name": "InputComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "LinkModule",
+            "id": "module-LinkModule-041e7a2ad6c035e0dafe5871b1f4ccbd9a992d1b8e4cca6bd3a3d2a8366e2a411f99ff70ead1b07e20cf46758413d4a4c919971065a23e33bf274ea4c50786ba",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "src/app/components/link/link.module.ts",
+            "methods": [],
+            "sourceCode": "import { CommonModule } from '@angular/common'\nimport { LinkComponent } from './link.component'\nimport { NgModule } from '@angular/core'\nimport { RouterModule } from '@angular/router'\n\n@NgModule({\n  declarations: [LinkComponent],\n  imports: [CommonModule, RouterModule],\n  exports: [LinkComponent],\n})\nexport class LinkModule {}\n",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": [
+                        {
+                            "name": "LinkComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "imports",
+                    "elements": []
+                },
+                {
+                    "type": "exports",
+                    "elements": [
+                        {
+                            "name": "LinkComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
+            "name": "SwitchModule",
+            "id": "module-SwitchModule-2d12e6e98cc48abfb949ca303cf026ef9a525edcd2e5d6a50105a22a8ea487df4a487e9a370f325849f9cad35dd231683ffff9108f683e85ab895625ccbc8f69",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "src/app/components/switch/switch.module.ts",
+            "methods": [],
+            "sourceCode": "import { CommonModule } from '@angular/common'\nimport { NgModule } from '@angular/core'\nimport { SwitchComponent } from './switch.component'\n\n@NgModule({\n  declarations: [SwitchComponent],\n  imports: [CommonModule],\n  exports: [SwitchComponent],\n})\nexport class SwitchModule {}\n",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": [
+                        {
+                            "name": "SwitchComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "imports",
+                    "elements": []
+                },
+                {
+                    "type": "exports",
+                    "elements": [
+                        {
+                            "name": "SwitchComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        }
+    ],
+    "miscellaneous": {
+        "variables": [
+            {
+                "name": "actionsData",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/components/button/button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "object",
+                "defaultValue": "{\n  clickEvent: action('clickEvent'),\n}"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/components/button/button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "environment",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/environments/environment.prod.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "object",
+                "defaultValue": "{\n  production: true,\n}"
+            },
+            {
+                "name": "environment",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/environments/environment.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "object",
+                "defaultValue": "{\n  production: false,\n}"
+            },
+            {
+                "name": "modules",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/components/components.module.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "[]",
+                "defaultValue": "[InputModule, SwitchModule, ButtonModule, IconModule, LinkModule]"
+            },
+            {
+                "name": "PasswordStrengthValidator",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/utils/validations/password-strength/password-strength.validators.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "(\n  control: AbstractControl\n): ValidationErrors | null => {\n  const value = control.value || ''\n\n  if (!value) {\n    return null\n  }\n\n  const eigthCharacters = /(?=.{8,})/g\n  if (eigthCharacters.test(value) === false) {\n    return { passwordStrength: true }\n  }\n\n  const upperCaseCharacters = /(?=.*[A-Z])/g\n  if (upperCaseCharacters.test(value) === false) {\n    return { passwordStrength: true }\n  }\n\n  const lowercaseCharacters = /(?=.*[a-z])/g\n  if (lowercaseCharacters.test(value) === false) {\n    return { passwordStrength: true }\n  }\n\n  const digits = /(?=.*[0-9])/g\n  if (digits.test(value) === false) {\n    return { passwordStrength: true }\n  }\n\n  const specialCharacters = /([^A-Za-z0-9])/g\n  if (specialCharacters.test(value) === false) {\n    return { passwordStrength: true }\n  }\n\n  return null\n}"
+            },
+            {
+                "name": "SWITCH_VALUE_ACcESSOR",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/components/switch/switch.component.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Provider",
+                "defaultValue": "{\n  provide: NG_VALUE_ACCESSOR,\n  multi: true,\n  useExisting: forwardRef(() => SwitchComponent),\n}"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/components/button/button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<ButtonComponent>",
+                "defaultValue": "(args: ButtonComponent) => ({\n  props: {\n    ...args,\n    clickEvent: actionsData.clickEvent,\n  },\n  template: `<hc-button [theme]=\"theme\" [color]=\"color\" [type]=\"type\" [ariaLabel]=\"ariaLabel\" [disabled]=\"disabled\">Button</hc-button>`,\n})"
+            },
+            {
+                "name": "ThemeText",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/components/button/button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            }
+        ],
+        "functions": [],
+        "typealiases": [],
+        "enumerations": [],
+        "groupedVariables": {
+            "src/app/components/button/button.stories.ts": [
+                {
+                    "name": "actionsData",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/components/button/button.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "object",
+                    "defaultValue": "{\n  clickEvent: action('clickEvent'),\n}"
+                },
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/components/button/button.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/components/button/button.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<ButtonComponent>",
+                    "defaultValue": "(args: ButtonComponent) => ({\n  props: {\n    ...args,\n    clickEvent: actionsData.clickEvent,\n  },\n  template: `<hc-button [theme]=\"theme\" [color]=\"color\" [type]=\"type\" [ariaLabel]=\"ariaLabel\" [disabled]=\"disabled\">Button</hc-button>`,\n})"
+                },
+                {
+                    "name": "ThemeText",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/components/button/button.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                }
+            ],
+            "src/environments/environment.prod.ts": [
+                {
+                    "name": "environment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/environments/environment.prod.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "object",
+                    "defaultValue": "{\n  production: true,\n}"
+                }
+            ],
+            "src/environments/environment.ts": [
+                {
+                    "name": "environment",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/environments/environment.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "object",
+                    "defaultValue": "{\n  production: false,\n}"
+                }
+            ],
+            "src/app/components/components.module.ts": [
+                {
+                    "name": "modules",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/components/components.module.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "[]",
+                    "defaultValue": "[InputModule, SwitchModule, ButtonModule, IconModule, LinkModule]"
+                }
+            ],
+            "src/app/utils/validations/password-strength/password-strength.validators.ts": [
+                {
+                    "name": "PasswordStrengthValidator",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/utils/validations/password-strength/password-strength.validators.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "(\n  control: AbstractControl\n): ValidationErrors | null => {\n  const value = control.value || ''\n\n  if (!value) {\n    return null\n  }\n\n  const eigthCharacters = /(?=.{8,})/g\n  if (eigthCharacters.test(value) === false) {\n    return { passwordStrength: true }\n  }\n\n  const upperCaseCharacters = /(?=.*[A-Z])/g\n  if (upperCaseCharacters.test(value) === false) {\n    return { passwordStrength: true }\n  }\n\n  const lowercaseCharacters = /(?=.*[a-z])/g\n  if (lowercaseCharacters.test(value) === false) {\n    return { passwordStrength: true }\n  }\n\n  const digits = /(?=.*[0-9])/g\n  if (digits.test(value) === false) {\n    return { passwordStrength: true }\n  }\n\n  const specialCharacters = /([^A-Za-z0-9])/g\n  if (specialCharacters.test(value) === false) {\n    return { passwordStrength: true }\n  }\n\n  return null\n}"
+                }
+            ],
+            "src/app/components/switch/switch.component.ts": [
+                {
+                    "name": "SWITCH_VALUE_ACcESSOR",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/components/switch/switch.component.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Provider",
+                    "defaultValue": "{\n  provide: NG_VALUE_ACCESSOR,\n  multi: true,\n  useExisting: forwardRef(() => SwitchComponent),\n}"
+                }
+            ]
+        },
+        "groupedFunctions": {},
+        "groupedEnumerations": {},
+        "groupedTypeAliases": {}
+    },
+    "routes": {
+        "name": "<root>",
+        "kind": "module",
+        "className": "AppModule",
+        "children": [
+            {
+                "name": "routes",
+                "filename": "src/app/app-routing.module.ts",
+                "module": "AppRoutingModule",
+                "children": [
+                    {
+                        "path": "auth",
+                        "loadChildren": "./modules/authentication/authentication.module#AuthenticationModule",
+                        "children": [
+                            {
+                                "kind": "module",
+                                "children": [
+                                    {
+                                        "name": "routes",
+                                        "filename": "src/app/modules/authentication/authentication-routing.module.ts",
+                                        "module": "AuthenticationRoutingModule",
+                                        "children": [
+                                            {
+                                                "path": "login",
+                                                "component": "LoginComponent"
+                                            },
+                                            {
+                                                "path": "register",
+                                                "component": "RegisterComponent"
+                                            },
+                                            {
+                                                "path": "",
+                                                "redirectTo": "login",
+                                                "pathMatch": "full"
+                                            }
+                                        ],
+                                        "kind": "module"
+                                    }
+                                ],
+                                "module": "AuthenticationModule"
+                            }
+                        ]
+                    },
+                    {
+                        "path": "",
+                        "redirectTo": "auth",
+                        "pathMatch": "full"
+                    },
+                    {
+                        "path": "**",
+                        "component": "PageNotFoundComponent"
+                    }
+                ],
+                "kind": "module"
+            }
+        ]
+    },
+    "coverage": {
+        "count": 0,
+        "status": "low",
+        "files": [
+            {
+                "filePath": "src/app/app.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "AppComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/components/button/button.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "ButtonComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/12",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/components/button/button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "actionsData",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/components/button/button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Default",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/components/button/button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/components/button/button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "ThemeText",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/components/components.module.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "modules",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/components/icon/icon.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "IconComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/2",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/components/input/input.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "InputComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/23",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/components/link/link.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "LinkComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/components/switch/switch.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "SwitchComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/11",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/components/switch/switch.component.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "SWITCH_VALUE_ACcESSOR",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/modules/authentication/login/login.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "LoginComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/7",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/modules/authentication/page-not-found/page-not-found.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "PageNotFoundComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/modules/authentication/register/register.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "RegisterComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/7",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/utils/validations/password-strength/password-strength.validators.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "PasswordStrengthValidator",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/environments/environment.prod.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "environment",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/environments/environment.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "environment",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            }
+        ]
+    }
+}

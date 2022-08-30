@@ -1,0 +1,180 @@
+button {
+  display: flex;
+  align-items: center;
+  color: var(--neutral-white);
+  font-weight: bold;
+  font-size: 16px;
+  padding: 16px 24px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+/*
+* Styles to Theme Text Button
+*/
+
+// Primary
+
+.btn-text-primary {
+  background-color: var(--neutral-white);
+  color: rgb(var(--primary-default-rgb));
+}
+
+.btn-text-primary-hover {
+  background-color: rgba(var(--primary-default-rgb), var(--alpha-button-hover));
+}
+
+.btn-text-primary-pressed {
+  background-color: rgba(var(--primary-default-rgb), var(--alpha-button-pressed));
+}
+
+// Default
+
+.btn-text-default {
+  background-color: var(--neutral-white);
+  color: var(--neutral-gray);
+}
+
+.btn-text-default-hover {
+  background-color: rgba(var(--neutral-black-rgb), var(--alpha-button-hover));
+}
+
+.btn-text-default-pressed {
+  background-color: rgba(var(--neutral-black-rgb), var(--alpha-button-pressed));
+}
+
+// Secondary
+
+.btn-text-secondary {
+  background-color: var(--neutral-white);
+  color: var(--secondary-default);
+}
+
+.btn-text-secondary-hover {
+  background-color: rgba(var(--secondary-default-rgb), var(--alpha-button-hover));
+}
+
+.btn-text-secondary-pressed {
+  background-color: rgba(var(--secondary-default-rgb), var(--alpha-button-pressed));
+}
+
+// Disabled
+
+.btn-text-disabled:disabled {
+  background-color: var(--neutral-white);
+  color: var(--neutral-divider);
+}
+
+/*
+* Styles to Theme Outlined Button
+*/
+
+// Primary
+.btn-outlined-primary {
+  background-color: var(--neutral-white);
+  border: 1px solid var(--primary-default);
+  color: var(--primary-default);
+}
+
+.btn-outlined-primary-hover {
+  background-color: var(--primary-default);
+  color: var(--neutral-white);
+}
+
+.btn-outlined-primary-pressed {
+  background-color: var(--primary-dark);
+  color: var(--neutral-white);
+}
+
+// Default
+
+.btn-outlined-default {
+  background-color: var(--neutral-white);
+  border: 1px solid var(--neutral-gray);
+  color: var(--neutral-gray);
+}
+
+.btn-outlined-default-hover {
+  background-color: var(--neutral-gray);
+  color: var(--neutral-white);
+}
+
+.btn-outlined-default-pressed {
+  background-color: var(--neutral-gray-dark);
+  color: var(--neutral-white);
+}
+
+// Secondary
+.btn-outlined-secondary {
+  background-color: var(--neutral-white);
+  border: 1px solid var(--secondary-default);
+  color: var(--secondary-default);
+}
+
+.btn-outlined-secondary-hover {
+  background-color: var(--secondary-default);
+  color: var(--neutral-white);
+}
+
+.btn-outlined-secondary-pressed {
+  background-color: var(--secondary-dark);
+  color: var(--neutral-white);
+}
+
+// Disabled
+.btn-outlined-disabled:disabled {
+  background-color: var(--neutral-white);
+  color: var(--neutral-divider);
+  border: 1px solid var(--neutral-background);
+}
+
+/*
+* Styles to Theme Contained Button
+*/
+
+// Primary
+.btn-contained-primary {
+  background-color: var(--primary-default);
+}
+
+.btn-contained-primary-hover {
+  background-color: var(--primary-hover);
+}
+
+.btn-contained-primary-pressed {
+  background-color: var(--primary-dark);
+}
+
+// Default
+.btn-contained-default {
+  background-color: var(--neutral-gray);
+}
+
+.btn-contained-default-hover {
+  background-color: var(--neutral-gray-light);
+}
+
+.btn-contained-default-pressed {
+  background-color: var(--neutral-gray-dark);
+}
+
+// Secondary
+.btn-contained-secondary {
+  background-color: var(--secondary-default);
+}
+
+.btn-contained-secondary-hover {
+  background-color: var(--secondary-light);
+}
+
+.btn-contained-secondary-pressed {
+  background-color: var(--secondary-dark);
+}
+
+// Disabled
+.btn-contained-disabled:disabled {
+  background-color: var(--neutral-background);
+  color: var(--neutral-divider);
+}
