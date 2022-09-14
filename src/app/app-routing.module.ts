@@ -12,6 +12,16 @@ const routes: Routes = [
       ),
   },
   {
+    path: 'patients',
+    loadChildren: () =>
+      import('./modules/patients/patients.module').then((m) => m.PatientsModule),
+  },
+  {
+    path: 'invoices',
+    loadChildren: () =>
+      import('./modules/invoices/invoices.module').then((m) => m.InvoicesModule),
+  },
+  {
     path: '',
     redirectTo: 'auth',
     pathMatch: 'full',

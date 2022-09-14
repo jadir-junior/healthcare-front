@@ -1,5 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Component, Input, OnInit, ViewEncapsulation } from '@angular/core'
+import {
+  Component,
+  EventEmitter,
+  Injector,
+  Input,
+  OnInit,
+  Output,
+  ViewEncapsulation,
+} from '@angular/core'
+
+import { IColumnSorted } from './sort-header.component'
 
 export interface IHcDtColumns {
   title: string
@@ -8,7 +18,6 @@ export interface IHcDtColumns {
 }
 
 export interface IHcDtOptions {
-  ajax: any
   columns: IHcDtColumns[]
 }
 
@@ -18,16 +27,24 @@ export interface IHcDtOptions {
     <table>
       <ng-content select="[hcHeader]"></ng-content>
       <ng-content select="[hcBody]"></ng-content>
-      <thead *ngIf="thead">
+      <thead *ngIf="columns">
         <tr>
-          <th *ngFor="let th of thead">{{ th }}</th>
+          <th
+            *ngFor="let th of columns"
+            [hc-sort-header]="th.data"
+            (sortHeaderEvent)="onSortHeader($event)"
+          >
+            {{ th.title }}
+          </th>
         </tr>
       </thead>
       <tbody *ngIf="tbody">
-        <tr *ngFor="let item of ajax">
-          <td *ngFor="let td of tbody" [ngStyle]="{ 'color': td.textColor }">
-            {{ item[td.data] }}
-          </td>
+        <tr *ngFor="let item of items">
+          <td
+            *ngFor="let td of tbody"
+            [ngStyle]="{ 'color': td.textColor }"
+            [injectHTML]="item[td.data]"
+          ></td>
         </tr>
       </tbody>
     </table>
@@ -50,24 +67,31 @@ export interface IHcDtOptions {
         text-align: left;
         font-size: 14px;
         border-bottom: 1px solid var(--neutral-divider);
+        background-color: var(--neutral-white);
       }
     `,
   ],
-  encapsulation: ViewEncapsulation.ShadowDom,
+  encapsulation: ViewEncapsulation.None,
 })
-export class TableComponent implements OnInit {
-  thead?: Array<string>
+export class TableComponent<T> implements OnInit {
+  columns?: IHcDtColumns[]
   tbody?: Array<{ data: string; textColor: string | undefined }>
-  ajax?: Array<any>
 
   @Input() hcDtOptions?: IHcDtOptions
+  @Input() items: T[] | any = []
+  @Output() sortColumnEvent = new EventEmitter<IColumnSorted>()
+
+  constructor(private injector: Injector) {}
 
   ngOnInit(): void {
-    this.thead = this.hcDtOptions?.columns.map((c) => c.title)
+    this.columns = this.hcDtOptions?.columns
     this.tbody = this.hcDtOptions?.columns.map((c) => ({
       data: c.data,
       textColor: c.textColor,
     }))
-    this.ajax = this.hcDtOptions?.ajax
+  }
+
+  onSortHeader(sorted: IColumnSorted): void {
+    this.sortColumnEvent.emit(sorted)
   }
 }
