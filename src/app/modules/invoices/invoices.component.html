@@ -1,8 +1,4 @@
 <div style="padding: 32px">
-  <hc-table
-    [hcDtOptions]="hcDtOptions"
-    (sortColumnEvent)="tableBaseService.sort($event)"
-    [items]="invoices"
-  >
+  <hc-table [hcDtOptions]="hcDtOptions" (sortColumnEvent)="tableBaseService.sort($event)">
   </hc-table>
 </div>

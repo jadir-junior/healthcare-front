@@ -2,7 +2,6 @@
 import {
   Component,
   EventEmitter,
-  Injector,
   Input,
   OnInit,
   Output,
@@ -10,6 +9,7 @@ import {
 } from '@angular/core'
 
 import { IColumnSorted } from './sort-header.component'
+import { TableBaseService } from './table-base.service'
 
 export interface IHcDtColumns {
   title: string
@@ -29,6 +29,14 @@ export interface IHcDtOptions {
       <ng-content select="[hcBody]"></ng-content>
       <thead *ngIf="columns">
         <tr>
+          <th *ngIf="checkbox">
+            <input
+              #checkbox
+              type="checkbox"
+              aria-label="checkboxAll"
+              (change)="selectAll(checkbox.checked)"
+            />
+          </th>
           <th
             *ngFor="let th of columns"
             [hc-sort-header]="th.data"
@@ -39,15 +47,23 @@ export interface IHcDtOptions {
         </tr>
       </thead>
       <tbody *ngIf="tbody">
-        <tr *ngFor="let item of items">
-          <td
-            *ngFor="let td of tbody"
-            [ngStyle]="{ 'color': td.textColor }"
-            [injectHTML]="item[td.data]"
-          ></td>
+        <tr *ngFor="let item of tableBaseService.items" data-testid="row-patient">
+          <td *ngIf="checkbox">
+            <input
+              #checkbox
+              type="checkbox"
+              [attr.aria-label]="'checkbox-' + item['id']"
+              (change)="selectRow(item, checkbox.checked)"
+              [checked]="item?.checked"
+            />
+          </td>
+          <td *ngFor="let td of tbody" [ngStyle]="{ 'color': td.textColor }">
+            {{ item[td.data] }}
+          </td>
         </tr>
       </tbody>
     </table>
+    <button (click)="onSubmit()" aria-label="submit">submit</button>
   `,
   styles: [
     `
@@ -78,10 +94,10 @@ export class TableComponent<T> implements OnInit {
   tbody?: Array<{ data: string; textColor: string | undefined }>
 
   @Input() hcDtOptions?: IHcDtOptions
-  @Input() items: T[] | any = []
+  @Input() checkbox = false
   @Output() sortColumnEvent = new EventEmitter<IColumnSorted>()
 
-  constructor(private injector: Injector) {}
+  constructor(public tableBaseService: TableBaseService<T>) {}
 
   ngOnInit(): void {
     this.columns = this.hcDtOptions?.columns
@@ -93,5 +109,17 @@ export class TableComponent<T> implements OnInit {
 
   onSortHeader(sorted: IColumnSorted): void {
     this.sortColumnEvent.emit(sorted)
+  }
+
+  selectRow(item: T, isAdd: boolean): void {
+    this.tableBaseService.onSelectedOrUnSelected(item, isAdd)
+  }
+
+  selectAll(isAll: boolean): void {
+    this.tableBaseService.onSelectedAllOrUnSelectedAll(isAll)
+  }
+
+  onSubmit() {
+    console.log(this.tableBaseService.selecteds)
   }
 }

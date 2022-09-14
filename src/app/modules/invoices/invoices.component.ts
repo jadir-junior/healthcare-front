@@ -49,7 +49,7 @@ export class InvoicesComponent implements OnInit {
   constructor(
     private datePipe: DatePipe,
     private currencyPipe: CurrencyPipe,
-    public tableBaseService: TableBaseService
+    public tableBaseService: TableBaseService<IInvoice>
   ) {}
 
   ngOnInit(): void {

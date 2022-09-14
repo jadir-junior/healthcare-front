@@ -9,16 +9,14 @@ import { TableBaseService } from 'src/app/components/table/table-base.service'
 @Component({
   selector: 'app-patients',
   template: `<hc-table
-    *ngIf="patients.length"
-    [items]="patients"
+    *ngIf="tableBaseService.items.length"
+    [checkbox]="true"
     [hcDtOptions]="DtOptions"
     (sortColumnEvent)="tableBaseService.sort($event)"
-  ></hc-table>`,
+  ></hc-table> `,
   providers: [TableBaseService],
 })
 export class PatientsComponent implements OnInit {
-  patients: IPatient[] = []
-
   DtOptions: IHcDtOptions = {
     columns: [
       {
@@ -51,7 +49,7 @@ export class PatientsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private patientsService: PatientsService,
-    public tableBaseService: TableBaseService
+    public tableBaseService: TableBaseService<IPatient>
   ) {}
 
   ngOnInit(): void {
@@ -69,7 +67,7 @@ export class PatientsComponent implements OnInit {
         this.tableBaseService.sortColumn
       )
       .subscribe((response: IPagination<IPatient>) => {
-        this.patients = response.items
+        this.tableBaseService.items = response.items
       })
   }
 }
