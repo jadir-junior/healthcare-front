@@ -8,7 +8,12 @@ import { Component } from '@angular/core'
     <div class="wrapper-layout">
       <aside>
         <div>Table</div>
-        <a (click)="goToRoute('table/basic')">Basic</a>
+        <div>
+          <a (click)="goToRoute('table/basic')">Basic</a>
+        </div>
+        <div>
+          <a (click)="goToRoute('table/dynamic')">Dynamic</a>
+        </div>
       </aside>
       <main>
         <router-outlet></router-outlet>

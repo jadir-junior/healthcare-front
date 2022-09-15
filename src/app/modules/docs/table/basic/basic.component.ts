@@ -27,16 +27,7 @@ import { TableBaseService } from 'src/app/components/table/table-base.service'
       </hc-table>
     </div>
   `,
-  styles: [
-    `
-      .wrapper-container-docs {
-        margin: 2rem 4rem;
-        padding: 2rem;
-        background-color: white;
-        border-radius: 8px;
-      }
-    `,
-  ],
+  styleUrls: ['../../docs/docs.component.scss'],
   providers: [TableBaseService],
 })
 export class BasicComponent implements OnInit {

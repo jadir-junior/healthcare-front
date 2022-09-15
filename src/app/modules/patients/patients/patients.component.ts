@@ -2,23 +2,24 @@ import { Component, OnInit } from '@angular/core'
 import { IPatient, PatientsService } from '../patients.service'
 
 import { ActivatedRoute } from '@angular/router'
-import { IHcDtOptions } from 'src/app/components/table/table.component'
 import { IPagination } from 'src/app/models/pagination.model'
 import { TableBaseService } from 'src/app/components/table/table-base.service'
 
 @Component({
   selector: 'app-patients',
-  template: `<hc-table
-    *ngIf="tableBaseService.items.length"
-    [checkbox]="true"
-    [hcDtOptions]="DtOptions"
-    [sort]="true"
-    (sortColumnEvent)="tableBaseService.sort($event)"
-  ></hc-table> `,
+  template: `
+    <!-- <hc-table
+      *ngIf="tableBaseService.items.length"
+      [checkbox]="true"
+      [hcDtOptions]="DtOptions"
+      [sort]="true"
+      (sortColumnEvent)="tableBaseService.sort($event)"
+    ></hc-table> -->
+  `,
   providers: [TableBaseService],
 })
 export class PatientsComponent implements OnInit {
-  DtOptions: IHcDtOptions = {
+  DtOptions = {
     columns: [
       {
         title: 'Name',

@@ -1,7 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnInit } from '@angular/core'
 import { CurrencyPipe, DatePipe } from '@angular/common'
 
-import { IHcDtOptions } from 'src/app/components/table/table.component'
 import { TableBaseService } from 'src/app/components/table/table-base.service'
 
 interface IInvoice {
@@ -43,7 +43,7 @@ const RESPONSE = [
   providers: [TableBaseService],
 })
 export class InvoicesComponent implements OnInit {
-  hcDtOptions!: IHcDtOptions
+  hcDtOptions!: any
   invoices: IInvoice[] = []
 
   constructor(

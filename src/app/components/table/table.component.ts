@@ -5,7 +5,6 @@ import {
   ContentChildren,
   EventEmitter,
   Input,
-  OnInit,
   Output,
   QueryList,
   TemplateRef,
@@ -16,15 +15,9 @@ import { IColumnSorted } from './sort-header.component'
 import { TableBaseService } from './table-base.service'
 import { TemplateDirective } from 'src/app/directives/template/template.directive'
 
-export interface IHcDtColumns {
-  title: string
-  data: string
-  textColor?: string
-  sortableColumn?: string
-}
-
-export interface IHcDtOptions {
-  columns: IHcDtColumns[]
+export interface IColumn {
+  header: string
+  field: string
 }
 
 @Component({
@@ -42,18 +35,16 @@ export interface IHcDtOptions {
                 (change)="selectAll(checkbox.checked)"
               />
             </th>
-            <th
-              *ngFor="let th of columns"
-              [sortColumns]="sort"
+            <!-- [sortColumns]="sort"
               [sortableColumn]="th.sortableColumn"
               [hc-sort-header]="th.data"
               [initialValueSortColumn]="{
                 sortColumn: tableBaseService.sortColumn,
                 sortDirection: tableBaseService.sortDirection
               }"
-              (sortHeaderEvent)="onSortHeader($event)"
-            >
-              {{ th.title }}
+              (sortHeaderEvent)="onSortHeader($event)" -->
+            <th *ngFor="let th of columns">
+              {{ th.header }}
             </th>
           </tr>
         </ng-template>
@@ -61,9 +52,9 @@ export interface IHcDtOptions {
           *ngTemplateOutlet="headerTemplate ? headerTemplate : headerDynamic"
         ></ng-container>
       </thead>
-      <tbody *ngIf="bodyTemplate || tbody">
+      <tbody *ngIf="bodyTemplate || columns">
         <ng-template #bodyDynamic>
-          <tr *ngFor="let item of tableBaseService.items" data-testid="row-patient">
+          <tr *ngFor="let item of value" data-testid="row-patient">
             <td *ngIf="checkbox">
               <input
                 #checkbox
@@ -73,8 +64,8 @@ export interface IHcDtOptions {
                 [checked]="item?.checked"
               />
             </td>
-            <td *ngFor="let td of tbody" [ngStyle]="{ 'color': td.textColor }">
-              {{ item[td.data] }}
+            <td *ngFor="let td of columns">
+              {{ item[td.field] }}
             </td>
           </tr>
         </ng-template>
@@ -86,33 +77,21 @@ export interface IHcDtOptions {
   styleUrls: ['table.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class TableComponent<T> implements OnInit, AfterContentInit {
+export class TableComponent<T> implements AfterContentInit {
   bodyTemplate!: TemplateRef<any>
   headerTemplate!: TemplateRef<any>
 
-  columns?: IHcDtColumns[]
-  tbody?: Array<{ data: string; textColor: string | undefined }>
-
   @Input() sort = false
-  @Input() hcDtOptions?: IHcDtOptions
+  @Input() columns: IColumn[] = []
   @Input() checkbox = false
   @Input() responsive = false
-  @Input() value: T[] = []
+  @Input() value: any[] = []
 
   @Output() sortColumnEvent = new EventEmitter<IColumnSorted>()
 
   @ContentChildren(TemplateDirective) templates!: QueryList<TemplateDirective>
 
   constructor(public tableBaseService: TableBaseService<T>) {}
-
-  ngOnInit(): void {
-    console.log(this.value)
-    this.columns = this.hcDtOptions?.columns
-    this.tbody = this.hcDtOptions?.columns.map((c) => ({
-      data: c.data,
-      textColor: c.textColor,
-    }))
-  }
 
   ngAfterContentInit(): void {
     this.templates.forEach((item) => {
