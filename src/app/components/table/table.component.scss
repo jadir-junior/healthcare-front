@@ -6,6 +6,17 @@ table {
   width: 100%;
 }
 
+.header-and-fotter {
+  width: 100%;
+  background-color: var(--neutral-divider);
+  padding: 1rem;
+  font-weight: 700;
+}
+
+.hc-datatable-header {
+  @extend .header-and-fotter;
+}
+
 th {
   padding: 1rem;
   font-size: 14px;
@@ -19,4 +30,8 @@ td {
   font-size: 14px;
   border-bottom: 1px solid var(--neutral-divider);
   background-color: var(--neutral-white);
+}
+
+.hc-datatable-footer {
+  @extend .header-and-fotter;
 }

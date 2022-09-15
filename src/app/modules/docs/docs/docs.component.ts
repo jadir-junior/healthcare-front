@@ -14,6 +14,9 @@ import { Component } from '@angular/core'
         <div>
           <a (click)="goToRoute('table/dynamic')">Dynamic</a>
         </div>
+        <div>
+          <a (click)="goToRoute('table/gridlines')">Gridlines</a>
+        </div>
       </aside>
       <main>
         <router-outlet></router-outlet>

@@ -23,6 +23,9 @@ export interface IColumn {
 @Component({
   selector: 'hc-table',
   template: `
+    <div class="hc-datatable-header">
+      <ng-container *ngTemplateOutlet="captionTemplate"></ng-container>
+    </div>
     <table [ngClass]="{ 'responsive': responsive }" *ngIf="value">
       <thead *ngIf="headerTemplate || columns">
         <ng-template #headerDynamic>
@@ -73,6 +76,9 @@ export interface IColumn {
         </ng-container>
       </tbody>
     </table>
+    <div class="hc-datatable-footer">
+      <ng-container *ngTemplateOutlet="summaryTemplate"></ng-container>
+    </div>
   `,
   styleUrls: ['table.component.scss'],
   encapsulation: ViewEncapsulation.None,
@@ -80,6 +86,8 @@ export interface IColumn {
 export class TableComponent<T> implements AfterContentInit {
   bodyTemplate!: TemplateRef<any>
   headerTemplate!: TemplateRef<any>
+  captionTemplate!: TemplateRef<any>
+  summaryTemplate!: TemplateRef<any>
 
   @Input() sort = false
   @Input() columns: IColumn[] = []
@@ -101,6 +109,12 @@ export class TableComponent<T> implements AfterContentInit {
           break
         case 'header':
           this.headerTemplate = item.template
+          break
+        case 'caption':
+          this.captionTemplate = item.template
+          break
+        case 'summary':
+          this.summaryTemplate = item.template
           break
       }
     })

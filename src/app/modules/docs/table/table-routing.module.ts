@@ -2,6 +2,7 @@ import { RouterModule, Routes } from '@angular/router'
 
 import { BasicComponent } from './basic/basic.component'
 import { DynamicComponent } from './dynamic/dynamic.component'
+import { GridlinesComponent } from './gridlines/gridlines.component'
 import { NgModule } from '@angular/core'
 
 const routes: Routes = [
@@ -12,6 +13,10 @@ const routes: Routes = [
   {
     path: 'dynamic',
     component: DynamicComponent,
+  },
+  {
+    path: 'gridlines',
+    component: GridlinesComponent,
   },
 ]
 
