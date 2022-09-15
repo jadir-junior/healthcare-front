@@ -1,15 +1,20 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
+  AfterContentInit,
   Component,
+  ContentChildren,
   EventEmitter,
   Input,
   OnInit,
   Output,
+  QueryList,
+  TemplateRef,
   ViewEncapsulation,
 } from '@angular/core'
 
 import { IColumnSorted } from './sort-header.component'
 import { TableBaseService } from './table-base.service'
+import { TemplateDirective } from 'src/app/directives/template/template.directive'
 
 export interface IHcDtColumns {
   title: string
@@ -25,94 +30,101 @@ export interface IHcDtOptions {
 @Component({
   selector: 'hc-table',
   template: `
-    <table>
-      <ng-content select="[hcHeader]"></ng-content>
-      <ng-content select="[hcBody]"></ng-content>
-      <thead *ngIf="columns">
-        <tr>
-          <th *ngIf="checkbox">
-            <input
-              #checkbox
-              type="checkbox"
-              aria-label="checkboxAll"
-              (change)="selectAll(checkbox.checked)"
-            />
-          </th>
-          <th
-            *ngFor="let th of columns"
-            [sortColumns]="sort"
-            [sortableColumn]="th.sortableColumn"
-            [hc-sort-header]="th.data"
-            [initialValueSortColumn]="{
-              sortColumn: tableBaseService.sortColumn,
-              sortDirection: tableBaseService.sortDirection
-            }"
-            (sortHeaderEvent)="onSortHeader($event)"
-          >
-            {{ th.title }}
-          </th>
-        </tr>
+    <table [ngClass]="{ 'responsive': responsive }" *ngIf="value">
+      <thead *ngIf="headerTemplate || columns">
+        <ng-template #headerDynamic>
+          <tr>
+            <th *ngIf="checkbox">
+              <input
+                #checkbox
+                type="checkbox"
+                aria-label="checkboxAll"
+                (change)="selectAll(checkbox.checked)"
+              />
+            </th>
+            <th
+              *ngFor="let th of columns"
+              [sortColumns]="sort"
+              [sortableColumn]="th.sortableColumn"
+              [hc-sort-header]="th.data"
+              [initialValueSortColumn]="{
+                sortColumn: tableBaseService.sortColumn,
+                sortDirection: tableBaseService.sortDirection
+              }"
+              (sortHeaderEvent)="onSortHeader($event)"
+            >
+              {{ th.title }}
+            </th>
+          </tr>
+        </ng-template>
+        <ng-container
+          *ngTemplateOutlet="headerTemplate ? headerTemplate : headerDynamic"
+        ></ng-container>
       </thead>
-      <tbody *ngIf="tbody">
-        <tr *ngFor="let item of tableBaseService.items" data-testid="row-patient">
-          <td *ngIf="checkbox">
-            <input
-              #checkbox
-              type="checkbox"
-              [attr.aria-label]="'checkbox-' + item['id']"
-              (change)="selectRow(item, checkbox.checked)"
-              [checked]="item?.checked"
-            />
-          </td>
-          <td *ngFor="let td of tbody" [ngStyle]="{ 'color': td.textColor }">
-            {{ item[td.data] }}
-          </td>
-        </tr>
+      <tbody *ngIf="bodyTemplate || tbody">
+        <ng-template #bodyDynamic>
+          <tr *ngFor="let item of tableBaseService.items" data-testid="row-patient">
+            <td *ngIf="checkbox">
+              <input
+                #checkbox
+                type="checkbox"
+                [attr.aria-label]="'checkbox-' + item['id']"
+                (change)="selectRow(item, checkbox.checked)"
+                [checked]="item?.checked"
+              />
+            </td>
+            <td *ngFor="let td of tbody" [ngStyle]="{ 'color': td.textColor }">
+              {{ item[td.data] }}
+            </td>
+          </tr>
+        </ng-template>
+        <ng-container [ngTemplateOutlet]="bodyTemplate ? bodyTemplate : bodyDynamic">
+        </ng-container>
       </tbody>
     </table>
-    <button (click)="onSubmit()" aria-label="submit">submit</button>
   `,
-  styles: [
-    `
-      table {
-        border-spacing: 0;
-      }
-
-      th {
-        padding: 16px;
-        font-size: 14px;
-        background-color: var(--neutral-divider);
-        text-align: left;
-      }
-
-      td {
-        padding: 16px;
-        text-align: left;
-        font-size: 14px;
-        border-bottom: 1px solid var(--neutral-divider);
-        background-color: var(--neutral-white);
-      }
-    `,
-  ],
+  styleUrls: ['table.component.scss'],
   encapsulation: ViewEncapsulation.None,
 })
-export class TableComponent<T> implements OnInit {
+export class TableComponent<T> implements OnInit, AfterContentInit {
+  bodyTemplate!: TemplateRef<any>
+  headerTemplate!: TemplateRef<any>
+
   columns?: IHcDtColumns[]
   tbody?: Array<{ data: string; textColor: string | undefined }>
 
   @Input() sort = false
   @Input() hcDtOptions?: IHcDtOptions
   @Input() checkbox = false
+  @Input() responsive = false
+  @Input() value: T[] = []
+
   @Output() sortColumnEvent = new EventEmitter<IColumnSorted>()
+
+  @ContentChildren(TemplateDirective) templates!: QueryList<TemplateDirective>
 
   constructor(public tableBaseService: TableBaseService<T>) {}
 
   ngOnInit(): void {
+    console.log(this.value)
     this.columns = this.hcDtOptions?.columns
     this.tbody = this.hcDtOptions?.columns.map((c) => ({
       data: c.data,
       textColor: c.textColor,
     }))
+  }
+
+  ngAfterContentInit(): void {
+    this.templates.forEach((item) => {
+      switch (item.getType()) {
+        case 'body':
+          this.bodyTemplate = item.template
+          break
+        case 'header':
+          this.headerTemplate = item.template
+          break
+      }
+    })
   }
 
   onSortHeader(sorted: IColumnSorted): void {
@@ -125,9 +137,5 @@ export class TableComponent<T> implements OnInit {
 
   selectAll(isAll: boolean): void {
     this.tableBaseService.onSelectedAllOrUnSelectedAll(isAll)
-  }
-
-  onSubmit() {
-    console.log(this.tableBaseService.selecteds)
   }
 }

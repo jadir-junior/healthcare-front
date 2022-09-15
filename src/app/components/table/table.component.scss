@@ -1,0 +1,22 @@
+table {
+  border-spacing: 0;
+}
+
+.responsive {
+  width: 100%;
+}
+
+th {
+  padding: 1rem;
+  font-size: 14px;
+  background-color: var(--neutral-divider);
+  text-align: left;
+}
+
+td {
+  padding: 1rem;
+  text-align: left;
+  font-size: 14px;
+  border-bottom: 1px solid var(--neutral-divider);
+  background-color: var(--neutral-white);
+}
