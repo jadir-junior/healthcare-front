@@ -15,7 +15,7 @@ export interface IBaseParams {
 export class TableBaseService<T> {
   page = 1
   limit = 15
-  sortDirection?: 'ASC' | 'DESC'
+  sortDirection?: 'ASC' | 'DESC' | undefined
   sortColumn?: string
   items: T[] | any = []
   selecteds: T[] = []
@@ -27,7 +27,7 @@ export class TableBaseService<T> {
         this.page = page
         this.limit = limit
         this.sortColumn = sortColumn
-        this.sortDirection = sortDirection as 'ASC' | 'DESC'
+        this.sortDirection = sortDirection as 'ASC' | 'DESC' | undefined
       }
     })
   }

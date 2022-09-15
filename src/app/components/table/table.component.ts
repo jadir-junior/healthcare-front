@@ -40,6 +40,10 @@ export interface IHcDtOptions {
           <th
             *ngFor="let th of columns"
             [hc-sort-header]="th.data"
+            [initialValueSortColumn]="{
+              sortColumn: tableBaseService.sortColumn,
+              sortDirection: tableBaseService.sortDirection
+            }"
             (sortHeaderEvent)="onSortHeader($event)"
           >
             {{ th.title }}
