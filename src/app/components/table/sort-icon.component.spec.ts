@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { SortHeaderComponent } from './sort-header.component'
+import { SortIconComponent } from './sort-icon.component'
 
-describe('SortHeaderComponent', () => {
-  let component: SortHeaderComponent
-  let fixture: ComponentFixture<SortHeaderComponent>
+describe('SortIconComponent', () => {
+  let component: SortIconComponent
+  let fixture: ComponentFixture<SortIconComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [SortHeaderComponent],
+      declarations: [SortIconComponent],
     }).compileComponents()
 
-    fixture = TestBed.createComponent(SortHeaderComponent)
+    fixture = TestBed.createComponent(SortIconComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
   })

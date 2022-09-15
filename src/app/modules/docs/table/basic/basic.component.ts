@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { IProduct, ProductsService } from '../../products.service'
 
-import { TableBaseService } from 'src/app/components/table/table-base.service'
-
 @Component({
   selector: 'app-basic',
   template: `
@@ -28,7 +26,6 @@ import { TableBaseService } from 'src/app/components/table/table-base.service'
     </div>
   `,
   styleUrls: ['../../docs/docs.component.scss'],
-  providers: [TableBaseService],
 })
 export class BasicComponent implements OnInit {
   products: IProduct[] = []

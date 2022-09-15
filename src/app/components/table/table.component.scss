@@ -22,6 +22,8 @@ th {
   font-size: 14px;
   background-color: var(--neutral-divider);
   text-align: left;
+  vertical-align: middle;
+  position: relative;
 }
 
 td {
@@ -34,4 +36,17 @@ td {
 
 .hc-datatable-footer {
   @extend .header-and-fotter;
+}
+
+.hc-sortable-column {
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--neutral-gray);
+  }
+}
+
+.hc-highlight {
+  color: var(--primary-default);
+  background-color: var(--neutral-gray-light) !important;
 }

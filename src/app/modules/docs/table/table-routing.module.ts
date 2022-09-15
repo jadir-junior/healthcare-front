@@ -4,6 +4,7 @@ import { BasicComponent } from './basic/basic.component'
 import { DynamicComponent } from './dynamic/dynamic.component'
 import { GridlinesComponent } from './gridlines/gridlines.component'
 import { NgModule } from '@angular/core'
+import { SortComponent } from './sort/sort.component'
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'gridlines',
     component: GridlinesComponent,
+  },
+  {
+    path: 'sort',
+    component: SortComponent,
   },
 ]
 

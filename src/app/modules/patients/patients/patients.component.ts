@@ -1,9 +1,4 @@
-import { Component, OnInit } from '@angular/core'
-import { IPatient, PatientsService } from '../patients.service'
-
-import { ActivatedRoute } from '@angular/router'
-import { IPagination } from 'src/app/models/pagination.model'
-import { TableBaseService } from 'src/app/components/table/table-base.service'
+import { Component } from '@angular/core'
 
 @Component({
   selector: 'app-patients',
@@ -16,9 +11,8 @@ import { TableBaseService } from 'src/app/components/table/table-base.service'
       (sortColumnEvent)="tableBaseService.sort($event)"
     ></hc-table> -->
   `,
-  providers: [TableBaseService],
 })
-export class PatientsComponent implements OnInit {
+export class PatientsComponent {
   DtOptions = {
     columns: [
       {
@@ -49,30 +43,5 @@ export class PatientsComponent implements OnInit {
         data: 'status',
       },
     ],
-  }
-
-  constructor(
-    private route: ActivatedRoute,
-    private patientsService: PatientsService,
-    public tableBaseService: TableBaseService<IPatient>
-  ) {}
-
-  ngOnInit(): void {
-    this.route.queryParams.subscribe(() => {
-      this.getPatients()
-    })
-  }
-
-  getPatients(): void {
-    this.patientsService
-      .findAll(
-        this.tableBaseService.page,
-        this.tableBaseService.limit,
-        this.tableBaseService.sortDirection,
-        this.tableBaseService.sortColumn
-      )
-      .subscribe((response: IPagination<IPatient>) => {
-        this.tableBaseService.items = response.items
-      })
   }
 }

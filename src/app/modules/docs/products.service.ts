@@ -24,9 +24,14 @@ export interface IProduct {
 export class ProductsService {
   constructor(private http: HttpClient) {}
 
-  getProducts(page: number, limit: number): Observable<IPagination<IProduct>> {
+  getProducts(
+    page: number,
+    limit: number,
+    sortColumn?: string,
+    sortDirection?: string
+  ): Observable<IPagination<IProduct>> {
     const query = stringify(
-      { page, limit },
+      { page, limit, sortColumn, sortDirection },
       {
         skipEmptyString: true,
         skipNull: true,

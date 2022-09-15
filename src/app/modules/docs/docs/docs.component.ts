@@ -17,6 +17,9 @@ import { Component } from '@angular/core'
         <div>
           <a (click)="goToRoute('table/gridlines')">Gridlines</a>
         </div>
+        <div>
+          <a (click)="goToRoute('table/sort')">Sort</a>
+        </div>
       </aside>
       <main>
         <router-outlet></router-outlet>

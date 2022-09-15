@@ -2,8 +2,6 @@
 import { Component, OnInit } from '@angular/core'
 import { CurrencyPipe, DatePipe } from '@angular/common'
 
-import { TableBaseService } from 'src/app/components/table/table-base.service'
-
 interface IInvoice {
   company: string
   date: string | null
@@ -40,17 +38,12 @@ const RESPONSE = [
   selector: 'app-invoices',
   templateUrl: './invoices.component.html',
   styleUrls: ['./invoices.component.scss'],
-  providers: [TableBaseService],
 })
 export class InvoicesComponent implements OnInit {
   hcDtOptions!: any
   invoices: IInvoice[] = []
 
-  constructor(
-    private datePipe: DatePipe,
-    private currencyPipe: CurrencyPipe,
-    public tableBaseService: TableBaseService<IInvoice>
-  ) {}
+  constructor(private datePipe: DatePipe, private currencyPipe: CurrencyPipe) {}
 
   ngOnInit(): void {
     this.invoices = RESPONSE.map((row) => ({

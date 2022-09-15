@@ -5,14 +5,15 @@ import {
   ContentChildren,
   EventEmitter,
   Input,
+  OnChanges,
   Output,
   QueryList,
+  SimpleChanges,
   TemplateRef,
   ViewEncapsulation,
 } from '@angular/core'
+import { ISortMeta, TableService } from './table.service'
 
-import { IColumnSorted } from './sort-header.component'
-import { TableBaseService } from './table-base.service'
 import { TemplateDirective } from 'src/app/directives/template/template.directive'
 
 export interface IColumn {
@@ -23,29 +24,13 @@ export interface IColumn {
 @Component({
   selector: 'hc-table',
   template: `
-    <div class="hc-datatable-header">
+    <div class="hc-datatable-header" *ngIf="captionTemplate">
       <ng-container *ngTemplateOutlet="captionTemplate"></ng-container>
     </div>
     <table [ngClass]="{ 'responsive': responsive }" *ngIf="value">
       <thead *ngIf="headerTemplate || columns">
         <ng-template #headerDynamic>
           <tr>
-            <th *ngIf="checkbox">
-              <input
-                #checkbox
-                type="checkbox"
-                aria-label="checkboxAll"
-                (change)="selectAll(checkbox.checked)"
-              />
-            </th>
-            <!-- [sortColumns]="sort"
-              [sortableColumn]="th.sortableColumn"
-              [hc-sort-header]="th.data"
-              [initialValueSortColumn]="{
-                sortColumn: tableBaseService.sortColumn,
-                sortDirection: tableBaseService.sortDirection
-              }"
-              (sortHeaderEvent)="onSortHeader($event)" -->
             <th *ngFor="let th of columns">
               {{ th.header }}
             </th>
@@ -58,48 +43,71 @@ export interface IColumn {
       <tbody *ngIf="bodyTemplate || columns">
         <ng-template #bodyDynamic>
           <tr *ngFor="let item of value" data-testid="row-patient">
-            <td *ngIf="checkbox">
-              <input
-                #checkbox
-                type="checkbox"
-                [attr.aria-label]="'checkbox-' + item['id']"
-                (change)="selectRow(item, checkbox.checked)"
-                [checked]="item?.checked"
-              />
-            </td>
             <td *ngFor="let td of columns">
               {{ item[td.field] }}
             </td>
           </tr>
         </ng-template>
-        <ng-container [ngTemplateOutlet]="bodyTemplate ? bodyTemplate : bodyDynamic">
+        <ng-container *ngTemplateOutlet="bodyTemplate ? bodyTemplate : bodyDynamic">
         </ng-container>
       </tbody>
     </table>
-    <div class="hc-datatable-footer">
+    <div class="hc-datatable-footer" *ngIf="summaryTemplate">
       <ng-container *ngTemplateOutlet="summaryTemplate"></ng-container>
     </div>
   `,
   styleUrls: ['table.component.scss'],
+  providers: [TableService],
   encapsulation: ViewEncapsulation.None,
 })
-export class TableComponent<T> implements AfterContentInit {
+export class TableComponent implements OnChanges, AfterContentInit {
+  _sortOrder = 1
+  _sortField!: string
+
   bodyTemplate!: TemplateRef<any>
   headerTemplate!: TemplateRef<any>
   captionTemplate!: TemplateRef<any>
   summaryTemplate!: TemplateRef<any>
 
-  @Input() sort = false
   @Input() columns: IColumn[] = []
-  @Input() checkbox = false
+
   @Input() responsive = false
+
   @Input() value: any[] = []
 
-  @Output() sortColumnEvent = new EventEmitter<IColumnSorted>()
+  @Input() defaultSortOrder = 1
+
+  @Output() sortEvent = new EventEmitter<ISortMeta>()
 
   @ContentChildren(TemplateDirective) templates!: QueryList<TemplateDirective>
 
-  constructor(public tableBaseService: TableBaseService<T>) {}
+  constructor(public tableService: TableService) {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['sortOrder']) {
+      this._sortOrder = changes['sortOrder'].currentValue
+    }
+
+    if (changes['sortField']) {
+      this._sortField = changes['sortField'].currentValue
+    }
+  }
+
+  @Input() get sortField(): string {
+    return this._sortField
+  }
+
+  set sortField(val: string) {
+    this._sortField = val
+  }
+
+  @Input() get sortOrder(): number {
+    return this._sortOrder
+  }
+
+  set sortOrder(val: number) {
+    this._sortOrder = val
+  }
 
   ngAfterContentInit(): void {
     this.templates.forEach((item) => {
@@ -120,15 +128,28 @@ export class TableComponent<T> implements AfterContentInit {
     })
   }
 
-  onSortHeader(sorted: IColumnSorted): void {
-    this.sortColumnEvent.emit(sorted)
+  isSorted(field: string) {
+    return this.sortField && this.sortField === field ? true : false
   }
 
-  selectRow(item: T, isAdd: boolean): void {
-    this.tableBaseService.onSelectedOrUnSelected(item, isAdd)
+  sort(event: { field: string }) {
+    this._sortOrder =
+      this.sortField === event.field ? this.sortOrder * -1 : this.defaultSortOrder
+    this._sortField = event.field
+
+    this.sortSingle()
   }
 
-  selectAll(isAll: boolean): void {
-    this.tableBaseService.onSelectedAllOrUnSelectedAll(isAll)
+  sortSingle() {
+    const field = this.sortField
+    const order = this.sortOrder
+
+    const sortMeta: ISortMeta = {
+      field,
+      order,
+    }
+
+    this.sortEvent.emit(sortMeta)
+    this.tableService.onSort(sortMeta)
   }
 }
