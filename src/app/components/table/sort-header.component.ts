@@ -19,20 +19,28 @@ export interface IColumnSorted {
   template: `
     <div class="wrapper-th">
       <ng-content></ng-content>
-      <div class="wrapper-sort">
-        <div
-          *ngIf="sortDirection === undefined"
-          class="material-symbols-outlined icon-sort icon-null"
-        >
-          expand_more
+      <ng-container *ngIf="sortableColumn === sortHeader">
+        <div class="wrapper-sort" *ngIf="sortColumns">
+          <div
+            *ngIf="sortDirection === undefined"
+            class="material-symbols-outlined icon-sort icon-null"
+          >
+            expand_more
+          </div>
+          <div
+            *ngIf="sortDirection === 'ASC'"
+            class="material-symbols-outlined icon-sort"
+          >
+            expand_more
+          </div>
+          <div
+            *ngIf="sortDirection === 'DESC'"
+            class="material-symbols-outlined icon-sort"
+          >
+            expand_less
+          </div>
         </div>
-        <div *ngIf="sortDirection === 'ASC'" class="material-symbols-outlined icon-sort">
-          expand_more
-        </div>
-        <div *ngIf="sortDirection === 'DESC'" class="material-symbols-outlined icon-sort">
-          expand_less
-        </div>
-      </div>
+      </ng-container>
     </div>
   `,
   styles: [
@@ -55,6 +63,8 @@ export interface IColumnSorted {
 })
 export class SortHeaderComponent implements OnInit, OnChanges {
   @Input('hc-sort-header') sortHeader!: string
+  @Input() sortableColumn: string | undefined = undefined
+  @Input() sortColumns = false
   @Input() initialValueSortColumn: IColumnSorted | undefined = undefined
   @Output() sortHeaderEvent = new EventEmitter<IColumnSorted>()
 
@@ -81,10 +91,12 @@ export class SortHeaderComponent implements OnInit, OnChanges {
 
   @HostListener('click')
   sort() {
-    this.sortDirection = this.sortDirection === 'ASC' ? 'DESC' : 'ASC'
-    this.sortHeaderEvent.emit({
-      sortColumn: this.sortHeader,
-      sortDirection: this.sortDirection,
-    })
+    if (this.sortColumns) {
+      this.sortDirection = this.sortDirection === 'ASC' ? 'DESC' : 'ASC'
+      this.sortHeaderEvent.emit({
+        sortColumn: this.sortHeader,
+        sortDirection: this.sortDirection,
+      })
+    }
   }
 }

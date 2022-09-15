@@ -15,6 +15,7 @@ export interface IHcDtColumns {
   title: string
   data: string
   textColor?: string
+  sortableColumn?: string
 }
 
 export interface IHcDtOptions {
@@ -39,6 +40,8 @@ export interface IHcDtOptions {
           </th>
           <th
             *ngFor="let th of columns"
+            [sortColumns]="sort"
+            [sortableColumn]="th.sortableColumn"
             [hc-sort-header]="th.data"
             [initialValueSortColumn]="{
               sortColumn: tableBaseService.sortColumn,
@@ -97,6 +100,7 @@ export class TableComponent<T> implements OnInit {
   columns?: IHcDtColumns[]
   tbody?: Array<{ data: string; textColor: string | undefined }>
 
+  @Input() sort = false
   @Input() hcDtOptions?: IHcDtOptions
   @Input() checkbox = false
   @Output() sortColumnEvent = new EventEmitter<IColumnSorted>()

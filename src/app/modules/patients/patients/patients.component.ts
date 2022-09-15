@@ -12,6 +12,7 @@ import { TableBaseService } from 'src/app/components/table/table-base.service'
     *ngIf="tableBaseService.items.length"
     [checkbox]="true"
     [hcDtOptions]="DtOptions"
+    [sort]="true"
     (sortColumnEvent)="tableBaseService.sort($event)"
   ></hc-table> `,
   providers: [TableBaseService],
@@ -22,14 +23,17 @@ export class PatientsComponent implements OnInit {
       {
         title: 'Name',
         data: 'name',
+        sortableColumn: 'name',
       },
       {
         title: 'Email',
         data: 'email',
+        sortableColumn: 'email',
       },
       {
         title: 'Age',
         data: 'age',
+        sortableColumn: 'age',
       },
       {
         title: 'Adress',
