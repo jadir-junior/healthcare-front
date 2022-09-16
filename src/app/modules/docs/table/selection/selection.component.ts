@@ -1,19 +1,25 @@
 import { Component, OnInit } from '@angular/core'
 import { IProduct, ProductsService } from '../../products.service'
 
+import { ActivatedRoute } from '@angular/router'
 import { BaseTableService } from 'src/app/common/base-table/base-table.service'
 import { IMeta } from 'src/app/models/pagination.model'
 
 @Component({
   selector: 'app-selection',
   template: `
-    <div class="wrapper-container-docs">
+    <div class="wrapper-container-docs" *ngIf="products && pagination">
       <hc-table
+        dataKey="code"
         [value]="products"
         [responsive]="true"
         [(selection)]="selectedProducts"
         [rowSelectable]="isRowSelectable"
-        dataKey="code"
+        [selectionPageOnly]="true"
+        [paginator]="true"
+        [rows]="baseTableService.limit"
+        [totalRecords]="pagination.totalItems"
+        (pageChangeEvent)="baseTableService.changePage($event)"
       >
         <ng-template hcTemplate="header">
           <tr>
@@ -55,11 +61,14 @@ export class SelectionComponent implements OnInit {
 
   constructor(
     private productsService: ProductsService,
-    public baseTableService: BaseTableService
+    public baseTableService: BaseTableService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.getProducts()
+    this.route.queryParams.subscribe(() => {
+      this.getProducts()
+    })
   }
 
   getProducts(): void {
@@ -81,12 +90,10 @@ export class SelectionComponent implements OnInit {
   }
 
   isRowSelectable(event: { data: IProduct; index: number }) {
-    // return !this.isInStock(event.data)
     if (event.data.quantity < 5) {
       return false
     }
     return true
-    // return !event.data.quantity < 5
   }
 
   isInStock(data: IProduct): boolean {
