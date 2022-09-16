@@ -15,11 +15,19 @@ import {
 import { ISortMeta, TableService } from './table.service'
 
 import { IPageChange } from '../pagination/pagination.component'
+import { ObjectUtils } from 'src/app/common/object-utils/object-utils'
 import { TemplateDirective } from 'src/app/directives/template/template.directive'
 
 export interface IColumn {
   header: string
   field: string
+}
+
+interface IRowSelectEvent {
+  originalEvent: Event
+  index: number
+  data: any
+  type: 'checkbox'
 }
 
 @Component({
@@ -73,6 +81,7 @@ export interface IColumn {
 export class TableComponent implements OnChanges, AfterContentInit {
   _sortOrder = 1
   _sortField!: string
+  _selection: any
 
   bodyTemplate!: TemplateRef<any>
   headerTemplate!: TemplateRef<any>
@@ -93,9 +102,22 @@ export class TableComponent implements OnChanges, AfterContentInit {
   @Input() totalRecords!: number
   @Input() showCurrentPageReport!: boolean
   @Input() currentPageReportTemplate = '{currentPage} of {totalPages}'
-  @Output() pageChangeEvent = new EventEmitter<IPageChange>()
+  @Input() compareSelectionBy = 'deepEquals'
 
+  @Output() pageChangeEvent = new EventEmitter<IPageChange>()
   @Output() sortEvent = new EventEmitter<ISortMeta>()
+
+  // selection
+  selectionKeys: any = {}
+  preventSelectionSetterPropagation!: boolean
+
+  @Input() dataKey!: string
+  @Input() rowSelectable: any
+  @Input() stateKey!: string
+
+  @Output() selectionChange = new EventEmitter()
+  @Output() rowUnselectEvent = new EventEmitter<IRowSelectEvent>()
+  @Output() rowSelectEvent = new EventEmitter<IRowSelectEvent>()
 
   @ContentChildren(TemplateDirective) templates!: QueryList<TemplateDirective>
 
@@ -125,6 +147,14 @@ export class TableComponent implements OnChanges, AfterContentInit {
 
   set sortOrder(val: number) {
     this._sortOrder = val
+  }
+
+  @Input() get selection(): any {
+    return this._selection
+  }
+
+  set selection(val: any) {
+    this._selection = val
   }
 
   ngAfterContentInit(): void {
@@ -169,5 +199,94 @@ export class TableComponent implements OnChanges, AfterContentInit {
 
     this.sortEvent.emit(sortMeta)
     this.tableService.onSort(sortMeta)
+  }
+
+  equals(data1: any, data2: any) {
+    return this.compareSelectionBy === 'equals'
+      ? data1 === data2
+      : ObjectUtils.equals(data1, data2, this.dataKey)
+  }
+
+  isRowSelectable(data: any, index: number): boolean {
+    if (this.rowSelectable && !this.rowSelectable({ data, index })) {
+      return false
+    }
+
+    return true
+  }
+
+  isSelected(rowData: any): boolean {
+    if (rowData && this.selection) {
+      if (this.dataKey) {
+        return (
+          this.selectionKeys[ObjectUtils.revolveFieldData(rowData, this.dataKey)] !==
+          undefined
+        )
+      } else {
+        if (this.selection instanceof Array) {
+          return this.findIndexInSelection(rowData) > -1
+        } else {
+          return this.equals(rowData, this.selection)
+        }
+      }
+    }
+
+    return false
+  }
+
+  findIndexInSelection(rowData: any) {
+    let index = -1
+    if (this.selection && this.selection.length) {
+      for (let i = 0; i < this.selection.length; i++) {
+        if (this.equals(rowData, this.selection[i])) {
+          index = i
+          break
+        }
+      }
+    }
+
+    return index
+  }
+
+  toggleRowWithCheckbox(event: { originalEvent: Event; rowIndex: number }, rowData: any) {
+    this.selection = this.selection || []
+    const selected = this.isSelected(rowData)
+    const dataKeyValue = this.dataKey
+      ? String(ObjectUtils.revolveFieldData(rowData, this.dataKey))
+      : null
+    this.preventSelectionSetterPropagation = true
+
+    if (selected) {
+      const selectionIndex = this.findIndexInSelection(rowData)
+      this._selection = this.selection.filter((_: any, i: number) => i != selectionIndex)
+      this.selectionChange.emit(this.selection)
+      this.rowUnselectEvent.emit({
+        originalEvent: event.originalEvent,
+        index: event.rowIndex,
+        data: rowData,
+        type: 'checkbox',
+      })
+      if (dataKeyValue) {
+        delete this.selectionKeys[dataKeyValue]
+      }
+    } else {
+      if (!this.isRowSelectable(rowData, event.rowIndex)) {
+        return
+      }
+
+      this._selection = this.selection ? [...this.selection, rowData] : [rowData]
+      this.selectionChange.emit(this.selection)
+      this.rowSelectEvent.emit({
+        originalEvent: event.originalEvent,
+        index: event.rowIndex,
+        data: rowData,
+        type: 'checkbox',
+      })
+      if (dataKeyValue) {
+        this.selectionKeys[dataKeyValue] = 1
+      }
+    }
+
+    this.tableService.onSelectionChange()
   }
 }

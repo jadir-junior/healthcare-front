@@ -5,6 +5,7 @@ import { GridlinesComponent } from './gridlines/gridlines.component'
 import { NgModule } from '@angular/core'
 import { PageComponent } from './page/page.component'
 import { PaginationModule } from 'src/app/components/pagination/pagination.module'
+import { SelectionComponent } from './selection/selection.component'
 import { SortComponent } from './sort/sort.component'
 import { TableModule as TableModuleComponent } from '../../../components/table/table.module'
 import { TableRoutingModule } from './table-routing.module'
@@ -17,6 +18,7 @@ import { TemplateModule } from 'src/app/directives/template/template.module'
     GridlinesComponent,
     SortComponent,
     PageComponent,
+    SelectionComponent,
   ],
   imports: [
     CommonModule,

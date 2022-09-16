@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core'
 import { PaginationModule } from '../pagination/pagination.module'
 import { SortIconComponent } from './sort-icon.component'
 import { SortableColumnDirective } from './sortable-column.directive'
+import { TableCheckBoxComponent } from './table-check-box.component'
 import { TableComponent } from './table.component'
 
 @NgModule({
@@ -12,8 +13,14 @@ import { TableComponent } from './table.component'
     InjectHTMLDirective,
     SortableColumnDirective,
     SortIconComponent,
+    TableCheckBoxComponent,
   ],
   imports: [CommonModule, PaginationModule],
-  exports: [TableComponent, SortableColumnDirective, SortIconComponent],
+  exports: [
+    TableComponent,
+    SortableColumnDirective,
+    SortIconComponent,
+    TableCheckBoxComponent,
+  ],
 })
 export class TableModule {}

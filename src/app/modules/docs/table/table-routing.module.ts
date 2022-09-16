@@ -5,6 +5,7 @@ import { DynamicComponent } from './dynamic/dynamic.component'
 import { GridlinesComponent } from './gridlines/gridlines.component'
 import { NgModule } from '@angular/core'
 import { PageComponent } from './page/page.component'
+import { SelectionComponent } from './selection/selection.component'
 import { SortComponent } from './sort/sort.component'
 
 const routes: Routes = [
@@ -27,6 +28,10 @@ const routes: Routes = [
   {
     path: 'sort',
     component: SortComponent,
+  },
+  {
+    path: 'selection',
+    component: SelectionComponent,
   },
 ]
 
