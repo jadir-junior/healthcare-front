@@ -8,10 +8,18 @@ import { IMeta } from 'src/app/models/pagination.model'
   selector: 'app-selection',
   template: `
     <div class="wrapper-container-docs">
-      <hc-table [value]="products" [responsive]="true" [(selection)]="selectedProducts">
+      <hc-table
+        [value]="products"
+        [responsive]="true"
+        [(selection)]="selectedProducts"
+        [rowSelectable]="isRowSelectable"
+        dataKey="code"
+      >
         <ng-template hcTemplate="header">
           <tr>
-            <th></th>
+            <th>
+              <hc-table-header-checkbox></hc-table-header-checkbox>
+            </th>
             <th>Code</th>
             <th>Name</th>
             <th>Category</th>
@@ -23,7 +31,7 @@ import { IMeta } from 'src/app/models/pagination.model'
             <td>
               <hc-table-check-box
                 [value]="product"
-                [disabled]="product.quantity === 2"
+                [disabled]="isInStock(product)"
               ></hc-table-check-box>
             </td>
             <td>{{ product.code }}</td>
@@ -70,5 +78,18 @@ export class SelectionComponent implements OnInit {
 
   showSelectedProducts() {
     console.log(this.selectedProducts)
+  }
+
+  isRowSelectable(event: { data: IProduct; index: number }) {
+    // return !this.isInStock(event.data)
+    if (event.data.quantity < 5) {
+      return false
+    }
+    return true
+    // return !event.data.quantity < 5
+  }
+
+  isInStock(data: IProduct): boolean {
+    return data.quantity < 5
   }
 }

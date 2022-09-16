@@ -2,7 +2,7 @@
 export class ObjectUtils {
   public static equals(obj1: any, obj2: any, field?: string): boolean {
     if (field) {
-      return this.revolveFieldData(obj1, field) === this.revolveFieldData(obj2, field)
+      return this.resolveFieldData(obj1, field) === this.resolveFieldData(obj2, field)
     } else {
       return this.equalsByValue(obj1, obj2)
     }
@@ -89,7 +89,7 @@ export class ObjectUtils {
     return !!(obj && obj.constructor && obj.call && obj.apply)
   }
 
-  public static revolveFieldData(data: any, field: any): any {
+  public static resolveFieldData(data: any, field: any): any {
     if (data && field) {
       if (this.isFunction(field)) {
         return field(data)
@@ -111,5 +111,21 @@ export class ObjectUtils {
     } else {
       return null
     }
+  }
+
+  public static isEmpty(value: any) {
+    return (
+      value === null ||
+      value === undefined ||
+      value === '' ||
+      (Array.isArray(value) && value.length === 0) ||
+      (!(value instanceof Date) &&
+        typeof value === 'object' &&
+        Object.keys(value).length === 0)
+    )
+  }
+
+  public static isNotEmpty(value: any) {
+    return !this.isEmpty(value)
   }
 }

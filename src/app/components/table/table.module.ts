@@ -6,6 +6,7 @@ import { SortIconComponent } from './sort-icon.component'
 import { SortableColumnDirective } from './sortable-column.directive'
 import { TableCheckBoxComponent } from './table-check-box.component'
 import { TableComponent } from './table.component'
+import { TableHeaderCheckboxComponent } from './table-header-checkbox.component'
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { TableComponent } from './table.component'
     SortableColumnDirective,
     SortIconComponent,
     TableCheckBoxComponent,
+    TableHeaderCheckboxComponent,
   ],
   imports: [CommonModule, PaginationModule],
   exports: [
@@ -21,6 +23,7 @@ import { TableComponent } from './table.component'
     SortableColumnDirective,
     SortIconComponent,
     TableCheckBoxComponent,
+    TableHeaderCheckboxComponent,
   ],
 })
 export class TableModule {}

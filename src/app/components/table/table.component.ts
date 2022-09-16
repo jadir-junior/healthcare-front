@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   AfterContentInit,
+  ChangeDetectionStrategy,
   Component,
   ContentChildren,
   EventEmitter,
@@ -28,6 +29,11 @@ interface IRowSelectEvent {
   index: number
   data: any
   type: 'checkbox'
+}
+
+interface IHeaderCheckboxEvent {
+  originalEvent: Event
+  checked: boolean
 }
 
 @Component({
@@ -77,11 +83,13 @@ interface IRowSelectEvent {
   styleUrls: ['table.component.scss'],
   providers: [TableService],
   encapsulation: ViewEncapsulation.None,
+  changeDetection: ChangeDetectionStrategy.Default,
 })
 export class TableComponent implements OnChanges, AfterContentInit {
   _sortOrder = 1
   _sortField!: string
   _selection: any
+  _value: any[] = []
 
   bodyTemplate!: TemplateRef<any>
   headerTemplate!: TemplateRef<any>
@@ -97,6 +105,8 @@ export class TableComponent implements OnChanges, AfterContentInit {
   @Input() defaultSortOrder = 1
 
   // paginator
+  _first = 0
+
   @Input() paginator!: boolean
   @Input() rows!: number
   @Input() totalRecords!: number
@@ -108,14 +118,19 @@ export class TableComponent implements OnChanges, AfterContentInit {
   @Output() sortEvent = new EventEmitter<ISortMeta>()
 
   // selection
+  _selectAll: boolean | null = null
+
   selectionKeys: any = {}
   preventSelectionSetterPropagation!: boolean
 
   @Input() dataKey!: string
   @Input() rowSelectable: any
   @Input() stateKey!: string
+  @Input() selectionPageOnly?: boolean
 
   @Output() selectionChange = new EventEmitter()
+  @Output() selectAllChange = new EventEmitter<IHeaderCheckboxEvent>()
+  @Output() headerCheckboxToggleEvent = new EventEmitter<IHeaderCheckboxEvent>()
   @Output() rowUnselectEvent = new EventEmitter<IRowSelectEvent>()
   @Output() rowSelectEvent = new EventEmitter<IRowSelectEvent>()
 
@@ -124,12 +139,40 @@ export class TableComponent implements OnChanges, AfterContentInit {
   constructor(public tableService: TableService) {}
 
   ngOnChanges(changes: SimpleChanges): void {
+    if (changes['value']) {
+      this._value = changes['value'].currentValue
+
+      this.tableService.onValueChange(changes['value'].currentValue)
+    }
+
     if (changes['sortOrder']) {
       this._sortOrder = changes['sortOrder'].currentValue
     }
 
     if (changes['sortField']) {
       this._sortField = changes['sortField'].currentValue
+    }
+
+    if (changes['selection']) {
+      this._selection = changes['selection'].currentValue
+
+      if (!this.preventSelectionSetterPropagation) {
+        this.updateSelectionKeys()
+        this.tableService.onSelectionChange()
+      }
+
+      this.preventSelectionSetterPropagation = false
+    }
+
+    if (changes['selectAll']) {
+      this._selectAll = changes['selectAll'].currentValue
+
+      if (!this.preventSelectionSetterPropagation) {
+        this.updateSelectionKeys()
+        this.tableService.onSelectionChange()
+      }
+
+      this.preventSelectionSetterPropagation = false
     }
   }
 
@@ -155,6 +198,29 @@ export class TableComponent implements OnChanges, AfterContentInit {
 
   set selection(val: any) {
     this._selection = val
+  }
+
+  @Input() get first(): number {
+    return this._first
+  }
+
+  set first(val: number) {
+    this._first = val
+  }
+
+  get processedData() {
+    return this.value || []
+  }
+
+  dataToRender(data: any) {
+    const _data = data || this.processedData
+
+    if (_data && this.paginator) {
+      const first = this.first
+      return _data.slice(first, first + this.rows)
+    }
+
+    return _data
   }
 
   ngAfterContentInit(): void {
@@ -219,7 +285,7 @@ export class TableComponent implements OnChanges, AfterContentInit {
     if (rowData && this.selection) {
       if (this.dataKey) {
         return (
-          this.selectionKeys[ObjectUtils.revolveFieldData(rowData, this.dataKey)] !==
+          this.selectionKeys[ObjectUtils.resolveFieldData(rowData, this.dataKey)] !==
           undefined
         )
       } else {
@@ -252,7 +318,7 @@ export class TableComponent implements OnChanges, AfterContentInit {
     this.selection = this.selection || []
     const selected = this.isSelected(rowData)
     const dataKeyValue = this.dataKey
-      ? String(ObjectUtils.revolveFieldData(rowData, this.dataKey))
+      ? String(ObjectUtils.resolveFieldData(rowData, this.dataKey))
       : null
     this.preventSelectionSetterPropagation = true
 
@@ -288,5 +354,50 @@ export class TableComponent implements OnChanges, AfterContentInit {
     }
 
     this.tableService.onSelectionChange()
+  }
+
+  toggleRowsWithCheckbox(event: Event, check: boolean) {
+    if (this._selectAll !== null) {
+      this.selectAllChange.emit({ originalEvent: event, checked: check })
+    } else {
+      const data = this.selectionPageOnly
+        ? this.dataToRender(this.processedData)
+        : this.processedData
+      let selection =
+        this.selectionPageOnly && this._selection
+          ? this._selection.filter((s: any) => !data.some((d: any) => this.equals(s, d)))
+          : []
+
+      if (check) {
+        selection = [...selection, ...data]
+        selection = this.rowSelectable
+          ? selection.filter((data: any, index: number) =>
+              this.rowSelectable({ data, index })
+            )
+          : selection
+      }
+
+      this._selection = selection
+      this.preventSelectionSetterPropagation = true
+      this.updateSelectionKeys()
+      this.selectionChange.emit(this._selection)
+      this.tableService.onSelectionChange()
+      this.headerCheckboxToggleEvent.emit({ originalEvent: event, checked: check })
+    }
+  }
+
+  updateSelectionKeys() {
+    if (this.dataKey && this._selection) {
+      this.selectionKeys = {}
+      if (Array.isArray(this._selection)) {
+        for (const data of this._selection) {
+          this.selectionKeys[String(ObjectUtils.resolveFieldData(data, this.dataKey))] = 1
+        }
+      } else {
+        this.selectionKeys[
+          String(ObjectUtils.resolveFieldData(this._selection, this.dataKey))
+        ] = 1
+      }
+    }
   }
 }
