@@ -28,10 +28,12 @@ export interface IPageChange {
   template: `
     <div class="wrapper-pagination">
       <button [disabled]="isFirstPage() || empty()" (click)="changePageToFirst($event)">
-        <span class="material-symbols-outlined">keyboard_double_arrow_left</span>
+        <span class="material-symbols-outlined icon-size">
+          keyboard_double_arrow_left
+        </span>
       </button>
       <button [disabled]="isFirstPage() || empty()" (click)="changePageToPrev($event)">
-        <span class="material-symbols-outlined">chevron_left</span>
+        <span class="material-symbols-outlined icon-size">chevron_left</span>
       </button>
       <button
         *ngFor="let pageLink of pageLinks"
@@ -41,10 +43,12 @@ export interface IPageChange {
         {{ pageLink }}
       </button>
       <button [disabled]="isLastPage() || empty()" (click)="changePageToNext($event)">
-        <span class="material-symbols-outlined">chevron_right</span>
+        <span class="material-symbols-outlined icon-size">chevron_right</span>
       </button>
       <button [disabled]="isLastPage() || empty()" (click)="changePageToLast($event)">
-        <span class="material-symbols-outlined">keyboard_double_arrow_right</span>
+        <span class="material-symbols-outlined icon-size">
+          keyboard_double_arrow_right
+        </span>
       </button>
     </div>
   `,
@@ -68,9 +72,13 @@ export interface IPageChange {
         border: 1px solid var(--primary-default);
       }
 
+      .icon-size {
+        font-size: 18px;
+      }
+
       button {
-        width: 38px;
-        height: 38px;
+        width: 32px;
+        height: 32px;
         background-color: var(--neutral-white);
         color: var(--neutral-black);
         border: 1px solid var(--neutral-divider);
