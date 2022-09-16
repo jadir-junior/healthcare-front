@@ -27,34 +27,45 @@ export interface IPageChange {
   selector: 'hc-pagination',
   template: `
     <div class="wrapper-pagination">
-      <button [disabled]="isFirstPage() || empty()" (click)="changePageToFirst($event)">
-        <span class="material-symbols-outlined icon-size">
-          keyboard_double_arrow_left
-        </span>
-      </button>
-      <button [disabled]="isFirstPage() || empty()" (click)="changePageToPrev($event)">
-        <span class="material-symbols-outlined icon-size">chevron_left</span>
-      </button>
-      <button
-        *ngFor="let pageLink of pageLinks"
-        [ngClass]="{ 'hc-highlight-pagination': pageLink - 1 === getPage() }"
-        (click)="onPageLinkClick($event, pageLink - 1)"
-      >
-        {{ pageLink }}
-      </button>
-      <button [disabled]="isLastPage() || empty()" (click)="changePageToNext($event)">
-        <span class="material-symbols-outlined icon-size">chevron_right</span>
-      </button>
-      <button [disabled]="isLastPage() || empty()" (click)="changePageToLast($event)">
-        <span class="material-symbols-outlined icon-size">
-          keyboard_double_arrow_right
-        </span>
-      </button>
+      <div class="wrapper-buttons">
+        <button [disabled]="isFirstPage() || empty()" (click)="changePageToFirst($event)">
+          <span class="material-symbols-outlined icon-size">
+            keyboard_double_arrow_left
+          </span>
+        </button>
+        <button [disabled]="isFirstPage() || empty()" (click)="changePageToPrev($event)">
+          <span class="material-symbols-outlined icon-size">chevron_left</span>
+        </button>
+        <button
+          *ngFor="let pageLink of pageLinks"
+          [ngClass]="{ 'hc-highlight-pagination': pageLink - 1 === getPage() }"
+          (click)="onPageLinkClick($event, pageLink - 1)"
+        >
+          {{ pageLink }}
+        </button>
+        <button [disabled]="isLastPage() || empty()" (click)="changePageToNext($event)">
+          <span class="material-symbols-outlined icon-size">chevron_right</span>
+        </button>
+        <button [disabled]="isLastPage() || empty()" (click)="changePageToLast($event)">
+          <span class="material-symbols-outlined icon-size">
+            keyboard_double_arrow_right
+          </span>
+        </button>
+      </div>
+      <div *ngIf="showCurrentPageReport" class="current-report">
+        {{ currentPageReport }}
+      </div>
     </div>
   `,
   styles: [
     `
       .wrapper-pagination {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .wrapper-buttons {
         display: flex;
 
         button:first-child {
@@ -64,6 +75,11 @@ export interface IPageChange {
         button {
           margin: 0 2px;
         }
+      }
+
+      .current-report {
+        font-size: 14px;
+        color: var(--neutral-gray-dark);
       }
 
       .hc-highlight-pagination {
@@ -104,6 +120,10 @@ export class PaginationComponent implements OnInit, OnChanges {
   @Input() rows = 0
 
   @Input() totalRecords = 0
+
+  @Input() showCurrentPageReport!: boolean
+
+  @Input() currentPageReportTemplate = '{currentPage} of {totalPages}'
 
   @Output() pageChangeEvent = new EventEmitter<IPageChange>()
 
@@ -246,5 +266,19 @@ export class PaginationComponent implements OnInit, OnChanges {
 
   empty(): boolean {
     return this.getPageCount() === 0
+  }
+
+  get currentPageReport() {
+    return this.currentPageReportTemplate
+      .replace('{currentPage}', String(this.currentPage()))
+      .replace('{totalPages}', String(this.getPageCount()))
+      .replace('{first}', String(this.totalRecords > 0 ? this._first + 1 : 0))
+      .replace('{last}', String(Math.min(this._first + this.rows, this.totalRecords)))
+      .replace('{rows}', String(this.rows))
+      .replace('{totalRecords}', String(this.totalRecords))
+  }
+
+  currentPage() {
+    return this.getPageCount() > 0 ? this.getPage() + 1 : 0
   }
 }

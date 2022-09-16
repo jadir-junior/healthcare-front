@@ -61,6 +61,8 @@ export interface IColumn {
         [rows]="rows"
         [totalRecords]="totalRecords"
         (pageChangeEvent)="pageChangeEvent.emit($event)"
+        [showCurrentPageReport]="showCurrentPageReport"
+        [currentPageReportTemplate]="currentPageReportTemplate"
       ></hc-pagination>
     </div>
   `,
@@ -89,6 +91,8 @@ export class TableComponent implements OnChanges, AfterContentInit {
   @Input() paginator!: boolean
   @Input() rows!: number
   @Input() totalRecords!: number
+  @Input() showCurrentPageReport!: boolean
+  @Input() currentPageReportTemplate = '{currentPage} of {totalPages}'
   @Output() pageChangeEvent = new EventEmitter<IPageChange>()
 
   @Output() sortEvent = new EventEmitter<ISortMeta>()

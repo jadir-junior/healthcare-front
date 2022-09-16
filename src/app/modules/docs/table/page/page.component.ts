@@ -16,6 +16,8 @@ import { IMeta } from 'src/app/models/pagination.model'
         [rows]="baseTableService.limit"
         [totalRecords]="pagination.totalItems"
         (pageChangeEvent)="baseTableService.changePage($event)"
+        [showCurrentPageReport]="true"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
       >
         <ng-template hcTemplate="header">
           <tr>
