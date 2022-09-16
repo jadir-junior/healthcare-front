@@ -18,6 +18,9 @@ import { Component } from '@angular/core'
           <a (click)="goToRoute('table/gridlines')">Gridlines</a>
         </div>
         <div>
+          <a (click)="goToRoute('table/page')">Page</a>
+        </div>
+        <div>
           <a (click)="goToRoute('table/sort')">Sort</a>
         </div>
       </aside>
@@ -39,6 +42,10 @@ import { Component } from '@angular/core'
       }
 
       main {
+      }
+
+      a {
+        cursor: pointer;
       }
     `,
   ],

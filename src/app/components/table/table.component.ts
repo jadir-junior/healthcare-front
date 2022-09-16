@@ -77,6 +77,8 @@ export class TableComponent implements OnChanges, AfterContentInit {
 
   @Input() defaultSortOrder = 1
 
+  @Input() paginator!: boolean
+
   @Output() sortEvent = new EventEmitter<ISortMeta>()
 
   @ContentChildren(TemplateDirective) templates!: QueryList<TemplateDirective>
