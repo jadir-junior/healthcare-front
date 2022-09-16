@@ -18,7 +18,7 @@ import { Component } from '@angular/core'
           <a (click)="goToRoute('table/gridlines')">Gridlines</a>
         </div>
         <div>
-          <a (click)="goToRoute('table/page')">Page</a>
+          <a (click)="goToRouteRelativePath('/docs/table/page?page=1&limit=5')">Page</a>
         </div>
         <div>
           <a (click)="goToRoute('table/sort')">Sort</a>
@@ -55,5 +55,9 @@ export class DocsComponent {
 
   goToRoute(route: string): void {
     this.router.navigate([route], { relativeTo: this.route })
+  }
+
+  goToRouteRelativePath(route: string): void {
+    this.router.navigateByUrl(route)
   }
 }

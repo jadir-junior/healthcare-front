@@ -1,36 +1,49 @@
 import { Component, OnInit } from '@angular/core'
 import { IProduct, ProductsService } from '../../products.service'
 
+import { ActivatedRoute } from '@angular/router'
 import { BaseTableService } from 'src/app/common/base-table/base-table.service'
-import { IPageChange } from 'src/app/components/pagination/pagination.component'
+import { IMeta } from 'src/app/models/pagination.model'
 
 @Component({
   selector: 'app-page',
   template: `
-    <div class="wrapper-container-docs">
-      <hc-table [value]="products" [responsive]="true">
+    <div class="wrapper-container-docs" *ngIf="products && pagination">
+      <hc-table
+        [value]="products"
+        [responsive]="true"
+        [paginator]="true"
+        [rows]="baseTableService.limit"
+        [totalRecords]="pagination.totalItems"
+        (pageChangeEvent)="baseTableService.changePage($event)"
+      >
         <ng-template hcTemplate="header">
           <tr>
+            <th>id</th>
             <th>Code</th>
             <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
             <th>Category</th>
             <th>Quantity</th>
+            <th>Inventory Status</th>
+            <th>Rating</th>
           </tr>
         </ng-template>
         <ng-template hcTemplate="body">
           <tr *ngFor="let product of products">
+            <td>{{ product.id }}</td>
             <td>{{ product.code }}</td>
             <td>{{ product.name }}</td>
+            <td>{{ product.description }}</td>
+            <td>{{ product.price | currency: 'USD' }}</td>
             <td>{{ product.category }}</td>
             <td>{{ product.quantity }}</td>
+            <td>{{ product.inventoryStatus }}</td>
+            <td>{{ product.rating }}</td>
           </tr>
         </ng-template>
       </hc-table>
-      <hc-pagination
-        [rows]="10"
-        [totalRecords]="100"
-        (pageChangeEvent)="onChangePage($event)"
-      ></hc-pagination>
     </div>
   `,
   styleUrls: ['../../docs/docs.component.scss'],
@@ -38,14 +51,18 @@ import { IPageChange } from 'src/app/components/pagination/pagination.component'
 })
 export class PageComponent implements OnInit {
   products: IProduct[] = []
+  pagination!: IMeta
 
   constructor(
     private productsService: ProductsService,
-    public baseTableService: BaseTableService
+    public baseTableService: BaseTableService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
-    this.getProducts()
+    this.route.queryParams.subscribe(() => {
+      this.getProducts()
+    })
   }
 
   getProducts(): void {
@@ -58,10 +75,7 @@ export class PageComponent implements OnInit {
       )
       .subscribe((response) => {
         this.products = response.items
+        this.pagination = response.meta
       })
-  }
-
-  onChangePage(changePage: IPageChange) {
-    console.log(changePage)
   }
 }

@@ -14,7 +14,7 @@ export interface IProduct {
   price: number
   category: string
   quantity: number
-  inventoryStatys: string
+  inventoryStatus: string
   rating: number
 }
 

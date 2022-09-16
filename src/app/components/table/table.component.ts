@@ -14,6 +14,7 @@ import {
 } from '@angular/core'
 import { ISortMeta, TableService } from './table.service'
 
+import { IPageChange } from '../pagination/pagination.component'
 import { TemplateDirective } from 'src/app/directives/template/template.directive'
 
 export interface IColumn {
@@ -55,6 +56,13 @@ export interface IColumn {
     <div class="hc-datatable-footer" *ngIf="summaryTemplate">
       <ng-container *ngTemplateOutlet="summaryTemplate"></ng-container>
     </div>
+    <div style="margin-top: 20px" *ngIf="paginator">
+      <hc-pagination
+        [rows]="rows"
+        [totalRecords]="totalRecords"
+        (pageChangeEvent)="pageChangeEvent.emit($event)"
+      ></hc-pagination>
+    </div>
   `,
   styleUrls: ['table.component.scss'],
   providers: [TableService],
@@ -77,7 +85,11 @@ export class TableComponent implements OnChanges, AfterContentInit {
 
   @Input() defaultSortOrder = 1
 
+  // paginator
   @Input() paginator!: boolean
+  @Input() rows!: number
+  @Input() totalRecords!: number
+  @Output() pageChangeEvent = new EventEmitter<IPageChange>()
 
   @Output() sortEvent = new EventEmitter<ISortMeta>()
 

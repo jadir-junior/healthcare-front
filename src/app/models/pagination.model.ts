@@ -1,4 +1,4 @@
-interface IMeta {
+export interface IMeta {
   totalItems: number
   itemCount: number
   itemsPerPage: number
