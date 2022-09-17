@@ -14,6 +14,7 @@ import { IMeta } from 'src/app/models/pagination.model'
         [responsive]="true"
         [paginator]="true"
         [rows]="baseTableService.limit"
+        [pagination]="pagination"
         [totalRecords]="pagination.totalItems"
         (pageChangeEvent)="baseTableService.changePage($event)"
         [showCurrentPageReport]="true"

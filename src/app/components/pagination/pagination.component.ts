@@ -8,6 +8,14 @@ import {
   SimpleChanges,
 } from '@angular/core'
 
+export interface IPagination {
+  currentPage: number
+  itemCount: number
+  itemsPerPage: number
+  totalItems: number
+  totalPages: number
+}
+
 interface IPaginationState {
   page: number
   pageCount: number
@@ -115,15 +123,12 @@ export interface IPageChange {
   ],
 })
 export class PaginationComponent implements OnInit, OnChanges {
+  @Input() pagination?: IPagination
   @Input() pageLinkSize = 5
-
   @Input() rows = 0
-
   @Input() totalRecords = 0
-
   @Input() showCurrentPageReport!: boolean
-
-  @Input() currentPageReportTemplate = '{currentPage} of {totalPages}'
+  @Input() currentPageReportTemplate = '{showCurrentPage} of {totalPages}'
 
   @Output() pageChangeEvent = new EventEmitter<IPageChange>()
 
@@ -180,9 +185,17 @@ export class PaginationComponent implements OnInit, OnChanges {
 
   updatePageLinks() {
     this.pageLinks = []
-    const boundaries = this.calculatePageLinkBoundaries()
-    const start = boundaries[0]
-    const end = boundaries[1]
+    let start: number
+    let end: number
+
+    if (this.pagination) {
+      start = 0
+      end = this.pagination.totalPages - 1
+    } else {
+      const boundaries = this.calculatePageLinkBoundaries()
+      start = boundaries[0]
+      end = boundaries[1]
+    }
 
     for (let i = start; i <= end; i++) {
       this.pageLinks.push(i + 1)
@@ -216,7 +229,11 @@ export class PaginationComponent implements OnInit, OnChanges {
   }
 
   getPage(): number {
-    return Math.floor(this.first / this.rows)
+    if (this.pagination) {
+      return this.pagination.currentPage - 1
+    } else {
+      return Math.floor(this.first / this.rows)
+    }
   }
 
   getPageCount() {
@@ -270,7 +287,7 @@ export class PaginationComponent implements OnInit, OnChanges {
 
   get currentPageReport() {
     return this.currentPageReportTemplate
-      .replace('{currentPage}', String(this.currentPage()))
+      .replace('{showCurrentPage}', String(this.showCurrentPage()))
       .replace('{totalPages}', String(this.getPageCount()))
       .replace('{first}', String(this.totalRecords > 0 ? this._first + 1 : 0))
       .replace('{last}', String(Math.min(this._first + this.rows, this.totalRecords)))
@@ -278,7 +295,7 @@ export class PaginationComponent implements OnInit, OnChanges {
       .replace('{totalRecords}', String(this.totalRecords))
   }
 
-  currentPage() {
+  showCurrentPage() {
     return this.getPageCount() > 0 ? this.getPage() + 1 : 0
   }
 }
