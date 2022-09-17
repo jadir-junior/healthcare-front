@@ -17,6 +17,7 @@ import { IMeta } from 'src/app/models/pagination.model'
         [rowSelectable]="isRowSelectable"
         [selectionPageOnly]="true"
         [paginator]="true"
+        [pagination]="pagination"
         [rows]="baseTableService.limit"
         [totalRecords]="pagination.totalItems"
         (pageChangeEvent)="baseTableService.changePage($event)"

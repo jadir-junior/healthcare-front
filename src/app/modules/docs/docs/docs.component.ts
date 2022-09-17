@@ -24,7 +24,12 @@ import { Component } from '@angular/core'
           <a (click)="goToRoute('table/sort')">Sort</a>
         </div>
         <div>
-          <a (click)="goToRoute('table/selection')">Selection</a>
+          <a (click)="goToRouteRelativePath('/docs/table/selection?page=1&limit=5')">
+            Selection
+          </a>
+        </div>
+        <div>
+          <a (click)="goToRouteRelativePath('/docs/table/lazy?page=1&limit=5')">Lazy</a>
         </div>
       </aside>
       <main>
