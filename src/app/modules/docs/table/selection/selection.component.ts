@@ -20,7 +20,7 @@ import { IMeta } from 'src/app/models/pagination.model'
         [pagination]="pagination"
         [rows]="baseTableService.limit"
         [totalRecords]="pagination.totalItems"
-        (pageChangeEvent)="baseTableService.changePage($event)"
+        (pageEvent)="baseTableService.changePage($event)"
       >
         <ng-template hcTemplate="header">
           <tr>
