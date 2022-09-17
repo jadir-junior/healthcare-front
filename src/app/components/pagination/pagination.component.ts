@@ -139,6 +139,7 @@ export class PaginationComponent implements OnInit, OnChanges {
   _first = 0
 
   ngOnInit(): void {
+    this.setInitalValueToFirst()
     this.updatePaginationState()
   }
 
@@ -166,6 +167,10 @@ export class PaginationComponent implements OnInit, OnChanges {
 
   set first(val: number) {
     this._first = val
+  }
+
+  setInitalValueToFirst(): void {
+    this.first = this.pagination ? this.rows * (this.pagination.currentPage - 1) : 0
   }
 
   calculatePageLinkBoundaries(): number[] {
