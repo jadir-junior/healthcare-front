@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   BASE_URL: 'http://localhost:3000',
+  BASE_URL_MOCK_SERVICE_WORKER: 'http://localhost:4200',
 }
 
 /*
