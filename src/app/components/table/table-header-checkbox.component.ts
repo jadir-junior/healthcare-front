@@ -8,9 +8,10 @@ import {
   OnInit,
 } from '@angular/core'
 
+import { DataDirective } from './data.directive'
 import { ObjectUtils } from 'src/app/common/object-utils/object-utils'
+import { SelectDirective } from './select.directive'
 import { Subscription } from 'rxjs'
-import { TableComponent } from './table.component'
 import { TableService } from './table.service'
 
 @Component({
@@ -64,9 +65,10 @@ export class TableHeaderCheckboxComponent implements OnInit, OnDestroy {
   valueChangeSubscription: Subscription
 
   constructor(
-    public dt: TableComponent,
     public tableService: TableService,
-    public cd: ChangeDetectorRef
+    public cd: ChangeDetectorRef,
+    public select: SelectDirective,
+    public data: DataDirective
   ) {
     this.valueChangeSubscription = this.tableService.valueSource$.subscribe(() => {
       this.checked = this.updateCheckedState()
@@ -85,8 +87,8 @@ export class TableHeaderCheckboxComponent implements OnInit, OnDestroy {
 
   onClick(event: Event) {
     if (!this.disabled) {
-      if (this.dt.value && this.dt.value.length > 0) {
-        this.dt.toggleRowsWithCheckbox(event, !this.checked)
+      if (this.data.value && this.data.value.length > 0) {
+        this.select.toggleRowsWithCheckbox(event, !this.checked)
       }
     }
   }
@@ -100,28 +102,32 @@ export class TableHeaderCheckboxComponent implements OnInit, OnDestroy {
   }
 
   isDisabled() {
-    return this.disabled || !this.dt.value || !this.dt.value.length
+    return this.disabled || !this.data.value || !this.data.value.length
   }
 
   updateCheckedState(): boolean {
     this.cd.markForCheck()
 
-    if (this.dt._selectAll !== null) {
-      return this.dt._selectAll
+    if (this.select.selectAll !== null) {
+      return this.select.selectAll
     } else {
-      const data = this.dt.selectionPageOnly
-        ? this.dt.dataToRender(this.dt.processedData)
-        : this.dt.processedData
+      const data = this.select.selectionPageOnly
+        ? this.data.dataToRender(this.data.processedData)
+        : this.data.processedData
+
       const val = data
-      const selectableVal = this.dt.rowSelectable
-        ? val.filter((data: any, index: number) => this.dt.rowSelectable({ data, index }))
+
+      const selectableVal = this.select.rowSelectable
+        ? val.filter((data: any, index: number) =>
+            this.select.rowSelectable({ data, index })
+          )
         : val
 
       return (
         ObjectUtils.isNotEmpty(selectableVal) &&
-        ObjectUtils.isNotEmpty(this.dt.selection) &&
+        ObjectUtils.isNotEmpty(this.select.selection) &&
         selectableVal.every((v: any) =>
-          this.dt.selection.some((s: any) => this.dt.equals(v, s))
+          this.select.selection.some((s: any) => this.select.equals(v, s))
         )
       )
     }

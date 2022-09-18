@@ -6,7 +6,14 @@ import { BaseTableService } from 'src/app/common/base-table/base-table.service'
 @Component({
   selector: 'app-sort',
   template: `<div class="wrapper-container-docs">
-    <hc-table [value]="products" [responsive]="true" (sortEvent)="onSort($event)">
+    <hc-table
+      hcData
+      hcSort
+      hcPagination
+      [value]="products"
+      [responsive]="true"
+      (sortEvent)="onSort($event)"
+    >
       <ng-template hcTemplate="header">
         <tr>
           <th hcSortableColumn="code">Code <hc-sort-icon field="code"></hc-sort-icon></th>

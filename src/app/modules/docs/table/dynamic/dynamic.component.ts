@@ -7,7 +7,7 @@ import { IColumn } from 'src/app/components/table/table.component'
   selector: 'app-dynamic',
   template: `
     <div class="wrapper-container-docs">
-      <hc-table [columns]="cols" [value]="products" [responsive]="true"></hc-table>
+      <hc-table hcData [columns]="cols" [value]="products" [responsive]="true"></hc-table>
     </div>
   `,
   styleUrls: ['../../docs/docs.component.scss'],

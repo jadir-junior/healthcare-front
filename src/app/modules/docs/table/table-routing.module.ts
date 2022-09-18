@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router'
 import { BasicComponent } from './basic/basic.component'
 import { DynamicComponent } from './dynamic/dynamic.component'
 import { GridlinesComponent } from './gridlines/gridlines.component'
+import { LazyComponent } from './lazy/lazy.component'
 import { NgModule } from '@angular/core'
 import { PageComponent } from './page/page.component'
 import { SelectionComponent } from './selection/selection.component'
@@ -32,6 +33,10 @@ const routes: Routes = [
   {
     path: 'selection',
     component: SelectionComponent,
+  },
+  {
+    path: 'lazy',
+    component: LazyComponent,
   },
 ]
 

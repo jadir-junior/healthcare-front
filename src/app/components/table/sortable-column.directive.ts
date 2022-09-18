@@ -1,8 +1,9 @@
 /* eslint-disable @angular-eslint/no-host-metadata-property */
 import { Directive, HostListener, Input, OnDestroy, OnInit } from '@angular/core'
 
+import { SortDirective } from './sort.directive'
 import { Subscription } from 'rxjs'
-import { TableComponent } from './table.component'
+import { TableService } from './table.service'
 
 @Directive({
   selector: '[hcSortableColumn]',
@@ -21,8 +22,8 @@ export class SortableColumnDirective implements OnInit, OnDestroy {
   sortOrder!: string
   subscription: Subscription
 
-  constructor(public dt: TableComponent) {
-    this.subscription = this.dt.tableService.sortSource$.subscribe(() => {
+  constructor(private tableService: TableService, public sort: SortDirective) {
+    this.subscription = this.tableService.sortSource$.subscribe(() => {
       this.updateSortState()
     })
   }
@@ -40,7 +41,7 @@ export class SortableColumnDirective implements OnInit, OnDestroy {
   @HostListener('click', ['$event'])
   onClick() {
     this.updateSortState()
-    this.dt.sort({ field: this.field })
+    this.sort.sort({ field: this.field })
   }
 
   @HostListener('keydown.enter', ['$event'])
@@ -49,9 +50,9 @@ export class SortableColumnDirective implements OnInit, OnDestroy {
   }
 
   updateSortState() {
-    this.sorted = this.dt.isSorted(this.field)
+    this.sorted = this.sort.isSorted(this.field)
     if (this.sorted) {
-      this.sortOrder = this.dt.sortOrder === 1 ? 'ascending' : 'descending'
+      this.sortOrder = this.sort.sortOrder === 1 ? 'ascending' : 'descending'
     } else {
       this.sortOrder = 'none'
     }

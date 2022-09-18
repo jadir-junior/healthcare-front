@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core'
 
+import { SelectDirective } from './select.directive'
 import { Subscription } from 'rxjs'
 import { TableComponent } from './table.component'
 import { TableService } from './table.service'
@@ -59,21 +60,31 @@ export class TableCheckBoxComponent implements OnInit, OnDestroy {
   constructor(
     public dt: TableComponent,
     public tableService: TableService,
-    public cd: ChangeDetectorRef
+    public cd: ChangeDetectorRef,
+    public select: SelectDirective
   ) {
     this.subscription = this.tableService.selectionSource$.subscribe(() => {
-      this.checked = this.dt.isSelected(this.value)
+      if (this.select.selectAll) {
+        this.checked = true
+      } else {
+        this.checked = this.select.isSelected(this.value)
+      }
+
       this.cd.markForCheck()
     })
   }
 
   ngOnInit(): void {
-    this.checked = this.dt.isSelected(this.value)
+    if (this.select.selectAll) {
+      this.checked = true
+    } else {
+      this.checked = this.select.isSelected(this.value)
+    }
   }
 
   onClick(event: Event) {
     if (!this.disabled) {
-      this.dt.toggleRowWithCheckbox(
+      this.select.toggleRowWithCheckbox(
         {
           originalEvent: event,
           rowIndex: this.index,

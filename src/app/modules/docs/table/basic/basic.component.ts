@@ -5,7 +5,7 @@ import { IProduct, ProductsService } from '../../products.service'
   selector: 'app-basic',
   template: `
     <div class="wrapper-container-docs" *ngIf="products.length">
-      <hc-table [value]="products" [responsive]="true">
+      <hc-table hcData hcPagination hcSort [value]="products" [responsive]="true">
         <ng-template hcTemplate="header">
           <tr>
             <th>Code</th>

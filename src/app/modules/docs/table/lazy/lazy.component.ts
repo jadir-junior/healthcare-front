@@ -3,60 +3,73 @@ import { IProduct, ProductsService } from '../../products.service'
 
 import { ActivatedRoute } from '@angular/router'
 import { BaseTableService } from 'src/app/common/base-table/base-table.service'
+import { IHeaderCheckboxEvent } from 'src/app/components/table/select.directive'
 import { IMeta } from 'src/app/models/pagination.model'
 
 @Component({
-  selector: 'app-page',
+  selector: 'app-lazy',
   template: `
+    <button (click)="onSelectAll()" *ngIf="selectedProducts?.length || selectAll">
+      {{ selectedProducts.length || pagination.totalItems }} de
+      {{ pagination.totalItems }} Select All
+    </button>
     <div class="wrapper-container-docs" *ngIf="products && pagination">
       <hc-table
+        hcSelect
         hcData
         hcPagination
+        dataKey="code"
         [value]="products"
         [responsive]="true"
+        [selectionPageOnly]="true"
         [paginator]="true"
-        [rows]="baseTableService.limit"
         [pagination]="pagination"
-        [totalRecords]="pagination.totalItems"
         (pageEvent)="baseTableService.changePage($event)"
-        [showCurrentPageReport]="true"
-        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries"
+        [rows]="baseTableService.limit"
+        [totalRecords]="pagination.totalItems"
+        [(selection)]="selectedProducts"
+        [selectAll]="selectAll"
+        (selectAllChange)="onSelectAllChange($event)"
       >
+        <!-- [lazy]="true" -->
         <ng-template hcTemplate="header">
           <tr>
-            <th>id</th>
+            <th>
+              <hc-table-header-checkbox></hc-table-header-checkbox>
+            </th>
             <th>Code</th>
             <th>Name</th>
-            <th>Description</th>
-            <th>Price</th>
             <th>Category</th>
             <th>Quantity</th>
-            <th>Inventory Status</th>
-            <th>Rating</th>
           </tr>
         </ng-template>
         <ng-template hcTemplate="body">
           <tr *ngFor="let product of products">
-            <td>{{ product.id }}</td>
+            <td>
+              <hc-table-check-box [value]="product"></hc-table-check-box>
+            </td>
             <td>{{ product.code }}</td>
             <td>{{ product.name }}</td>
-            <td>{{ product.description }}</td>
-            <td>{{ product.price | currency: 'USD' }}</td>
             <td>{{ product.category }}</td>
             <td>{{ product.quantity }}</td>
-            <td>{{ product.inventoryStatus }}</td>
-            <td>{{ product.rating }}</td>
           </tr>
         </ng-template>
       </hc-table>
+      <button (click)="onShow()">Show</button>
     </div>
   `,
-  styleUrls: ['../../docs/docs.component.scss'],
   providers: [BaseTableService],
+  styleUrls: ['../../docs/docs.component.scss'],
 })
-export class PageComponent implements OnInit {
+export class LazyComponent implements OnInit {
   products: IProduct[] = []
   pagination!: IMeta
+
+  selectAll: boolean | null = null
+
+  checked!: boolean
+
+  selectedProducts!: IProduct[]
 
   constructor(
     private productsService: ProductsService,
@@ -68,6 +81,10 @@ export class PageComponent implements OnInit {
     this.route.queryParams.subscribe(() => {
       this.getProducts()
     })
+  }
+
+  onSelectAll() {
+    this.selectAll = true
   }
 
   getProducts(): void {
@@ -82,5 +99,17 @@ export class PageComponent implements OnInit {
         this.products = response.items
         this.pagination = response.meta
       })
+  }
+
+  onSelectAllChange(event: IHeaderCheckboxEvent) {
+    this.checked = event.checked
+
+    if (this.checked) {
+      this.getProducts()
+    }
+  }
+
+  onShow() {
+    console.log(this.selectedProducts)
   }
 }

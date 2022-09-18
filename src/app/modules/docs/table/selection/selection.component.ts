@@ -10,6 +10,9 @@ import { IMeta } from 'src/app/models/pagination.model'
   template: `
     <div class="wrapper-container-docs" *ngIf="products && pagination">
       <hc-table
+        hcSelect
+        hcData
+        hcPagination
         dataKey="code"
         [value]="products"
         [responsive]="true"

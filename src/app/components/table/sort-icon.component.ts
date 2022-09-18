@@ -1,7 +1,8 @@
 import { ChangeDetectorRef, Component, Input, OnDestroy, OnInit } from '@angular/core'
 
+import { SortDirective } from './sort.directive'
 import { Subscription } from 'rxjs'
-import { TableComponent } from './table.component'
+import { TableService } from './table.service'
 
 @Component({
   selector: 'hc-sort-icon',
@@ -27,8 +28,12 @@ export class SortIconComponent implements OnInit, OnDestroy {
 
   sortOrder!: number
 
-  constructor(public dt: TableComponent, public cd: ChangeDetectorRef) {
-    this.subscription = this.dt.tableService.sortSource$.subscribe(() => {
+  constructor(
+    public tableService: TableService,
+    public cd: ChangeDetectorRef,
+    public sort: SortDirective
+  ) {
+    this.subscription = this.tableService.sortSource$.subscribe(() => {
       this.updateSortState()
     })
   }
@@ -49,7 +54,7 @@ export class SortIconComponent implements OnInit, OnDestroy {
   }
 
   updateSortState() {
-    this.sortOrder = this.dt.isSorted(this.field) ? this.dt.sortOrder : 0
+    this.sortOrder = this.sort.isSorted(this.field) ? this.sort.sortOrder : 0
 
     this.cd.markForCheck()
   }
