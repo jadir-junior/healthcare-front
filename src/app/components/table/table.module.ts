@@ -4,6 +4,7 @@ import { InjectHTMLDirective } from 'src/app/directives/inject-html/inject-html.
 import { NgModule } from '@angular/core'
 import { PaginationDirective } from './pagination.directive'
 import { PaginationModule } from '../pagination/pagination.module'
+import { SelectAllComponent } from './select-all.component'
 import { SelectDirective } from './select.directive'
 import { SortDirective } from './sort.directive'
 import { SortIconComponent } from './sort-icon.component'
@@ -24,6 +25,7 @@ import { TableHeaderCheckboxComponent } from './table-header-checkbox.component'
     DataDirective,
     PaginationDirective,
     SortDirective,
+    SelectAllComponent,
   ],
   imports: [CommonModule, PaginationModule],
   exports: [
@@ -36,6 +38,7 @@ import { TableHeaderCheckboxComponent } from './table-header-checkbox.component'
     DataDirective,
     PaginationDirective,
     SortDirective,
+    SelectAllComponent,
   ],
 })
 export class TableModule {}

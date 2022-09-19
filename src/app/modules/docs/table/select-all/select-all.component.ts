@@ -9,15 +9,17 @@ import { IMeta } from 'src/app/models/pagination.model'
 @Component({
   selector: 'app-select-all',
   template: `
-    <button
-      (click)="onSelectAll()"
-      *ngIf="selectedProducts?.length || selectAll"
-      aria-label="select all"
-    >
-      {{ selectedProducts.length || pagination.totalItems - desSelectedProdutcs.length }}
-      de {{ pagination.totalItems }} Select All
-    </button>
     <div class="wrapper-container-docs" *ngIf="products && pagination">
+      <div style="margin-bottom: 8px;">
+        <hc-select-all
+          *ngIf="selectedProducts?.length || selectAll"
+          [selected]="selectedProducts"
+          [deselected]="desSelectedProdutcs"
+          [totalItems]="pagination.totalItems"
+          [selectAll]="selectAll"
+          (clickEvent)="onSelectAll()"
+        ></hc-select-all>
+      </div>
       <hc-table
         hcSelect
         hcData
@@ -96,7 +98,7 @@ export class SelectAllComponent implements OnInit {
   }
 
   onSelectAll() {
-    this.selectAll = true
+    this.selectAll = !this.selectAll
   }
 
   getProducts(): void {

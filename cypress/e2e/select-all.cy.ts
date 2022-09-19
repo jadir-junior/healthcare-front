@@ -9,7 +9,7 @@ const selectAll = () => {
 
 describe('Select All', () => {
   beforeEach(() => {
-    cy.visit('/docs/table/lazy?page=1&limit=5')
+    cy.visit('/docs/table/selectall?page=1&limit=5')
 
     cy.getByLabelText('msw').click()
 
@@ -60,7 +60,7 @@ describe('Select All', () => {
       cy.getByTestId(`checkbox-${row}`).should('have.attr', 'aria-checked', 'false')
     })
     cy.getByTestId('checkbox header').should('have.attr', 'aria-checked', 'false')
-    cy.getByLabelText('select all').contains('5 de 10 Select All')
+    cy.getByLabelText('5 of 10').should('exist')
 
     cy.getByLabelText('Page 1').click()
     rowOne.forEach((row) => {
@@ -69,10 +69,10 @@ describe('Select All', () => {
     cy.getByTestId('checkbox header').should('have.attr', 'aria-checked', 'true')
 
     cy.getByTestId('checkbox header').click()
-    cy.getByLabelText('select all').contains('0 de 10 Select all')
+    cy.getByLabelText('0 of 10').should('exist')
   })
 
-  it('"SELECT ALL" and deselct with "CHECKBOX HEADER" and select again', () => {
+  it('"SELECT ALL" and deselect with "CHECKBOX HEADER" and select again', () => {
     selectAll()
 
     cy.getByTestId('checkbox header').click()
@@ -80,16 +80,31 @@ describe('Select All', () => {
     cy.getByTestId('checkbox header').click()
 
     cy.getByTestId('checkbox header').click()
-    cy.getByLabelText('select all').contains('5 de 10 Select All')
+    cy.getByLabelText('5 of 10').should('exist')
     rowOne.forEach((row) => {
       cy.getByTestId(`checkbox-${row}`).should('have.attr', 'aria-checked', 'true')
     })
 
     cy.getByLabelText('Page 2').click()
     cy.getByTestId('checkbox header').click()
-    cy.getByLabelText('select all').contains('10 de 10 Select All')
+    cy.getByLabelText('10 of 10').should('exist')
     rowTwo.forEach((row) => {
       cy.getByTestId(`checkbox-${row}`).should('have.attr', 'aria-checked', 'true')
+    })
+  })
+
+  it('"SELECT ALL" and click "CLEAR SELECTED"', () => {
+    selectAll()
+
+    cy.getByLabelText('clear selected').click()
+
+    rowTwo.forEach((row) => {
+      cy.getByTestId(`checkbox-${row}`).should('have.attr', 'aria-checked', 'false')
+    })
+
+    cy.getByLabelText('Page 1').click()
+    rowOne.forEach((row) => {
+      cy.getByTestId(`checkbox-${row}`).should('have.attr', 'aria-checked', 'false')
     })
   })
 })

@@ -133,10 +133,6 @@ export class SelectDirective implements OnChanges {
 
   isDeselected(rowData: any): boolean {
     if (rowData && this.deselection) {
-      if (this.deselection.length === 0) {
-        this.deselectionKeys = {}
-      }
-
       if (this.dataKey) {
         return (
           this.deselectionKeys[ObjectUtils.resolveFieldData(rowData, this.dataKey)] !==
@@ -191,9 +187,9 @@ export class SelectDirective implements OnChanges {
   }
 
   updateSelectionKeys() {
-    if (this.dataKey && this.selection?.length) {
+    if (this.dataKey && this.selection?.length !== null && !this.selectAll) {
       this.verifySelectionOrDesectionAndUpdateKeys('selectionKeys', 'selection')
-    } else if (this.dataKey && this.deselection?.length) {
+    } else if (this.dataKey && this.deselection?.length !== null) {
       this.verifySelectionOrDesectionAndUpdateKeys('deselectionKeys', 'deselection')
     }
   }

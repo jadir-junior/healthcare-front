@@ -1,3 +1,5 @@
+const rowsTablePageOne = ['1003', '1009', '1001', '1007']
+
 const allRowsPageOneSelected = () => {
   cy.getByTestId('checkbox-1009').should('have.attr', 'aria-checked', 'true')
   cy.getByTestId('checkbox-1003').should('have.attr', 'aria-checked', 'true')
@@ -34,6 +36,20 @@ describe('Selection Table', () => {
     cy.getByTestId('checkbox header').click()
 
     allRowsPageOneSelected()
+  })
+
+  it('select with "SELECT HEADER" and select rows and deselect "SELECT HEADER"', () => {
+    cy.getByTestId('checkbox header').click()
+
+    rowsTablePageOne.forEach((row) => {
+      cy.getAllByTestId(`checkbox-${row}`).should('have.attr', 'aria-checked', 'true')
+    })
+
+    cy.getByTestId('checkbox header').click()
+
+    rowsTablePageOne.forEach((row) => {
+      cy.getAllByTestId(`checkbox-${row}`).should('have.attr', 'aria-checked', 'false')
+    })
   })
 
   it('select all rows in two pages', () => {
