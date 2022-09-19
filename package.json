@@ -90,7 +90,8 @@
     "collectCoverageFrom": [
       "<rootDir>/**/*.ts",
       "!<rootDir>/node_modules/**",
-      "!<rootDir>/cypress/**"
+      "!<rootDir>/cypress/**",
+      "!<rootDir>/**/*.stories.ts"
     ],
     "modulePaths": [
       "<rootDir>"
