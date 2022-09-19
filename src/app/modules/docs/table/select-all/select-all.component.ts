@@ -18,7 +18,11 @@ import { IMeta } from 'src/app/models/pagination.model'
           [totalItems]="pagination.totalItems"
           [selectAll]="selectAll"
           (clickEvent)="onSelectAll()"
-        ></hc-select-all>
+        >
+          <hc-button size="small" color="primary" (clickEvent)="onShow()">
+            <hc-icon size="large" icon="approval"></hc-icon>
+          </hc-button>
+        </hc-select-all>
       </div>
       <hc-table
         hcSelect
@@ -38,7 +42,6 @@ import { IMeta } from 'src/app/models/pagination.model'
         [selectAll]="selectAll"
         (selectAllChange)="onSelectAllChange($event)"
       >
-        <!-- [lazy]="true" -->
         <ng-template hcTemplate="header">
           <tr>
             <th>
@@ -67,7 +70,6 @@ import { IMeta } from 'src/app/models/pagination.model'
           </tr>
         </ng-template>
       </hc-table>
-      <button (click)="onShow()">Show</button>
     </div>
   `,
   providers: [BaseTableService],
@@ -124,6 +126,7 @@ export class SelectAllComponent implements OnInit {
   }
 
   onShow() {
-    console.log(this.desSelectedProdutcs)
+    console.log('SELECTED: ', this.selectedProducts)
+    console.log('DESELECTED: ', this.desSelectedProdutcs)
   }
 }

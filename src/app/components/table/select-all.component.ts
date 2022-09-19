@@ -33,11 +33,12 @@ import { Component, EventEmitter, Input, Output } from '@angular/core'
     `
       .wrapper-container {
         display: flex;
+        align-items: center;
       }
 
       .wrapper-select-all {
         background-color: var(--neutral-divider);
-        padding: 1rem;
+        padding: 0.7rem;
       }
 
       .select-all-text {
@@ -49,6 +50,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core'
         cursor: pointer;
         font-weight: 700;
         margin-left: 16px;
+      }
+
+      .wrapper-buttons {
+        margin: 0 0.5rem;
       }
     `,
   ],
