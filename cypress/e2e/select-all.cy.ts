@@ -9,11 +9,8 @@ const selectAll = () => {
 
 describe('Select All', () => {
   beforeEach(() => {
+    cy.startMockServiceWork()
     cy.visit('/docs/table/selectall?page=1&limit=5')
-
-    cy.getByLabelText('msw').click()
-
-    cy.reload()
   })
 
   it('"SELECT ALL" pages', () => {

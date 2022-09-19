@@ -6,5 +6,6 @@ declare namespace Cypress {
     getAllByLabelText(dataAriaLabelAttribute: string): Chainable<JQuery<HTMLElement>>
     getByTestId(dataTestIdAttribute: string): Chainable<JQuery<HTMLElement>>
     getAllByTestId(dataTestIdAttribute: string): Chainable<JQuery<HTMLElement>>
+    startMockServiceWork(): void
   }
 }

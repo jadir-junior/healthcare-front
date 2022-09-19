@@ -71,6 +71,7 @@
     "@typescript-eslint/eslint-plugin": "5.36.1",
     "@typescript-eslint/parser": "5.36.1",
     "babel-loader": "^8.2.5",
+    "cypress": "latest",
     "eslint": "^8.23.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
@@ -79,12 +80,18 @@
     "jest-preset-angular": "^12.2.2",
     "lint-staged": "^13.0.3",
     "msw": "^0.47.3",
+    "node-request-interceptor": "^0.6.3",
     "prettier": "^2.7.1",
-    "typescript": "~4.8.2",
-    "cypress": "latest"
+    "typescript": "~4.8.2"
   },
   "jest": {
     "preset": "jest-preset-angular",
+    "collectCoverage": true,
+    "collectCoverageFrom": [
+      "<rootDir>/**/*.ts",
+      "!<rootDir>/node_modules/**",
+      "!<rootDir>/cypress/**"
+    ],
     "modulePaths": [
       "<rootDir>"
     ],

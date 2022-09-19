@@ -25,10 +25,6 @@ export interface IProduct {
 export class ProductsService {
   constructor(private http: HttpClient, private mswService: MswService) {}
 
-  url = this.mswService.getMockServiceWorkerLocalStorage()
-    ? environment.BASE_URL_MOCK_SERVICE_WORKER
-    : environment.BASE_URL
-
   getProducts(
     page: number,
     limit: number,
@@ -43,6 +39,8 @@ export class ProductsService {
       }
     )
 
-    return this.http.get<IPagination<IProduct>>(`${this.url}/products?${query}`)
+    return this.http.get<IPagination<IProduct>>(
+      `${environment.BASE_URL}/products?${query}`
+    )
   }
 }

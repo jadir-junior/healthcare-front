@@ -11,11 +11,9 @@ const allRowsPageOneSelected = () => {
 
 describe('Selection Table', () => {
   beforeEach(() => {
+    cy.startMockServiceWork()
+
     cy.visit('/docs/table/selection?page=1&limit=5')
-
-    cy.getByLabelText('msw').click()
-
-    cy.reload()
   })
 
   it('initial state', () => {

@@ -5,7 +5,7 @@ import { IProduct, ProductsService } from '../../products.service'
   selector: 'app-gridlines',
   template: `
     <div class="wrapper-container-docs">
-      <hc-table [responsive]="true">
+      <hc-table hcData hcPagination [responsive]="true">
         <ng-template hcTemplate="caption"> Header </ng-template>
 
         <ng-template hcTemplate="header">

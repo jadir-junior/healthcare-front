@@ -26,28 +26,11 @@ export interface IColumn {
       <ng-container *ngTemplateOutlet="captionTemplate"></ng-container>
     </div>
     <table [ngClass]="{ 'responsive': responsive }" *ngIf="data.value">
-      <thead *ngIf="headerTemplate || columns">
-        <ng-template #headerDynamic>
-          <tr>
-            <th *ngFor="let th of columns">
-              {{ th.header }}
-            </th>
-          </tr>
-        </ng-template>
-        <ng-container
-          *ngTemplateOutlet="headerTemplate ? headerTemplate : headerDynamic"
-        ></ng-container>
+      <thead *ngIf="headerTemplate">
+        <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
       </thead>
-      <tbody *ngIf="bodyTemplate || columns">
-        <ng-template #bodyDynamic>
-          <tr *ngFor="let item of data.value" data-testid="row-patient">
-            <td *ngFor="let td of columns">
-              {{ item[td.field] }}
-            </td>
-          </tr>
-        </ng-template>
-        <ng-container *ngTemplateOutlet="bodyTemplate ? bodyTemplate : bodyDynamic">
-        </ng-container>
+      <tbody *ngIf="bodyTemplate">
+        <ng-container *ngTemplateOutlet="bodyTemplate"></ng-container>
       </tbody>
     </table>
     <div class="hc-datatable-footer" *ngIf="summaryTemplate">

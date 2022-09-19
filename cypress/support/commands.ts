@@ -15,3 +15,7 @@ Cypress.Commands.add('getByTestId', (selector) => {
 Cypress.Commands.add('getAllByTestId', (selector) => {
   return cy.get(`[data-testid^='${selector}']`)
 })
+
+Cypress.Commands.add('startMockServiceWork', () => {
+  window.localStorage.setItem('MSW', JSON.stringify(true))
+})
