@@ -22,6 +22,7 @@ export class ButtonComponent {
   isPressed = false
 
   @Input() type: 'submit' | 'button' = 'button'
+  @Input() size: 'small' | 'normal' | 'large' = 'normal'
   @Input() color: 'primary' | 'secondary' | 'default' = 'default'
   @Input() theme: 'contained' | 'outlined' | 'text' = 'contained'
   @Input() ariaLabel?: string
@@ -45,6 +46,7 @@ export class ButtonComponent {
   public get classes() {
     return {
       [`btn-${this.theme}-${this.color}`]: true,
+      [`btn-size-${this.size}`]: true,
       [`btn-${this.theme}-disabled`]: this.disabled,
       [`btn-${this.theme}-${this.color}-hover`]: this.isHover,
       [`btn-${this.theme}-${this.color}-pressed`]: this.isPressed,

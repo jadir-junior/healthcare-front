@@ -21,14 +21,14 @@
           "error",
           {
             "type": "attribute",
-            "prefix": ["app", "hc"],
+            "prefix": ["app", "hc", ""],
             "style": "camelCase"
           }
         ],
         "@angular-eslint/component-selector": [
           "error",
           {
-            "type": "element",
+            "type": ["element", "attribute"],
             "prefix": ["app", "hc"],
             "style": "kebab-case"
           }

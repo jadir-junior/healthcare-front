@@ -178,7 +178,7 @@
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "button {\n  display: flex;\n  align-items: center;\n  color: var(--neutral-white);\n  font-weight: bold;\n  font-size: 16px;\n  padding: 16px 24px;\n  border-radius: 8px;\n  border: none;\n  cursor: pointer;\n  transition: 0.3s;\n}\n\n/*\n* Styles to Theme Text Button\n*/\n\n// Primary\n\n.btn-text-primary {\n  background-color: var(--neutral-white);\n  color: rgb(var(--primary-default-rgb));\n}\n\n.btn-text-primary-hover {\n  background-color: rgba(var(--primary-default-rgb), var(--alpha-button-hover));\n}\n\n.btn-text-primary-pressed {\n  background-color: rgba(var(--primary-default-rgb), var(--alpha-button-pressed));\n}\n\n// Default\n\n.btn-text-default {\n  background-color: var(--neutral-white);\n  color: var(--neutral-gray);\n}\n\n.btn-text-default-hover {\n  background-color: rgba(var(--neutral-black-rgb), var(--alpha-button-hover));\n}\n\n.btn-text-default-pressed {\n  background-color: rgba(var(--neutral-black-rgb), var(--alpha-button-pressed));\n}\n\n// Secondary\n\n.btn-text-secondary {\n  background-color: var(--neutral-white);\n  color: var(--secondary-default);\n}\n\n.btn-text-secondary-hover {\n  background-color: rgba(var(--secondary-default-rgb), var(--alpha-button-hover));\n}\n\n.btn-text-secondary-pressed {\n  background-color: rgba(var(--secondary-rgb), var(--alpha-button-pressed));\n}\n\n// Disabled\n\n.btn-text-disabled:disabled {\n  background-color: var(--neutral-white);\n  color: var(--neutral-divider);\n}\n\n.btn-contained-default {\n  background-color: var(--neutral-gray);\n}\n\n.btn-contained-default-hover {\n  background-color: var(--neutral-gray-light);\n}\n\n.btn-contained-default-pressed {\n  background-color: var(--neutral-gray-dark);\n}\n\n.btn-contained-primary {\n  background-color: var(--primary-default);\n}\n\n.btn-contained-primary-hover {\n  background-color: var(--primary-hover);\n}\n\n.btn-contained-primary-pressed {\n  background-color: var(--primary-dark);\n}\n\n.btn-contained-disabled:disabled {\n  background-color: var(--neutral-background);\n  color: var(--neutral-divider);\n}\n",
+                    "data": "button {\n  display: flex;\n  align-items: center;\n  color: var(--neutral-white);\n  font-weight: bold;\n  font-size: 16px;\n  padding: 16px 24px;\n  border-radius: 8px;\n  border: none;\n  cursor: pointer;\n  transition: 0.3s;\n}\n\n/*\n* Styles to Theme Text Button\n*/\n\n// Primary\n\n.btn-text-primary {\n  background-color: var(--neutral-white);\n  color: rgb(var(--primary-default-rgb));\n}\n\n.btn-text-primary-hover {\n  background-color: rgba(var(--primary-default-rgb), var(--alpha-button-hover));\n}\n\n.btn-text-primary-pressed {\n  background-color: rgba(var(--primary-default-rgb), var(--alpha-button-pressed));\n}\n\n// Default\n\n.btn-text-default {\n  background-color: var(--neutral-white);\n  color: var(--neutral-gray);\n}\n\n.btn-text-default-hover {\n  background-color: rgba(var(--neutral-black-rgb), var(--alpha-button-hover));\n}\n\n.btn-text-default-pressed {\n  background-color: rgba(var(--neutral-black-rgb), var(--alpha-button-pressed));\n}\n\n// Secondary\n\n.btn-text-secondary {\n  background-color: var(--neutral-white);\n  color: var(--secondary-default);\n}\n\n.btn-text-secondary-hover {\n  background-color: rgba(var(--secondary-default-rgb), var(--alpha-button-hover));\n}\n\n.btn-text-secondary-pressed {\n  background-color: rgba(var(--secondary-default-rgb), var(--alpha-button-pressed));\n}\n\n// Disabled\n\n.btn-text-disabled:disabled {\n  background-color: var(--neutral-white);\n  color: var(--neutral-divider);\n}\n\n/*\n* Styles to Theme Outlined Button\n*/\n\n// Primary\n.btn-outlined-primary {\n  background-color: var(--neutral-white);\n  border: 1px solid var(--primary-default);\n  color: var(--primary-default);\n}\n\n.btn-outlined-primary-hover {\n  background-color: var(--primary-default);\n  color: var(--neutral-white);\n}\n\n.btn-outlined-primary-pressed {\n  background-color: var(--primary-dark);\n  color: var(--neutral-white);\n}\n\n// Default\n\n.btn-outlined-default {\n  background-color: var(--neutral-white);\n  border: 1px solid var(--neutral-gray);\n  color: var(--neutral-gray);\n}\n\n.btn-outlined-default-hover {\n  background-color: var(--neutral-gray);\n  color: var(--neutral-white);\n}\n\n.btn-outlined-default-pressed {\n  background-color: var(--neutral-gray-dark);\n  color: var(--neutral-white);\n}\n\n// Secondary\n.btn-outlined-secondary {\n  background-color: var(--neutral-white);\n  border: 1px solid var(--secondary-default);\n  color: var(--secondary-default);\n}\n\n.btn-outlined-secondary-hover {\n  background-color: var(--secondary-default);\n  color: var(--neutral-white);\n}\n\n.btn-outlined-secondary-pressed {\n  background-color: var(--secondary-dark);\n  color: var(--neutral-white);\n}\n\n// Disabled\n.btn-outlined-disabled:disabled {\n  background-color: var(--neutral-white);\n  color: var(--neutral-divider);\n  border: 1px solid var(--neutral-background);\n}\n\n/*\n* Styles to Theme Contained Button\n*/\n\n// Primary\n.btn-contained-primary {\n  background-color: var(--primary-default);\n}\n\n.btn-contained-primary-hover {\n  background-color: var(--primary-hover);\n}\n\n.btn-contained-primary-pressed {\n  background-color: var(--primary-dark);\n}\n\n// Default\n.btn-contained-default {\n  background-color: var(--neutral-gray);\n}\n\n.btn-contained-default-hover {\n  background-color: var(--neutral-gray-light);\n}\n\n.btn-contained-default-pressed {\n  background-color: var(--neutral-gray-dark);\n}\n\n// Secondary\n.btn-contained-secondary {\n  background-color: var(--secondary-default);\n}\n\n.btn-contained-secondary-hover {\n  background-color: var(--secondary-light);\n}\n\n.btn-contained-secondary-pressed {\n  background-color: var(--secondary-dark);\n}\n\n// Disabled\n.btn-contained-disabled:disabled {\n  background-color: var(--neutral-background);\n  color: var(--neutral-divider);\n}\n",
                     "styleUrl": "./button.component.scss"
                 }
             ],
@@ -1194,6 +1194,37 @@
             "implements": [
                 "ControlValueAccessor"
             ]
+        },
+        {
+            "name": "TableComponent",
+            "id": "component-TableComponent-5e36813a73d10c3f05f8029a0391fada0f6e1e59cd784d996a13427ef91f40ff6e2cd7f8d1efc69082a656aa16c07a4f7c2da27840bebce6c3d32aaa75e05b37",
+            "file": "src/app/components/table/table.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "hc-table",
+            "styleUrls": [],
+            "styles": [],
+            "template": "<table>\n  table works!\n</table>\n",
+            "templateUrl": [],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core'\n\n@Component({\n  selector: 'hc-table',\n  template: `\n    <table>\n      table works!\n    </table>\n  `,\n  styles: [],\n})\nexport class TableComponent {}\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": ""
         }
     ],
     "modules": [
@@ -1669,6 +1700,50 @@
                     "elements": []
                 }
             ]
+        },
+        {
+            "name": "TableModule",
+            "id": "module-TableModule-877afa41a99abc6d7dd98b04693d119f3fad00b36469cc07871028505071a516ad035594003f5938dffdead4a87624b6746f81f1f548069f8b2ea8103d0982fd",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "src/app/components/table/table.module.ts",
+            "methods": [],
+            "sourceCode": "import { CommonModule } from '@angular/common'\nimport { NgModule } from '@angular/core'\nimport { TableComponent } from './table.component'\n\n@NgModule({\n  declarations: [TableComponent],\n  imports: [CommonModule],\n  exports: [TableComponent],\n})\nexport class TableModule {}\n",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": [
+                        {
+                            "name": "TableComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "imports",
+                    "elements": []
+                },
+                {
+                    "type": "exports",
+                    "elements": [
+                        {
+                            "name": "TableComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
         }
     ],
     "miscellaneous": {
@@ -1682,16 +1757,6 @@
                 "deprecationMessage": "",
                 "type": "object",
                 "defaultValue": "{\n  clickEvent: action('clickEvent'),\n}"
-            },
-            {
-                "name": "Default",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/components/button/button.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "Template.bind({})"
             },
             {
                 "name": "environment",
@@ -1744,6 +1809,16 @@
                 "defaultValue": "{\n  provide: NG_VALUE_ACCESSOR,\n  multi: true,\n  useExisting: forwardRef(() => SwitchComponent),\n}"
             },
             {
+                "name": "TableDefault",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/components/table/table.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
                 "name": "Template",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -1752,6 +1827,36 @@
                 "deprecationMessage": "",
                 "type": "Story<ButtonComponent>",
                 "defaultValue": "(args: ButtonComponent) => ({\n  props: {\n    ...args,\n    clickEvent: actionsData.clickEvent,\n  },\n  template: `<hc-button [theme]=\"theme\" [color]=\"color\" [type]=\"type\" [ariaLabel]=\"ariaLabel\" [disabled]=\"disabled\">Button</hc-button>`,\n})"
+            },
+            {
+                "name": "Template",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/components/table/table.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story<TableComponent>",
+                "defaultValue": "(args: TableComponent) => ({\n  props: {\n    ...args,\n  },\n  template: `<hc-table ></hc-table>`,\n})"
+            },
+            {
+                "name": "ThemeContained",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/components/button/button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
+            },
+            {
+                "name": "ThemeOutlined",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/components/button/button.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "Template.bind({})"
             },
             {
                 "name": "ThemeText",
@@ -1780,7 +1885,17 @@
                     "defaultValue": "{\n  clickEvent: action('clickEvent'),\n}"
                 },
                 {
-                    "name": "Default",
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/components/button/button.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<ButtonComponent>",
+                    "defaultValue": "(args: ButtonComponent) => ({\n  props: {\n    ...args,\n    clickEvent: actionsData.clickEvent,\n  },\n  template: `<hc-button [theme]=\"theme\" [color]=\"color\" [type]=\"type\" [ariaLabel]=\"ariaLabel\" [disabled]=\"disabled\">Button</hc-button>`,\n})"
+                },
+                {
+                    "name": "ThemeContained",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/app/components/button/button.stories.ts",
@@ -1790,14 +1905,14 @@
                     "defaultValue": "Template.bind({})"
                 },
                 {
-                    "name": "Template",
+                    "name": "ThemeOutlined",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/app/components/button/button.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "Story<ButtonComponent>",
-                    "defaultValue": "(args: ButtonComponent) => ({\n  props: {\n    ...args,\n    clickEvent: actionsData.clickEvent,\n  },\n  template: `<hc-button [theme]=\"theme\" [color]=\"color\" [type]=\"type\" [ariaLabel]=\"ariaLabel\" [disabled]=\"disabled\">Button</hc-button>`,\n})"
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
                 },
                 {
                     "name": "ThemeText",
@@ -1868,6 +1983,28 @@
                     "deprecationMessage": "",
                     "type": "Provider",
                     "defaultValue": "{\n  provide: NG_VALUE_ACCESSOR,\n  multi: true,\n  useExisting: forwardRef(() => SwitchComponent),\n}"
+                }
+            ],
+            "src/app/components/table/table.stories.ts": [
+                {
+                    "name": "TableDefault",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/components/table/table.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "Template.bind({})"
+                },
+                {
+                    "name": "Template",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/components/table/table.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story<TableComponent>",
+                    "defaultValue": "(args: TableComponent) => ({\n  props: {\n    ...args,\n  },\n  template: `<hc-table ></hc-table>`,\n})"
                 }
             ]
         },
@@ -1969,7 +2106,7 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
-                "name": "Default",
+                "name": "Template",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
@@ -1979,7 +2116,17 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
-                "name": "Template",
+                "name": "ThemeContained",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/components/button/button.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "ThemeOutlined",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
@@ -2046,6 +2193,35 @@
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
                 "name": "SWITCH_VALUE_ACcESSOR",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/components/table/table.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "TableComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/components/table/table.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "TableDefault",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/components/table/table.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Template",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"

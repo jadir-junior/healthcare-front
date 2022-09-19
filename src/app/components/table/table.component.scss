@@ -1,0 +1,108 @@
+table {
+  border-spacing: 0;
+}
+
+.responsive {
+  width: 100%;
+}
+
+.header-and-fotter {
+  width: 100%;
+  background-color: var(--neutral-divider);
+  padding: 1rem;
+  font-weight: 700;
+}
+
+.hc-datatable-header {
+  @extend .header-and-fotter;
+}
+
+th {
+  padding: 1rem;
+  font-size: 14px;
+  background-color: var(--neutral-divider);
+  text-align: left;
+  vertical-align: middle;
+  position: relative;
+}
+
+td {
+  padding: 1rem;
+  text-align: left;
+  font-size: 14px;
+  border-bottom: 1px solid var(--neutral-divider);
+  background-color: var(--neutral-white);
+}
+
+.hc-datatable-footer {
+  @extend .header-and-fotter;
+}
+
+.hc-sortable-column {
+  cursor: pointer;
+
+  &:hover {
+    background-color: var(--neutral-gray);
+  }
+}
+
+.hc-highlight {
+  color: var(--primary-default);
+  background-color: var(--neutral-gray-light) !important;
+}
+
+.hc-checkbox {
+  display: inline-flex;
+  cursor: pointer;
+  user-select: none;
+  vertical-align: bottom;
+  position: relative;
+}
+
+.hc-checkbox:not(.hc-checkbox-disabled) .hc-checkbox-box:hover {
+  border-color: var(--primary-default);
+}
+
+.hc-checkbox-hidden-accessible {
+  border: 0;
+  clip: rect(0 0 0 0);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  width: 1px;
+}
+
+.hc-checkbox-box {
+  border: 2px solid var(--neutral-gray-light);
+  background-color: var(--neutral-white);
+  width: 22px;
+  height: 22px;
+  color: var(--neutral-black);
+  border-radius: 6px;
+  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.hc-checkbox-icon {
+  transition-duration: 0.2s;
+  color: var(--neutral-white);
+  font-size: 22px;
+}
+
+.hc-checkbox-highlight {
+  border-color: var(--primary-default);
+  background: var(--primary-default);
+}
+
+.hc-checkbox-disabled {
+  cursor: default;
+  pointer-events: none;
+
+  .hc-disabled {
+    opacity: 0.6;
+  }
+}

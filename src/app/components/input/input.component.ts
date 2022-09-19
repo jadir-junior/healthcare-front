@@ -8,7 +8,7 @@ import { ControlValueAccessor, NgControl } from '@angular/forms'
   styleUrls: ['input.component.scss'],
 })
 export class InputComponent implements ControlValueAccessor {
-  @Input() type: 'text' | 'tel' | 'password' | 'email' = 'text'
+  @Input() type: 'text' | 'tel' | 'password' | 'email' | 'number' = 'text'
   @Input() placeholder = ''
   @Input() ariaLabel?: string
   @Input() formControlName!: string
