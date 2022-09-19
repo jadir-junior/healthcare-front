@@ -43,6 +43,7 @@ import { worker } from 'src/mocks/browser'
         <button
           (click)="toggleStartOrStopMockServiceWorker()"
           [ngClass]="{ 'start': !isStart, 'stop': isStart }"
+          aria-label="msw"
         >
           <span class="material-symbols-outlined" style="font-size: 34px">
             {{ isStart ? 'stop_circle' : 'play_circle' }}

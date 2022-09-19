@@ -69,6 +69,7 @@ export class SelectDirective implements OnChanges {
   }
 
   @Output() selectionChange = new EventEmitter()
+  @Output() deselectionChange = new EventEmitter<any>()
   @Output() headerCheckboxToggleEvent = new EventEmitter<IHeaderCheckboxEvent>()
   @Output() rowUnselectEvent = new EventEmitter<IRowSelectEvent>()
   @Output() rowSelectEvent = new EventEmitter<IRowSelectEvent>()
@@ -132,6 +133,10 @@ export class SelectDirective implements OnChanges {
 
   isDeselected(rowData: any): boolean {
     if (rowData && this.deselection) {
+      if (this.deselection.length === 0) {
+        this.deselectionKeys = {}
+      }
+
       if (this.dataKey) {
         return (
           this.deselectionKeys[ObjectUtils.resolveFieldData(rowData, this.dataKey)] !==
@@ -169,25 +174,33 @@ export class SelectDirective implements OnChanges {
       : ObjectUtils.equals(data1, data2, this.dataKey)
   }
 
-  updateSelectionKeys() {
-    if (this.dataKey && this.selection) {
-      this.selectionKeys = {}
-      if (Array.isArray(this.selection)) {
-        for (const data of this.selection) {
-          this.selectionKeys[String(ObjectUtils.resolveFieldData(data, this.dataKey))] = 1
-        }
-      } else {
-        this.selectionKeys[
-          String(ObjectUtils.resolveFieldData(this.selection, this.dataKey))
-        ] = 1
+  private verifySelectionOrDesectionAndUpdateKeys(
+    selectKeys: 'selectionKeys' | 'deselectionKeys',
+    selectionOrDeselection: 'selection' | 'deselection'
+  ) {
+    this[selectKeys] = {}
+    if (Array.isArray(this[selectionOrDeselection])) {
+      for (const data of this[selectionOrDeselection]) {
+        this[selectKeys][String(ObjectUtils.resolveFieldData(data, this.dataKey))] = 1
       }
+    } else {
+      this[selectKeys][
+        String(ObjectUtils.resolveFieldData(this[selectionOrDeselection], this.dataKey))
+      ] = 1
+    }
+  }
+
+  updateSelectionKeys() {
+    if (this.dataKey && this.selection?.length) {
+      this.verifySelectionOrDesectionAndUpdateKeys('selectionKeys', 'selection')
+    } else if (this.dataKey && this.deselection?.length) {
+      this.verifySelectionOrDesectionAndUpdateKeys('deselectionKeys', 'deselection')
     }
   }
 
   toggleRowsWithCheckbox(event: Event, check: boolean) {
     if (this.selectAll === true) {
-      // this.selectAllChange.emit({ originalEvent: event, checked: check })
-      // this.tableService.onSelectionChange()
+      this.deselectAllWithSelectAllTrue(event, check)
     } else {
       const data = this.selectionPageOnly
         ? this.data.dataToRender(this.data.processedData)
@@ -216,59 +229,114 @@ export class SelectDirective implements OnChanges {
     }
   }
 
+  private deselectAllWithSelectAllTrue(event: Event, check: boolean) {
+    const data = this.data.processedData
+    let deselection: any[] = []
+
+    if (!check) {
+      deselection = [...this.deselection, ...data]
+      deselection = this.rowSelectable
+        ? deselection.filter((data: any, index: number) =>
+            this.rowSelectable({ data, index })
+          )
+        : deselection
+    } else {
+      deselection = this.deselection.filter(
+        (s: any) => !data.some((d: any) => this.equals(s, d))
+      )
+    }
+
+    this.deselection = deselection
+    this.preventSelectionSetterPropagation = true
+    this.updateSelectionKeys()
+    this.deselectionChange.emit(this.deselection)
+    this.tableService.onSelectionChange()
+    this.headerCheckboxToggleEvent.emit({ originalEvent: event, checked: check })
+  }
+
   toggleRowWithCheckbox(event: { originalEvent: Event; rowIndex: number }, rowData: any) {
     if (!this.selectAll) {
-      this.selection = this.selection || []
-      const selected = this.isSelected(rowData)
+      this.selectRowWithCheckbox(event, rowData)
+    } else {
+      this.deselectRowWithCheckbox(event, rowData)
+    }
+  }
 
-      const dataKeyValue = this.dataKey
-        ? String(ObjectUtils.resolveFieldData(rowData, this.dataKey))
-        : null
+  private selectRowWithCheckbox(
+    event: { originalEvent: Event; rowIndex: number },
+    rowData: any
+  ) {
+    this.selection = this.selection || []
+    const selected = this.isSelected(rowData)
 
-      this.preventSelectionSetterPropagation = true
+    const dataKeyValue = this.dataKey
+      ? String(ObjectUtils.resolveFieldData(rowData, this.dataKey))
+      : null
 
-      if (selected) {
-        const selectionIndex = this.findIndexInSelection(rowData, this.selection)
-        this.selection = this.selection.filter((_: any, i: number) => i != selectionIndex)
-        this.selectionChange.emit(this.selection)
+    this.preventSelectionSetterPropagation = true
 
-        this.rowUnselectEvent.emit({
-          originalEvent: event.originalEvent,
-          index: event.rowIndex,
-          data: rowData,
-          type: 'checkbox',
-        })
+    if (selected) {
+      const selectionIndex = this.findIndexInSelection(rowData, this.selection)
+      this.selection = this.selection.filter((_: any, i: number) => i != selectionIndex)
+      this.selectionChange.emit(this.selection)
 
-        if (dataKeyValue) {
-          delete this.selectionKeys[dataKeyValue]
-        }
-      } else {
-        if (!this.isRowSelectable(rowData, event.rowIndex)) {
-          return
-        }
-
-        this.selection = this.selection ? [...this.selection, rowData] : [rowData]
-
-        this.selectionChange.emit(this.selection)
-
-        this.rowSelectEvent.emit({
-          originalEvent: event.originalEvent,
-          index: event.rowIndex,
-          data: rowData,
-          type: 'checkbox',
-        })
-
-        if (dataKeyValue) {
-          this.selectionKeys[dataKeyValue] = 1
-        }
+      if (dataKeyValue) {
+        delete this.selectionKeys[dataKeyValue]
+      }
+    } else {
+      if (!this.isRowSelectable(rowData, event.rowIndex)) {
+        return
       }
 
-      this.tableService.onSelectionChange()
-    } else {
-      this.deselection = this.deselection || []
-      const deslected = this.isDeselected(rowData)
-      console.log(deslected)
-      console.log(this.deselection)
+      this.selection = this.selection ? [...this.selection, rowData] : [rowData]
+
+      this.selectionChange.emit(this.selection)
+
+      if (dataKeyValue) {
+        this.selectionKeys[dataKeyValue] = 1
+      }
     }
+
+    this.tableService.onSelectionChange()
+  }
+
+  private deselectRowWithCheckbox(
+    event: { originalEvent: Event; rowIndex: number },
+    rowData: any
+  ) {
+    this.deselection = this.deselection || []
+    const deselected = this.isDeselected(rowData)
+
+    const dataKeyValue = this.dataKey
+      ? String(ObjectUtils.resolveFieldData(rowData, this.dataKey))
+      : null
+
+    this.preventSelectionSetterPropagation = true
+
+    if (deselected) {
+      const selectionIndex = this.findIndexInSelection(rowData, this.deselection)
+      this.deselection = this.deselection.filter(
+        (_: any, i: number) => i != selectionIndex
+      )
+      this.deselectionChange.emit(this.deselection)
+
+      if (dataKeyValue) {
+        delete this.deselectionKeys[dataKeyValue]
+      }
+    } else {
+      if (!this.isRowSelectable(rowData, event.rowIndex)) {
+        return
+      }
+
+      this.deselection = this.deselection ? [...this.deselection, rowData] : [rowData]
+
+      this.deselectionChange.emit(this.deselection)
+
+      if (dataKeyValue) {
+        this.deselectionKeys[dataKeyValue] = 1
+      }
+    }
+
+    this.tableService.onSelectionChange()
   }
 }

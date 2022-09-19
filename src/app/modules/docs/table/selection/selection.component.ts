@@ -28,7 +28,9 @@ import { IMeta } from 'src/app/models/pagination.model'
         <ng-template hcTemplate="header">
           <tr>
             <th>
-              <hc-table-header-checkbox></hc-table-header-checkbox>
+              <hc-table-header-checkbox
+                ariaLabel="checkbox header"
+              ></hc-table-header-checkbox>
             </th>
             <th>Code</th>
             <th>Name</th>
@@ -42,6 +44,7 @@ import { IMeta } from 'src/app/models/pagination.model'
               <hc-table-check-box
                 [value]="product"
                 [disabled]="isInStock(product)"
+                [ariaLabel]="'checkbox-' + product.id"
               ></hc-table-check-box>
             </td>
             <td>{{ product.code }}</td>

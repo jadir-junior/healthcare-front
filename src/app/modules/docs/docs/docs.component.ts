@@ -29,7 +29,9 @@ import { Component } from '@angular/core'
           </a>
         </div>
         <div>
-          <a (click)="goToRouteRelativePath('/docs/table/lazy?page=1&limit=5')">Lazy</a>
+          <a (click)="goToRouteRelativePath('/docs/table/selectall?page=1&limit=5')"
+            >Lazy</a
+          >
         </div>
       </aside>
       <main>

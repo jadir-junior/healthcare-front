@@ -36,6 +36,7 @@ import { TableService } from './table.service'
           'hc-focus': focused,
           'hc-disabled': disabled
         }"
+        [attr.data-testid]="ariaLabel"
         [attr.aria-checked]="checked"
       >
         <span class="material-symbols-outlined hc-checkbox-icon"> done </span>
@@ -65,7 +66,7 @@ export class TableCheckBoxComponent implements OnInit, OnDestroy {
   ) {
     this.subscription = this.tableService.selectionSource$.subscribe(() => {
       if (this.select.selectAll) {
-        this.checked = true
+        this.checked = !this.select.isDeselected(this.value)
       } else {
         this.checked = this.select.isSelected(this.value)
       }
@@ -76,7 +77,7 @@ export class TableCheckBoxComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     if (this.select.selectAll) {
-      this.checked = true
+      this.checked = !this.select.isDeselected(this.value)
     } else {
       this.checked = this.select.isSelected(this.value)
     }

@@ -7,11 +7,15 @@ import { IHeaderCheckboxEvent } from 'src/app/components/table/select.directive'
 import { IMeta } from 'src/app/models/pagination.model'
 
 @Component({
-  selector: 'app-lazy',
+  selector: 'app-select-all',
   template: `
-    <button (click)="onSelectAll()" *ngIf="selectedProducts?.length || selectAll">
-      {{ selectedProducts.length || pagination.totalItems }} de
-      {{ pagination.totalItems }} Select All
+    <button
+      (click)="onSelectAll()"
+      *ngIf="selectedProducts?.length || selectAll"
+      aria-label="select all"
+    >
+      {{ selectedProducts.length || pagination.totalItems - desSelectedProdutcs.length }}
+      de {{ pagination.totalItems }} Select All
     </button>
     <div class="wrapper-container-docs" *ngIf="products && pagination">
       <hc-table
@@ -28,6 +32,7 @@ import { IMeta } from 'src/app/models/pagination.model'
         [rows]="baseTableService.limit"
         [totalRecords]="pagination.totalItems"
         [(selection)]="selectedProducts"
+        [(deselection)]="desSelectedProdutcs"
         [selectAll]="selectAll"
         (selectAllChange)="onSelectAllChange($event)"
       >
@@ -35,7 +40,9 @@ import { IMeta } from 'src/app/models/pagination.model'
         <ng-template hcTemplate="header">
           <tr>
             <th>
-              <hc-table-header-checkbox></hc-table-header-checkbox>
+              <hc-table-header-checkbox
+                ariaLabel="checkbox header"
+              ></hc-table-header-checkbox>
             </th>
             <th>Code</th>
             <th>Name</th>
@@ -46,7 +53,10 @@ import { IMeta } from 'src/app/models/pagination.model'
         <ng-template hcTemplate="body">
           <tr *ngFor="let product of products">
             <td>
-              <hc-table-check-box [value]="product"></hc-table-check-box>
+              <hc-table-check-box
+                [value]="product"
+                [ariaLabel]="'checkbox-' + product.id"
+              ></hc-table-check-box>
             </td>
             <td>{{ product.code }}</td>
             <td>{{ product.name }}</td>
@@ -61,7 +71,7 @@ import { IMeta } from 'src/app/models/pagination.model'
   providers: [BaseTableService],
   styleUrls: ['../../docs/docs.component.scss'],
 })
-export class LazyComponent implements OnInit {
+export class SelectAllComponent implements OnInit {
   products: IProduct[] = []
   pagination!: IMeta
 
@@ -70,6 +80,8 @@ export class LazyComponent implements OnInit {
   checked!: boolean
 
   selectedProducts!: IProduct[]
+
+  desSelectedProdutcs: IProduct[] = []
 
   constructor(
     private productsService: ProductsService,
@@ -110,6 +122,6 @@ export class LazyComponent implements OnInit {
   }
 
   onShow() {
-    console.log(this.selectedProducts)
+    console.log(this.desSelectedProdutcs)
   }
 }

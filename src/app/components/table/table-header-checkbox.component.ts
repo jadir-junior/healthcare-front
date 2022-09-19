@@ -45,6 +45,7 @@ import { TableService } from './table.service'
           'hc-disabled': isDisabled()
         }"
         [attr.aria-checked]="checked"
+        [attr.data-testid]="ariaLabel"
       >
         <span class="material-symbols-outlined hc-checkbox-icon"> done </span>
       </div>
@@ -105,11 +106,26 @@ export class TableHeaderCheckboxComponent implements OnInit, OnDestroy {
     return this.disabled || !this.data.value || !this.data.value.length
   }
 
+  checkIfAllRowsIsDeselected(): boolean {
+    const data = this.data.processedData
+
+    return (
+      ObjectUtils.isNotEmpty(data) &&
+      ObjectUtils.isNotEmpty(this.select.deselection) &&
+      data.every((v: any) =>
+        this.select.deselection.some((s: any) => this.select.equals(v, s))
+      )
+    )
+  }
+
   updateCheckedState(): boolean {
     this.cd.markForCheck()
 
     if (this.select.selectAll !== null) {
-      return this.select.selectAll
+      if (this.select.selectAll) {
+        return !this.checkIfAllRowsIsDeselected()
+      }
+      return false
     } else {
       const data = this.select.selectionPageOnly
         ? this.data.dataToRender(this.data.processedData)

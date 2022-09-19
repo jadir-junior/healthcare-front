@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing'
 
-import { LazyComponent } from './lazy.component'
+import { SelectAllComponent } from './select-all.component'
 
-describe('LazyComponent', () => {
-  let component: LazyComponent
-  let fixture: ComponentFixture<LazyComponent>
+describe('SelectAllComponent', () => {
+  let component: SelectAllComponent
+  let fixture: ComponentFixture<SelectAllComponent>
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LazyComponent],
+      declarations: [SelectAllComponent],
     }).compileComponents()
 
-    fixture = TestBed.createComponent(LazyComponent)
+    fixture = TestBed.createComponent(SelectAllComponent)
     component = fixture.componentInstance
     fixture.detectChanges()
   })

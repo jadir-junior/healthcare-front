@@ -2,7 +2,7 @@ import { BasicComponent } from './basic/basic.component'
 import { CommonModule } from '@angular/common'
 import { DynamicComponent } from './dynamic/dynamic.component'
 import { GridlinesComponent } from './gridlines/gridlines.component'
-import { LazyComponent } from './lazy/lazy.component'
+import { SelectAllComponent } from './select-all/select-all.component'
 import { NgModule } from '@angular/core'
 import { PageComponent } from './page/page.component'
 import { PaginationModule } from 'src/app/components/pagination/pagination.module'
@@ -20,7 +20,7 @@ import { TemplateModule } from 'src/app/directives/template/template.module'
     SortComponent,
     PageComponent,
     SelectionComponent,
-    LazyComponent,
+    SelectAllComponent,
   ],
   imports: [
     CommonModule,

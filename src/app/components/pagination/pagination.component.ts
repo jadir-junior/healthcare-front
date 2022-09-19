@@ -48,6 +48,7 @@ export interface IPageChange {
           *ngFor="let pageLink of pageLinks"
           [ngClass]="{ 'hc-highlight-pagination': pageLink - 1 === getPage() }"
           (click)="onPageLinkClick($event, pageLink - 1)"
+          [attr.aria-label]="'Page ' + pageLink"
         >
           {{ pageLink }}
         </button>
