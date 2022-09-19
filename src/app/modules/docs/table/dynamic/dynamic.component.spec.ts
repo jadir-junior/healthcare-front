@@ -1,22 +1,20 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing'
-
 import { DynamicComponent } from './dynamic.component'
+import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { PaginationDirective } from 'src/app/components/table/pagination.directive'
+import { TableModule } from '../table.module'
+import { TableService } from 'src/app/components/table/table.service'
+import { render } from '@testing-library/angular'
 
 describe('DynamicComponent', () => {
-  let component: DynamicComponent
-  let fixture: ComponentFixture<DynamicComponent>
+  const setup = async () => {
+    return render(DynamicComponent, {
+      imports: [HttpClientTestingModule, TableModule],
+      providers: [TableService, PaginationDirective],
+    })
+  }
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [DynamicComponent],
-    }).compileComponents()
-
-    fixture = TestBed.createComponent(DynamicComponent)
-    component = fixture.componentInstance
-    fixture.detectChanges()
-  })
-
-  it('should create', () => {
-    expect(component).toBeTruthy()
+  it('should create', async () => {
+    const { container } = await setup()
+    expect(container).toBeInTheDocument()
   })
 })

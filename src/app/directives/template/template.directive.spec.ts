@@ -1,8 +1,10 @@
 import { render, screen } from '@testing-library/angular'
 
 import { Component } from '@angular/core'
-import { TableBaseService } from 'src/app/components/table/table-base.service'
+import { DataDirective } from 'src/app/components/table/data.directive'
+import { PaginationDirective } from 'src/app/components/table/pagination.directive'
 import { TableModule } from 'src/app/components/table/table.module'
+import { TableService } from 'src/app/components/table/table.service'
 import { TemplateModule } from './template.module'
 
 @Component({
@@ -19,8 +21,9 @@ export class HostComponent {}
 describe('TemplateDirective', () => {
   it('should create wrapper to test template', async () => {
     await render(HostComponent, {
+      declarations: [DataDirective, PaginationDirective],
+      providers: [DataDirective, TableService, PaginationDirective],
       imports: [TableModule, TemplateModule],
-      providers: [TableBaseService],
     })
 
     expect(screen.getByTestId('template-header')).toBeInTheDocument()

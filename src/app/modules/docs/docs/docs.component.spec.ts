@@ -1,22 +1,16 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing'
-
 import { DocsComponent } from './docs.component'
+import { RouterTestingModule } from '@angular/router/testing'
+import { render } from '@testing-library/angular'
 
 describe('DocsComponent', () => {
-  let component: DocsComponent
-  let fixture: ComponentFixture<DocsComponent>
+  const setup = async () => {
+    return render(DocsComponent, {
+      imports: [RouterTestingModule],
+    })
+  }
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [DocsComponent],
-    }).compileComponents()
-
-    fixture = TestBed.createComponent(DocsComponent)
-    component = fixture.componentInstance
-    fixture.detectChanges()
-  })
-
-  it('should create', () => {
-    expect(component).toBeTruthy()
+  it('should create', async () => {
+    const { container } = await setup()
+    expect(container).toBeInTheDocument()
   })
 })

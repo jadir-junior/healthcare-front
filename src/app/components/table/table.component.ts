@@ -12,7 +12,6 @@ import {
 
 import { DataDirective } from './data.directive'
 import { PaginationDirective } from './pagination.directive'
-import { TableService } from './table.service'
 import { TemplateDirective } from 'src/app/directives/template/template.directive'
 
 export interface IColumn {
@@ -66,7 +65,6 @@ export interface IColumn {
     </div>
   `,
   styleUrls: ['table.component.scss'],
-  providers: [TableService],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.Default,
 })
@@ -81,11 +79,7 @@ export class TableComponent implements AfterContentInit {
 
   @ContentChildren(TemplateDirective) templates!: QueryList<TemplateDirective>
 
-  constructor(
-    public tableService: TableService,
-    public data: DataDirective,
-    public paginator: PaginationDirective
-  ) {}
+  constructor(public data: DataDirective, public paginator: PaginationDirective) {}
 
   ngAfterContentInit(): void {
     this.templates.forEach((item) => {

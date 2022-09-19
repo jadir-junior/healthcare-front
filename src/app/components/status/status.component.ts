@@ -67,6 +67,5 @@ export class StatusComponent implements OnInit {
 
   ngOnInit(): void {
     this.icon = this.createIcon()
-    console.log(this.icon)
   }
 }

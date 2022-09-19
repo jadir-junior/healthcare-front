@@ -1,22 +1,16 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing'
-
 import { BasicComponent } from './basic.component'
+import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { render } from '@testing-library/angular'
 
 describe('BasicComponent', () => {
-  let component: BasicComponent
-  let fixture: ComponentFixture<BasicComponent>
+  const setup = async () => {
+    return render(BasicComponent, {
+      imports: [HttpClientTestingModule],
+    })
+  }
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [BasicComponent],
-    }).compileComponents()
-
-    fixture = TestBed.createComponent(BasicComponent)
-    component = fixture.componentInstance
-    fixture.detectChanges()
-  })
-
-  it('should create', () => {
-    expect(component).toBeTruthy()
+  it('should create', async () => {
+    const { container } = await setup()
+    expect(container).toBeInTheDocument()
   })
 })

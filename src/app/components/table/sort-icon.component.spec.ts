@@ -1,22 +1,18 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing'
-
+import { SortDirective } from './sort.directive'
 import { SortIconComponent } from './sort-icon.component'
+import { TableService } from './table.service'
+import { render } from '@testing-library/angular'
 
 describe('SortIconComponent', () => {
-  let component: SortIconComponent
-  let fixture: ComponentFixture<SortIconComponent>
+  const setup = async () => {
+    return render(SortIconComponent, {
+      declarations: [SortDirective],
+      providers: [TableService, SortDirective],
+    })
+  }
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [SortIconComponent],
-    }).compileComponents()
-
-    fixture = TestBed.createComponent(SortIconComponent)
-    component = fixture.componentInstance
-    fixture.detectChanges()
-  })
-
-  it('should create', () => {
-    expect(component).toBeTruthy()
+  it('should create', async () => {
+    const { container } = await setup()
+    expect(container).toBeInTheDocument()
   })
 })

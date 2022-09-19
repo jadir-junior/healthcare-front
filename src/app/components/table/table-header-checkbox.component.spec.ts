@@ -1,22 +1,20 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing'
-
+import { DataDirective } from './data.directive'
+import { PaginationDirective } from './pagination.directive'
+import { SelectDirective } from './select.directive'
 import { TableHeaderCheckboxComponent } from './table-header-checkbox.component'
+import { TableService } from './table.service'
+import { render } from '@testing-library/angular'
 
 describe('TableHeaderCheckboxComponent', () => {
-  let component: TableHeaderCheckboxComponent
-  let fixture: ComponentFixture<TableHeaderCheckboxComponent>
+  const setup = async () => {
+    return render(TableHeaderCheckboxComponent, {
+      declarations: [SelectDirective, DataDirective, PaginationDirective],
+      providers: [TableService, SelectDirective, DataDirective, PaginationDirective],
+    })
+  }
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [TableHeaderCheckboxComponent],
-    }).compileComponents()
-
-    fixture = TestBed.createComponent(TableHeaderCheckboxComponent)
-    component = fixture.componentInstance
-    fixture.detectChanges()
-  })
-
-  it('should create', () => {
-    expect(component).toBeTruthy()
+  it('should create', async () => {
+    const { container } = await setup()
+    expect(container).toBeInTheDocument()
   })
 })

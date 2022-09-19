@@ -1,22 +1,19 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing'
-
+import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { SortComponent } from './sort.component'
+import { TableModule } from '../table.module'
+import { TableService } from 'src/app/components/table/table.service'
+import { render } from '@testing-library/angular'
 
 describe('SortComponent', () => {
-  let component: SortComponent
-  let fixture: ComponentFixture<SortComponent>
+  const setup = async () => {
+    return render(SortComponent, {
+      imports: [HttpClientTestingModule, TableModule],
+      providers: [TableService],
+    })
+  }
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [SortComponent],
-    }).compileComponents()
-
-    fixture = TestBed.createComponent(SortComponent)
-    component = fixture.componentInstance
-    fixture.detectChanges()
-  })
-
-  it('should create', () => {
-    expect(component).toBeTruthy()
+  it('should create', async () => {
+    const { container } = await setup()
+    expect(container).toBeInTheDocument()
   })
 })

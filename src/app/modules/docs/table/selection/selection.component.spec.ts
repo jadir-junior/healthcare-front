@@ -1,22 +1,16 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing'
-
+import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { SelectionComponent } from './selection.component'
+import { render } from '@testing-library/angular'
 
 describe('SelectionComponent', () => {
-  let component: SelectionComponent
-  let fixture: ComponentFixture<SelectionComponent>
+  const setup = async () => {
+    return render(SelectionComponent, {
+      imports: [HttpClientTestingModule],
+    })
+  }
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [SelectionComponent],
-    }).compileComponents()
-
-    fixture = TestBed.createComponent(SelectionComponent)
-    component = fixture.componentInstance
-    fixture.detectChanges()
-  })
-
-  it('should create', () => {
-    expect(component).toBeTruthy()
+  it('should create a page', async () => {
+    const { container } = await setup()
+    expect(container).toBeTruthy()
   })
 })
