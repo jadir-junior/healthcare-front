@@ -34,14 +34,24 @@ export interface IPageChange {
 @Component({
   selector: 'hc-pagination',
   template: `
-    <div class="wrapper-pagination">
+    <div class="wrapper-pagination" aria-label="pagination">
       <div class="wrapper-buttons">
-        <button [disabled]="isFirstPage() || empty()" (click)="changePageToFirst($event)">
+        <button
+          [disabled]="isFirstPage() || empty()"
+          (click)="changePageToFirst($event)"
+          aria-label="Button First Page"
+          type="button"
+        >
           <span class="material-symbols-outlined icon-size">
             keyboard_double_arrow_left
           </span>
         </button>
-        <button [disabled]="isFirstPage() || empty()" (click)="changePageToPrev($event)">
+        <button
+          [disabled]="isFirstPage() || empty()"
+          (click)="changePageToPrev($event)"
+          aria-label="Button Page To Prev"
+          type="button"
+        >
           <span class="material-symbols-outlined icon-size">chevron_left</span>
         </button>
         <button
@@ -49,13 +59,24 @@ export interface IPageChange {
           [ngClass]="{ 'hc-highlight-pagination': pageLink - 1 === getPage() }"
           (click)="onPageLinkClick($event, pageLink - 1)"
           [attr.aria-label]="'Page ' + pageLink"
+          type="button"
         >
           {{ pageLink }}
         </button>
-        <button [disabled]="isLastPage() || empty()" (click)="changePageToNext($event)">
+        <button
+          [disabled]="isLastPage() || empty()"
+          (click)="changePageToNext($event)"
+          type="button"
+          aria-label="Button Page To Next"
+        >
           <span class="material-symbols-outlined icon-size">chevron_right</span>
         </button>
-        <button [disabled]="isLastPage() || empty()" (click)="changePageToLast($event)">
+        <button
+          [disabled]="isLastPage() || empty()"
+          (click)="changePageToLast($event)"
+          type="button"
+          aria-label="Button Last Page"
+        >
           <span class="material-symbols-outlined icon-size">
             keyboard_double_arrow_right
           </span>
@@ -125,7 +146,7 @@ export interface IPageChange {
 })
 export class PaginationComponent implements OnInit, OnChanges {
   @Input() pagination?: IPagination
-  @Input() pageLinkSize = 5
+  @Input() pageLinkSize = 0
   @Input() rows = 0
   @Input() totalRecords = 0
   @Input() showCurrentPageReport!: boolean
@@ -140,7 +161,7 @@ export class PaginationComponent implements OnInit, OnChanges {
   _first = 0
 
   ngOnInit(): void {
-    this.setInitalValueToFirst()
+    // this.setInitalValueToFirstWhenServerSide()
     this.updatePaginationState()
   }
 
@@ -160,6 +181,16 @@ export class PaginationComponent implements OnInit, OnChanges {
       this.updatePageLinks()
       this.updatePaginationState()
     }
+
+    if (changes['pagination']) {
+      if (this.pagination) {
+        this.totalRecords = this.pagination.totalItems
+        this.rows = this.pagination.itemsPerPage
+      }
+
+      this.updatePageLinks()
+      this.updatePaginationState()
+    }
   }
 
   @Input() get first(): number {
@@ -170,7 +201,12 @@ export class PaginationComponent implements OnInit, OnChanges {
     this._first = val
   }
 
-  setInitalValueToFirst(): void {
+  setInitalValueToFirstWhenServerSide(): void {
+    if (this.pagination) {
+      this.rows = this.pagination.itemsPerPage
+      this.pageLinkSize = this.pagination.itemsPerPage
+      this.totalRecords = this.pagination.totalItems
+    }
     this.first = this.pagination ? this.rows * (this.pagination.currentPage - 1) : 0
   }
 
