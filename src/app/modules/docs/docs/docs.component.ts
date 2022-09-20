@@ -26,7 +26,12 @@ import { Component } from '@angular/core'
           <a (click)="goToRouteRelativePath('/docs/table/page?page=1&limit=5')">Page</a>
         </div>
         <div>
-          <a (click)="goToRoute('table/sort')">Sort</a>
+          <a
+            (click)="
+              goToRouteRelativePath('/docs/table/sort?sortColumn=code&sortDirection=ASC')
+            "
+            >Sort</a
+          >
         </div>
         <div>
           <a (click)="goToRouteRelativePath('/docs/table/selection?page=1&limit=5')">

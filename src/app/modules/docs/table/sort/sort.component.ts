@@ -13,6 +13,8 @@ import { BaseTableService } from 'src/app/common/base-table/base-table.service'
       [value]="products"
       [responsive]="true"
       (sortEvent)="onSort($event)"
+      [sortField]="baseTableService.sortColumn"
+      [sortOrder]="baseTableService.sortDirection"
     >
       <ng-template hcTemplate="header">
         <tr>

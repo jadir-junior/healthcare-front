@@ -22,8 +22,8 @@ export class BaseTableService {
       if (Object.keys(params).length !== 0) {
         const { page, limit, sortColumn, sortDirection } = params as IParams
 
-        this.page = Number(page)
-        this.limit = Number(limit)
+        this.page = page ? Number(page) : 1
+        this.limit = limit ? Number(limit) : 5
         this.sortColumn = sortColumn
         this.sortDirection = sortDirection
       }
