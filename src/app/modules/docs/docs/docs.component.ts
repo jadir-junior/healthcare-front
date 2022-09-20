@@ -38,6 +38,11 @@ import { Component } from '@angular/core'
             Select all
           </a>
         </div>
+
+        <div style="font-weight: bold">Data</div>
+        <div>
+          <a (click)="goToRoute('data/pagination')">Pagination</a>
+        </div>
       </aside>
       <main>
         <router-outlet></router-outlet>

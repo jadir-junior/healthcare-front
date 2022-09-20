@@ -88,10 +88,10 @@
     "preset": "jest-preset-angular",
     "collectCoverage": true,
     "collectCoverageFrom": [
-      "<rootDir>/**/*.ts",
-      "!<rootDir>/node_modules/**",
-      "!<rootDir>/cypress/**",
-      "!<rootDir>/**/*.stories.ts"
+      "<rootDir>/src/app/**/*.ts",
+      "!<rootDir>/**/*.stories.ts",
+      "!<rootDir>/**/*.module.ts",
+      "!<rootDir>/src/app/modules/docs/**/*.ts"
     ],
     "modulePaths": [
       "<rootDir>"
