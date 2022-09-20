@@ -82,7 +82,11 @@ export interface IPageChange {
           </span>
         </button>
       </div>
-      <div *ngIf="showCurrentPageReport" class="current-report">
+      <div
+        *ngIf="showCurrentPageReport"
+        class="current-report"
+        aria-label="Current Report"
+      >
         {{ currentPageReport }}
       </div>
     </div>
@@ -145,6 +149,11 @@ export interface IPageChange {
   ],
 })
 export class PaginationComponent implements OnInit, OnChanges {
+  _first = 0
+
+  paginationState!: IPaginationState
+  pageLinks!: number[]
+
   @Input() pagination?: IPagination
   @Input() pageLinkSize = 5
   @Input() rows = 0
@@ -154,14 +163,7 @@ export class PaginationComponent implements OnInit, OnChanges {
 
   @Output() pageChangeEvent = new EventEmitter<IPageChange>()
 
-  paginationState!: IPaginationState
-
-  pageLinks!: number[]
-
-  _first = 0
-
   ngOnInit(): void {
-    // this.setInitalValueToFirstWhenServerSide()
     this.updatePaginationState()
   }
 
@@ -172,12 +174,6 @@ export class PaginationComponent implements OnInit, OnChanges {
     }
 
     if (changes['rows']) {
-      this.updatePageLinks()
-      this.updatePaginationState()
-    }
-
-    if (changes['first']) {
-      this._first = changes['first'].currentValue
       this.updatePageLinks()
       this.updatePaginationState()
     }
@@ -195,19 +191,6 @@ export class PaginationComponent implements OnInit, OnChanges {
 
   @Input() get first(): number {
     return this._first
-  }
-
-  set first(val: number) {
-    this._first = val
-  }
-
-  setInitalValueToFirstWhenServerSide(): void {
-    if (this.pagination) {
-      this.rows = this.pagination.itemsPerPage
-      this.pageLinkSize = this.pagination.itemsPerPage
-      this.totalRecords = this.pagination.totalItems
-    }
-    this.first = this.pagination ? this.rows * (this.pagination.currentPage - 1) : 0
   }
 
   calculatePageLinkBoundaries(): number[] {

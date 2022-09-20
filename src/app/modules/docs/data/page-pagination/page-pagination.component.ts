@@ -22,7 +22,7 @@ import { ProductsService } from '../../products.service'
         ></hc-pagination>
       </div>
 
-      <div class="wrapper-card-docs">
+      <div class="wrapper-card-docs" style="margin-bottom: 32px">
         <h4>Server Side</h4>
         <p class="body" style="margin-bottom: 16px;">
           paginação com controle do servidor
@@ -30,6 +30,19 @@ import { ProductsService } from '../../products.service'
         <hc-pagination
           [pagination]="serverSidePagination"
           (pageChangeEvent)="onPageChange($event)"
+        ></hc-pagination>
+      </div>
+
+      <div class="wrapper-card-docs" style="margin-bottom: 32px">
+        <h4>Show current Page</h4>
+        <p class="body" style="margin-bottom: 16px;">
+          mostra a pagina currente no lado direito
+        </p>
+        <hc-pagination
+          [rows]="basicPagination.itemsPerPage"
+          [totalRecords]="basicPagination.totalItems"
+          [showCurrentPageReport]="true"
+          currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} linhas"
         ></hc-pagination>
       </div>
     </div>
@@ -44,8 +57,8 @@ export class PagePaginationComponent implements OnInit {
     currentPage: 1,
     itemCount: 5,
     itemsPerPage: 5,
-    totalItems: 10,
-    totalPages: 2,
+    totalItems: 35,
+    totalPages: 7,
   }
 
   serverSidePagination: IPagination = {
