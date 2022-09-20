@@ -18,7 +18,6 @@ import { ProductsService } from '../../products.service'
         </p>
         <hc-pagination
           [rows]="basicPagination.itemsPerPage"
-          [pageLinkSize]="basicPagination.itemsPerPage"
           [totalRecords]="basicPagination.totalItems"
         ></hc-pagination>
       </div>

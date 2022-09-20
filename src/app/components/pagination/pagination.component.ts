@@ -146,7 +146,7 @@ export interface IPageChange {
 })
 export class PaginationComponent implements OnInit, OnChanges {
   @Input() pagination?: IPagination
-  @Input() pageLinkSize = 0
+  @Input() pageLinkSize = 5
   @Input() rows = 0
   @Input() totalRecords = 0
   @Input() showCurrentPageReport!: boolean
