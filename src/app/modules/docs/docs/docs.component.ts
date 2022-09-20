@@ -7,7 +7,12 @@ import { Component } from '@angular/core'
   template: `
     <div class="wrapper-layout">
       <aside>
-        <div>Table</div>
+        <div style="font-weight: bold">Form</div>
+        <div>
+          <a (click)="goToRoute('form/inputtext')">Input Text</a>
+        </div>
+
+        <div style="font-weight: bold">Table</div>
         <div>
           <a (click)="goToRoute('table/basic')">Basic</a>
         </div>
