@@ -104,4 +104,17 @@ describe('Select All', () => {
       cy.getByTestId(`checkbox-${row}`).should('have.attr', 'aria-checked', 'false')
     })
   })
+
+  it('"SELECT ALL" and deselect with checkbox header 5 rows and click and clear selected and change to page 2 and page 1', () => {
+    selectAll()
+
+    cy.getByTestId('checkbox header').click()
+
+    cy.getByLabelText('clear selected').click()
+
+    cy.getByLabelText('Page 1').click()
+    rowOne.forEach((row) => {
+      cy.getByTestId(`checkbox-${row}`).should('have.attr', 'aria-checked', 'false')
+    })
+  })
 })

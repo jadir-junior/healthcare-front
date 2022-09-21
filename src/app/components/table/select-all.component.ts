@@ -5,7 +5,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core'
   selector: 'hc-select-all',
   template: `
     <div class="wrapper-container">
-      <div class="wrapper-select-all">
+      <div class="wrapper-select-all" data-testid="Select All Component">
         <span
           class="select-all-text"
           [attr.aria-label]="
