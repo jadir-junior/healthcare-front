@@ -26,7 +26,7 @@ export class SortIconComponent implements OnInit, OnDestroy {
 
   subscription: Subscription
 
-  sortOrder!: number
+  sortOrder: number | string | undefined
 
   constructor(
     public tableService: TableService,

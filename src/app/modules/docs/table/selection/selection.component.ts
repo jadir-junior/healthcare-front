@@ -8,7 +8,7 @@ import { IMeta } from 'src/app/models/pagination.model'
 @Component({
   selector: 'app-selection',
   template: `
-    <div class="wrapper-container-docs" *ngIf="products && pagination">
+    <div class="wrapper-container-docs">
       <hc-table
         hcSelect
         hcData
@@ -21,8 +21,6 @@ import { IMeta } from 'src/app/models/pagination.model'
         [selectionPageOnly]="true"
         [paginator]="true"
         [pagination]="pagination"
-        [rows]="baseTableService.limit"
-        [totalRecords]="pagination.totalItems"
         (pageEvent)="baseTableService.changePage($event)"
       >
         <ng-template hcTemplate="header">
@@ -54,7 +52,6 @@ import { IMeta } from 'src/app/models/pagination.model'
           </tr>
         </ng-template>
       </hc-table>
-      <button type="button" (click)="showSelectedProducts()">Show</button>
     </div>
   `,
   styleUrls: ['../../docs/docs.component.scss'],

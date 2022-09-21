@@ -1,10 +1,17 @@
-import { Directive, EventEmitter, Input, Output } from '@angular/core'
+import {
+  Directive,
+  EventEmitter,
+  Input,
+  OnChanges,
+  Output,
+  SimpleChanges,
+} from '@angular/core'
 import { IPageChange, IPagination } from '../pagination/pagination.component'
 
 @Directive({
   selector: '[hcPagination]',
 })
-export class PaginationDirective {
+export class PaginationDirective implements OnChanges {
   _first = 0
 
   @Input() paginator!: boolean
@@ -22,6 +29,13 @@ export class PaginationDirective {
 
   set first(val: number) {
     this._first = val
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes['pagination'].currentValue) {
+      this.rows = changes['pagination'].currentValue.itemsPerPage
+      this.totalRecords = changes['pagination'].currentValue.totalItems
+    }
   }
 
   onPageChange(event: IPageChange) {

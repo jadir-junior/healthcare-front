@@ -92,10 +92,12 @@ export class SelectDirective implements OnChanges {
     if (changes['selectAll']) {
       this.selectAll = changes['selectAll'].currentValue
 
-      if (!this.preventSelectionSetterPropagation) {
+      if (!this.preventSelectionSetterPropagation || !this.selectAll) {
         setTimeout(() => {
+          this.deselection = []
           this.selection = []
           this.selectionChange.emit(this.selection)
+          this.deselectionChange.emit(this.deselection)
           this.tableService.onSelectionChange()
         })
       }
