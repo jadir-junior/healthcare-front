@@ -7,45 +7,76 @@ import { Component } from '@angular/core'
   template: `
     <div class="wrapper-layout">
       <aside>
-        <div style="font-weight: bold">Form</div>
-        <div>
-          <a (click)="goToRoute('form/inputtext')">Input Text</a>
+        <div class="menu-category">Form</div>
+        <div
+          class="menu-item"
+          [routerLinkActive]="['menu-item-active']"
+          [routerLink]="['/docs/form/inputtext']"
+        >
+          <a>Input Text</a>
         </div>
 
-        <div style="font-weight: bold">Table</div>
-        <div>
-          <a (click)="goToRoute('table/basic')">Basic</a>
+        <div class="menu-category">Table</div>
+        <div
+          class="menu-item"
+          [routerLinkActive]="['menu-item-active']"
+          [routerLink]="['/docs/table/basic']"
+        >
+          <a>Basic</a>
         </div>
-        <div>
-          <a (click)="goToRoute('table/dynamic')">Dynamic</a>
+        <div
+          class="menu-item"
+          [routerLinkActive]="['menu-item-active']"
+          [routerLink]="['/docs/table/dynamic']"
+        >
+          <a>Dynamic</a>
         </div>
-        <div>
-          <a (click)="goToRoute('table/gridlines')">Gridlines</a>
+        <div
+          class="menu-item"
+          [routerLinkActive]="['menu-item-active']"
+          [routerLink]="['/docs/table/gridlines']"
+        >
+          <a>Gridlines</a>
         </div>
-        <div>
-          <a (click)="goToRouteRelativePath('/docs/table/page?page=1&limit=5')">Page</a>
+        <div
+          class="menu-item"
+          [routerLink]="['/docs/table/page']"
+          [queryParams]="{ page: 1, limit: 5 }"
+          [routerLinkActive]="['menu-item-active']"
+        >
+          <a>Page</a>
         </div>
-        <div>
-          <a
-            (click)="
-              goToRouteRelativePath('/docs/table/sort?sortColumn=code&sortDirection=ASC')
-            "
-            >Sort</a
-          >
+        <div
+          class="menu-item"
+          [routerLink]="['/docs/table/selection']"
+          [queryParams]="{ sortColumn: 'code', sortDirection: 'ASC' }"
+          [routerLinkActive]="['menu-item-active']"
+        >
+          <a>Sort</a>
         </div>
-        <div>
-          <a (click)="goToRouteRelativePath('/docs/table/selection?page=1&limit=5')">
-            Selection
-          </a>
+        <div
+          class="menu-item"
+          [routerLink]="['/docs/table/selection']"
+          [queryParams]="{ page: 1, limit: 5 }"
+          [routerLinkActive]="['menu-item-active']"
+        >
+          <a> Selection </a>
         </div>
-        <div>
-          <a (click)="goToRouteRelativePath('/docs/table/selectall?page=1&limit=5')">
-            Select all
-          </a>
+        <div
+          class="menu-item"
+          [routerLink]="['/docs/table/selectall']"
+          [queryParams]="{ page: 1, limit: 5 }"
+          [routerLinkActive]="['menu-item-active']"
+        >
+          <a> Select all </a>
         </div>
 
-        <div style="font-weight: bold">Data</div>
-        <div>
+        <div class="menu-category">Data</div>
+        <div
+          class="menu-item"
+          [routerLinkActive]="['menu-item-active']"
+          [routerLink]="['/docs/data/pagination']"
+        >
           <a (click)="goToRoute('data/pagination')">Pagination</a>
         </div>
       </aside>
@@ -69,8 +100,24 @@ import { Component } from '@angular/core'
       main {
       }
 
-      a {
+      .menu-category {
+        padding: 0.5rem 0.25rem;
+        font-weight: 700;
+        color: var(--neutral-black);
+        font-size: 16px;
+      }
+
+      .menu-item {
+        color: var(--neutral-black);
+        padding: 0.5rem 0.75rem;
+        border-radius: 10px;
         cursor: pointer;
+      }
+
+      .menu-item-active {
+        color: var(--primary-default);
+        font-weight: 700;
+        background-color: var(--primary-lightest);
       }
     `,
   ],
