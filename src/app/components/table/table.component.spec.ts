@@ -337,6 +337,97 @@ class SortTableComponent implements OnInit {
   }
 }
 
+@Component({
+  selector: 'hc-selection-table',
+  template: `
+    <hc-table
+      hcSelect
+      hcData
+      hcPagination
+      dataKey="code"
+      [value]="products"
+      [paginator]="true"
+      [pagination]="pagination"
+      (pageEvent)="onChangePage($event)"
+      [(selection)]="selectProducts"
+      [rowSelectable]="isRowSelectable"
+      [selectionPageOnly]="true"
+    >
+      <ng-template hcTemplate="header">
+        <tr>
+          <th>
+            <hc-table-header-checkbox
+              ariaLabel="Checkbox Header"
+            ></hc-table-header-checkbox>
+          </th>
+          <th
+            *ngFor="let column of columns"
+            [attr.aria-label]="'Column header ' + column.header"
+          >
+            {{ column.header }}
+          </th>
+        </tr>
+      </ng-template>
+      <ng-template hcTemplate="body">
+        <tr *ngFor="let product of products" aria-label="row">
+          <td>
+            <hc-table-check-box
+              [value]="product"
+              [disabled]="isInStock(product)"
+              [ariaLabel]="'checkbox-' + product.id"
+            ></hc-table-check-box>
+          </td>
+          <td *ngFor="let column of columns">
+            {{ product[column.field] }}
+          </td>
+        </tr>
+      </ng-template>
+    </hc-table>
+  `,
+  providers: [TableService],
+})
+class SelectionTableComponent implements OnInit {
+  page = 1
+
+  products: any[] = []
+  pagination = {}
+  columns = COLUMNS
+
+  selectedProducts = []
+
+  ngOnInit(): void {
+    this.getProducts()
+  }
+
+  getProducts() {
+    if (this.page === 1) {
+      this.products = RESPONSE_PRODUCTS_PAGE_1
+      this.pagination = RESPONSE_PAGINATION_PAGE_1
+    }
+
+    if (this.page === 2) {
+      this.products = RESPONSE_PRODUCTS_PAGE_2
+      this.pagination = { ...RESPONSE_PAGINATION_PAGE_1, ...{ currentPage: 2 } }
+    }
+  }
+
+  onChangePage(event: { page: number; pageCount: number; first: number; rows: number }) {
+    this.page = event.page
+    this.getProducts()
+  }
+
+  isRowSelectable(event: { data: any; index: number }) {
+    if (event.data?.quantity < 5) {
+      return false
+    }
+    return true
+  }
+
+  isInStock(data: any) {
+    return data.quantity < 5
+  }
+}
+
 describe('TableComponent', () => {
   const setupBasicTable = async () => {
     return render(BasicTableComponent, {
@@ -358,6 +449,12 @@ describe('TableComponent', () => {
 
   const setupSortTable = async () => {
     return render(SortTableComponent, {
+      imports: [TableModule, TemplateModule],
+    })
+  }
+
+  const setupSelectionTable = async () => {
+    return render(SelectionTableComponent, {
       imports: [TableModule, TemplateModule],
     })
   }
@@ -513,5 +610,167 @@ describe('TableComponent', () => {
     expect(columnHeaderName).not.toHaveClass('hc-highlight')
     expect(columnHeaderCategory).toHaveAttribute('aria-sort', 'none')
     expect(columnHeaderCategory).not.toHaveClass('hc-highlight')
+  })
+
+  it('"SELECTION TABLE", create a selection table with initial state', async () => {
+    await setupSelectionTable()
+    const checkboxHeader = screen.getByTestId(/checkbox header/i)
+    const checkboxRows = screen.getAllByTestId(/checkbox-/i)
+    const checkboxDisabled = screen.getByLabelText(/checkbox-1008/i)
+
+    expect(checkboxHeader).toBeInTheDocument()
+    expect(checkboxHeader).toHaveAttribute('aria-checked', 'false')
+    expect(checkboxRows.length).toBe(5)
+    checkboxRows.forEach((c) => {
+      expect(c).toHaveAttribute('aria-checked', 'false')
+    })
+    expect(checkboxDisabled).toBeDisabled()
+  })
+
+  it('"SELECTION TABLE", create a selection table and select two rows', async () => {
+    await setupSelectionTable()
+    const checkbox1009 = screen.getByTestId(/checkbox-1009/i)
+    const checkbox1003 = screen.getByTestId(/checkbox-1003/i)
+
+    await userEvent.click(checkbox1003)
+    await userEvent.click(checkbox1009)
+
+    expect(checkbox1009).toHaveClass('hc-checkbox-highlight')
+    expect(checkbox1003).toHaveClass('hc-checkbox-highlight')
+    expect(checkbox1003).toHaveAttribute('aria-checked', 'true')
+    expect(checkbox1003).toHaveAttribute('aria-checked', 'true')
+  })
+
+  it('"SELECTION TABLE", select all rows on the page without selected disabled', async () => {
+    await setupSelectionTable()
+    const checkboxsEnable = ['1009', '1003', '1001', '1007']
+    const checkboxHeader = screen.getByTestId(/checkbox header/i)
+    const checkbox1008Disabled = screen.getByTestId(/checkbox-1008/i)
+
+    await userEvent.click(checkboxHeader)
+
+    checkboxsEnable.forEach((c) => {
+      expect(screen.getByTestId(`checkbox-${c}`)).toHaveAttribute('aria-checked', 'true')
+    })
+    expect(checkbox1008Disabled).toHaveAttribute('aria-checked', 'false')
+    expect(screen.getByLabelText(/checkbox-1008/i)).toBeDisabled()
+  })
+
+  it('"SELECTION TABLE", select the checkbox header and deselect the checkbox header', async () => {
+    await setupSelectionTable()
+    const checkboxsEnable = ['1009', '1003', '1001', '1007']
+    const checkboxHeader = screen.getByTestId(/checkbox header/i)
+    const checkbox1008Disabled = screen.getByTestId(/checkbox-1008/i)
+
+    await userEvent.click(checkboxHeader)
+
+    checkboxsEnable.forEach((row) => {
+      expect(screen.getByTestId(`checkbox-${row}`)).toHaveAttribute(
+        'aria-checked',
+        'true'
+      )
+    })
+    expect(checkbox1008Disabled).toHaveAttribute('aria-checked', 'false')
+    expect(screen.getByLabelText(/checkbox-1008/i)).toBeDisabled()
+
+    await userEvent.click(checkboxHeader)
+
+    checkboxsEnable.forEach((row) => {
+      expect(screen.getByTestId(`checkbox-${row}`)).toHaveAttribute(
+        'aria-checked',
+        'false'
+      )
+    })
+    expect(checkbox1008Disabled).toHaveAttribute('aria-checked', 'false')
+    expect(screen.getByLabelText(/checkbox-1008/i)).toBeDisabled()
+  })
+
+  it('"SELECTION TABLE", select all rows in two pages without checkboxs disabled', async () => {
+    await setupSelectionTable()
+    const checkboxsPage1Enable = ['1009', '1003', '1001', '1007']
+    const checkboxsPage2Enable = ['1006', '1004', '1000']
+    const checkboxsPage2Disabled = ['1005', '1002']
+    const checkboxHeader = screen.getByTestId(/checkbox header/i)
+    const checkbox1008Disabled = screen.getByTestId(/checkbox-1008/i)
+    const page2 = screen.getByRole('button', { name: /page 2/i })
+
+    await userEvent.click(checkboxHeader)
+
+    checkboxsPage1Enable.forEach((row) => {
+      expect(screen.getByTestId(`checkbox-${row}`)).toHaveAttribute(
+        'aria-checked',
+        'true'
+      )
+    })
+    expect(checkbox1008Disabled).toHaveAttribute('aria-checked', 'false')
+    expect(screen.getByLabelText(/checkbox-1008/i)).toBeDisabled()
+
+    await userEvent.click(page2)
+
+    expect(checkboxHeader).toHaveAttribute('aria-checked', 'false')
+
+    await userEvent.click(checkboxHeader)
+    checkboxsPage2Enable.forEach((row) => {
+      expect(screen.getByTestId(`checkbox-${row}`)).toHaveAttribute(
+        'aria-checked',
+        'true'
+      )
+    })
+    checkboxsPage2Disabled.forEach((row) => {
+      expect(screen.getByTestId(`checkbox-${row}`)).toHaveAttribute(
+        'aria-checked',
+        'false'
+      )
+    })
+  })
+
+  it('"SELECTION TABLE", select all rows in two pages without checkboxs disabled and return to page 1 and continued select', async () => {
+    await setupSelectionTable()
+    const checkboxsPage1Enable = ['1009', '1003', '1001', '1007']
+    const checkboxsPage2Enable = ['1006', '1004', '1000']
+    const checkboxsPage2Disabled = ['1005', '1002']
+    const checkboxHeader = screen.getByTestId(/checkbox header/i)
+    const checkbox1008Disabled = screen.getByTestId(/checkbox-1008/i)
+    const page2 = screen.getByRole('button', { name: /page 2/i })
+
+    await userEvent.click(checkboxHeader)
+
+    checkboxsPage1Enable.forEach((row) => {
+      expect(screen.getByTestId(`checkbox-${row}`)).toHaveAttribute(
+        'aria-checked',
+        'true'
+      )
+    })
+    expect(checkbox1008Disabled).toHaveAttribute('aria-checked', 'false')
+    expect(screen.getByLabelText(/checkbox-1008/i)).toBeDisabled()
+
+    await userEvent.click(page2)
+
+    expect(checkboxHeader).toHaveAttribute('aria-checked', 'false')
+
+    await userEvent.click(checkboxHeader)
+    checkboxsPage2Enable.forEach((row) => {
+      expect(screen.getByTestId(`checkbox-${row}`)).toHaveAttribute(
+        'aria-checked',
+        'true'
+      )
+    })
+    checkboxsPage2Disabled.forEach((row) => {
+      expect(screen.getByTestId(`checkbox-${row}`)).toHaveAttribute(
+        'aria-checked',
+        'false'
+      )
+    })
+
+    await userEvent.click(screen.getByRole('button', { name: /page 1/i }))
+
+    checkboxsPage1Enable.forEach((row) => {
+      expect(screen.getByTestId(`checkbox-${row}`)).toHaveAttribute(
+        'aria-checked',
+        'true'
+      )
+    })
+    expect(checkbox1008Disabled).toHaveAttribute('aria-checked', 'false')
+    expect(screen.getByLabelText(/checkbox-1008/i)).toBeDisabled()
   })
 })

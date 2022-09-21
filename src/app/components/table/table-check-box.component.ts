@@ -10,9 +10,9 @@ import { TableService } from './table.service'
   selector: 'hc-table-check-box',
   template: `
     <div
-      (click)="onClick($event)"
-      [ngClass]="{ 'hc-checkbox-focused': focused, 'hc-checkbox-disabled': disabled }"
       class="hc-checkbox"
+      [ngClass]="{ 'hc-checkbox-focused': focused, 'hc-checkbox-disabled': disabled }"
+      (click)="onClick($event)"
     >
       <div class="hc-checkbox-hidden-accessible">
         <input
