@@ -121,11 +121,8 @@ export class TableHeaderCheckboxComponent implements OnInit, OnDestroy {
   updateCheckedState(): boolean {
     this.cd.markForCheck()
 
-    if (this.select.selectAll !== null) {
-      if (this.select.selectAll) {
-        return !this.checkIfAllRowsIsDeselected()
-      }
-      return false
+    if (this.select.selectAll === true) {
+      return !this.checkIfAllRowsIsDeselected()
     } else {
       const data = this.select.selectionPageOnly
         ? this.data.dataToRender(this.data.processedData)
