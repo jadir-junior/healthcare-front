@@ -5,6 +5,9 @@ import { Component } from '@angular/core'
   selector: 'app-home',
   template: `<div class="wrapper-home">
     <hc-sidebar>
+      <div class="wrapper-logo">
+        <hc-logo></hc-logo>
+      </div>
       <div style="margin: 1.5rem">
         <hc-menu [model]="menuItems"></hc-menu>
       </div>
@@ -16,6 +19,10 @@ import { Component } from '@angular/core'
       .wrapper-home {
         height: 100%;
         display: flex;
+      }
+
+      .wrapper-logo {
+        margin: 1.5rem;
       }
     `,
   ],
