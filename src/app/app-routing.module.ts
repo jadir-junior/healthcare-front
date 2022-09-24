@@ -2,8 +2,14 @@ import { RouterModule, Routes } from '@angular/router'
 
 import { NgModule } from '@angular/core'
 import { PageNotFoundComponent } from './modules/authentication/page-not-found/page-not-found.component'
+import { AuthGuard } from './modules/authentication/auth.guard'
 
 const routes: Routes = [
+  {
+    path: 'home',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./modules/home/home.module').then((m) => m.HomeModule),
+  },
   {
     path: 'auth',
     loadChildren: () =>
@@ -27,7 +33,7 @@ const routes: Routes = [
   },
   {
     path: '',
-    redirectTo: 'auth',
+    redirectTo: 'home',
     pathMatch: 'full',
   },
   {

@@ -1,3 +1,4 @@
+import { AuthenticationService } from './../authentication.service'
 import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 
 import { Component } from '@angular/core'
@@ -16,7 +17,10 @@ export class LoginComponent {
   isVisiblePassword = false
   submitted = false
 
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private authenticationService: AuthenticationService
+  ) {}
 
   toggleVisible() {
     this.isVisiblePassword = !this.isVisiblePassword
@@ -25,7 +29,7 @@ export class LoginComponent {
   onSubmit({ value, valid }: FormGroup) {
     this.submitted = true
     if (valid) {
-      console.log(value)
+      this.authenticationService.login(value)
     }
   }
 }
