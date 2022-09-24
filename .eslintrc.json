@@ -30,7 +30,7 @@
           {
             "type": ["element", "attribute"],
             "prefix": ["app", "hc"],
-            "style": "kebab-case"
+            "style": ["kebab-case", "camelCase"]
           }
         ],
         "@angular-eslint/no-output-on-prefix": ["off"]
