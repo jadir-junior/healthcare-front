@@ -1,3 +1,6 @@
+import { AuthenticationService } from './../authentication.service'
+import { RouterTestingModule } from '@angular/router/testing'
+import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { render, screen } from '@testing-library/angular'
 
 import { ButtonModule } from 'src/app/components/button/button.module'
@@ -10,6 +13,8 @@ import { SwitchModule } from 'src/app/components/switch/switch.module'
 import userEvent from '@testing-library/user-event'
 
 describe('LoginComponent', () => {
+  const loginSpy = jest.fn()
+
   const setup = async () => {
     return render(LoginComponent, {
       imports: [
@@ -19,6 +24,16 @@ describe('LoginComponent', () => {
         ButtonModule,
         IconModule,
         LinkModule,
+        HttpClientTestingModule,
+        RouterTestingModule,
+      ],
+      providers: [
+        {
+          provide: AuthenticationService,
+          useValue: {
+            login: loginSpy,
+          },
+        },
       ],
     })
   }
@@ -63,5 +78,25 @@ describe('LoginComponent', () => {
     expect(
       screen.getByLabelText(/password/i, { selector: 'input', exact: true })
     ).toHaveAttribute('type', 'text')
+  })
+
+  it('login in the sign in', async () => {
+    await setup()
+
+    await userEvent.type(
+      screen.getByRole('textbox', { name: 'login' }),
+      'john.doe@gmail.com'
+    )
+    await userEvent.type(
+      screen.getByLabelText(/password/i, { selector: 'input' }),
+      'Password123*'
+    )
+    await userEvent.click(screen.getByRole('button', { name: /sign in/i }))
+
+    expect(loginSpy).toHaveBeenCalledWith({
+      login: 'john.doe@gmail.com',
+      password: 'Password123*',
+      rememberMe: true,
+    })
   })
 })
