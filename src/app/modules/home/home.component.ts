@@ -6,21 +6,23 @@ import { Component } from '@angular/core'
   template: `<div class="wrapper-home">
     <hc-sidebar>
       <div class="wrapper-logo">
-        <!-- <hc-logo></hc-logo> -->
+        <hc-logo></hc-logo>
       </div>
       <div style="margin: 1.5rem">
         <hc-menu [model]="menuItems"></hc-menu>
       </div>
     </hc-sidebar>
-    <div>
-      <hc-logo></hc-logo>
-    </div>
+    <div></div>
   </div>`,
   styles: [
     `
       .wrapper-home {
         height: 100%;
         display: flex;
+      }
+
+      .wrapper-logo {
+        margin: 1.5rem;
       }
     `,
   ],
