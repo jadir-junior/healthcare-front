@@ -1,3 +1,4 @@
+import { MenuModule } from './../../components/menu/menu.module'
 import { SidebarModule } from './../../components/sidebar/sidebar.module'
 import { render } from '@testing-library/angular'
 
@@ -6,7 +7,7 @@ import { HomeComponent } from './home.component'
 describe('HomeComponent', () => {
   const setup = async () => {
     return render(HomeComponent, {
-      imports: [SidebarModule],
+      imports: [SidebarModule, MenuModule],
     })
   }
 
