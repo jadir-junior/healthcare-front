@@ -10,9 +10,10 @@ import { Component, EventEmitter, Input, Output } from '@angular/core'
       [attr.aria-label]="ariaLabel"
       (mouseenter)="onMouseEnter()"
       (mouseleave)="onMouseLeave()"
-      (click)="onClick()"
+      (click)="click()"
     >
       <ng-content></ng-content>
+      <span class="material-symbols-outlined" *ngIf="icon">{{ icon }}</span>
     </button>
   `,
   styleUrls: ['./button.component.scss'],
@@ -25,14 +26,15 @@ export class ButtonComponent {
   @Input() size: 'small' | 'normal' | 'large' = 'normal'
   @Input() color: 'primary' | 'secondary' | 'default' = 'default'
   @Input() theme: 'contained' | 'outlined' | 'text' = 'contained'
+  @Input() icon?: string
   @Input() ariaLabel?: string
   @Input() disabled = false
 
-  @Output() clickEvent = new EventEmitter<Event>()
+  @Output() onClick = new EventEmitter<Event>()
 
-  onClick(): void {
+  click(): void {
     this.isPressed = true
-    this.clickEvent.emit()
+    this.onClick.emit()
   }
 
   onMouseEnter(): void {
