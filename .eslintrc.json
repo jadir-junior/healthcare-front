@@ -32,7 +32,8 @@
             "prefix": ["app", "hc"],
             "style": "kebab-case"
           }
-        ]
+        ],
+        "@angular-eslint/no-output-on-prefix": ["off"]
       }
     },
     {
