@@ -5,11 +5,16 @@ import { Component } from '@angular/core'
   selector: 'app-home',
   template: `<div class="wrapper-home">
     <hc-sidebar>
+      <div class="wrapper-logo">
+        <!-- <hc-logo></hc-logo> -->
+      </div>
       <div style="margin: 1.5rem">
         <hc-menu [model]="menuItems"></hc-menu>
       </div>
     </hc-sidebar>
-    <div></div>
+    <div>
+      <hc-logo></hc-logo>
+    </div>
   </div>`,
   styles: [
     `
