@@ -1,85 +1,20 @@
 import { ActivatedRoute, Router } from '@angular/router'
 
 import { Component } from '@angular/core'
+import { IMenuItem } from 'src/app/components/menu/menu-item.component'
 
 @Component({
   selector: 'app-docs',
   template: `
     <div class="wrapper-layout">
-      <aside>
-        <div class="menu-category">Form</div>
-        <div
-          class="menu-item"
-          [routerLinkActive]="['menu-item-active']"
-          [routerLink]="['/docs/form/inputtext']"
-        >
-          <a>Input Text</a>
+      <hc-sidebar>
+        <div style="margin: 1.5rem">
+          <hc-logo></hc-logo>
         </div>
-
-        <div class="menu-category">Table</div>
-        <div
-          class="menu-item"
-          [routerLinkActive]="['menu-item-active']"
-          [routerLink]="['/docs/table/basic']"
-        >
-          <a>Basic</a>
+        <div>
+          <hc-menu [model]="menu"></hc-menu>
         </div>
-        <div
-          class="menu-item"
-          [routerLinkActive]="['menu-item-active']"
-          [routerLink]="['/docs/table/dynamic']"
-        >
-          <a>Dynamic</a>
-        </div>
-        <div
-          class="menu-item"
-          [routerLinkActive]="['menu-item-active']"
-          [routerLink]="['/docs/table/gridlines']"
-        >
-          <a>Gridlines</a>
-        </div>
-        <div
-          class="menu-item"
-          [routerLink]="['/docs/table/page']"
-          [queryParams]="{ page: 1, limit: 5 }"
-          [routerLinkActive]="['menu-item-active']"
-        >
-          <a>Page</a>
-        </div>
-        <div
-          class="menu-item"
-          [routerLink]="['/docs/table/selection']"
-          [queryParams]="{ sortColumn: 'code', sortDirection: 'ASC' }"
-          [routerLinkActive]="['menu-item-active']"
-        >
-          <a>Sort</a>
-        </div>
-        <div
-          class="menu-item"
-          [routerLink]="['/docs/table/selection']"
-          [queryParams]="{ page: 1, limit: 5 }"
-          [routerLinkActive]="['menu-item-active']"
-        >
-          <a> Selection </a>
-        </div>
-        <div
-          class="menu-item"
-          [routerLink]="['/docs/table/selectall']"
-          [queryParams]="{ page: 1, limit: 5 }"
-          [routerLinkActive]="['menu-item-active']"
-        >
-          <a> Select all </a>
-        </div>
-
-        <div class="menu-category">Data</div>
-        <div
-          class="menu-item"
-          [routerLinkActive]="['menu-item-active']"
-          [routerLink]="['/docs/data/pagination']"
-        >
-          <a (click)="goToRoute('data/pagination')">Pagination</a>
-        </div>
-      </aside>
+      </hc-sidebar>
       <main>
         <router-outlet></router-outlet>
       </main>
@@ -123,6 +58,80 @@ import { Component } from '@angular/core'
   ],
 })
 export class DocsComponent {
+  menu: IMenuItem[] = [
+    {
+      label: 'Form',
+      items: [{ label: 'Input Text', routerLink: '/docs/form/inputtext' }],
+    },
+    {
+      label: 'Table',
+      items: [
+        { label: 'Basic', routerLink: '/docs/table/basic' },
+        {
+          label: 'Dynamic',
+          routerLink: '/docs/table/dynamic',
+        },
+        {
+          label: 'Gridlines',
+          routerLink: '/docs/table/gridlines',
+        },
+        {
+          label: 'Page',
+          routerLink: '/docs/table/page',
+          queryParams: { page: 1, limit: 5 },
+          routerLinkActiveOptions: {
+            matrixParams: 'ignored',
+            queryParams: 'ignored',
+            paths: 'exact',
+            fragment: 'ignored',
+          },
+        },
+        {
+          label: 'Sort',
+          routerLink: '/docs/table/sort',
+          queryParams: { sortColumn: 'code', sortDirection: 'ASC' },
+          routerLinkActiveOptions: {
+            matrixParams: 'ignored',
+            queryParams: 'ignored',
+            paths: 'exact',
+            fragment: 'ignored',
+          },
+        },
+        {
+          label: 'Selection',
+          routerLink: '/docs/table/selection',
+          queryParams: { page: 1, limit: 5 },
+          routerLinkActiveOptions: {
+            matrixParams: 'ignored',
+            queryParams: 'ignored',
+            paths: 'exact',
+            fragment: 'ignored',
+          },
+        },
+        {
+          label: 'Select all',
+          routerLink: '/docs/table/selectall',
+          queryParams: { page: 1, limit: 5 },
+          routerLinkActiveOptions: {
+            matrixParams: 'ignored',
+            queryParams: 'ignored',
+            paths: 'exact',
+            fragment: 'ignored',
+          },
+        },
+      ],
+    },
+    {
+      label: 'Data',
+      items: [
+        {
+          label: 'Pagination',
+          routerLink: '/docs/data/pagination',
+        },
+      ],
+    },
+  ]
+
   constructor(private router: Router, private route: ActivatedRoute) {}
 
   goToRoute(route: string): void {
