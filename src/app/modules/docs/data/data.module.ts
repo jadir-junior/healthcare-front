@@ -1,3 +1,4 @@
+import { CardModule } from './../../../components/card/card.module'
 import { CommonModule } from '@angular/common'
 import { DataRoutingModule } from './data-routing.module'
 import { NgModule } from '@angular/core'
@@ -6,6 +7,6 @@ import { PaginationModule } from 'src/app/components/pagination/pagination.modul
 
 @NgModule({
   declarations: [PagePaginationComponent],
-  imports: [CommonModule, DataRoutingModule, PaginationModule],
+  imports: [CommonModule, DataRoutingModule, PaginationModule, CardModule],
 })
 export class DataModule {}
