@@ -8,7 +8,7 @@ import { IMeta } from 'src/app/models/pagination.model'
 @Component({
   selector: 'app-page',
   template: `
-    <div class="wrapper-container-docs" *ngIf="products && pagination">
+    <hc-card *ngIf="products && pagination">
       <hc-table
         hcData
         hcPagination
@@ -47,9 +47,8 @@ import { IMeta } from 'src/app/models/pagination.model'
           </tr>
         </ng-template>
       </hc-table>
-    </div>
+    </hc-card>
   `,
-  styleUrls: ['../../docs/docs.component.scss'],
   providers: [BaseTableService],
 })
 export class PageComponent implements OnInit {
