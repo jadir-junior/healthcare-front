@@ -4,7 +4,7 @@ import { IProduct, ProductsService } from '../../products.service'
 @Component({
   selector: 'app-basic',
   template: `
-    <div class="wrapper-container-docs" *ngIf="products.length">
+    <hc-card *ngIf="products.length">
       <hc-table hcData hcPagination hcSort [value]="products" [responsive]="true">
         <ng-template hcTemplate="header">
           <tr>
@@ -23,9 +23,8 @@ import { IProduct, ProductsService } from '../../products.service'
           </tr>
         </ng-template>
       </hc-table>
-    </div>
+    </hc-card>
   `,
-  styleUrls: ['../../docs/docs.component.scss'],
 })
 export class BasicComponent implements OnInit {
   products: IProduct[] = []

@@ -1,3 +1,4 @@
+import { CardModule } from './../../../components/card/card.module'
 import { BasicComponent } from './basic/basic.component'
 import { ButtonModule } from 'src/app/components/button/button.module'
 import { CommonModule } from '@angular/common'
@@ -32,6 +33,7 @@ import { TemplateModule } from 'src/app/directives/template/template.module'
     PaginationModule,
     ButtonModule,
     IconModule,
+    CardModule,
   ],
 })
 export class TableModule {}

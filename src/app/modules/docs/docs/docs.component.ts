@@ -15,7 +15,7 @@ import { IMenuItem } from 'src/app/components/menu/menu-item.component'
           <hc-menu [model]="menu"></hc-menu>
         </div>
       </hc-sidebar>
-      <main>
+      <main style="margin: 4rem 4rem;">
         <router-outlet></router-outlet>
       </main>
     </div>
