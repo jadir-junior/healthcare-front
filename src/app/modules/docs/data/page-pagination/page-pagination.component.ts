@@ -9,43 +9,39 @@ import { ProductsService } from '../../products.service'
 @Component({
   selector: 'app-page-pagination',
   template: `
-    <div class="wrapper-container-docs">
-      <div class="wrapper-card-docs" style="margin-bottom: 32px;">
-        <h4>Basic</h4>
-        <p class="body1" style="margin-bottom: 16px;">
-          Essa é uma paginação sem lado do servidor ou com uma request sem controle de
-          paginação do lado do servidor
-        </p>
-        <hc-pagination
-          [rows]="basicPagination.itemsPerPage"
-          [totalRecords]="basicPagination.totalItems"
-        ></hc-pagination>
-      </div>
+    <hc-card [style]="{ 'margin-bottom': '16px' }">
+      <h4>Basic</h4>
+      <p class="body1" [style]="{ 'margin-bottom': '16px' }">
+        Essa é uma paginação sem lado do servidor ou com uma request sem controle de
+        paginação do lado do servidor
+      </p>
+      <hc-pagination
+        [rows]="basicPagination.itemsPerPage"
+        [totalRecords]="basicPagination.totalItems"
+      ></hc-pagination>
+    </hc-card>
 
-      <div class="wrapper-card-docs" style="margin-bottom: 32px">
-        <h4>Server Side</h4>
-        <p class="body" style="margin-bottom: 16px;">
-          paginação com controle do servidor
-        </p>
-        <hc-pagination
-          [pagination]="serverSidePagination"
-          (pageChangeEvent)="onPageChange($event)"
-        ></hc-pagination>
-      </div>
+    <hc-card [style]="{ 'margin-bottom': '16px' }">
+      <h4>Server Side</h4>
+      <p class="body" style="margin-bottom: 16px;">paginação com controle do servidor</p>
+      <hc-pagination
+        [pagination]="serverSidePagination"
+        (pageChangeEvent)="onPageChange($event)"
+      ></hc-pagination>
+    </hc-card>
 
-      <div class="wrapper-card-docs" style="margin-bottom: 32px">
-        <h4>Show current Page</h4>
-        <p class="body" style="margin-bottom: 16px;">
-          mostra a pagina currente no lado direito
-        </p>
-        <hc-pagination
-          [rows]="basicPagination.itemsPerPage"
-          [totalRecords]="basicPagination.totalItems"
-          [showCurrentPageReport]="true"
-          currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} linhas"
-        ></hc-pagination>
-      </div>
-    </div>
+    <hc-card [style]="{ 'margin-bottom': '16px' }">
+      <h4>Show current Page</h4>
+      <p class="body" style="margin-bottom: 16px;">
+        mostra a pagina currente no lado direito
+      </p>
+      <hc-pagination
+        [rows]="basicPagination.itemsPerPage"
+        [totalRecords]="basicPagination.totalItems"
+        [showCurrentPageReport]="true"
+        currentPageReportTemplate="Mostrando {first} de {last} de {totalRecords} linhas"
+      ></hc-pagination>
+    </hc-card>
   `,
   styles: [],
 })
