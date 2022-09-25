@@ -4,7 +4,7 @@ import { IProduct, ProductsService } from '../../products.service'
 @Component({
   selector: 'app-gridlines',
   template: `
-    <div class="wrapper-container-docs">
+    <hc-card>
       <hc-table hcData hcPagination [responsive]="true">
         <ng-template hcTemplate="caption"> Header </ng-template>
 
@@ -28,9 +28,8 @@ import { IProduct, ProductsService } from '../../products.service'
 
         <ng-template hcTemplate="summary"> Footer </ng-template>
       </hc-table>
-    </div>
+    </hc-card>
   `,
-  styleUrls: ['../../docs/docs.component.scss'],
 })
 export class GridlinesComponent implements OnInit {
   products: IProduct[] = []
