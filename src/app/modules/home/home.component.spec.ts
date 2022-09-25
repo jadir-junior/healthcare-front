@@ -1,3 +1,4 @@
+import { CardModule } from './../../components/card/card.module'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { DropdownModule } from './../../components/dropdown/dropdown.module'
 import { LogoModule } from './../../components/logo/logo.module'
@@ -16,6 +17,7 @@ describe('HomeComponent', () => {
         LogoModule,
         DropdownModule,
         HttpClientTestingModule,
+        CardModule,
       ],
     })
   }
