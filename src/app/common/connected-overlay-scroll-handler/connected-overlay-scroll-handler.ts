@@ -8,10 +8,10 @@ export interface IConnectedOverlayScrollHandler {
 
 export class ConnectedOverlayScrollHandler {
   element: HTMLElement | null
-  listener: null | Function
-  scrollableParents: Array<any> | null = null
+  listener: null | ((this: HTMLElement, ev: Event) => void)
+  scrollableParents: HTMLElement[] | null = null
 
-  constructor(element: HTMLElement, listener: Function) {
+  constructor(element: HTMLElement, listener: () => void) {
     this.element = element
     this.listener = listener
   }
@@ -19,14 +19,18 @@ export class ConnectedOverlayScrollHandler {
   bindScrollListener(): void {
     this.scrollableParents = DomHandler.getScrollableParents(this.element)
     for (let i = 0; i < this.scrollableParents.length; i++) {
-      this.scrollableParents[i].addEventListener('scroll', this.listener)
+      if (this.listener) {
+        this.scrollableParents[i].addEventListener('scroll', this.listener)
+      }
     }
   }
 
   unbindScrollListener() {
     if (this.scrollableParents) {
       for (let i = 0; i < this.scrollableParents.length; i++) {
-        this.scrollableParents[i].removeEventListener('scroll', this.listener)
+        if (this.listener) {
+          this.scrollableParents[i].removeEventListener('scroll', this.listener)
+        }
       }
     }
   }

@@ -5,12 +5,10 @@ export interface IMessage {
   severity?: string
   summary?: string
   detail?: string | number
-  id?: any
   key?: string
   life?: number
   sticky?: boolean
   closable?: boolean
-  data?: any
   icon?: string
   contentStyleClass?: string
   styleClass?: string
@@ -20,7 +18,7 @@ export interface IMessage {
   providedIn: 'root',
 })
 export class OverlayService {
-  private clickSource = new Subject<IMessage | IMessage[]>()
+  private clickSource = new Subject()
 
   clickObservable = this.clickSource.asObservable()
 

@@ -2,12 +2,12 @@ export class ZIndexUtils {
   private static zIndexes: Array<{ key: string; value: number }> = []
 
   private static generateZIndex(key: string, baseZIndex: number): number {
-    let lastZIndex =
+    const lastZIndex =
       this.zIndexes.length > 0
         ? this.zIndexes[this.zIndexes.length - 1]
         : { key, value: baseZIndex }
 
-    let newZIndex = lastZIndex.value + (lastZIndex.key === key ? 0 : baseZIndex) + 1
+    const newZIndex = lastZIndex.value + (lastZIndex.key === key ? 0 : baseZIndex) + 1
 
     this.zIndexes.push({ key, value: newZIndex })
 

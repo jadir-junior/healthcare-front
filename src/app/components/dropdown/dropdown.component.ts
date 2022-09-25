@@ -1,5 +1,4 @@
 import { IMessage } from './../../common/overlay/overlay.service'
-import { Subscription } from 'rxjs'
 import { DomHandler } from './../../common/dom-handler/dom-handler'
 import { TemplateDirective } from 'src/app/directives/template/template.directive'
 import {
@@ -34,6 +33,7 @@ import {
   IConnectedOverlayScrollHandler,
 } from 'src/app/common/connected-overlay-scroll-handler/connected-overlay-scroll-handler'
 import { OverlayService } from 'src/app/common/overlay/overlay.service'
+import { Subscription } from 'rxjs'
 
 @Component({
   selector: 'hc-dropdown',
@@ -89,33 +89,33 @@ import { OverlayService } from 'src/app/common/overlay/overlay.service'
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DropdownComponent implements AfterContentInit, OnDestroy {
-  contentTemplate!: TemplateRef<any>
+  contentTemplate!: TemplateRef<HTMLElement>
   container!: HTMLDivElement
-  destroyCallback: Function | null = null
-  documentClickListener: Function | null = null
+  destroyCallback: (() => void) | null = null
+  documentClickListener: (() => void) | null = null
   documentResizeListener: EventListener | null = null
   isOverlayAnimationInProgress = false
   render = false
   overlayVisible = false
-  overlayEventListener: any
+  overlayEventListener!: (event: Node | null) => void
   overlaySubscription!: Subscription
   selfClick = false
   scrollHandler: IConnectedOverlayScrollHandler | null = null
   target: HTMLElement | null = null
 
-  @Input() appendTo = 'body'
+  @Input() appendTo: string | HTMLElement = 'body'
   @Input() autoZIndex = true
   @Input() baseZIndex = 0
   @Input() dismissable = true
   @Input() focusOnShow = true
   @Input() hideTransitionOptions = '.1s linear'
   @Input() showTransitionOptions = '.12s cubic-bezier(0, 0, 0.2, 1)'
-  @Input() style?: Object
+  @Input() style?: { [klass: string]: string }
 
   @Output() onShow = new EventEmitter<null>()
-  @Output() onHide = new EventEmitter<{}>()
+  @Output() onHide = new EventEmitter<unknown>()
 
-  @ContentChildren(TemplateDirective) templates!: QueryList<any>
+  @ContentChildren(TemplateDirective) templates!: QueryList<TemplateDirective>
 
   constructor(
     public cd: ChangeDetectorRef,
@@ -150,7 +150,7 @@ export class DropdownComponent implements AfterContentInit, OnDestroy {
     if (this.overlayVisible) {
       if (this.hasTargetChanged(event, target)) {
         this.destroyCallback = () => {
-          this.show(null, target! || event!.currentTarget || event!.target)
+          this.show(null, target || event?.currentTarget || event?.target)
         }
       }
 
@@ -160,7 +160,7 @@ export class DropdownComponent implements AfterContentInit, OnDestroy {
     }
   }
 
-  show(event: Event | null, target?: HTMLElement | null): void {
+  show(event: Event | null, target?: HTMLElement | EventTarget | null): void {
     if (this.isOverlayAnimationInProgress) {
       return
     }
@@ -210,14 +210,14 @@ export class DropdownComponent implements AfterContentInit, OnDestroy {
         this.focus()
       }
 
-      this.overlayEventListener = (event: any) => {
-        if (this.container && this.container.contains(event.target)) {
+      this.overlayEventListener = (event: Node | null) => {
+        if (this.container && this.container.contains(event)) {
           this.selfClick = true
         }
       }
 
       this.overlaySubscription = this.overlayService.clickObservable.subscribe(
-        this.overlayEventListener
+        () => this.overlayEventListener
       )
     }
 
@@ -260,7 +260,7 @@ export class DropdownComponent implements AfterContentInit, OnDestroy {
       if (this.appendTo === 'body') {
         document.body.appendChild(this.container)
       } else {
-        DomHandler.appendChild(this.container, this.appendTo)
+        DomHandler.appendChild(this.container, this.appendTo as HTMLElement)
       }
     }
   }
@@ -306,7 +306,7 @@ export class DropdownComponent implements AfterContentInit, OnDestroy {
             if (
               !this.container.contains(event.target) &&
               this.target !== event.target &&
-              !this.target!.contains(event.target) &&
+              !this.target?.contains(event.target) &&
               !this.selfClick
             ) {
               this.zone.run(() => {

@@ -11,7 +11,7 @@ export interface IMenuItem {
 }
 
 @Component({
-  selector: '[hcMenuItem]',
+  selector: '[hc-menu-item]',
   template: `
     <a
       *ngIf="item?.routerLink"
@@ -55,5 +55,5 @@ export interface IMenuItem {
   ],
 })
 export class MenuItemComponent {
-  @Input('hcMenuItem') item!: IMenuItem
+  @Input('hc-menu-item') item!: IMenuItem
 }

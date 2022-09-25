@@ -4,7 +4,7 @@ import { Component } from '@angular/core'
 import userEvent from '@testing-library/user-event'
 
 @Component({
-  selector: 'host-dropdown',
+  selector: 'hc-host-dropdown',
   template: `
     <div aria-label="container">
       <button type="button" (click)="dropdown.toggle($event)">button</button>
@@ -17,7 +17,7 @@ import userEvent from '@testing-library/user-event'
 class HostDropdownComponent {}
 
 @Component({
-  selector: 'host-dropdown-dismissable',
+  selector: 'hc-host-dropdown-dismissable',
   template: `
     <div aria-label="container">
       <button type="button" (click)="dropdown.toggle($event)">button</button>
@@ -30,7 +30,7 @@ class HostDropdownComponent {}
 class HostDropdownDismissableComponent {}
 
 @Component({
-  selector: 'host-dropdown-actual-target',
+  selector: 'hc-host-dropdown-actual-target',
   template: `
     <div aria-label="container">
       <button type="button" (click)="dropdown.toggle($event, actualTarget)">

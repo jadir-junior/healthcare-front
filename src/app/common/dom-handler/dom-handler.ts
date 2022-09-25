@@ -14,7 +14,7 @@ export interface IOffset {
 }
 
 export class DomHandler {
-  public static isElement(obj: any): boolean {
+  public static isElement(obj: HTMLElement): boolean {
     return typeof HTMLElement === 'object'
       ? obj instanceof HTMLElement
       : obj &&
@@ -24,11 +24,9 @@ export class DomHandler {
           typeof obj.nodeName === 'string'
   }
 
-  public static appendChild(element: any, target: any): void {
+  public static appendChild(element: HTMLElement, target: HTMLElement): void {
     if (this.isElement(target)) {
       target.appendChild(element)
-    } else if (target.el && target.el.nativeElement) {
-      target.el.nativeElement.appendChild(element)
     } else {
       throw `Cannot append ${target} to ${element}`
     }
@@ -136,7 +134,7 @@ export class DomHandler {
   }
 
   public static isIOS(): boolean {
-    return /iPad|iPhone|iPod/.test(navigator.userAgent) && !window['MSStream' as any]
+    return /iPad|iPhone|iPod/.test(navigator.userAgent)
   }
 
   public static isTouchDevice(): boolean {
@@ -155,12 +153,12 @@ export class DomHandler {
   }
 
   public static getScrollableParents(element: HTMLElement | null): HTMLElement[] {
-    let scrollableParents = []
+    const scrollableParents = []
 
     if (element) {
-      const parents: HTMLElement[] = this.getParents(element)
+      const parents = this.getParents(element)
       const overflowRegex = /(auto|scroll)/
-      const overflowCheck = (node: any) => {
+      const overflowCheck = (node: HTMLElement) => {
         const styleDeclaration = window['getComputedStyle'](node, null)
         return (
           overflowRegex.test(styleDeclaration.getPropertyValue('overflow')) ||
@@ -169,11 +167,11 @@ export class DomHandler {
         )
       }
 
-      for (let parent of parents) {
+      for (const parent of parents) {
         const scrollSelectors = parent.nodeType === 1 && parent.dataset['scrollselectors']
         if (scrollSelectors) {
           const selectors = scrollSelectors.split(',')
-          for (let selector of selectors) {
+          for (const selector of selectors) {
             const el = this.findSingleElement(parent, selector)
             if (el && overflowCheck(el)) {
               scrollableParents.push(el)
@@ -191,11 +189,11 @@ export class DomHandler {
   }
 
   public static getParents(
-    element: ParentNode | HTMLElement,
-    parents: ParentNode[] = []
-  ): HTMLElement[] | Array<any> {
-    return element['parentNode'] === null
+    element: HTMLElement,
+    parents: HTMLElement[] = []
+  ): HTMLElement[] {
+    return element['parentElement'] === null
       ? parents
-      : this.getParents(element.parentNode, parents.concat([element.parentNode]))
+      : this.getParents(element.parentElement, parents.concat([element.parentElement]))
   }
 }

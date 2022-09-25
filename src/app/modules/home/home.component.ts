@@ -14,10 +14,13 @@ import { Component } from '@angular/core'
       </div>
     </hc-sidebar>
     <div style="margin: 2rem">
-      <button label="custom target" (click)="dropdown.toggle($event)">Dropdown</button>
-      <hc-dropdown #dropdown [style]="{ width: '112px' }">
+      <button label="custom target" (click)="dropdown.toggle($event, actualTarget)">
+        Dropdown
+      </button>
+      <hc-dropdown #dropdown [style]="{ width: '112px' }" [appendTo]="actualTarget">
         <a class="item" (click)="onLogout()">Logout</a>
       </hc-dropdown>
+      <div #actualTarget></div>
     </div>
   </div>`,
   styles: [
