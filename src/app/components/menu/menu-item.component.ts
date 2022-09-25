@@ -1,13 +1,16 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, Input } from '@angular/core'
+import { IsActiveMatchOptions } from '@angular/router'
 
 export interface IMenuItem {
   automationId?: any
   items?: IMenuItem[]
-  label?: string
-  separator?: boolean
-  routerLink?: any
   icon?: string
+  label?: string
+  queryParams?: { [key: string]: string | number }
+  routerLink?: any
+  routerLinkActiveOptions?: IsActiveMatchOptions
+  separator?: boolean
 }
 
 @Component({
@@ -16,9 +19,11 @@ export interface IMenuItem {
     <a
       *ngIf="item?.routerLink"
       class="hc-menu-item-link subtitle2"
-      role="menuItem"
-      [routerLink]="item.routerLink"
+      role="menuitem"
       routerLinkActive="hc-menu-item-link-active"
+      [routerLink]="item.routerLink"
+      [queryParams]="item.queryParams"
+      [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
     >
       <span *ngIf="item.icon" class="material-symbols-outlined hc-menu-item-icon">
         {{ item.icon }}
