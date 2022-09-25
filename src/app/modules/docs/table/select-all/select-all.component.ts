@@ -9,7 +9,7 @@ import { IMeta } from 'src/app/models/pagination.model'
 @Component({
   selector: 'app-select-all',
   template: `
-    <div class="wrapper-container-docs" *ngIf="products && pagination">
+    <hc-card *ngIf="products && pagination">
       <div style="margin-bottom: 8px;">
         <hc-select-all
           *ngIf="selectedProducts?.length || selectAll"
@@ -67,10 +67,9 @@ import { IMeta } from 'src/app/models/pagination.model'
           </tr>
         </ng-template>
       </hc-table>
-    </div>
+    </hc-card>
   `,
   providers: [BaseTableService],
-  styleUrls: ['../../docs/docs.component.scss'],
 })
 export class SelectAllComponent implements OnInit {
   products: IProduct[] = []
