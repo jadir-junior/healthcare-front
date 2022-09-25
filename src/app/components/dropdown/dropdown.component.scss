@@ -1,0 +1,35 @@
+.hc-dropdown-panel {
+  position: absolute;
+  margin-top: 0.5rem;
+  top: 0;
+  left: 0;
+  background-color: var(--neutral-white);
+  border-radius: 6px;
+
+  &:after,
+  &:before {
+    bottom: 100%;
+    left: 1.25rem;
+    content: ' ';
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+  }
+
+  &:after {
+    border-width: 0.5rem;
+    margin-left: -0.5rem;
+  }
+
+  &:before {
+    border-width: 10px;
+    margin-left: -10px;
+  }
+
+  .hc-dropdown-content {
+    padding: 0.5rem 0;
+    box-shadow: 0 2px 4px -1px #0003, 0 4px 5px #00000024, 0 1px 10px #0000001f;
+    min-width: 112px;
+  }
+}

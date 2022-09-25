@@ -12,4 +12,8 @@ export class LocalStorageService {
   get(key: string): any | null {
     return JSON.parse(window.localStorage.getItem(key) as string)
   }
+
+  remove(key: string): void {
+    window.localStorage.removeItem(key)
+  }
 }

@@ -15,7 +15,7 @@ import { Component, Input, ViewEncapsulation } from '@angular/core'
             <span class="body2">{{ submenu.label }}</span>
           </li>
           <ng-template ngFor let-item [ngForOf]="submenu.items">
-            <li class="hc-menu-item" role="none" [hcMenuItem]="item"></li>
+            <li class="hc-menu-item" role="none" [hc-menu-item]="item"></li>
           </ng-template>
         </ng-template>
       </ul>

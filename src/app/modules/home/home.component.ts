@@ -1,3 +1,4 @@
+import { AuthenticationService } from './../authentication/authentication.service'
 import { IMenuItem } from './../../components/menu/menu-item.component'
 import { Component } from '@angular/core'
 
@@ -12,7 +13,15 @@ import { Component } from '@angular/core'
         <hc-menu [model]="menuItems"></hc-menu>
       </div>
     </hc-sidebar>
-    <div></div>
+    <div style="margin: 2rem">
+      <button label="custom target" (click)="dropdown.toggle($event, actualTarget)">
+        Dropdown
+      </button>
+      <hc-dropdown #dropdown [style]="{ width: '112px' }" [appendTo]="actualTarget">
+        <a class="item" (click)="onLogout()">Logout</a>
+      </hc-dropdown>
+      <div #actualTarget></div>
+    </div>
   </div>`,
   styles: [
     `
@@ -24,10 +33,23 @@ import { Component } from '@angular/core'
       .wrapper-logo {
         margin: 1.5rem;
       }
+
+      .item {
+        padding: 0.5rem 1.5rem;
+        cursor: pointer;
+        display: block;
+        color: var(--neutral-black);
+
+        &:hover {
+          background-color: var(--neutral-gray-lighter);
+        }
+      }
     `,
   ],
 })
 export class HomeComponent {
+  constructor(private authenticationService: AuthenticationService) {}
+
   menuItems: IMenuItem[] = [
     {
       label: 'MEDICINE',
@@ -45,4 +67,8 @@ export class HomeComponent {
       items: [{ label: 'Help', routerLink: 'help', icon: 'help' }],
     },
   ]
+
+  onLogout() {
+    this.authenticationService.logout()
+  }
 }

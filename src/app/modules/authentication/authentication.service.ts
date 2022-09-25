@@ -24,12 +24,17 @@ export class AuthenticationService {
     private localStorage: LocalStorageService
   ) {}
 
-  login(user: ILoginUserDto) {
+  login(user: ILoginUserDto): void {
     this.http.post<IToken>(`${environment.BASE_URL}/login`, user).subscribe({
       next: (token: IToken) => {
         this.localStorage.set('HC_TOKEN', token)
         this.router.navigate(['home'])
       },
     })
+  }
+
+  logout(): void {
+    this.localStorage.remove('HC_TOKEN')
+    this.router.navigate(['/auth/login'])
   }
 }

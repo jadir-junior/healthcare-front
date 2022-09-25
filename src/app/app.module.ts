@@ -7,12 +7,19 @@ import { HttpClientModule } from '@angular/common/http'
 import { MswModule } from './components/msw/msw.module'
 import localePt from '@angular/common/locales/pt'
 import { registerLocaleData } from '@angular/common'
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 
 registerLocaleData(localePt, 'pt')
 
 @NgModule({
   declarations: [AppComponent],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, MswModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    MswModule,
+    BrowserAnimationsModule,
+  ],
   providers: [
     {
       provide: LOCALE_ID,
