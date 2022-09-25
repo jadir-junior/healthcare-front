@@ -51,6 +51,15 @@ export interface IMenuItem {
           color: var(--primary-default);
         }
       }
+
+      .hc-menu-item-link-active {
+        background-color: var(--primary-lightest);
+        color: var(--primary-default);
+
+        .hc-menu-item-icon {
+          color: var(--primary-default);
+        }
+      }
     `,
   ],
 })
