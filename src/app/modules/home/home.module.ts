@@ -1,3 +1,4 @@
+import { DropdownModule } from './../../components/dropdown/dropdown.module'
 import { LogoModule } from './../../components/logo/logo.module'
 import { MenuModule } from './../../components/menu/menu.module'
 import { SidebarModule } from './../../components/sidebar/sidebar.module'
@@ -9,6 +10,13 @@ import { HomeComponent } from './home.component'
 
 @NgModule({
   declarations: [HomeComponent],
-  imports: [CommonModule, HomeRoutingModule, SidebarModule, MenuModule, LogoModule],
+  imports: [
+    CommonModule,
+    HomeRoutingModule,
+    SidebarModule,
+    MenuModule,
+    LogoModule,
+    DropdownModule,
+  ],
 })
 export class HomeModule {}
