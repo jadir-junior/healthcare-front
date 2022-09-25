@@ -5,7 +5,7 @@ import { BaseTableService } from 'src/app/common/base-table/base-table.service'
 
 @Component({
   selector: 'app-sort',
-  template: `<div class="wrapper-container-docs">
+  template: `<hc-card>
     <hc-table
       hcData
       hcSort
@@ -41,8 +41,7 @@ import { BaseTableService } from 'src/app/common/base-table/base-table.service'
         </tr>
       </ng-template>
     </hc-table>
-  </div>`,
-  styleUrls: ['../../docs/docs.component.scss'],
+  </hc-card>`,
   providers: [BaseTableService],
 })
 export class SortComponent implements OnInit {

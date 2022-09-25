@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, OnInit } from '@angular/core'
 import { IProduct, ProductsService } from '../../products.service'
 
@@ -13,7 +12,7 @@ interface IProductDynamic extends IProduct, AccessProduct {}
 @Component({
   selector: 'app-dynamic',
   template: `
-    <div class="wrapper-container-docs">
+    <hc-card>
       <hc-table hcData hcPagination [value]="products" [responsive]="true">
         <ng-template hcTemplate="header">
           <tr>
@@ -30,9 +29,8 @@ interface IProductDynamic extends IProduct, AccessProduct {}
           </tr>
         </ng-template>
       </hc-table>
-    </div>
+    </hc-card>
   `,
-  styleUrls: ['../../docs/docs.component.scss'],
 })
 export class DynamicComponent implements OnInit {
   products: IProductDynamic[] = []

@@ -1,9 +1,10 @@
+import { IStyle } from './../../common/models/style.model'
 import { Component, Input } from '@angular/core'
 
 @Component({
   selector: 'hc-card',
   template: `
-    <div class="hc-card">
+    <div class="hc-card" [ngStyle]="style">
       <div class="hc-card-body">
         <h5 class="hc-card-title" *ngIf="header">
           {{ header }}
@@ -40,4 +41,5 @@ import { Component, Input } from '@angular/core'
 })
 export class CardComponent {
   @Input() header?: string
+  @Input() style?: IStyle
 }
