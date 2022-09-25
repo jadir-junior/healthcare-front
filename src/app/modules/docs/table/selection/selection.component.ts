@@ -8,7 +8,7 @@ import { IMeta } from 'src/app/models/pagination.model'
 @Component({
   selector: 'app-selection',
   template: `
-    <div class="wrapper-container-docs">
+    <hc-card>
       <hc-table
         hcSelect
         hcData
@@ -52,9 +52,8 @@ import { IMeta } from 'src/app/models/pagination.model'
           </tr>
         </ng-template>
       </hc-table>
-    </div>
+    </hc-card>
   `,
-  styleUrls: ['../../docs/docs.component.scss'],
   providers: [BaseTableService],
 })
 export class SelectionComponent implements OnInit {
