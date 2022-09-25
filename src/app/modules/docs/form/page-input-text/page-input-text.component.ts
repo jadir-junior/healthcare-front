@@ -9,7 +9,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms'
         <h2>Input</h2>
         <p class="body1">Input renders a text field to enter data</p>
       </div>
-      <div class="wrapper-card-docs">
+      <hc-card>
         <form [formGroup]="form" (submit)="onSubmit(form)">
           <div class="input-width">
             <h4>Basic</h4>
@@ -36,7 +36,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms'
             <hc-input formControlName="disabled"></hc-input>
           </div>
         </form>
-      </div>
+      </hc-card>
     </div>
   `,
   styles: [
