@@ -1,3 +1,4 @@
+import { AvatarModule } from './../../components/avatar/avatar.module'
 import { CardModule } from './../../components/card/card.module'
 import { DropdownModule } from './../../components/dropdown/dropdown.module'
 import { LogoModule } from './../../components/logo/logo.module'
@@ -19,6 +20,7 @@ import { HomeComponent } from './home.component'
     LogoModule,
     DropdownModule,
     CardModule,
+    AvatarModule,
   ],
 })
 export class HomeModule {}

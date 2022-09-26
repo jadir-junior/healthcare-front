@@ -19,13 +19,33 @@ interface IIntroduction {
       </div>
     </hc-sidebar>
     <div style="margin: 2rem; width: 100%">
-      <button label="custom target" (click)="dropdown.toggle($event, actualTarget)">
-        Dropdown
-      </button>
-      <hc-dropdown #dropdown [style]="{ width: '112px' }" [appendTo]="actualTarget">
-        <a class="item" (click)="onLogout()">Logout</a>
-      </hc-dropdown>
-      <div #actualTarget></div>
+      <div style="margin-bottom: 2rem; display: flex; justify-content: flex-end">
+        <div #actualTarget>
+          <hc-avatar
+            image="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"
+            (click)="dropdown.toggle($event, actualTarget)"
+            [style]="{ cursor: 'pointer' }"
+          ></hc-avatar>
+        </div>
+        <hc-dropdown #dropdown [style]="{ width: '275px' }">
+          <div class="hc-dropdown-container-information">
+            <div style="margin-right: 1rem">
+              <hc-avatar
+                size="large"
+                image="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"
+                (click)="dropdown.toggle($event, actualTarget)"
+              ></hc-avatar>
+            </div>
+            <div>
+              <div class="body1" style="font-weight: 700">John Doe</div>
+              <div class="body2" style="font-weight: 700; color: var(--neutral-gray)">
+                john.doe@gmail.com
+              </div>
+            </div>
+          </div>
+          <a class="item" (click)="onLogout()">Logout</a>
+        </hc-dropdown>
+      </div>
       <hc-card header="Introduction">
         <div>
           <div
@@ -72,6 +92,13 @@ interface IIntroduction {
 
       p.body2 {
         color: var(--neutral-black);
+      }
+
+      .hc-dropdown-container-information {
+        padding: 1rem;
+        border-bottom: 1px solid var(--neutral-divider);
+        display: flex;
+        align-items: center;
       }
     `,
   ],
