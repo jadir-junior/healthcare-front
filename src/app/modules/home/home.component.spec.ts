@@ -1,4 +1,5 @@
 import { AvatarModule } from './../../components/avatar/avatar.module'
+import { ButtonModule } from './../../components/button/button.module'
 import { CardModule } from './../../components/card/card.module'
 import { DropdownModule } from './../../components/dropdown/dropdown.module'
 import { HomeComponent } from './home.component'
@@ -25,6 +26,7 @@ describe('HomeComponent', () => {
         ToolbarModule,
         TemplateModule,
         SearchModule,
+        ButtonModule,
       ],
     })
   }

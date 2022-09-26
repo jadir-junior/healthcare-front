@@ -24,6 +24,13 @@ import { IMenuItem } from './../../components/menu/menu-item.component'
           <hc-search placeholder="Search" [style]="{ 'width': '350px' }"></hc-search>
         </ng-template>
         <ng-template hcTemplate="right">
+          <hc-button
+            icon="notifications"
+            theme="text"
+            [style]="{
+              'margin-right': '0.5rem'
+            }"
+          ></hc-button>
           <div #actualTarget>
             <hc-avatar
               image="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"

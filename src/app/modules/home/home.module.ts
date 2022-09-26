@@ -1,4 +1,5 @@
 import { AvatarModule } from './../../components/avatar/avatar.module'
+import { ButtonModule } from './../../components/button/button.module'
 import { CardModule } from './../../components/card/card.module'
 import { CommonModule } from '@angular/common'
 import { DropdownModule } from './../../components/dropdown/dropdown.module'
@@ -26,6 +27,7 @@ import { ToolbarModule } from './../../components/toolbar/toolbar.module'
     ToolbarModule,
     TemplateModule,
     SearchModule,
+    ButtonModule,
   ],
 })
 export class HomeModule {}
