@@ -1,22 +1,18 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing'
-
+import { AvatarModule } from './../../../../components/avatar/avatar.module'
 import { DropdownProfileComponent } from './dropdown-profile.component'
+import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { MenuModule } from './../../../../components/menu/menu.module'
+import { render } from '@testing-library/angular'
 
 describe('DropdownProfileComponent', () => {
-  let component: DropdownProfileComponent
-  let fixture: ComponentFixture<DropdownProfileComponent>
+  const setup = async () => {
+    return render(DropdownProfileComponent, {
+      imports: [HttpClientTestingModule, AvatarModule, MenuModule],
+    })
+  }
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [DropdownProfileComponent],
-    }).compileComponents()
-
-    fixture = TestBed.createComponent(DropdownProfileComponent)
-    component = fixture.componentInstance
-    fixture.detectChanges()
-  })
-
-  it('should create', () => {
-    expect(component).toBeTruthy()
+  it('create a dropdown profile', async () => {
+    const { container } = await setup()
+    expect(container).toBeInTheDocument()
   })
 })

@@ -3,6 +3,8 @@ import { BadgeModule } from './../../components/badge/badge.module'
 import { ButtonModule } from './../../components/button/button.module'
 import { CardModule } from './../../components/card/card.module'
 import { DropdownModule } from './../../components/dropdown/dropdown.module'
+import { DropdownProfileComponent } from './components/dropdown-profile/dropdown-profile.component'
+import { HeaderComponent } from './components/header/header.component'
 import { HomeComponent } from './home.component'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { LogoModule } from './../../components/logo/logo.module'
@@ -16,6 +18,7 @@ import { render } from '@testing-library/angular'
 describe('HomeComponent', () => {
   const setup = async () => {
     return render(HomeComponent, {
+      declarations: [HeaderComponent, DropdownProfileComponent],
       imports: [
         SidebarModule,
         MenuModule,

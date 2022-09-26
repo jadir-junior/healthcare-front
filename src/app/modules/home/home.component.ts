@@ -6,7 +6,7 @@ import { IMenuItem } from './../../components/menu/menu-item.component'
   template: ` <div class="wrapper-home">
     <hc-sidebar>
       <hc-logo [style]="{ margin: '1.5rem' }"></hc-logo>
-      <hc-menu [model]="menuItems" [style]="{ margin: '1.5rem' }"></hc-menu>
+      <hc-menu [model]="menuItems" [style]="{ margin: '0.25rem 1.5rem' }"></hc-menu>
     </hc-sidebar>
     <div style="width: 100%;">
       <hc-header></hc-header>
@@ -36,6 +36,9 @@ export class HomeComponent {
         { label: 'Patients', routerLink: 'patients', icon: 'badge' },
         { label: 'Payments', routerLink: 'payments', icon: 'payments' },
       ],
+    },
+    {
+      separator: true,
     },
     {
       label: 'SETTINGS',

@@ -19,8 +19,7 @@ import { IMenuItem } from './../../../../components/menu/menu-item.component'
         </div>
       </div>
     </div>
-    <hc-menu [model]="menu"></hc-menu>
-    <a class="item" (click)="onLogout()">Logout</a>
+    <hc-menu [model]="menu" [style]="{ margin: '0.25rem 1rem' }"></hc-menu>
   `,
   styles: [
     `
@@ -30,17 +29,6 @@ import { IMenuItem } from './../../../../components/menu/menu-item.component'
         display: flex;
         align-items: center;
       }
-
-      .item {
-        padding: 0.5rem 1.5rem;
-        cursor: pointer;
-        display: block;
-        color: var(--neutral-black);
-
-        &:hover {
-          background-color: var(--neutral-gray-lighter);
-        }
-      }
     `,
   ],
 })
@@ -48,8 +36,16 @@ export class DropdownProfileComponent {
   menu: IMenuItem[] = [
     { label: 'My Profile' },
     { label: 'My Appontiments' },
+    {
+      separator: true,
+    },
     { label: 'Account Settings' },
-    { label: 'Sign Out' },
+    {
+      label: 'Sign Out',
+      command: () => {
+        this.onLogout()
+      },
+    },
   ]
 
   constructor(private authenticationService: AuthenticationService) {}
