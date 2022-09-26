@@ -71,6 +71,7 @@ import { worker } from 'src/mocks/browser'
         display: flex;
         align-items: center;
         justify-content: center;
+        cursor: pointer;
       }
 
       .start {
