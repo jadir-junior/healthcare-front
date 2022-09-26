@@ -27,6 +27,19 @@ interface IIntroduction {
       .container {
         margin: 2rem;
       }
+
+      .wrapper-introduction-information:not(:last-child) {
+        margin-bottom: 1rem;
+      }
+
+      p.small2 {
+        color: var(--neutral-gray);
+        margin-bottom: 0.5rem;
+      }
+
+      p.body2 {
+        color: var(--neutral-black);
+      }
     `,
   ],
 })

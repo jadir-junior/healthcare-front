@@ -4,6 +4,8 @@ import { ButtonModule } from './../../components/button/button.module'
 import { CardModule } from './../../components/card/card.module'
 import { CommonModule } from '@angular/common'
 import { DropdownModule } from './../../components/dropdown/dropdown.module'
+import { DropdownProfileComponent } from './components/dropdown-profile/dropdown-profile.component'
+import { HeaderComponent } from './components/header/header.component'
 import { HomeComponent } from './home.component'
 import { HomeRoutingModule } from './home-routing.module'
 import { LogoModule } from './../../components/logo/logo.module'
@@ -15,7 +17,7 @@ import { TemplateModule } from './../../directives/template/template.module'
 import { ToolbarModule } from './../../components/toolbar/toolbar.module'
 
 @NgModule({
-  declarations: [HomeComponent],
+  declarations: [HomeComponent, HeaderComponent, DropdownProfileComponent],
   imports: [
     CommonModule,
     HomeRoutingModule,

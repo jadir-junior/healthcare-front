@@ -1,9 +1,11 @@
-import { Component } from '@angular/core'
+import { Component, Input } from '@angular/core'
+
+import { IStyle } from './../../common/models/style.model'
 
 @Component({
   selector: 'hc-logo',
   template: `
-    <div class="hc-logo-wrapper">
+    <div class="hc-logo-wrapper" [ngStyle]="style">
       <div class="hc-logo">
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -105,4 +107,6 @@ import { Component } from '@angular/core'
     `,
   ],
 })
-export class LogoComponent {}
+export class LogoComponent {
+  @Input() style?: IStyle
+}

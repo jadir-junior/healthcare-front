@@ -1,10 +1,12 @@
-import { IMenuItem } from './menu-item.component'
 import { Component, Input, ViewEncapsulation } from '@angular/core'
+
+import { IMenuItem } from './menu-item.component'
+import { IStyle } from './../../common/models/style.model'
 
 @Component({
   selector: 'hc-menu',
   template: `
-    <div>
+    <div [ngStyle]="style">
       <ul role="menu">
         <ng-template ngFor let-submenu *ngIf="hasSubMenu()" [ngForOf]="model">
           <li
@@ -37,6 +39,7 @@ import { Component, Input, ViewEncapsulation } from '@angular/core'
 })
 export class MenuComponent {
   @Input() model!: IMenuItem[]
+  @Input() style?: IStyle
 
   hasSubMenu(): boolean {
     if (this.model) {
