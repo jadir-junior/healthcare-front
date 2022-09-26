@@ -24,13 +24,16 @@ import { IMenuItem } from './../../components/menu/menu-item.component'
           <hc-search placeholder="Search" [style]="{ 'width': '350px' }"></hc-search>
         </ng-template>
         <ng-template hcTemplate="right">
-          <hc-button
-            icon="notifications"
-            theme="text"
-            [style]="{
-              'margin-right': '0.5rem'
-            }"
-          ></hc-button>
+          <div class="wrapper-button-and-badge">
+            <hc-badge value="5"></hc-badge>
+            <hc-button
+              icon="notifications"
+              theme="text"
+              [style]="{
+                'margin-right': '0.5rem'
+              }"
+            ></hc-button>
+          </div>
           <div #actualTarget>
             <hc-avatar
               image="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"
@@ -103,6 +106,17 @@ import { IMenuItem } from './../../components/menu/menu-item.component'
         border-bottom: 1px solid var(--neutral-divider);
         display: flex;
         align-items: center;
+      }
+
+      .wrapper-button-and-badge {
+        position: relative;
+
+        hc-badge {
+          position: absolute;
+          right: 0.5rem;
+          border: 3px solid var(--neutral-background);
+          border-radius: 50%;
+        }
       }
     `,
   ],
