@@ -1,22 +1,30 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing'
+import { render, screen } from '@testing-library/angular'
 
 import { BadgeComponent } from './badge.component'
 
 describe('BadgeComponent', () => {
-  let component: BadgeComponent
-  let fixture: ComponentFixture<BadgeComponent>
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [BadgeComponent],
-    }).compileComponents()
-
-    fixture = TestBed.createComponent(BadgeComponent)
-    component = fixture.componentInstance
-    fixture.detectChanges()
+  it('create a component badge', async () => {
+    const { container } = await render(BadgeComponent)
+    expect(container).toBeInTheDocument()
   })
 
-  it('should create', () => {
-    expect(component).toBeTruthy()
+  it('create a badge with value 8', async () => {
+    await render(BadgeComponent, {
+      componentProperties: {
+        value: '8',
+      },
+    })
+
+    expect(screen.getByText('8')).toBeInTheDocument()
+  })
+
+  it('create a badge with default severity', async () => {
+    await render(BadgeComponent, {
+      componentProperties: {
+        value: '8',
+      },
+    })
+
+    expect(screen.getByRole(/badge/i)).toHaveClass('hc-badge-danger')
   })
 })

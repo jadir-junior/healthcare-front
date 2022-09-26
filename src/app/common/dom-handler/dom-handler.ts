@@ -215,4 +215,8 @@ export class DomHandler {
       )
     }
   }
+
+  public static setAttribute(element: HTMLElement, name: string, value: string): void {
+    element.setAttribute(name, value)
+  }
 }

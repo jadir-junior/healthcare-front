@@ -61,6 +61,7 @@ export class BadgeDirective implements AfterViewInit, OnDestroy {
     const badge = document.createElement('span')
     badge.id = this._id
     badge.className = 'hc-badge'
+    DomHandler.setAttribute(badge, 'role', 'badge')
 
     if (this.severity) {
       DomHandler.addClass(badge, 'hc-badge-' + this.severity)

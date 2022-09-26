@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core'
 
 @Component({
   selector: 'hc-badge',
-  template: ` <span [ngClass]="classes" *ngIf="value">{{ value }}</span> `,
+  template: ` <span [ngClass]="classes" *ngIf="value" role="badge">{{ value }}</span> `,
   styleUrls: ['badge.component.scss'],
 })
 export class BadgeComponent {
