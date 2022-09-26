@@ -1,7 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import './scss/typography.scss';
-
 :root {
   --neutral-black: #25282b;
   --neutral-black-rgb: 37, 40, 43;
@@ -31,6 +29,9 @@
 
   --green-default: #16d090;
 }
+
+@import './scss/typography.scss';
+@import './app/components/badge/badge.component.scss';
 
 * {
   margin: 0;

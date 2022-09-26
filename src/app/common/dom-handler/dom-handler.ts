@@ -196,4 +196,23 @@ export class DomHandler {
       ? parents
       : this.getParents(element.parentElement, parents.concat([element.parentElement]))
   }
+
+  public static hasClass(element: HTMLElement, className: string): boolean {
+    if (element.classList) {
+      return element.classList.contains(className)
+    } else {
+      return new RegExp('(^| )' + className + '( |$)', 'gi').test(element.className)
+    }
+  }
+
+  public static removeClass(element: HTMLElement, className: string): void {
+    if (element.classList) {
+      element.classList.remove(className)
+    } else {
+      element.className = element.className.replace(
+        new RegExp('(^|\\b)' + className.split(' ').join('|') + '(\\b|$)', 'gi'),
+        ' '
+      )
+    }
+  }
 }

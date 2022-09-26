@@ -1,4 +1,5 @@
 import { AvatarModule } from './../../components/avatar/avatar.module'
+import { BadgeModule } from './../../components/badge/badge.module'
 import { ButtonModule } from './../../components/button/button.module'
 import { CardModule } from './../../components/card/card.module'
 import { CommonModule } from '@angular/common'
@@ -28,6 +29,7 @@ import { ToolbarModule } from './../../components/toolbar/toolbar.module'
     TemplateModule,
     SearchModule,
     ButtonModule,
+    BadgeModule,
   ],
 })
 export class HomeModule {}
