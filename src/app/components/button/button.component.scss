@@ -45,7 +45,7 @@ button {
 // Default
 
 .btn-text-default {
-  background-color: var(--neutral-white);
+  background-color: transparent;
   color: var(--neutral-gray);
 }
 
@@ -189,4 +189,10 @@ button {
 .btn-contained-disabled:disabled {
   background-color: var(--neutral-background);
   color: var(--neutral-divider);
+}
+
+.btn-icon-only {
+  padding: 0.7rem 0;
+  width: 3rem;
+  justify-content: center;
 }

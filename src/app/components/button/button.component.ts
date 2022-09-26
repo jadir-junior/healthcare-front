@@ -1,15 +1,19 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core'
 
+import { IStyle } from './../../common/models/style.model'
+
 @Component({
   selector: 'hc-button',
   template: `
     <button
-      [type]="type"
+      [style]="style"
       [disabled]="disabled"
       [ngClass]="classes"
+      [attr.type]="type"
       [attr.aria-label]="ariaLabel"
       (mouseenter)="onMouseEnter()"
       (mouseleave)="onMouseLeave()"
+      (blur)="onBlur()"
       (click)="click()"
     >
       <ng-content></ng-content>
@@ -29,6 +33,7 @@ export class ButtonComponent {
   @Input() icon?: string
   @Input() ariaLabel?: string
   @Input() disabled = false
+  @Input() style?: IStyle
 
   @Output() onClick = new EventEmitter<Event>()
 
@@ -45,6 +50,10 @@ export class ButtonComponent {
     this.isHover = false
   }
 
+  onBlur(): void {
+    this.isPressed = false
+  }
+
   public get classes() {
     return {
       [`btn-${this.theme}-${this.color}`]: true,
@@ -52,6 +61,7 @@ export class ButtonComponent {
       [`btn-${this.theme}-disabled`]: this.disabled,
       [`btn-${this.theme}-${this.color}-hover`]: this.isHover,
       [`btn-${this.theme}-${this.color}-pressed`]: this.isPressed,
+      [`btn-icon-only`]: !!this.icon,
     }
   }
 }
