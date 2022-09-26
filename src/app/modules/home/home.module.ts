@@ -7,6 +7,7 @@ import { HomeRoutingModule } from './home-routing.module'
 import { LogoModule } from './../../components/logo/logo.module'
 import { MenuModule } from './../../components/menu/menu.module'
 import { NgModule } from '@angular/core'
+import { SearchModule } from './../../components/search/search.module'
 import { SidebarModule } from './../../components/sidebar/sidebar.module'
 import { TemplateModule } from './../../directives/template/template.module'
 import { ToolbarModule } from './../../components/toolbar/toolbar.module'
@@ -24,6 +25,7 @@ import { ToolbarModule } from './../../components/toolbar/toolbar.module'
     AvatarModule,
     ToolbarModule,
     TemplateModule,
+    SearchModule,
   ],
 })
 export class HomeModule {}

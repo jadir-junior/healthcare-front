@@ -14,8 +14,15 @@ import { IMenuItem } from './../../components/menu/menu-item.component'
       </div>
     </hc-sidebar>
     <div style="width: 100%;">
-      <hc-toolbar [style]="{ 'padding': '0.5rem 2rem' }">
-        <ng-template hcTemplate="left"></ng-template>
+      <hc-toolbar
+        [style]="{
+          'padding': '0.5rem 2rem',
+          'background-color': 'var(--neutral-background)'
+        }"
+      >
+        <ng-template hcTemplate="left">
+          <hc-search placeholder="Search" [style]="{ 'width': '350px' }"></hc-search>
+        </ng-template>
         <ng-template hcTemplate="right">
           <div #actualTarget>
             <hc-avatar
