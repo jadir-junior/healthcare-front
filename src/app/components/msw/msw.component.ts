@@ -57,6 +57,7 @@ import { worker } from 'src/mocks/browser'
       .wrapper-msw {
         display: flex;
         align-items: center;
+        width: 400px;
 
         div {
           margin: 4px;

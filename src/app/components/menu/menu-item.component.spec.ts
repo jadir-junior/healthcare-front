@@ -1,22 +1,40 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing'
+import { render, screen } from '@testing-library/angular'
 
+import { MenuComponent } from './menu.component'
 import { MenuItemComponent } from './menu-item.component'
 
 describe('MenuItemComponent', () => {
-  let component: MenuItemComponent
-  let fixture: ComponentFixture<MenuItemComponent>
-
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [MenuItemComponent],
-    }).compileComponents()
-
-    fixture = TestBed.createComponent(MenuItemComponent)
-    component = fixture.componentInstance
-    fixture.detectChanges()
+  it('create a menu item', async () => {
+    const { container } = await render(MenuItemComponent, {
+      providers: [MenuComponent],
+    })
+    expect(container).toBeInTheDocument()
   })
 
-  it('should create', () => {
-    expect(component).toBeTruthy()
+  it('create menu item with label', async () => {
+    await render(MenuItemComponent, {
+      providers: [MenuComponent],
+      componentProperties: {
+        item: {
+          label: 'My Profile',
+        },
+      },
+    })
+
+    expect(screen.getByText(/my profile/i)).toBeInTheDocument()
+  })
+
+  it('create menu item with label and icon', async () => {
+    await render(MenuItemComponent, {
+      providers: [MenuComponent],
+      componentProperties: {
+        item: {
+          label: 'My Profile',
+          icon: 'dashboard',
+        },
+      },
+    })
+
+    expect(screen.getByText(/my profile/i)).toBeInTheDocument()
   })
 })
