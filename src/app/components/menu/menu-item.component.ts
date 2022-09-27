@@ -27,29 +27,29 @@ export interface IMenuItem {
   selector: '[hc-menu-item]',
   template: `
     <a
-      *ngIf="!item?.routerLink"
+      *ngIf="item && !item?.routerLink"
       class="hc-menu-item-link subtitle2"
       role="menuitem"
       (click)="menu.itemClick($event, item)"
     >
-      <span *ngIf="item?.icon" class="material-symbols-outlined hc-menu-item-icon">
+      <span *ngIf="item.icon" class="material-symbols-outlined hc-menu-item-icon">
         {{ item.icon }}
       </span>
-      <span class="hc-menu-item-text">{{ item?.label }}</span>
+      <span class="hc-menu-item-text">{{ item.label }}</span>
     </a>
     <a
-      *ngIf="item?.routerLink"
+      *ngIf="item && item.routerLink"
       class="hc-menu-item-link subtitle2"
       role="menuitem"
       routerLinkActive="hc-menu-item-link-active"
-      [routerLink]="item?.routerLink"
-      [queryParams]="item?.queryParams"
-      [routerLinkActiveOptions]="item?.routerLinkActiveOptions || { exact: false }"
+      [routerLink]="item.routerLink"
+      [queryParams]="item.queryParams"
+      [routerLinkActiveOptions]="item.routerLinkActiveOptions || { exact: false }"
     >
       <span *ngIf="item?.icon" class="material-symbols-outlined hc-menu-item-icon">
         {{ item.icon }}
       </span>
-      <span class="hc-menu-item-text">{{ item?.label }}</span>
+      <span class="hc-menu-item-text">{{ item.label }}</span>
     </a>
   `,
   styles: [
@@ -92,7 +92,7 @@ export interface IMenuItem {
   ],
 })
 export class MenuItemComponent {
-  @Input('hc-menu-item') item!: IMenuItem
+  @Input('hc-menu-item') item?: IMenuItem
 
   menu: MenuComponent
 

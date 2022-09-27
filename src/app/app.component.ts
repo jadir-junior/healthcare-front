@@ -15,7 +15,6 @@ import { Component } from '@angular/core'
       .container {
         background-color: var(--neutral-background);
         position: relative;
-        height: 100%;
       }
     `,
   ],

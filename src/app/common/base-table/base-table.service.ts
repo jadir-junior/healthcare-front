@@ -40,6 +40,11 @@ export class BaseTableService {
     this.changeUrlParams()
   }
 
+  changeLimit(limit: number) {
+    this.limit = limit
+    this.changeUrlParams()
+  }
+
   private changeUrlParams() {
     this.router.navigate([], {
       relativeTo: this.route,

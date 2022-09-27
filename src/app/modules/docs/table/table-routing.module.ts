@@ -5,6 +5,7 @@ import { DynamicComponent } from './dynamic/dynamic.component'
 import { GridlinesComponent } from './gridlines/gridlines.component'
 import { NgModule } from '@angular/core'
 import { PageComponent } from './page/page.component'
+import { PageLimitComponent } from './page-limit/page-limit.component'
 import { SelectAllComponent } from './select-all/select-all.component'
 import { SelectionComponent } from './selection/selection.component'
 import { SortComponent } from './sort/sort.component'
@@ -33,6 +34,10 @@ const routes: Routes = [
   {
     path: 'selection',
     component: SelectionComponent,
+  },
+  {
+    path: 'limit',
+    component: PageLimitComponent,
   },
   {
     path: 'selectall',

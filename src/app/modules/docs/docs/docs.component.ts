@@ -109,6 +109,17 @@ export class DocsComponent {
           },
         },
         {
+          label: 'Limit',
+          routerLink: '/docs/table/limit',
+          queryParams: { page: 1, limit: 5 },
+          routerLinkActiveOptions: {
+            matrixParams: 'ignored',
+            queryParams: 'ignored',
+            paths: 'exact',
+            fragment: 'ignored',
+          },
+        },
+        {
           label: 'Select all',
           routerLink: '/docs/table/selectall',
           queryParams: { page: 1, limit: 5 },

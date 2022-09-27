@@ -10,20 +10,6 @@ import { IMeta } from 'src/app/models/pagination.model'
   selector: 'app-select-all',
   template: `
     <hc-card *ngIf="products && pagination">
-      <div style="margin-bottom: 8px;">
-        <hc-select-all
-          *ngIf="selectedProducts?.length || selectAll"
-          [selected]="selectedProducts"
-          [deselected]="desSelectedProdutcs"
-          [totalItems]="pagination.totalItems"
-          [selectAll]="selectAll"
-          (clickEvent)="onSelectAll()"
-        >
-          <hc-button size="small" color="primary" (clickEvent)="onShow()">
-            <hc-icon size="large" icon="approval"></hc-icon>
-          </hc-button>
-        </hc-select-all>
-      </div>
       <hc-table
         hcSelect
         hcData
@@ -39,6 +25,20 @@ import { IMeta } from 'src/app/models/pagination.model'
         [selectAll]="selectAll"
         (selectAllChange)="onSelectAllChange($event)"
       >
+        <ng-template hcTemplate="optionsHeader">
+          <hc-select-all
+            *ngIf="selectedProducts?.length || selectAll"
+            [selected]="selectedProducts"
+            [deselected]="desSelectedProdutcs"
+            [totalItems]="pagination.totalItems"
+            [selectAll]="selectAll"
+            (clickEvent)="onSelectAll()"
+          >
+            <hc-button size="small" color="primary" (clickEvent)="onShow()">
+              <hc-icon size="large" icon="approval"></hc-icon>
+            </hc-button>
+          </hc-select-all>
+        </ng-template>
         <ng-template hcTemplate="header">
           <tr>
             <th>

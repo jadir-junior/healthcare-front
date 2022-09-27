@@ -149,13 +149,49 @@ export const getProducts = (
   res: ResponseComposition,
   ctx: RestContext
 ) => {
-  if (req.url.searchParams.get('page') === '1') {
+  if (
+    req.url.searchParams.get('page') === '1' &&
+    req.url.searchParams.get('limit') === '5'
+  ) {
     return res(ctx.status(200), ctx.json(RESPONSE_PRODUCTS_PAGE_1))
   }
 
-  if (req.url.searchParams.get('page') === '2') {
+  if (
+    req.url.searchParams.get('page') === '1' &&
+    req.url.searchParams.get('limit') === '10'
+  ) {
+    return res(
+      ctx.status(200),
+      ctx.json({
+        items: [...RESPONSE_PRODUCTS_PAGE_1.items, ...RESPONSE_PRODUCTS_PAGE_2.items],
+        meta: {
+          ...RESPONSE_PRODUCTS_PAGE_1.meta,
+          ...{ itemsPerPage: 10, itemCount: 10, totalPages: 1, currentPage: 1 },
+        },
+      })
+    )
+  }
+
+  if (
+    req.url.searchParams.get('page') === '2' &&
+    req.url.searchParams.get('limit') === '5'
+  ) {
     return res(ctx.status(200), ctx.json(RESPONSE_PRODUCTS_PAGE_2))
   }
 
-  return res(ctx.status(200))
+  return res(
+    ctx.status(200),
+    ctx.json({
+      items: [...RESPONSE_PRODUCTS_PAGE_1.items, ...RESPONSE_PRODUCTS_PAGE_2.items],
+      meta: {
+        ...RESPONSE_PRODUCTS_PAGE_1.meta,
+        ...{
+          itemsPerPage: Number(req.url.searchParams.get('limit')),
+          itemCount: 10,
+          totalPages: 1,
+          currentPage: 1,
+        },
+      },
+    })
+  )
 }
