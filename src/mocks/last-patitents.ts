@@ -1,38 +1,36 @@
 import { ResponseComposition, RestContext, RestRequest } from 'msw'
 
-import { v4 as uuidv4 } from 'uuid'
-
 const RESPOSE_LAST_PATIENTS = [
   {
-    id: uuidv4(),
+    id: '1',
     name: 'Leslie Alexander',
     photo: 'https://xsgames.co/randomusers/avatar.php?g=female',
     visitTime: new Date(),
     date: new Date(),
   },
   {
-    id: uuidv4(),
+    id: '2',
     name: 'Ronald Richards',
     photo: 'https://xsgames.co/randomusers/avatar.php?g=male',
     visitTime: new Date(),
     date: new Date(),
   },
   {
-    id: uuidv4(),
+    id: '3',
     photo: 'https://xsgames.co/randomusers/avatar.php?g=female',
     name: 'Jane Cooper',
     visitTime: new Date(),
     date: new Date(),
   },
   {
-    id: uuidv4(),
+    id: '4',
     name: 'Robert Fox',
     photo: 'https://xsgames.co/randomusers/avatar.php?g=male',
     visitTime: new Date(),
     date: new Date(),
   },
   {
-    id: uuidv4(),
+    id: '5',
     photo: 'https://xsgames.co/randomusers/avatar.php?g=female',
     name: 'Jenny Wilson',
     visitTime: new Date(),

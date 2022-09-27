@@ -1,34 +1,32 @@
 import { ResponseComposition, RestContext, RestRequest } from 'msw'
 
-import { v4 as uuidv4 } from 'uuid'
-
 const RESPOSE_LAST_PAYMENTS = [
   {
-    id: uuidv4(),
+    id: '1',
     recipient: 'Leslie Alexander',
     amount: 988,
     date: new Date(),
   },
   {
-    id: uuidv4(),
+    id: '2',
     recipient: 'Ronald Richards',
     amount: 778,
     date: new Date(),
   },
   {
-    id: uuidv4(),
+    id: '3',
     recipient: 'Jane Cooper',
     amount: 779,
     date: new Date(),
   },
   {
-    id: uuidv4(),
+    id: '4',
     recipient: 'Robert Fox',
     amount: 293,
     date: new Date(),
   },
   {
-    id: uuidv4(),
+    id: '5',
     recipient: 'Jenny Wilson',
     amount: 739,
     date: new Date(),

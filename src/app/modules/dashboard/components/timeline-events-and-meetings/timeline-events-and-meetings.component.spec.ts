@@ -1,22 +1,17 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing'
-
+import { IconModule } from '../../../../components/icon/icon.module'
 import { TimelineEventsAndMeetingsComponent } from './timeline-events-and-meetings.component'
+import { TimelineModule } from '../../../../components/timeline/timeline.module'
+import { render } from '@testing-library/angular'
 
 describe('TimelineEventsAndMeetingsComponent', () => {
-  let component: TimelineEventsAndMeetingsComponent
-  let fixture: ComponentFixture<TimelineEventsAndMeetingsComponent>
+  const setup = async () => {
+    return render(TimelineEventsAndMeetingsComponent, {
+      imports: [TimelineModule, IconModule],
+    })
+  }
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [TimelineEventsAndMeetingsComponent],
-    }).compileComponents()
-
-    fixture = TestBed.createComponent(TimelineEventsAndMeetingsComponent)
-    component = fixture.componentInstance
-    fixture.detectChanges()
-  })
-
-  it('should create', () => {
-    expect(component).toBeTruthy()
+  it('should create a timeline', async () => {
+    const { container } = await setup()
+    expect(container).toBeInTheDocument()
   })
 })

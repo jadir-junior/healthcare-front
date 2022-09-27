@@ -32,20 +32,27 @@ interface ILastPatientsDynamic extends ILastPatients, IAccessKey {}
           <hc-table hcData hcPagination [value]="lastPatients" [responsive]="true">
             <ng-template hcTemplate="header">
               <tr>
-                <th *ngFor="let column of tableLastPatients">{{ column.header }}</th>
+                <th
+                  *ngFor="let column of tableLastPatients"
+                  [ngStyle]="column.header === 'Date' ? { 'text-align': 'right' } : null"
+                >
+                  {{ column.header }}
+                </th>
               </tr>
             </ng-template>
             <ng-template hcTemplate="body">
               <tr *ngFor="let patient of lastPatients">
-                <td *ngFor="let column of tableLastPatients">
-                  <div style="display: flex; align-items: center;" class="body2">
-                    <span *ngIf="column.field === 'name'" style="margin-right: 0.5rem">
-                      <hc-avatar [circle]="true" [image]="patient.photo"></hc-avatar>
-                    </span>
-
-                    {{ patient[column.field] }}
-                  </div>
+                <td style="display: flex; align-items: center">
+                  <hc-avatar
+                    [image]="patient.photo"
+                    [circle]="true"
+                    size="small"
+                    [style]="{ 'margin-right': '0.5rem' }"
+                  ></hc-avatar>
+                  {{ patient.name }}
                 </td>
+                <td>{{ patient.visitTime }}</td>
+                <td style="text-align: right">{{ patient.date }}</td>
               </tr>
             </ng-template>
           </hc-table>
