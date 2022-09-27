@@ -7,10 +7,12 @@ import {
   Input,
   QueryList,
   TemplateRef,
+  ViewChild,
   ViewEncapsulation,
 } from '@angular/core'
 
 import { DataDirective } from './data.directive'
+import { ElementRef } from '@angular/core'
 import { IStyle } from './../../common/models/style.model'
 import { PaginationDirective } from './pagination.directive'
 import { TemplateDirective } from 'src/app/directives/template/template.directive'
@@ -46,14 +48,34 @@ export interface IColumn {
     <div class="hc-datatable-header" *ngIf="captionTemplate">
       <ng-container *ngTemplateOutlet="captionTemplate"></ng-container>
     </div>
-    <table [ngClass]="{ 'responsive': responsive }" *ngIf="data.value" [ngStyle]="style">
-      <thead *ngIf="headerTemplate">
-        <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
-      </thead>
-      <tbody *ngIf="bodyTemplate">
-        <ng-container *ngTemplateOutlet="bodyTemplate"></ng-container>
-      </tbody>
-    </table>
+    <ng-container>
+      <ng-container
+        *ngTemplateOutlet="
+          buildInTable;
+          context: { $implicit: data.processedData, options: { columns } }
+        "
+      ></ng-container>
+    </ng-container>
+    <ng-template #buildInTable let-items let-options="options">
+      <table
+        *ngIf="data.value"
+        #table
+        role="table"
+        [ngClass]="{ 'responsive': responsive }"
+        [ngStyle]="style"
+      >
+        <thead *ngIf="headerTemplate">
+          <ng-container
+            *ngTemplateOutlet="headerTemplate; context: { $implicit: options.columns }"
+          ></ng-container>
+        </thead>
+        <tbody
+          *ngIf="bodyTemplate"
+          [hc-table-body]="options.columns"
+          [template]="bodyTemplate"
+        ></tbody>
+      </table>
+    </ng-template>
     <div class="hc-datatable-footer" *ngIf="summaryTemplate">
       <ng-container *ngTemplateOutlet="summaryTemplate"></ng-container>
     </div>
@@ -84,6 +106,7 @@ export class TableComponent implements AfterContentInit {
   @Input() style?: IStyle
 
   @ContentChildren(TemplateDirective) templates!: QueryList<TemplateDirective>
+  @ViewChild('table') tableViewChild!: ElementRef
 
   constructor(public data: DataDirective, public paginator: PaginationDirective) {}
 

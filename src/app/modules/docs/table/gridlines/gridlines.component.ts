@@ -5,7 +5,7 @@ import { IProduct, ProductsService } from '../../products.service'
   selector: 'app-gridlines',
   template: `
     <hc-card>
-      <hc-table hcData hcPagination [responsive]="true">
+      <hc-table hcData hcPagination [value]="products" [responsive]="true">
         <ng-template hcTemplate="caption"> Header </ng-template>
 
         <ng-template hcTemplate="header">
@@ -17,8 +17,8 @@ import { IProduct, ProductsService } from '../../products.service'
           </tr>
         </ng-template>
 
-        <ng-template hcTemplate="body">
-          <tr *ngFor="let product of products">
+        <ng-template hcTemplate="body" let-product>
+          <tr>
             <td>{{ product.code }}</td>
             <td>{{ product.name }}</td>
             <td>{{ product.category }}</td>

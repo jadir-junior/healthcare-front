@@ -36,8 +36,8 @@ import { IMeta } from 'src/app/models/pagination.model'
             <th>Quantity</th>
           </tr>
         </ng-template>
-        <ng-template hcTemplate="body">
-          <tr *ngFor="let product of products">
+        <ng-template hcTemplate="body" let-product>
+          <tr>
             <td>
               <hc-table-check-box
                 [value]="product"

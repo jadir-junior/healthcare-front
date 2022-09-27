@@ -1,30 +1,33 @@
 import { Component, OnInit } from '@angular/core'
 import { IProduct, ProductsService } from '../../products.service'
 
+import { IAccessKey } from '../../../../models/access-key.model'
 import { IColumn } from 'src/app/components/table/table.component'
 
-interface AccessProduct {
-  [key: string]: string | number
-}
-
-interface IProductDynamic extends IProduct, AccessProduct {}
+interface IProductDynamic extends IProduct, IAccessKey {}
 
 @Component({
   selector: 'app-dynamic',
   template: `
     <hc-card>
-      <hc-table hcData hcPagination [value]="products" [responsive]="true">
-        <ng-template hcTemplate="header">
+      <hc-table
+        hcData
+        hcPagination
+        [columns]="cols"
+        [value]="products"
+        [responsive]="true"
+      >
+        <ng-template hcTemplate="header" let-columns>
           <tr>
             <th *ngFor="let column of columns">
               {{ column.header }}
             </th>
           </tr>
         </ng-template>
-        <ng-template hcTemplate="body">
-          <tr *ngFor="let product of products">
-            <td *ngFor="let column of columns">
-              {{ product[column.field] }}
+        <ng-template hcTemplate="body" let-rowData let-columns="columns">
+          <tr>
+            <td *ngFor="let col of columns">
+              {{ rowData[col.field] }}
             </td>
           </tr>
         </ng-template>
@@ -34,7 +37,7 @@ interface IProductDynamic extends IProduct, AccessProduct {}
 })
 export class DynamicComponent implements OnInit {
   products: IProductDynamic[] = []
-  columns: IColumn[] = [
+  cols: IColumn[] = [
     { header: 'Code', field: 'code' },
     { header: 'Name', field: 'name' },
     { header: 'Category', field: 'category' },
