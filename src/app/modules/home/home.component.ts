@@ -18,7 +18,6 @@ import { IMenuItem } from './../../components/menu/menu-item.component'
   styles: [
     `
       .wrapper-home {
-        height: 100%;
         display: flex;
       }
     `,
