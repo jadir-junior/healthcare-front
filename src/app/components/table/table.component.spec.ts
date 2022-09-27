@@ -203,18 +203,25 @@ const selectAllPageAndGoToPage2 = async () => {
     <hc-table hcData hcPagination [value]="products">
       <ng-template hcTemplate="header">
         <tr>
-          <th
-            *ngFor="let column of columns"
-            [attr.aria-label]="'Column header ' + column.header"
-          >
-            {{ column.header }}
-          </th>
+          <th aria-label="column header code">Code</th>
+          <th aria-label="column header">Name</th>
+          <th aria-label="column header">Category</th>
+          <th aria-label="column header">Quantity</th>
         </tr>
       </ng-template>
-      <ng-template hcTemplate="body">
-        <tr *ngFor="let product of products" aria-label="row">
-          <td *ngFor="let column of columns">
-            {{ product[column.field] }}
+      <ng-template hcTemplate="body" let-product>
+        <tr aria-label="row">
+          <td>
+            {{ product.code }}
+          </td>
+          <td>
+            {{ product.name }}
+          </td>
+          <td>
+            {{ product.category }}
+          </td>
+          <td>
+            {{ product.quantity }}
           </td>
         </tr>
       </ng-template>
@@ -284,8 +291,8 @@ class GridlinesTableComponent {
           </th>
         </tr>
       </ng-template>
-      <ng-template hcTemplate="body">
-        <tr *ngFor="let product of products" aria-label="row">
+      <ng-template hcTemplate="body" let-product>
+        <tr aria-label="row">
           <td *ngFor="let column of columns">
             {{ product[column.field] }}
           </td>
@@ -414,8 +421,8 @@ class SortTableComponent implements OnInit {
           </th>
         </tr>
       </ng-template>
-      <ng-template hcTemplate="body">
-        <tr *ngFor="let product of products" aria-label="row">
+      <ng-template hcTemplate="body" let-product>
+        <tr aria-label="row">
           <td>
             <hc-table-check-box
               [value]="product"
@@ -514,8 +521,8 @@ class SelectionTableComponent implements OnInit {
           </th>
         </tr>
       </ng-template>
-      <ng-template hcTemplate="body">
-        <tr *ngFor="let product of products" aria-label="row">
+      <ng-template hcTemplate="body" let-product>
+        <tr aria-label="row">
           <td>
             <hc-table-check-box
               [value]="product"

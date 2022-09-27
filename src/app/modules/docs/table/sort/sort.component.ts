@@ -31,8 +31,8 @@ import { BaseTableService } from 'src/app/common/base-table/base-table.service'
           </th>
         </tr>
       </ng-template>
-      <ng-template hcTemplate="body">
-        <tr *ngFor="let product of products">
+      <ng-template hcTemplate="body" let-product>
+        <tr>
           <td>{{ product.code }}</td>
           <td>{{ product.name }}</td>
           <td>{{ product.category }}</td>

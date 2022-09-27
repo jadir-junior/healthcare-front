@@ -11,6 +11,7 @@ import { SelectDirective } from './select.directive'
 import { SortDirective } from './sort.directive'
 import { SortIconComponent } from './sort-icon.component'
 import { SortableColumnDirective } from './sortable-column.directive'
+import { TableBodyComponent } from './table-body.component'
 import { TableCheckBoxComponent } from './table-check-box.component'
 import { TableComponent } from './table.component'
 import { TableHeaderCheckboxComponent } from './table-header-checkbox.component'
@@ -28,6 +29,7 @@ import { TableHeaderCheckboxComponent } from './table-header-checkbox.component'
     PaginationDirective,
     SortDirective,
     SelectAllComponent,
+    TableBodyComponent,
   ],
   imports: [CommonModule, PaginationModule, NgSelectModule, FormsModule],
   exports: [
@@ -43,6 +45,7 @@ import { TableHeaderCheckboxComponent } from './table-header-checkbox.component'
     SelectAllComponent,
     NgSelectModule,
     FormsModule,
+    TableBodyComponent,
   ],
 })
 export class TableModule {}

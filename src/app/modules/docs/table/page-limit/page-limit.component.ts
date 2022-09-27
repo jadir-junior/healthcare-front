@@ -34,8 +34,8 @@ import { IMeta } from '../../../../models/pagination.model'
             <th>Rating</th>
           </tr>
         </ng-template>
-        <ng-template hcTemplate="body">
-          <tr *ngFor="let product of products">
+        <ng-template hcTemplate="body" let-product>
+          <tr>
             <td>{{ product.id }}</td>
             <td>{{ product.code }}</td>
             <td>{{ product.name }}</td>
