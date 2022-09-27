@@ -6,17 +6,20 @@ const RESPOSE_LAST_PATIENTS = [
   {
     id: uuidv4(),
     name: 'Leslie Alexander',
+    photo: 'https://xsgames.co/randomusers/avatar.php?g=female',
     visitTime: new Date(),
     date: new Date(),
   },
   {
     id: uuidv4(),
     name: 'Ronald Richards',
+    photo: 'https://xsgames.co/randomusers/avatar.php?g=male',
     visitTime: new Date(),
     date: new Date(),
   },
   {
     id: uuidv4(),
+    photo: 'https://xsgames.co/randomusers/avatar.php?g=female',
     name: 'Jane Cooper',
     visitTime: new Date(),
     date: new Date(),
@@ -24,11 +27,13 @@ const RESPOSE_LAST_PATIENTS = [
   {
     id: uuidv4(),
     name: 'Robert Fox',
+    photo: 'https://xsgames.co/randomusers/avatar.php?g=male',
     visitTime: new Date(),
     date: new Date(),
   },
   {
     id: uuidv4(),
+    photo: 'https://xsgames.co/randomusers/avatar.php?g=female',
     name: 'Jenny Wilson',
     visitTime: new Date(),
     date: new Date(),

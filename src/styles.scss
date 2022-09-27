@@ -54,3 +54,17 @@ body {
   background-color: white;
   border-radius: 8px;
 }
+
+.hc-card-body-no-padding {
+  .hc-card-title {
+    padding: 1.5rem 1.5rem 0rem 1.5rem;
+  }
+
+  .hc-card-content {
+    padding: 1rem 0 0 0;
+  }
+
+  .hc-card-body {
+    padding: 0;
+  }
+}

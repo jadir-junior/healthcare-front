@@ -1,26 +1,54 @@
-import { Component } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
+
+import { AppointmentsService } from '../appointments/appointments.service'
+import { IAccessKey } from './../../models/access-key.model'
+import { IColumn } from './../../components/table/table.component'
+import { ILastPatients } from './../appointments/appointments.service'
 import { ITimelineEventsAndMettings } from './components/timeline-events-and-meetings/timeline-events-and-meetings.component'
+import { TableService } from '../../components/table/table.service'
 
 interface IIntroduction {
   title: string
   description: string
 }
 
+interface ILastPatientsDynamic extends ILastPatients, IAccessKey {}
+
 @Component({
   selector: 'app-dashboard',
   template: `
     <div class="container">
       <div>
-        <hc-card header="Introduction">
-          <div>
-            <div
-              class="wrapper-introduction-information"
-              *ngFor="let information of informationsIntroductions"
-            >
-              <p class="small2">{{ information.title }}</p>
-              <p class="body2">{{ information.description }}</p>
-            </div>
+        <hc-card header="Introduction" [style]="{ 'margin-bottom': '2rem' }">
+          <div
+            class="wrapper-introduction-information"
+            *ngFor="let information of informationsIntroductions"
+          >
+            <p class="small2">{{ information.title }}</p>
+            <p class="body2">{{ information.description }}</p>
           </div>
+        </hc-card>
+        <hc-card header="Last patients" styleClass="hc-card-body-no-padding">
+          <hc-table hcData hcPagination [value]="lastPatients" [responsive]="true">
+            <ng-template hcTemplate="header">
+              <tr>
+                <th *ngFor="let column of tableLastPatients">{{ column.header }}</th>
+              </tr>
+            </ng-template>
+            <ng-template hcTemplate="body">
+              <tr *ngFor="let patient of lastPatients">
+                <td *ngFor="let column of tableLastPatients">
+                  <div style="display: flex; align-items: center;" class="body2">
+                    <span *ngIf="column.field === 'name'" style="margin-right: 0.5rem">
+                      <hc-avatar [circle]="true" [image]="patient.photo"></hc-avatar>
+                    </span>
+
+                    {{ patient[column.field] }}
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
+          </hc-table>
         </hc-card>
       </div>
       <div>
@@ -60,8 +88,9 @@ interface IIntroduction {
       }
     `,
   ],
+  providers: [TableService],
 })
-export class DashboardComponent {
+export class DashboardComponent implements OnInit {
   informationsIntroductions: IIntroduction[] = [
     {
       title: 'Address',
@@ -146,4 +175,32 @@ export class DashboardComponent {
       color: '#FF6760',
     },
   ]
+
+  tableLastPatients: IColumn[] = [
+    {
+      header: 'Name',
+      field: 'name',
+    },
+    {
+      header: 'Visit Time',
+      field: 'visitTime',
+    },
+    {
+      header: 'Date',
+      field: 'date',
+    },
+  ]
+  lastPatients: ILastPatientsDynamic[] = []
+
+  constructor(private appointmentsService: AppointmentsService) {}
+
+  ngOnInit(): void {
+    this.getLastPatients()
+  }
+
+  getLastPatients() {
+    this.appointmentsService.getLastPatients().subscribe((patients) => {
+      this.lastPatients = patients as ILastPatientsDynamic[]
+    })
+  }
 }
