@@ -1,11 +1,13 @@
 import { CardModule } from './../../components/card/card.module'
 import { DashboardComponent } from './dashboard.component'
+import { IconModule } from './../../components/icon/icon.module'
+import { TimelineModule } from './../../components/timeline/timeline.module'
 import { render } from '@testing-library/angular'
 
 describe('DashboardComponent', () => {
   const setup = async () => {
     return render(DashboardComponent, {
-      imports: [CardModule],
+      imports: [CardModule, TimelineModule, IconModule],
     })
   }
 
