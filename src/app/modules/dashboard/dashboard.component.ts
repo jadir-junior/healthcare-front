@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core'
+import { ILastPayments, PaymentsService } from '../../services/payments/payments.service'
 
 import { AppointmentsService } from '../appointments/appointments.service'
 import { IAccessKey } from './../../models/access-key.model'
@@ -16,91 +17,8 @@ interface ILastPatientsDynamic extends ILastPatients, IAccessKey {}
 
 @Component({
   selector: 'app-dashboard',
-  template: `
-    <div class="container">
-      <div>
-        <hc-card header="Introduction" [style]="{ 'margin-bottom': '2rem' }">
-          <div
-            class="wrapper-introduction-information"
-            *ngFor="let information of informationsIntroductions"
-          >
-            <p class="small2">{{ information.title }}</p>
-            <p class="body2">{{ information.description }}</p>
-          </div>
-        </hc-card>
-        <hc-card header="Last patients" styleClass="hc-card-body-no-padding">
-          <hc-table
-            hcData
-            hcPagination
-            [columns]="tableLastPatients"
-            [value]="lastPatients"
-            [responsive]="true"
-          >
-            <ng-template hcTemplate="header" let-columns>
-              <tr>
-                <th
-                  *ngFor="let column of columns"
-                  [ngStyle]="column.header === 'Date' ? { 'text-align': 'right' } : null"
-                >
-                  {{ column.header }}
-                </th>
-              </tr>
-            </ng-template>
-            <ng-template hcTemplate="body" let-patient>
-              <tr>
-                <td style="display: flex; align-items: center">
-                  <hc-avatar
-                    [image]="patient.photo"
-                    [circle]="true"
-                    size="small"
-                    [style]="{ 'margin-right': '0.5rem' }"
-                  ></hc-avatar>
-                  {{ patient.name }}
-                </td>
-                <td>{{ patient.visitTime }}</td>
-                <td style="text-align: right">{{ patient.date }}</td>
-              </tr>
-            </ng-template>
-          </hc-table>
-        </hc-card>
-      </div>
-      <div>
-        <hc-card>
-          <hc-timeline-events-and-meetings
-            title="Events"
-            [timeline]="events"
-          ></hc-timeline-events-and-meetings>
-          <hc-timeline-events-and-meetings
-            title="Meetings"
-            [timeline]="meetings"
-          ></hc-timeline-events-and-meetings>
-        </hc-card>
-      </div>
-    </div>
-  `,
-  styles: [
-    `
-      .container {
-        margin: 2rem;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        grid-gap: 2rem;
-      }
-
-      .wrapper-introduction-information:not(:last-child) {
-        margin-bottom: 1rem;
-      }
-
-      p.small2 {
-        color: var(--neutral-gray);
-        margin-bottom: 0.5rem;
-      }
-
-      p.body2 {
-        color: var(--neutral-black);
-      }
-    `,
-  ],
+  templateUrl: 'dashboard.component.html',
+  styleUrls: ['dashboard.component.scss'],
   providers: [TableService],
 })
 export class DashboardComponent implements OnInit {
@@ -203,17 +121,44 @@ export class DashboardComponent implements OnInit {
       field: 'date',
     },
   ]
+
   lastPatients: ILastPatientsDynamic[] = []
 
-  constructor(private appointmentsService: AppointmentsService) {}
+  columnsLastPayments: IColumn[] = [
+    {
+      header: 'Date',
+      field: 'date',
+    },
+    {
+      header: 'Recipient',
+      field: 'recipient',
+    },
+    {
+      header: 'Amount',
+      field: 'amount',
+    },
+  ]
+  lastPayments: ILastPayments[] = []
+
+  constructor(
+    private appointmentsService: AppointmentsService,
+    private paymentsService: PaymentsService
+  ) {}
 
   ngOnInit(): void {
     this.getLastPatients()
+    this.getLastPayments()
   }
 
   getLastPatients() {
     this.appointmentsService.getLastPatients().subscribe((patients) => {
       this.lastPatients = patients as ILastPatientsDynamic[]
+    })
+  }
+
+  getLastPayments() {
+    this.paymentsService.getLastPayments().subscribe((payments) => {
+      this.lastPayments = payments
     })
   }
 }

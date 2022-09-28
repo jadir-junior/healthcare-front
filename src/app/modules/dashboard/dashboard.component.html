@@ -1,0 +1,97 @@
+<div class="container">
+  <div>
+    <hc-card header="Introduction" [style]="{ 'margin-bottom': '2rem' }">
+      <div
+        class="wrapper-introduction-information"
+        *ngFor="let information of informationsIntroductions"
+      >
+        <p class="small2">{{ information.title }}</p>
+        <p class="body2">{{ information.description }}</p>
+      </div>
+    </hc-card>
+    <hc-card header="Last patients" styleClass="hc-card-body-no-padding">
+      <hc-table
+        hcData
+        hcPagination
+        [columns]="tableLastPatients"
+        [value]="lastPatients"
+        [responsive]="true"
+      >
+        <ng-template hcTemplate="header" let-columns>
+          <tr>
+            <th
+              *ngFor="let column of columns"
+              [ngStyle]="column.header === 'Date' ? { 'text-align': 'right' } : null"
+            >
+              {{ column.header }}
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template hcTemplate="body" let-patient>
+          <tr>
+            <td style="display: flex; align-items: center">
+              <hc-avatar
+                [image]="patient.photo"
+                [circle]="true"
+                size="small"
+                [style]="{ 'margin-right': '0.5rem' }"
+              ></hc-avatar>
+              {{ patient.name }}
+            </td>
+            <td>{{ patient.visitTime }}</td>
+            <td style="text-align: right">{{ patient.date }}</td>
+          </tr>
+        </ng-template>
+      </hc-table>
+    </hc-card>
+
+    <hc-card
+      header="Last payments"
+      styleClass="hc-card-body-no-padding"
+      [style]="{ 'margin-top': '1.5rem' }"
+    >
+      <hc-table
+        hcData
+        hcPagination
+        [columns]="columnsLastPayments"
+        [value]="lastPayments"
+        [responsive]="true"
+      >
+        <ng-template hcTemplate="header" let-columns>
+          <tr>
+            <th>Date</th>
+            <th>Recipient</th>
+            <th style="text-align: right; padding-right: 1.5rem">Amount</th>
+          </tr>
+        </ng-template>
+        <ng-template hcTemplate="body" let-payment>
+          <tr>
+            <td>{{ payment.date | date: 'dd/MM/yyyy' }}</td>
+            <td>{{ payment.recipient }}</td>
+            <td style="text-align: right">
+              <hc-tag
+                [rounded]="true"
+                severity="success"
+                [style]="{ 'padding': '0.5rem 1.25rem' }"
+              >
+                {{ payment.amount | currency }}
+              </hc-tag>
+            </td>
+          </tr>
+        </ng-template>
+      </hc-table>
+    </hc-card>
+  </div>
+  <div>
+    <hc-card>
+      <hc-timeline-events-and-meetings
+        title="Events"
+        [timeline]="events"
+      ></hc-timeline-events-and-meetings>
+      <hc-timeline-events-and-meetings
+        title="Meetings"
+        [timeline]="meetings"
+      ></hc-timeline-events-and-meetings>
+    </hc-card>
+  </div>
+</div>
