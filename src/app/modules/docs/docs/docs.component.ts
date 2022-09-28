@@ -133,6 +133,7 @@ export class DocsComponent {
             fragment: 'ignored',
           },
         },
+        { label: 'Toggle', routerLink: '/docs/table/toggle' },
       ],
     },
     {
