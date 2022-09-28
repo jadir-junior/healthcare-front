@@ -3,10 +3,12 @@ import { BadgeModule } from './../../components/badge/badge.module'
 import { ButtonModule } from './../../components/button/button.module'
 import { CardModule } from './../../components/card/card.module'
 import { DropdownModule } from './../../components/dropdown/dropdown.module'
+import { DropdownNotificationsComponent } from './components/dropdown-notifications/dropdown-notifications.component'
 import { DropdownProfileComponent } from './components/dropdown-profile/dropdown-profile.component'
 import { HeaderComponent } from './components/header/header.component'
 import { HomeComponent } from './home.component'
 import { HttpClientTestingModule } from '@angular/common/http/testing'
+import { IconModule } from '../../components/icon/icon.module'
 import { LogoModule } from './../../components/logo/logo.module'
 import { MenuModule } from './../../components/menu/menu.module'
 import { SearchModule } from './../../components/search/search.module'
@@ -18,7 +20,11 @@ import { render } from '@testing-library/angular'
 describe('HomeComponent', () => {
   const setup = async () => {
     return render(HomeComponent, {
-      declarations: [HeaderComponent, DropdownProfileComponent],
+      declarations: [
+        HeaderComponent,
+        DropdownProfileComponent,
+        DropdownNotificationsComponent,
+      ],
       imports: [
         SidebarModule,
         MenuModule,
@@ -32,6 +38,7 @@ describe('HomeComponent', () => {
         SearchModule,
         ButtonModule,
         BadgeModule,
+        IconModule,
       ],
     })
   }

@@ -4,7 +4,7 @@
   top: 0;
   left: 0;
   background-color: var(--neutral-white);
-  border-radius: 6px;
+  border-radius: 0.5rem;
 
   &:after,
   &:before {
@@ -28,8 +28,8 @@
   }
 
   .hc-dropdown-content {
-    padding: 0.5rem 0;
     box-shadow: 0 2px 4px -1px #0003, 0 4px 5px #00000024, 0 1px 10px #0000001f;
     min-width: 112px;
+    border-radius: 0.5rem;
   }
 }
