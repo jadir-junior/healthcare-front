@@ -1,11 +1,24 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core'
+import {
+  AfterContentInit,
+  Component,
+  ContentChildren,
+  Input,
+  QueryList,
+  TemplateRef,
+  ViewEncapsulation,
+} from '@angular/core'
 
 import { IStyle } from './../../common/models/style.model'
+import { TemplateDirective } from '../../directives/template/template.directive'
 
 @Component({
   selector: 'hc-card',
   template: `
     <div class="hc-card" [ngStyle]="style" [class]="styleClass">
+      <div *ngIf="headerTemplate">
+        <ng-content select="hc-header"></ng-content>
+        <ng-container *ngTemplateOutlet="headerTemplate"></ng-container>
+      </div>
       <div class="hc-card-body">
         <h5 class="hc-card-title" *ngIf="header">
           {{ header }}
@@ -41,8 +54,22 @@ import { IStyle } from './../../common/models/style.model'
   ],
   encapsulation: ViewEncapsulation.None,
 })
-export class CardComponent {
+export class CardComponent implements AfterContentInit {
   @Input() header?: string
   @Input() style?: IStyle
   @Input() styleClass?: string
+
+  headerTemplate!: TemplateRef<TemplateDirective>
+
+  @ContentChildren(TemplateDirective) templates!: QueryList<TemplateDirective>
+
+  ngAfterContentInit(): void {
+    this.templates.forEach((item) => {
+      switch (item.getType()) {
+        case 'header':
+          this.headerTemplate = item.template
+          break
+      }
+    })
+  }
 }
