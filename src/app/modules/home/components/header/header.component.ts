@@ -1,4 +1,5 @@
 import { Component } from '@angular/core'
+import { IItemNotification } from './../dropdown-notifications/dropdown-notifications.component'
 
 @Component({
   selector: 'hc-header',
@@ -14,7 +15,7 @@ import { Component } from '@angular/core'
           <hc-search placeholder="Search" [style]="{ 'width': '350px' }"></hc-search>
         </ng-template>
         <ng-template hcTemplate="right">
-          <div class="wrapper-button-and-badge">
+          <div class="wrapper-button-and-badge" #notificationTarget>
             <hc-badge value="5"></hc-badge>
             <hc-button
               icon="notifications"
@@ -22,7 +23,14 @@ import { Component } from '@angular/core'
               [style]="{
                 'margin-right': '0.5rem'
               }"
+              (onClick)="dropdownNotificiations.toggle($event, notificationTarget)"
             ></hc-button>
+            <hc-dropdown #dropdownNotificiations [style]="{ width: '375px' }">
+              <hc-dropdown-notifications
+                [reports]="5"
+                [notifications]="notitifcations"
+              ></hc-dropdown-notifications>
+            </hc-dropdown>
           </div>
           <div #actualTarget>
             <hc-avatar
@@ -53,4 +61,39 @@ import { Component } from '@angular/core'
     `,
   ],
 })
-export class HeaderComponent {}
+export class HeaderComponent {
+  notitifcations: IItemNotification[] = [
+    {
+      color: '#fac032',
+      description:
+        'Aenean lacinia bibendum nulla sed consectetur. Nullam id dolor id nibh ultricies vehicula ut id elit.',
+      icon: 'monitor_heart',
+      timeAgo: '1 hr',
+      title: 'New Description',
+    },
+    {
+      color: '#ff6760',
+      description:
+        'Esse sanctus ea nec. An nam nonumy veritus theophrastus. No laoreet intellegebat pro, ea omnes graecis eloquentiam quo.',
+      icon: 'local_hospital',
+      timeAgo: '2 hr',
+      title: 'Appointment',
+    },
+    {
+      color: '#558eff',
+      description:
+        'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequuntur nam nisi veniam.',
+      icon: 'vaccines',
+      timeAgo: '5 hr',
+      title: 'Medication',
+    },
+    {
+      color: '#16d090',
+      description:
+        'Aenean lacinia bibendum nulla sed consectetur. Nullam id dolor id nibh ultricies vehicula ut id elit.',
+      icon: 'healing',
+      timeAgo: '2 days',
+      title: 'Operation',
+    },
+  ]
+}

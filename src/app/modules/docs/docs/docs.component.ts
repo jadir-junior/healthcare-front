@@ -8,12 +8,8 @@ import { IMenuItem } from 'src/app/components/menu/menu-item.component'
   template: `
     <div class="wrapper-layout">
       <hc-sidebar>
-        <div style="margin: 1.5rem">
-          <hc-logo></hc-logo>
-        </div>
-        <div>
-          <hc-menu [model]="menu"></hc-menu>
-        </div>
+        <hc-logo [style]="{ margin: '1.5rem' }"></hc-logo>
+        <hc-menu [model]="menu" [style]="{ margin: '0.25rem 1.5rem' }"></hc-menu>
       </hc-sidebar>
       <main style="margin: 4rem 4rem;">
         <router-outlet></router-outlet>
