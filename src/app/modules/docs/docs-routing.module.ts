@@ -20,6 +20,10 @@ const routes: Routes = [
         path: 'data',
         loadChildren: () => import('./data/data.module').then((m) => m.DataModule),
       },
+      {
+        path: 'misc',
+        loadChildren: () => import('./misc/misc.module').then((m) => m.MiscModule),
+      },
     ],
   },
 ]
