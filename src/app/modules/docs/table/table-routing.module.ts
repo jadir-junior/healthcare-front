@@ -6,6 +6,7 @@ import { GridlinesComponent } from './gridlines/gridlines.component'
 import { NgModule } from '@angular/core'
 import { PageComponent } from './page/page.component'
 import { PageLimitComponent } from './page-limit/page-limit.component'
+import { PageToggleComponent } from './page-toggle/page-toggle.component'
 import { SelectAllComponent } from './select-all/select-all.component'
 import { SelectionComponent } from './selection/selection.component'
 import { SortComponent } from './sort/sort.component'
@@ -42,6 +43,10 @@ const routes: Routes = [
   {
     path: 'selectall',
     component: SelectAllComponent,
+  },
+  {
+    path: 'toggle',
+    component: PageToggleComponent,
   },
 ]
 

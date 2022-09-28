@@ -1,13 +1,16 @@
 import { BasicComponent } from './basic/basic.component'
 import { ButtonModule } from 'src/app/components/button/button.module'
 import { CardModule } from './../../../components/card/card.module'
+import { CheckboxModule } from './../../../components/checkbox/checkbox.module'
 import { CommonModule } from '@angular/common'
+import { DropdownModule } from './../../../components/dropdown/dropdown.module'
 import { DynamicComponent } from './dynamic/dynamic.component'
 import { GridlinesComponent } from './gridlines/gridlines.component'
 import { IconModule } from 'src/app/components/icon/icon.module'
 import { NgModule } from '@angular/core'
 import { PageComponent } from './page/page.component'
 import { PageLimitComponent } from './page-limit/page-limit.component'
+import { PageToggleComponent } from './page-toggle/page-toggle.component'
 import { PaginationModule } from 'src/app/components/pagination/pagination.module'
 import { SelectAllComponent } from './select-all/select-all.component'
 import { SelectionComponent } from './selection/selection.component'
@@ -26,6 +29,7 @@ import { TemplateModule } from 'src/app/directives/template/template.module'
     SelectionComponent,
     SelectAllComponent,
     PageLimitComponent,
+    PageToggleComponent,
   ],
   imports: [
     CommonModule,
@@ -36,6 +40,8 @@ import { TemplateModule } from 'src/app/directives/template/template.module'
     ButtonModule,
     IconModule,
     CardModule,
+    DropdownModule,
+    CheckboxModule,
   ],
 })
 export class TableModule {}

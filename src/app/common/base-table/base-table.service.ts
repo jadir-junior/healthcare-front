@@ -1,5 +1,6 @@
 import { ActivatedRoute, Router } from '@angular/router'
 
+import { IColumn } from './../../components/table/table.component'
 import { IPageChange } from 'src/app/components/pagination/pagination.component'
 import { Injectable } from '@angular/core'
 
@@ -16,6 +17,8 @@ export class BaseTableService {
   limit = 5
   sortColumn: string | undefined = undefined
   sortDirection: string | undefined = undefined
+  cols: IColumn[] = []
+  _selectedColumns: IColumn[] = []
 
   constructor(private route: ActivatedRoute, private router: Router) {
     this.route.queryParams.subscribe((params) => {
@@ -28,6 +31,14 @@ export class BaseTableService {
         this.sortDirection = sortDirection
       }
     })
+  }
+
+  get selectedColumns(): IColumn[] {
+    return this._selectedColumns
+  }
+
+  set selectedColumns(val: IColumn[]) {
+    this._selectedColumns = this.cols.filter((col) => val.includes(col))
   }
 
   sort(event: { field: string; order: number }) {

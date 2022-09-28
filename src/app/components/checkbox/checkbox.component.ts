@@ -70,7 +70,8 @@ export class CheckboxComponent implements ControlValueAccessor {
   @Input() name?: string
   @Input() readonly = false
   @Input() trueValue = true
-  @Input() value!: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  @Input() value!: string | any
 
   @Output() onChange = new EventEmitter()
 
