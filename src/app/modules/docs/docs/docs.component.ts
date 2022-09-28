@@ -61,7 +61,10 @@ export class DocsComponent {
   menu: IMenuItem[] = [
     {
       label: 'Form',
-      items: [{ label: 'Input Text', routerLink: '/docs/form/inputtext' }],
+      items: [
+        { label: 'Input Text', routerLink: '/docs/form/inputtext' },
+        { label: 'Checkbox', routerLink: '/docs/form/checkbox' },
+      ],
     },
     {
       label: 'Table',

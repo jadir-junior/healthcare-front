@@ -128,4 +128,15 @@ export class ObjectUtils {
   public static isNotEmpty(value: any) {
     return !this.isEmpty(value)
   }
+
+  public static contains(value: any, list: any): boolean {
+    if (value != null && list && list.length) {
+      for (const val of list) {
+        if (this.equals(value, val)) {
+          return true
+        }
+      }
+    }
+    return false
+  }
 }
