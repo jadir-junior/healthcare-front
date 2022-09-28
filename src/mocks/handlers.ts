@@ -9,5 +9,5 @@ export const handlers = [
   rest.get(`${environment.BASE_URL}/products`, getProducts),
   rest.post(`${environment.BASE_URL}/login`, login),
   rest.get(`${environment.BASE_URL}/last-patients`, getLastPatients),
-  rest.get(`${environment.BASE_URL}/last-payments`, getLastPayments),
+  rest.get(`${environment.BASE_URL}/payments/last-payments`, getLastPayments),
 ]

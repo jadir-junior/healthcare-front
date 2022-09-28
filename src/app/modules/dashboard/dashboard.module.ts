@@ -6,6 +6,7 @@ import { DashboardRoutingModule } from './dashboard-routing.module'
 import { IconModule } from './../../components/icon/icon.module'
 import { NgModule } from '@angular/core'
 import { TableModule } from '../../components/table/table.module'
+import { TagModule } from '../../components/tag/tag.module'
 import { TemplateModule } from '../../directives/template/template.module'
 import { TimelineEventsAndMeetingsComponent } from './components/timeline-events-and-meetings/timeline-events-and-meetings.component'
 import { TimelineModule } from './../../components/timeline/timeline.module'
@@ -21,6 +22,7 @@ import { TimelineModule } from './../../components/timeline/timeline.module'
     IconModule,
     TableModule,
     AvatarModule,
+    TagModule,
   ],
 })
 export class DashboardModule {}
