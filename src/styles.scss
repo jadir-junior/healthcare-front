@@ -11,8 +11,6 @@
   --neutral-gray-dark: #52575c;
   --neutral-white: #ffffff;
 
-  --red-default: #ff6760;
-
   --alpha-button-hover: 0.06;
   --alpha-button-pressed: 0.12;
 
@@ -27,7 +25,11 @@
   --secondary-default-rgb: 255, 103, 96;
   --secondary-dark: #e74f48;
 
+  --red-default: #ff6760;
+
   --green-default: #16d090;
+
+  --yellow-default: #fac032;
 }
 
 @import './scss/typography.scss';

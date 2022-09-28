@@ -141,6 +141,15 @@ export class DocsComponent {
         },
       ],
     },
+    {
+      label: 'Misc',
+      items: [
+        {
+          label: 'Tag',
+          routerLink: '/docs/misc/tag',
+        },
+      ],
+    },
   ]
 
   constructor(private router: Router, private route: ActivatedRoute) {}
