@@ -1,6 +1,3 @@
-import { IMessage } from './../../common/overlay/overlay.service'
-import { DomHandler } from './../../common/dom-handler/dom-handler'
-import { TemplateDirective } from 'src/app/directives/template/template.directive'
 import {
   AfterContentInit,
   ChangeDetectionStrategy,
@@ -19,21 +16,26 @@ import {
   ViewRef,
 } from '@angular/core'
 import {
-  animate,
   AnimationEvent,
+  animate,
   state,
   style,
   transition,
   trigger,
 } from '@angular/animations'
-import { ZIndexUtils } from 'src/app/common/z-index-utils/z-index-utils'
-import { HcConfig } from 'src/app/common/hc-config/hc-config.service'
 import {
   ConnectedOverlayScrollHandler,
   IConnectedOverlayScrollHandler,
 } from 'src/app/common/connected-overlay-scroll-handler/connected-overlay-scroll-handler'
+
+import { DomHandler } from './../../common/dom-handler/dom-handler'
+import { HcConfig } from 'src/app/common/hc-config/hc-config.service'
+import { IMessage } from './../../common/overlay/overlay.service'
+import { IStyle } from './../../common/models/style.model'
 import { OverlayService } from 'src/app/common/overlay/overlay.service'
 import { Subscription } from 'rxjs'
+import { TemplateDirective } from 'src/app/directives/template/template.directive'
+import { ZIndexUtils } from 'src/app/common/z-index-utils/z-index-utils'
 
 @Component({
   selector: 'hc-dropdown',
@@ -53,7 +55,7 @@ import { Subscription } from 'rxjs'
       (@animation.start)="onAnimationStart($event)"
       (@animation.done)="onAnimationEnd($event)"
     >
-      <div class="hc-dropdown-content">
+      <div class="hc-dropdown-content" [style]="styleContent">
         <ng-content></ng-content>
         <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
       </div>
@@ -110,7 +112,8 @@ export class DropdownComponent implements AfterContentInit, OnDestroy {
   @Input() focusOnShow = true
   @Input() hideTransitionOptions = '.1s linear'
   @Input() showTransitionOptions = '.12s cubic-bezier(0, 0, 0.2, 1)'
-  @Input() style?: { [klass: string]: string }
+  @Input() style?: IStyle
+  @Input() styleContent?: IStyle
 
   @Output() onShow = new EventEmitter<null>()
   @Output() onHide = new EventEmitter<unknown>()

@@ -8,7 +8,7 @@ import {
   OnInit,
 } from '@angular/core'
 
-import { DataDirective } from './data.directive'
+import { DataService } from './data.service'
 import { ObjectUtils } from 'src/app/common/object-utils/object-utils'
 import { SelectDirective } from './select.directive'
 import { Subscription } from 'rxjs'
@@ -69,7 +69,7 @@ export class TableHeaderCheckboxComponent implements OnInit, OnDestroy {
     public tableService: TableService,
     public cd: ChangeDetectorRef,
     public select: SelectDirective,
-    public data: DataDirective
+    public data: DataService
   ) {
     this.valueChangeSubscription = this.tableService.valueSource$.subscribe(() => {
       this.checked = this.updateCheckedState()

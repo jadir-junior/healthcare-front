@@ -27,7 +27,11 @@ import { IMe } from './../../../user/services/user.service'
               }"
               (onClick)="dropdownNotificiations.toggle($event, notificationTarget)"
             ></hc-button>
-            <hc-dropdown #dropdownNotificiations [style]="{ width: '375px' }">
+            <hc-dropdown
+              #dropdownNotificiations
+              [style]="{ width: '375px' }"
+              [styleContent]="{ padding: '0' }"
+            >
               <hc-dropdown-notifications
                 [reports]="5"
                 [notifications]="notitifcations"

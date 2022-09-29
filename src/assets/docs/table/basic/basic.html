@@ -1,0 +1,18 @@
+<hc-table [value]="products" [responsive]="true" hcData hcPagination>
+  <ng-template hcTemplate="header">
+    <tr>
+      <th>Code</th>
+      <th>Name</th>
+      <th>Category</th>
+      <th>Quantity</th>
+    </tr>
+  </ng-template>
+  <ng-template hcTemplate="body" let-product>
+    <tr>
+      <td>{{product.code}}</td>
+      <td>{{product.name}}</td>
+      <td>{{product.category}}</td>
+      <td>{{product.quantity}}</td>
+    </tr>
+  </ng-template>
+</hc-table>

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common'
-import { DataDirective } from './data.directive'
+import { DataService } from './data.service'
 import { FormsModule } from '@angular/forms'
 import { InjectHTMLDirective } from 'src/app/directives/inject-html/inject-html.directive'
 import { NgModule } from '@angular/core'
@@ -25,13 +25,13 @@ import { TableHeaderCheckboxComponent } from './table-header-checkbox.component'
     TableCheckBoxComponent,
     TableHeaderCheckboxComponent,
     SelectDirective,
-    DataDirective,
     PaginationDirective,
     SortDirective,
     SelectAllComponent,
     TableBodyComponent,
   ],
   imports: [CommonModule, PaginationModule, NgSelectModule, FormsModule],
+  providers: [PaginationDirective, DataService],
   exports: [
     TableComponent,
     SortableColumnDirective,
@@ -39,7 +39,6 @@ import { TableHeaderCheckboxComponent } from './table-header-checkbox.component'
     TableCheckBoxComponent,
     TableHeaderCheckboxComponent,
     SelectDirective,
-    DataDirective,
     PaginationDirective,
     SortDirective,
     SelectAllComponent,
