@@ -64,7 +64,7 @@
         <div class="hc-profile-contact-item" *ngIf="profile.contact?.phone">
           <hc-icon icon="call"></hc-icon>
           <span class="hc-profile-contact-item-description">
-            {{ profile.contact.phone }}
+            {{ profile.contact.phone | phone }}
           </span>
         </div>
       </hc-card>
