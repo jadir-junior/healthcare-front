@@ -16,6 +16,7 @@ import { AfterContentInit, Component, Input } from '@angular/core'
         height: 240px;
         border-top-left-radius: 0.5rem;
         border-top-right-radius: 0.5rem;
+        background-size: cover;
       }
     `,
   ],
