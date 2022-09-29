@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/angular'
 
 import { Component } from '@angular/core'
-import { DataDirective } from 'src/app/components/table/data.directive'
+import { DataService } from '../../components/table/data.service'
 import { PaginationDirective } from 'src/app/components/table/pagination.directive'
 import { TableModule } from 'src/app/components/table/table.module'
 import { TableService } from 'src/app/components/table/table.service'
@@ -21,8 +21,8 @@ export class HostComponent {}
 describe('TemplateDirective', () => {
   it('should create wrapper to test template', async () => {
     await render(HostComponent, {
-      declarations: [DataDirective, PaginationDirective],
-      providers: [DataDirective, TableService, PaginationDirective],
+      declarations: [PaginationDirective],
+      providers: [TableService, DataService, PaginationDirective],
       imports: [TableModule, TemplateModule],
     })
 

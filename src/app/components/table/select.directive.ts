@@ -8,7 +8,7 @@ import {
   SimpleChanges,
 } from '@angular/core'
 
-import { DataDirective } from './data.directive'
+import { DataService } from './data.service'
 import { ObjectUtils } from 'src/app/common/object-utils/object-utils'
 import { TableService } from './table.service'
 
@@ -75,7 +75,7 @@ export class SelectDirective implements OnChanges {
   @Output() rowSelectEvent = new EventEmitter<IRowSelectEvent>()
   @Output() selectAllChange = new EventEmitter<IHeaderCheckboxEvent>()
 
-  constructor(private tableService: TableService, public data: DataDirective) {}
+  constructor(private tableService: TableService, public data: DataService) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['selection']) {

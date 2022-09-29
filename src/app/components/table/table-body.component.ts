@@ -6,7 +6,7 @@ import {
   TemplateRef,
 } from '@angular/core'
 
-import { DataDirective } from './data.directive'
+import { DataService } from './data.service'
 import { IColumn } from 'src/app/components/table/table.component'
 import { Subscription } from 'rxjs'
 import { TableService } from './table.service'
@@ -32,7 +32,7 @@ export class TableBodyComponent implements OnDestroy {
   @Input() template!: TemplateRef<TemplateDirective>
 
   constructor(
-    public data: DataDirective,
+    public data: DataService,
     public cd: ChangeDetectorRef,
     public tableService: TableService
   ) {
