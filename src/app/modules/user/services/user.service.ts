@@ -20,6 +20,7 @@ interface IAddress {
   street: string
   state: string
   city: string
+  cep: string
 }
 
 interface IContact {

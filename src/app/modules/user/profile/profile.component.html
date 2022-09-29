@@ -67,6 +67,13 @@
             {{ profile.contact.phone | phone }}
           </span>
         </div>
+        <div class="hc-profile-contact-item" *ngIf="profile.contact?.address">
+          <hc-icon icon="person_pin_circle"></hc-icon>
+          <span class="hc-profile-contact-item-description">
+            {{ profile.contact.address.street }}, {{ profile.contact.address.number }} -
+            {{ profile.contact.address.city }} / {{ profile.contact.address.state }}
+          </span>
+        </div>
       </hc-card>
     </div>
     <hc-card></hc-card>

@@ -20,6 +20,7 @@ const USER = {
       street: 'Pligrim Avenue Chevy Chase',
       state: 'MD',
       city: 'Midway',
+      cep: '13214355',
     },
   },
   socialMedias: {
