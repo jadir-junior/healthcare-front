@@ -10,13 +10,7 @@ interface IProductDynamic extends IProduct, IAccessKey {}
   selector: 'app-dynamic',
   template: `
     <hc-card>
-      <hc-table
-        hcData
-        hcPagination
-        [columns]="cols"
-        [value]="products"
-        [responsive]="true"
-      >
+      <hc-table hcData [columns]="cols" [value]="products" [responsive]="true">
         <ng-template hcTemplate="header" let-columns>
           <tr>
             <th *ngFor="let column of columns">

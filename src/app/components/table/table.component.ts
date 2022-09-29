@@ -5,6 +5,7 @@ import {
   Component,
   ContentChildren,
   Input,
+  Optional,
   QueryList,
   TemplateRef,
   ViewChild,
@@ -25,7 +26,7 @@ export interface IColumn {
 @Component({
   selector: 'hc-table',
   template: `
-    <div
+    <!-- <div
       *ngIf="paginator.paginator"
       class="hc-table-options-header"
       style="margin-bottom: 1rem;"
@@ -44,7 +45,7 @@ export interface IColumn {
       <div *ngIf="optionsHeaderTemplate">
         <ng-container *ngTemplateOutlet="optionsHeaderTemplate"></ng-container>
       </div>
-    </div>
+    </div> -->
     <div class="hc-datatable-header" *ngIf="captionTemplate">
       <ng-container *ngTemplateOutlet="captionTemplate"></ng-container>
     </div>
@@ -108,7 +109,10 @@ export class TableComponent implements AfterContentInit {
   @ContentChildren(TemplateDirective) templates!: QueryList<TemplateDirective>
   @ViewChild('table') tableViewChild!: ElementRef
 
-  constructor(public data: DataDirective, public paginator: PaginationDirective) {}
+  constructor(
+    public data: DataDirective,
+    @Optional() public paginator: PaginationDirective
+  ) {}
 
   ngAfterContentInit(): void {
     this.templates.forEach((item) => {
