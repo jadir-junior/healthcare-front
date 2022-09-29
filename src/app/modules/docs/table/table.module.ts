@@ -6,6 +6,7 @@ import { DropdownModule } from './../../../components/dropdown/dropdown.module'
 import { DynamicComponent } from './dynamic/dynamic.component'
 import { GridlinesComponent } from './gridlines/gridlines.component'
 import { IconModule } from 'src/app/components/icon/icon.module'
+import { MarkdownModule } from 'ngx-markdown'
 import { NgModule } from '@angular/core'
 import { PageBasicComponent } from './page-basic/page-basic.component'
 import { PageComponent } from './page/page.component'
@@ -42,6 +43,7 @@ import { TemplateModule } from 'src/app/directives/template/template.module'
     CardModule,
     DropdownModule,
     CheckboxModule,
+    MarkdownModule.forChild(),
   ],
 })
 export class TableModule {}
