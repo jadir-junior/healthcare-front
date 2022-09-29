@@ -32,10 +32,11 @@ import { IProduct, ProductsService } from '../../products.service'
     </div>
     <h4 class="hc-docs-documentaion">Documentação</h4>
     <div class="hc-docs-section">
-      <h5>Import</h5>
-      <markdown src="/assets/docs/table/basic/import.ts"></markdown>
+      <h5>Import:</h5>
+      <markdown src="/assets/docs/table/common/import.ts"></markdown>
     </div>
     <div class="hc-docs-section">
+      <h5>Codigo:</h5>
       <markdown src="/assets/docs/table/basic/basic.html"></markdown>
       <markdown src="/assets/docs/table/basic/component.ts"></markdown>
     </div>
