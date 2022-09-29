@@ -25,10 +25,47 @@
       <hc-card header="Website & social channel" [style]="{ 'margin-top': '2rem' }">
         <div *ngIf="profile?.socialMedias">
           <div>
-            <a [href]="profile.socialMedias.facebook">
-              {{ profile.socialMedias.facebook }}
+            <a
+              [href]="profile.socialMedias.facebook"
+              *ngIf="profile.socialMedias?.facebook"
+              class="hc-profile-link"
+            >
+              {{ profile.socialMedias.facebook | removeHttpUrl }}
+            </a>
+            <a
+              [href]="profile.socialMedias.instagram"
+              *ngIf="profile.socialMedias?.instagram"
+              class="hc-profile-link"
+            >
+              {{ profile.socialMedias.instagram | removeHttpUrl }}
+            </a>
+            <a
+              [href]="profile.socialMedias.linkedin"
+              *ngIf="profile.socialMedias?.linkedin"
+              class="hc-profile-link"
+            >
+              {{ profile.socialMedias.linkedin | removeHttpUrl }}
+            </a>
+            <a
+              [href]="profile.socialMedias.twitter"
+              *ngIf="profile.socialMedias?.twitter"
+              class="hc-profile-link"
+            >
+              {{ profile.socialMedias.twitter | removeHttpUrl }}
             </a>
           </div>
+        </div>
+      </hc-card>
+      <hc-card
+        header="Contact Information"
+        [style]="{ 'margin-top': '2rem' }"
+        *ngIf="profile?.contact"
+      >
+        <div class="hc-profile-contact-item" *ngIf="profile.contact?.phone">
+          <hc-icon icon="call"></hc-icon>
+          <span class="hc-profile-contact-item-description">
+            {{ profile.contact.phone }}
+          </span>
         </div>
       </hc-card>
     </div>

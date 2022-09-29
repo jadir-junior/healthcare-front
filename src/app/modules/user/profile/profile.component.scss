@@ -7,3 +7,36 @@
   grid-template-columns: 1.5fr 1fr;
   gap: 2rem;
 }
+
+.hc-profile-link {
+  display: block;
+  text-decoration: none;
+  cursor: pointer;
+  color: var(--primary-default);
+  margin: 1.5rem 0;
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+.hc-profile-contact-item {
+  margin: 1.5em 0;
+  display: flex;
+
+  &:first-child {
+    margin-top: 0;
+  }
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+
+  .hc-profile-contact-item-description {
+    margin-left: 0.5rem;
+  }
+}

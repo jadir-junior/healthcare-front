@@ -5,6 +5,7 @@ import { IconModule } from './../../components/icon/icon.module'
 import { NgModule } from '@angular/core'
 import { ProfileBackgroundComponent } from './components/profile-background/profile-background.component'
 import { ProfileComponent } from './profile/profile.component'
+import { RemoveHttpUrlModule } from '../../pipes/remove-http-url/remove-http-url.module'
 import { TemplateModule } from '../../directives/template/template.module'
 import { UserRoutingModule } from './user-routing.module'
 
@@ -17,6 +18,7 @@ import { UserRoutingModule } from './user-routing.module'
     AvatarModule,
     TemplateModule,
     IconModule,
+    RemoveHttpUrlModule,
   ],
 })
 export class UserModule {}

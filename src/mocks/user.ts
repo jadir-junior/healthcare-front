@@ -14,7 +14,7 @@ const USER = {
   description:
     'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Distinctio dolore enim, nemo nihil non omnis temporibus? Blanditiis culpa labore velit.Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dicta, provident.',
   contact: {
-    phone: '012659678',
+    phone: '11999609711',
     address: {
       number: 71,
       street: 'Pligrim Avenue Chevy Chase',
