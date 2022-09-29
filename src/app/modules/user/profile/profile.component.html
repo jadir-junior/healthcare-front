@@ -1,23 +1,37 @@
 <div class="hc-user-profile-container">
   <h2 style="margin-bottom: 1.5rem">User profile</h2>
   <div class="hc-user-profile-wrapper-cards">
-    <hc-card *ngIf="profile">
-      <ng-template hcTemplate="header">
-        <hc-profile-background
-          [image]="profile.profileBackgroundImage"
-        ></hc-profile-background>
-      </ng-template>
-      <hc-avatar
-        [image]="profile.photo"
-        [style]="{
-          width: '128px',
-          height: '128px',
-          'margin-top': '-106px',
-          'border': '4px solid var(--neutral-white)'
-        }"
-        [circle]="true"
-      ></hc-avatar>
-    </hc-card>
+    <div>
+      <hc-card *ngIf="profile">
+        <ng-template hcTemplate="header">
+          <hc-profile-background
+            [image]="profile.profileBackgroundImage"
+          ></hc-profile-background>
+        </ng-template>
+        <hc-avatar
+          [image]="profile.photo"
+          [style]="{
+            width: '128px',
+            height: '128px',
+            'margin-top': '-106px',
+            'border': '4px solid var(--neutral-white)'
+          }"
+          [circle]="true"
+        ></hc-avatar>
+        <h5 style="margin-top: 12px; margin-bottom: 1rem">{{ profile.name }}</h5>
+        <p class="body1">{{ profile.description }}</p>
+      </hc-card>
+
+      <hc-card header="Website & social channel" [style]="{ 'margin-top': '2rem' }">
+        <div *ngIf="profile?.socialMedias">
+          <div>
+            <a [href]="profile.socialMedias.facebook">
+              {{ profile.socialMedias.facebook }}
+            </a>
+          </div>
+        </div>
+      </hc-card>
+    </div>
     <hc-card></hc-card>
   </div>
 </div>
