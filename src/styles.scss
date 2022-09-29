@@ -33,6 +33,7 @@
 }
 
 @import './scss/typography.scss';
+@import './scss/docs';
 @import './app/components/badge/badge.component.scss';
 @import '~@ng-select/ng-select/themes/default.theme.css';
 
@@ -46,6 +47,7 @@
 html,
 body {
   height: 100%;
+  color: var(--neutral-black);
 }
 
 .wrapper-container-docs {

@@ -5,13 +5,7 @@ import { IStyle } from './../../common/models/style.model'
 @Component({
   selector: 'hc-tag',
   template: `
-    <span
-      class="small2"
-      role="tag"
-      [ngClass]="classes"
-      [style]="style"
-      [attr.aria-label]="ariaLabel"
-    >
+    <span class="small2" role="tag" [ngClass]="classes" [style]="style">
       <ng-content></ng-content>
     </span>
   `,
@@ -56,7 +50,6 @@ export class TagComponent {
   @Input() severity: 'success' | 'info' | 'warning' | 'danger' | 'primary' = 'primary'
   @Input() style?: IStyle
   @Input() rounded = false
-  @Input() ariaLabel?: string
 
   get classes() {
     return {

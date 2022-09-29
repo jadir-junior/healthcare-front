@@ -24,7 +24,7 @@
     "src/**/*.{html,scss,ts}": [
       "prettier --check"
     ],
-    "src/**/*.{html,ts}": [
+    "src/app/**/*.{html,ts}": [
       "eslint --max-warnings=0"
     ]
   },
@@ -41,6 +41,8 @@
     "@ng-select/ng-select": "^9.0.2",
     "date-fns": "^2.29.3",
     "lodash": "^4.17.21",
+    "ngx-markdown": "^14.0.1",
+    "prism-themes": "^1.9.0",
     "query-string": "^7.1.1",
     "rxjs": "~7.5.6",
     "tslib": "^2.4.0",

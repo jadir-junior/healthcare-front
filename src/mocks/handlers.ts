@@ -1,3 +1,5 @@
+import { me, profile } from './user'
+
 import { environment } from 'src/environments/environment'
 import { getLastPatients } from './last-patitents'
 import { getLastPayments } from './last-payments'
@@ -10,4 +12,6 @@ export const handlers = [
   rest.post(`${environment.BASE_URL}/login`, login),
   rest.get(`${environment.BASE_URL}/last-patients`, getLastPatients),
   rest.get(`${environment.BASE_URL}/payments/last-payments`, getLastPayments),
+  rest.get(`${environment.BASE_URL}/user/profile`, profile),
+  rest.get(`${environment.BASE_URL}/user/me`, me),
 ]

@@ -1,5 +1,7 @@
-import { Component } from '@angular/core'
+import { Component, Input } from '@angular/core'
+
 import { IItemNotification } from './../dropdown-notifications/dropdown-notifications.component'
+import { IMe } from './../../../user/services/user.service'
 
 @Component({
   selector: 'hc-header',
@@ -32,14 +34,14 @@ import { IItemNotification } from './../dropdown-notifications/dropdown-notifica
               ></hc-dropdown-notifications>
             </hc-dropdown>
           </div>
-          <div #actualTarget>
+          <div #actualTarget *ngIf="user">
             <hc-avatar
-              image="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"
+              [image]="user.photo"
               [style]="{ cursor: 'pointer' }"
               (click)="dropdown.toggle($event, actualTarget)"
             ></hc-avatar>
             <hc-dropdown #dropdown [style]="{ width: '275px' }">
-              <hc-dropdown-profile></hc-dropdown-profile>
+              <hc-dropdown-profile [user]="user"></hc-dropdown-profile>
             </hc-dropdown>
           </div>
         </ng-template>
@@ -62,6 +64,8 @@ import { IItemNotification } from './../dropdown-notifications/dropdown-notifica
   ],
 })
 export class HeaderComponent {
+  @Input() user!: IMe
+
   notitifcations: IItemNotification[] = [
     {
       color: '#fac032',

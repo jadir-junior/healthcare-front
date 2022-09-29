@@ -1,5 +1,8 @@
-import { Component } from '@angular/core'
+import { Component, OnInit } from '@angular/core'
+
+import { IMe } from '../user/services/user.service'
 import { IMenuItem } from './../../components/menu/menu-item.component'
+import { UserService } from './../user/services/user.service'
 
 @Component({
   selector: 'app-home',
@@ -9,7 +12,7 @@ import { IMenuItem } from './../../components/menu/menu-item.component'
       <hc-menu [model]="menuItems" [style]="{ margin: '0.25rem 1.5rem' }"></hc-menu>
     </hc-sidebar>
     <div style="width: 100%;">
-      <hc-header></hc-header>
+      <hc-header [user]="user"></hc-header>
       <div>
         <router-outlet></router-outlet>
       </div>
@@ -23,7 +26,9 @@ import { IMenuItem } from './../../components/menu/menu-item.component'
     `,
   ],
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
+  user!: IMe
+
   menuItems: IMenuItem[] = [
     {
       label: 'MEDICINE',
@@ -44,4 +49,16 @@ export class HomeComponent {
       items: [{ label: 'Help', routerLink: 'help', icon: 'help' }],
     },
   ]
+
+  constructor(private userService: UserService) {}
+
+  ngOnInit(): void {
+    this.getMe()
+  }
+
+  getMe(): void {
+    this.userService.getMe().subscribe((me) => {
+      this.user = me
+    })
+  }
 }

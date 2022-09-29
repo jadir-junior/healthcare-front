@@ -1,0 +1,81 @@
+<div class="hc-user-profile-container">
+  <h2 style="margin-bottom: 1.5rem">User profile</h2>
+  <div class="hc-user-profile-wrapper-cards">
+    <div>
+      <hc-card *ngIf="profile">
+        <ng-template hcTemplate="header">
+          <hc-profile-background
+            [image]="profile.profileBackgroundImage"
+          ></hc-profile-background>
+        </ng-template>
+        <hc-avatar
+          [image]="profile.photo"
+          [style]="{
+            width: '128px',
+            height: '128px',
+            'margin-top': '-106px',
+            'border': '4px solid var(--neutral-white)'
+          }"
+          [circle]="true"
+        ></hc-avatar>
+        <h5 style="margin-top: 12px; margin-bottom: 1rem">{{ profile.name }}</h5>
+        <p class="body1">{{ profile.description }}</p>
+      </hc-card>
+
+      <hc-card header="Website & social channel" [style]="{ 'margin-top': '2rem' }">
+        <div *ngIf="profile?.socialMedias">
+          <div>
+            <a
+              [href]="profile.socialMedias.facebook"
+              *ngIf="profile.socialMedias?.facebook"
+              class="hc-profile-link"
+            >
+              {{ profile.socialMedias.facebook | removeHttpUrl }}
+            </a>
+            <a
+              [href]="profile.socialMedias.instagram"
+              *ngIf="profile.socialMedias?.instagram"
+              class="hc-profile-link"
+            >
+              {{ profile.socialMedias.instagram | removeHttpUrl }}
+            </a>
+            <a
+              [href]="profile.socialMedias.linkedin"
+              *ngIf="profile.socialMedias?.linkedin"
+              class="hc-profile-link"
+            >
+              {{ profile.socialMedias.linkedin | removeHttpUrl }}
+            </a>
+            <a
+              [href]="profile.socialMedias.twitter"
+              *ngIf="profile.socialMedias?.twitter"
+              class="hc-profile-link"
+            >
+              {{ profile.socialMedias.twitter | removeHttpUrl }}
+            </a>
+          </div>
+        </div>
+      </hc-card>
+      <hc-card
+        header="Contact Information"
+        [style]="{ 'margin-top': '2rem' }"
+        *ngIf="profile?.contact"
+      >
+        <div class="hc-profile-contact-item" *ngIf="profile.contact?.phone">
+          <hc-icon icon="call"></hc-icon>
+          <span class="hc-profile-contact-item-description">
+            {{ profile.contact.phone | phone }}
+          </span>
+        </div>
+        <div class="hc-profile-contact-item" *ngIf="profile.contact?.address">
+          <hc-icon icon="person_pin_circle"></hc-icon>
+          <span class="hc-profile-contact-item-description">
+            {{ profile.contact.address.street }}, {{ profile.contact.address.number }} -
+            {{ profile.contact.address.city }} / {{ profile.contact.address.state }}
+          </span>
+        </div>
+      </hc-card>
+    </div>
+    <hc-card header="Events"></hc-card>
+  </div>
+</div>
