@@ -102,10 +102,6 @@ import { IColumn } from './../../../../components/table/table.component'
       .hc-tag-wrapper {
         display: flex;
       }
-
-      pre {
-        bacground-color: white;
-      }
     `,
   ],
 })
