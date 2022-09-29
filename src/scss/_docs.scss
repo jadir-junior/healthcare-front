@@ -1,0 +1,39 @@
+.hc-docs-title {
+  h2 {
+    margin-bottom: 1rem;
+  }
+
+  p {
+    margin-bottom: 1.5rem;
+  }
+}
+
+.hc-docs-components {
+  margin-bottom: 2rem;
+}
+
+.hc-docs-documentaion {
+  margin-bottom: 1.5rem;
+}
+
+.hc-docs-value {
+  background-color: var(--neutral-white);
+  color: var(--primary-default);
+  display: inline-flex;
+  font-weight: bold;
+  padding: 0 6px;
+  font-style: normal;
+  border-radius: 6px;
+}
+
+.hc-docs-section {
+  margin-bottom: 2rem;
+
+  h5 {
+    margin-bottom: 0.5rem;
+  }
+
+  p {
+    margin-bottom: 1.5rem;
+  }
+}
