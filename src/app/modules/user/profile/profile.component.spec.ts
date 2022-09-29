@@ -1,22 +1,17 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing'
-
+import { CardModule } from '../../../components/card/card.module'
+import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { ProfileComponent } from './profile.component'
+import { render } from '@testing-library/angular'
 
 describe('ProfileComponent', () => {
-  let component: ProfileComponent
-  let fixture: ComponentFixture<ProfileComponent>
+  const setup = async () => {
+    return render(ProfileComponent, {
+      imports: [HttpClientTestingModule, CardModule],
+    })
+  }
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      declarations: [ProfileComponent],
-    }).compileComponents()
-
-    fixture = TestBed.createComponent(ProfileComponent)
-    component = fixture.componentInstance
-    fixture.detectChanges()
-  })
-
-  it('should create', () => {
-    expect(component).toBeTruthy()
+  it('create a page profile', async () => {
+    const { container } = await setup()
+    expect(container).toBeInTheDocument()
   })
 })

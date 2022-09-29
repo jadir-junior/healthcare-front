@@ -1,3 +1,9 @@
 .hc-user-profile-container {
   margin: 2rem;
 }
+
+.hc-user-profile-wrapper-cards {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 2rem;
+}

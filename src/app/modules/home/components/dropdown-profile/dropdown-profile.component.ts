@@ -1,21 +1,21 @@
+import { ActivatedRoute, Router } from '@angular/router'
+import { Component, Input } from '@angular/core'
+
 import { AuthenticationService } from './../../../authentication/authentication.service'
-import { Component } from '@angular/core'
+import { IMe } from './../../../user/services/user.service'
 import { IMenuItem } from './../../../../components/menu/menu-item.component'
 
 @Component({
   selector: 'hc-dropdown-profile',
   template: `
-    <div class="hc-dropdown-container-information">
+    <div class="hc-dropdown-container-information" *ngIf="user">
       <div style="margin-right: 1rem">
-        <hc-avatar
-          size="large"
-          image="https://www.gravatar.com/avatar/205e460b479e2e5b48aec07710c08d50"
-        ></hc-avatar>
+        <hc-avatar size="large" [image]="user.photo"></hc-avatar>
       </div>
       <div>
-        <div class="body1" style="font-weight: 700">John Doe</div>
+        <div class="body1" style="font-weight: 700">{{ user.name }}</div>
         <div class="body2" style="font-weight: 700; color: var(--neutral-gray)">
-          john.doe@gmail.com
+          {{ user.email }}
         </div>
       </div>
     </div>
@@ -33,8 +33,15 @@ import { IMenuItem } from './../../../../components/menu/menu-item.component'
   ],
 })
 export class DropdownProfileComponent {
+  @Input() user!: IMe
+
   menu: IMenuItem[] = [
-    { label: 'My Profile' },
+    {
+      label: 'My Profile',
+      command: () => {
+        this.goTo('user')
+      },
+    },
     { label: 'My Appontiments' },
     {
       separator: true,
@@ -48,7 +55,15 @@ export class DropdownProfileComponent {
     },
   ]
 
-  constructor(private authenticationService: AuthenticationService) {}
+  constructor(
+    private authenticationService: AuthenticationService,
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
+
+  goTo(path: string): void {
+    this.router.navigate([path], { relativeTo: this.route })
+  }
 
   onLogout() {
     this.authenticationService.logout()
