@@ -1,4 +1,3 @@
-import { BasicComponent } from './basic/basic.component'
 import { ButtonModule } from 'src/app/components/button/button.module'
 import { CardModule } from './../../../components/card/card.module'
 import { CheckboxModule } from './../../../components/checkbox/checkbox.module'
@@ -8,6 +7,7 @@ import { DynamicComponent } from './dynamic/dynamic.component'
 import { GridlinesComponent } from './gridlines/gridlines.component'
 import { IconModule } from 'src/app/components/icon/icon.module'
 import { NgModule } from '@angular/core'
+import { PageBasicComponent } from './page-basic/page-basic.component'
 import { PageComponent } from './page/page.component'
 import { PageLimitComponent } from './page-limit/page-limit.component'
 import { PageToggleComponent } from './page-toggle/page-toggle.component'
@@ -21,7 +21,7 @@ import { TemplateModule } from 'src/app/directives/template/template.module'
 
 @NgModule({
   declarations: [
-    BasicComponent,
+    PageBasicComponent,
     DynamicComponent,
     GridlinesComponent,
     SortComponent,

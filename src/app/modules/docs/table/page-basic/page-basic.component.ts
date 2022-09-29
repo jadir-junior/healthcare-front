@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core'
 import { IProduct, ProductsService } from '../../products.service'
 
 @Component({
-  selector: 'app-basic',
+  selector: 'app-page-basic',
   template: `
     <hc-card *ngIf="products.length">
       <hc-table hcData hcPagination hcSort [value]="products" [responsive]="true">
@@ -26,7 +26,7 @@ import { IProduct, ProductsService } from '../../products.service'
     </hc-card>
   `,
 })
-export class BasicComponent implements OnInit {
+export class PageBasicComponent implements OnInit {
   products: IProduct[] = []
 
   constructor(private productsService: ProductsService) {}

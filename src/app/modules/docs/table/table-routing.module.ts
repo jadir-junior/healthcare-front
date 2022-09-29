@@ -1,9 +1,9 @@
 import { RouterModule, Routes } from '@angular/router'
 
-import { BasicComponent } from './basic/basic.component'
 import { DynamicComponent } from './dynamic/dynamic.component'
 import { GridlinesComponent } from './gridlines/gridlines.component'
 import { NgModule } from '@angular/core'
+import { PageBasicComponent } from './page-basic/page-basic.component'
 import { PageComponent } from './page/page.component'
 import { PageLimitComponent } from './page-limit/page-limit.component'
 import { PageToggleComponent } from './page-toggle/page-toggle.component'
@@ -14,7 +14,7 @@ import { SortComponent } from './sort/sort.component'
 const routes: Routes = [
   {
     path: 'basic',
-    component: BasicComponent,
+    component: PageBasicComponent,
   },
   {
     path: 'dynamic',
