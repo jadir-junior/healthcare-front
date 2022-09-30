@@ -7,12 +7,11 @@ import { IHeaderCheckboxEvent } from 'src/app/components/table/select.directive'
 import { IMeta } from 'src/app/models/pagination.model'
 
 @Component({
-  selector: 'app-select-all',
+  selector: 'app-page-select-all',
   template: `
     <hc-card *ngIf="products && pagination">
       <hc-table
         hcSelect
-        hcData
         hcPagination
         dataKey="code"
         [value]="products"
@@ -20,6 +19,7 @@ import { IMeta } from 'src/app/models/pagination.model'
         [paginator]="true"
         [pagination]="pagination"
         (pageEvent)="baseTableService.changePage($event)"
+        [selectionPageOnly]="true"
         [(selection)]="selectedProducts"
         [(deselection)]="desSelectedProdutcs"
         [selectAll]="selectAll"
@@ -34,7 +34,7 @@ import { IMeta } from 'src/app/models/pagination.model'
             [selectAll]="selectAll"
             (clickEvent)="onSelectAll()"
           >
-            <hc-button size="small" color="primary" (clickEvent)="onShow()">
+            <hc-button size="small" color="primary" (onClick)="onShow()">
               <hc-icon size="large" icon="approval"></hc-icon>
             </hc-button>
           </hc-select-all>
@@ -71,7 +71,7 @@ import { IMeta } from 'src/app/models/pagination.model'
   `,
   providers: [BaseTableService],
 })
-export class SelectAllComponent implements OnInit {
+export class PageSelectAllComponent implements OnInit {
   products: IProduct[] = []
   pagination!: IMeta
 

@@ -11,9 +11,9 @@ import { PageBasicComponent } from './page-basic/page-basic.component'
 import { PageComponent } from './page/page.component'
 import { PageDynamicComponent } from './page-dynamic/page-dynamic.component'
 import { PageLimitComponent } from './page-limit/page-limit.component'
+import { PageSelectAllComponent } from './page-select-all/page-select-all.component'
 import { PageToggleComponent } from './page-toggle/page-toggle.component'
 import { PaginationModule } from 'src/app/components/pagination/pagination.module'
-import { SelectAllComponent } from './select-all/select-all.component'
 import { SelectionComponent } from './selection/selection.component'
 import { SortComponent } from './sort/sort.component'
 import { TableModule as TableModuleComponent } from '../../../components/table/table.module'
@@ -28,7 +28,7 @@ import { TemplateModule } from 'src/app/directives/template/template.module'
     SortComponent,
     PageComponent,
     SelectionComponent,
-    SelectAllComponent,
+    PageSelectAllComponent,
     PageLimitComponent,
     PageToggleComponent,
   ],
