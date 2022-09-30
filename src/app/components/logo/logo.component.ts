@@ -69,21 +69,6 @@ import { IStyle } from './../../common/models/style.model'
             style="fill:#A30F44;"
             d="M379.313,222.892l-67.846,74.223l31.965,28.901l38.828-42.944  C398.034,265.623,396.705,238.707,379.313,222.892z"
           />
-          <g></g>
-          <g></g>
-          <g></g>
-          <g></g>
-          <g></g>
-          <g></g>
-          <g></g>
-          <g></g>
-          <g></g>
-          <g></g>
-          <g></g>
-          <g></g>
-          <g></g>
-          <g></g>
-          <g></g>
         </svg>
       </div>
       <h1 class="hc-logo-text">Healthcare</h1>

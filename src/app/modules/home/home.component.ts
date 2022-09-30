@@ -46,7 +46,10 @@ export class HomeComponent implements OnInit {
     },
     {
       label: 'SETTINGS',
-      items: [{ label: 'Help', routerLink: 'help', icon: 'help' }],
+      items: [
+        { label: 'Docs', routerLink: '/docs', icon: 'description' },
+        { label: 'Help', routerLink: 'help', icon: 'help' },
+      ],
     },
   ]
 
