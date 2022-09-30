@@ -23,7 +23,7 @@ import { IMenuItem } from 'src/app/components/menu/menu-item.component'
     `
       .wrapper-layout {
         display: grid;
-        grid-template-columns: 0.4fr 2.6fr;
+        grid-template-columns: 256px calc(100% - 256px);
       }
 
       aside {
@@ -131,6 +131,10 @@ export class DocsComponent {
             paths: 'exact',
             fragment: 'ignored',
           },
+        },
+        {
+          label: 'Scroll',
+          routerLink: '/docs/table/scroll',
         },
         { label: 'Toggle', routerLink: '/docs/table/toggle' },
       ],

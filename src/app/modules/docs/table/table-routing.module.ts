@@ -6,6 +6,7 @@ import { PageComponent } from './page/page.component'
 import { PageDynamicComponent } from './page-dynamic/page-dynamic.component'
 import { PageGridlinesComponent } from './page-gridlines/page-gridlines.component'
 import { PageLimitComponent } from './page-limit/page-limit.component'
+import { PageScrollComponent } from './page-scroll/page-scroll.component'
 import { PageSelectAllComponent } from './page-select-all/page-select-all.component'
 import { PageToggleComponent } from './page-toggle/page-toggle.component'
 import { SelectionComponent } from './selection/selection.component'
@@ -29,6 +30,10 @@ const routes: Routes = [
     component: PageComponent,
   },
   {
+    path: 'limit',
+    component: PageLimitComponent,
+  },
+  {
     path: 'sort',
     component: SortComponent,
   },
@@ -37,12 +42,12 @@ const routes: Routes = [
     component: SelectionComponent,
   },
   {
-    path: 'limit',
-    component: PageLimitComponent,
-  },
-  {
     path: 'selectall',
     component: PageSelectAllComponent,
+  },
+  {
+    path: 'scroll',
+    component: PageScrollComponent,
   },
   {
     path: 'toggle',
