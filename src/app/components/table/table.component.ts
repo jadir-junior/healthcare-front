@@ -97,6 +97,7 @@ export interface IColumn {
   styleUrls: ['table.component.scss'],
   encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.Default,
+  providers: [DataService],
 })
 export class TableComponent implements AfterContentInit, OnChanges {
   bodyTemplate!: TemplateRef<TemplateDirective>
