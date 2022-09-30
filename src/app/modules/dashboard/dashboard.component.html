@@ -10,13 +10,7 @@
       </div>
     </hc-card>
     <hc-card header="Last patients" styleClass="hc-card-body-no-padding">
-      <hc-table
-        hcData
-        hcPagination
-        [columns]="tableLastPatients"
-        [value]="lastPatients"
-        [responsive]="true"
-      >
+      <hc-table [columns]="tableLastPatients" [value]="lastPatients" [responsive]="true">
         <ng-template hcTemplate="header" let-columns>
           <tr>
             <th
@@ -38,8 +32,8 @@
               ></hc-avatar>
               {{ patient.name }}
             </td>
-            <td>{{ patient.visitTime }}</td>
-            <td style="text-align: right">{{ patient.date }}</td>
+            <td>{{ patient.visitTime | date: 'hh:mm' }}</td>
+            <td style="text-align: right">{{ patient.date | date: 'dd/MM/yyyy' }}</td>
           </tr>
         </ng-template>
       </hc-table>
@@ -51,8 +45,6 @@
       [style]="{ 'margin-top': '1.5rem' }"
     >
       <hc-table
-        hcData
-        hcPagination
         [columns]="columnsLastPayments"
         [value]="lastPayments"
         [responsive]="true"

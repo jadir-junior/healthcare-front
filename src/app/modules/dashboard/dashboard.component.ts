@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core'
 import { ILastPayments, PaymentsService } from '../../services/payments/payments.service'
 
 import { AppointmentsService } from '../appointments/appointments.service'
-import { IAccessKey } from './../../models/access-key.model'
 import { IColumn } from './../../components/table/table.component'
 import { ILastPatients } from './../appointments/appointments.service'
 import { ITimelineEventsAndMettings } from './components/timeline-events-and-meetings/timeline-events-and-meetings.component'
@@ -12,8 +11,6 @@ interface IIntroduction {
   title: string
   description: string
 }
-
-interface ILastPatientsDynamic extends ILastPatients, IAccessKey {}
 
 @Component({
   selector: 'app-dashboard',
@@ -122,8 +119,6 @@ export class DashboardComponent implements OnInit {
     },
   ]
 
-  lastPatients: ILastPatientsDynamic[] = []
-
   columnsLastPayments: IColumn[] = [
     {
       header: 'Date',
@@ -138,7 +133,9 @@ export class DashboardComponent implements OnInit {
       field: 'amount',
     },
   ]
+
   lastPayments: ILastPayments[] = []
+  lastPatients: ILastPatients[] = []
 
   constructor(
     private appointmentsService: AppointmentsService,
@@ -152,7 +149,7 @@ export class DashboardComponent implements OnInit {
 
   getLastPatients() {
     this.appointmentsService.getLastPatients().subscribe((patients) => {
-      this.lastPatients = patients as ILastPatientsDynamic[]
+      this.lastPatients = patients
     })
   }
 
