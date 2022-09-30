@@ -1024,4 +1024,18 @@ describe('TableComponent', () => {
       '10 rows this page selected'
     )
   })
+
+  it('"SELECT ALL TABLE" select two pages and must be 10 rows', async () => {
+    await setupSelectAllTable()
+
+    await userEvent.click(screen.getByTestId(/checkbox header/i))
+
+    expect(screen.getByTestId(/select all component/i)).toHaveTextContent('5 rows')
+
+    await userEvent.click(screen.getByRole('button', { name: /page 2/i }))
+
+    await userEvent.click(screen.getByTestId(/checkbox header/i))
+
+    expect(screen.getByTestId(/select all component/i)).toHaveTextContent('10 rows')
+  })
 })

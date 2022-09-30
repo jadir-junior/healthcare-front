@@ -53,6 +53,7 @@ import { IMeta } from 'src/app/models/pagination.model'
         </ng-template>
       </hc-table>
     </hc-card>
+    <button (click)="onShow()">show</button>
   `,
   providers: [BaseTableService],
 })
@@ -88,7 +89,7 @@ export class SelectionComponent implements OnInit {
       })
   }
 
-  showSelectedProducts() {
+  onShow() {
     console.log(this.selectedProducts)
   }
 
