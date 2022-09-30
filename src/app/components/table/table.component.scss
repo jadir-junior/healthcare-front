@@ -2,7 +2,7 @@ table {
   border-spacing: 0;
 }
 
-.responsive {
+.hc-datatable-responsive {
   width: 100%;
 }
 
@@ -15,6 +15,24 @@ table {
 
 .hc-datatable-header {
   @extend .header-and-fotter;
+}
+
+.hc-datatable-gridlines {
+  .hc-datatable-thead {
+    tr {
+      th {
+        border: 1px solid var(--neutral-divider);
+      }
+    }
+  }
+
+  .hc-datatable-tbody {
+    tr {
+      td {
+        border: 1px solid var(--neutral-divider);
+      }
+    }
+  }
 }
 
 th {

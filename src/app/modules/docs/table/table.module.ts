@@ -3,13 +3,13 @@ import { CardModule } from './../../../components/card/card.module'
 import { CheckboxModule } from './../../../components/checkbox/checkbox.module'
 import { CommonModule } from '@angular/common'
 import { DropdownModule } from './../../../components/dropdown/dropdown.module'
-import { GridlinesComponent } from './gridlines/gridlines.component'
 import { IconModule } from 'src/app/components/icon/icon.module'
 import { MarkdownModule } from 'ngx-markdown'
 import { NgModule } from '@angular/core'
 import { PageBasicComponent } from './page-basic/page-basic.component'
 import { PageComponent } from './page/page.component'
 import { PageDynamicComponent } from './page-dynamic/page-dynamic.component'
+import { PageGridlinesComponent } from './page-gridlines/page-gridlines.component'
 import { PageLimitComponent } from './page-limit/page-limit.component'
 import { PageSelectAllComponent } from './page-select-all/page-select-all.component'
 import { PageToggleComponent } from './page-toggle/page-toggle.component'
@@ -24,7 +24,7 @@ import { TemplateModule } from 'src/app/directives/template/template.module'
   declarations: [
     PageBasicComponent,
     PageDynamicComponent,
-    GridlinesComponent,
+    PageGridlinesComponent,
     SortComponent,
     PageComponent,
     SelectionComponent,

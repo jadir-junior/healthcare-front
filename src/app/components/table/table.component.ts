@@ -65,15 +65,16 @@ export interface IColumn {
         *ngIf="data.value"
         #table
         role="table"
-        [ngClass]="{ 'responsive': responsive }"
+        [ngClass]="tableClasses"
         [ngStyle]="style"
       >
-        <thead *ngIf="headerTemplate">
+        <thead *ngIf="headerTemplate" class="hc-datatable-thead">
           <ng-container
             *ngTemplateOutlet="headerTemplate; context: { $implicit: options.columns }"
           ></ng-container>
         </thead>
         <tbody
+          class="hc-datatable-tbody"
           *ngIf="bodyTemplate"
           [hc-table-body]="options.columns"
           [template]="bodyTemplate"
@@ -108,6 +109,7 @@ export class TableComponent implements AfterContentInit, OnChanges {
 
   @Input() columns: IColumn[] = []
   @Input() responsive = false
+  @Input() gridlines = false
   @Input() style?: IStyle
 
   @ContentChildren(TemplateDirective) templates!: QueryList<TemplateDirective>
@@ -154,5 +156,12 @@ export class TableComponent implements AfterContentInit, OnChanges {
           this.optionsHeaderTemplate = item.template
       }
     })
+  }
+
+  get tableClasses() {
+    return {
+      ['hc-datatable-responsive']: this.responsive,
+      ['hc-datatable-gridlines']: this.gridlines,
+    }
   }
 }

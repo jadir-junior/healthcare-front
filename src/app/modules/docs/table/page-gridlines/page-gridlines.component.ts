@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core'
 import { IProduct, ProductsService } from '../../products.service'
 
 @Component({
-  selector: 'app-gridlines',
+  selector: 'app-page-gridlines',
   template: `
     <hc-card>
-      <hc-table hcData [value]="products" [responsive]="true">
+      <hc-table hcData [value]="products" [responsive]="true" [gridlines]="true">
         <ng-template hcTemplate="caption"> Header </ng-template>
 
         <ng-template hcTemplate="header">
@@ -31,7 +31,7 @@ import { IProduct, ProductsService } from '../../products.service'
     </hc-card>
   `,
 })
-export class GridlinesComponent implements OnInit {
+export class PageGridlinesComponent implements OnInit {
   products: IProduct[] = []
 
   constructor(private productsService: ProductsService) {}
