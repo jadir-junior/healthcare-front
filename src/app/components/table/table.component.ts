@@ -54,7 +54,7 @@ export interface IColumn {
         <ng-container *ngTemplateOutlet="captionTemplate"></ng-container>
       </div>
 
-      <div class="hc-datatable-wrapper">
+      <div class="hc-datatable-wrapper" [ngStyle]="{ maxHeight: scrollHeight }">
         <ng-container
           *ngTemplateOutlet="
             buildInTable;
@@ -123,6 +123,7 @@ export class TableComponent implements AfterContentInit, OnChanges {
   @Input() style?: IStyle
   @Input() scrollable = false
   @Input() scrollDirection: 'vertical' | 'horizontal' | 'both' = 'both'
+  @Input() scrollHeight?: string
 
   @ContentChildren(TemplateDirective) templates!: QueryList<TemplateDirective>
   @ViewChild('table') tableViewChild!: ElementRef
@@ -172,13 +173,14 @@ export class TableComponent implements AfterContentInit, OnChanges {
 
   get containerClasses() {
     return {
-      // ['hc-datatable-responsive']: this.responsive,
       ['hc-datatable']: true,
       ['hc-datatable-responsive-scroll']: this.responsiveLayout === 'scroll',
       ['hc-datatable-gridlines']: this.gridlines,
       ['hc-datatable-scrollable']: this.scrollable,
       ['hc-datatable-scrollable-horizontal']:
         this.scrollable && this.scrollDirection === 'horizontal',
+      ['hc-datatable-scrollable-both']:
+        this.scrollable && this.scrollDirection === 'both',
     }
   }
 }

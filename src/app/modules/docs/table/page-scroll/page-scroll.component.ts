@@ -7,6 +7,7 @@ import { IColumn } from './../../../../components/table/table.component'
   selector: 'app-page-scroll',
   template: `
     <hc-card>
+      <h6 style="margin-bottom: 1rem">Vertical</h6>
       <hc-table
         [value]="products"
         [columns]="cols"
@@ -23,6 +24,60 @@ import { IColumn } from './../../../../components/table/table.component'
         <ng-template hcTemplate="body" let-product let-columns="columns">
           <tr>
             <td *ngFor="let column of columns" style="width: 200px">
+              {{ product[column.field] }}
+            </td>
+          </tr>
+        </ng-template>
+      </hc-table>
+    </hc-card>
+
+    <hc-card [style]="{ 'margin-top': '1rem' }">
+      <h6 style="margin-bottom: 1rem">Horizontal</h6>
+      <hc-table
+        [value]="products"
+        [columns]="cols"
+        [scrollable]="true"
+        scrollDirection="vertical"
+        responsiveLayout="scroll"
+        scrollHeight="480px"
+      >
+        <ng-template hcTemplate="header" let-columns>
+          <tr>
+            <th *ngFor="let column of columns">
+              {{ column.header }}
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template hcTemplate="body" let-product let-columns="columns">
+          <tr>
+            <td *ngFor="let column of columns">
+              {{ product[column.field] }}
+            </td>
+          </tr>
+        </ng-template>
+      </hc-table>
+    </hc-card>
+
+    <hc-card [style]="{ 'margin-top': '1rem' }">
+      <h6 style="margin-bottom: 1rem">Vertial e Horizontal</h6>
+      <hc-table
+        [value]="products"
+        [columns]="cols"
+        [scrollable]="true"
+        scrollDirection="both"
+        responsiveLayout="scroll"
+        scrollHeight="480px"
+      >
+        <ng-template hcTemplate="header" let-columns>
+          <tr>
+            <th *ngFor="let column of columns">
+              {{ column.header }}
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template hcTemplate="body" let-product let-columns="columns">
+          <tr>
+            <td *ngFor="let column of columns">
               {{ product[column.field] }}
             </td>
           </tr>
@@ -53,7 +108,7 @@ export class PageScrollComponent implements OnInit {
   }
 
   getProducts(): void {
-    this.productsService.getProducts(1, 5).subscribe((response) => {
+    this.productsService.getProducts(1, 10).subscribe((response) => {
       this.products = response.items
     })
   }

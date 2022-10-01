@@ -53,10 +53,6 @@
   }
 }
 
-// .hc-datatable-responsive {
-//   width: 100%;
-// }
-
 .header-and-fotter {
   width: 100%;
   background-color: var(--neutral-divider);
@@ -86,9 +82,9 @@
   }
 }
 
-// .hc-datatable-footer {
-//   @extend .header-and-fotter;
-// }
+.hc-datatable-footer {
+  @extend .header-and-fotter;
+}
 
 .hc-sortable-column {
   cursor: pointer;
@@ -178,49 +174,36 @@
   }
 
   .hc-datatable-thead {
-    display: block;
-
     > tr {
-      display: flex;
-      flex-wrap: nowrap;
       width: 100%;
-
       > th {
-        display: flex;
-        flex: 1 1 0;
-        align-items: center;
+        white-space: nowrap;
       }
     }
   }
 
   .hc-datatable-tbody {
-    display: block;
     margin-bottom: 0.5rem;
 
     > tr {
-      display: flex;
-      flex-wrap: nowrap;
-      width: 100%;
-
       > td {
-        display: flex;
-        flex: 1 1 0;
-        align-items: center;
+        white-space: nowrap;
       }
     }
   }
 }
 
-.hc-datatable-scrollable-horizontal {
+.hc-datatable-scrollable-horizontal,
+.hc-datatable-scrollable-both {
   .hc-datatable-thead {
     > tr > th {
-      flex: 0 0 auto;
+      white-space: nowrap;
     }
   }
 
-  .hc-datatable-body {
+  .hc-datatable-tbody {
     > tr > td {
-      flex: 0 0 auto;
+      white-space: nowrap;
     }
   }
 }
