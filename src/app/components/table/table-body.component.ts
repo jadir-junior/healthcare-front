@@ -4,6 +4,7 @@ import {
   Input,
   OnDestroy,
   TemplateRef,
+  ViewEncapsulation,
 } from '@angular/core'
 
 import { DataService } from './data.service'
@@ -24,6 +25,7 @@ import { TemplateDirective } from '../../directives/template/template.directive'
     </ng-container>
   `,
   styles: [],
+  encapsulation: ViewEncapsulation.None,
 })
 export class TableBodyComponent implements OnDestroy {
   subscription!: Subscription

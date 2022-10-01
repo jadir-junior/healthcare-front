@@ -29,69 +29,79 @@ export interface IColumn {
 @Component({
   selector: 'hc-table',
   template: `
-    <div
-      *ngIf="paginator.paginator"
-      class="hc-table-options-header"
-      style="margin-bottom: 1rem;"
-    >
-      <div class="hc-table-limit">
-        <ng-select
-          style="width: 80px;"
-          [searchable]="false"
-          [items]="paginator.rowsPerPageOptions"
-          [clearable]="false"
-          [(ngModel)]="paginator.selectedLimit"
-          (change)="paginator.onLimitChange.emit($event)"
-        ></ng-select>
-        <span style="margin-left: 0.5rem">{{ paginator.limitLabel }}</span>
-      </div>
-      <div *ngIf="optionsHeaderTemplate">
-        <ng-container *ngTemplateOutlet="optionsHeaderTemplate"></ng-container>
-      </div>
-    </div>
-    <div class="hc-datatable-header" *ngIf="captionTemplate">
-      <ng-container *ngTemplateOutlet="captionTemplate"></ng-container>
-    </div>
-    <ng-container>
-      <ng-container
-        *ngTemplateOutlet="
-          buildInTable;
-          context: { $implicit: data.processedData, options: { columns } }
-        "
-      ></ng-container>
-    </ng-container>
-    <ng-template #buildInTable let-items let-options="options">
-      <table
-        *ngIf="data.value"
-        #table
-        role="table"
-        [ngClass]="{ 'responsive': responsive }"
-        [ngStyle]="style"
+    <div [ngClass]="containerClasses">
+      <div
+        *ngIf="paginator.paginator"
+        class="hc-table-options-header"
+        style="margin-bottom: 1rem;"
       >
-        <thead *ngIf="headerTemplate">
-          <ng-container
-            *ngTemplateOutlet="headerTemplate; context: { $implicit: options.columns }"
-          ></ng-container>
-        </thead>
-        <tbody
-          *ngIf="bodyTemplate"
-          [hc-table-body]="options.columns"
-          [template]="bodyTemplate"
-        ></tbody>
-      </table>
-    </ng-template>
-    <div class="hc-datatable-footer" *ngIf="summaryTemplate">
-      <ng-container *ngTemplateOutlet="summaryTemplate"></ng-container>
-    </div>
-    <div style="margin-top: 20px" *ngIf="paginator.paginator">
-      <hc-pagination
-        [rows]="paginator.rows"
-        [pagination]="paginator.pagination"
-        [totalRecords]="paginator.totalRecords"
-        (pageChangeEvent)="paginator.onPageChange($event)"
-        [showCurrentPageReport]="paginator.showCurrentPageReport"
-        [currentPageReportTemplate]="paginator.currentPageReportTemplate"
-      ></hc-pagination>
+        <div class="hc-table-limit">
+          <ng-select
+            style="width: 80px;"
+            [searchable]="false"
+            [items]="paginator.rowsPerPageOptions"
+            [clearable]="false"
+            [(ngModel)]="paginator.selectedLimit"
+            (change)="paginator.onLimitChange.emit($event)"
+          ></ng-select>
+          <span style="margin-left: 0.5rem">{{ paginator.limitLabel }}</span>
+        </div>
+        <div *ngIf="optionsHeaderTemplate">
+          <ng-container *ngTemplateOutlet="optionsHeaderTemplate"></ng-container>
+        </div>
+      </div>
+      <div class="hc-datatable-header" *ngIf="captionTemplate">
+        <ng-container *ngTemplateOutlet="captionTemplate"></ng-container>
+      </div>
+
+      <div class="hc-datatable-wrapper" [ngStyle]="{ maxHeight: scrollHeight }">
+        <ng-container
+          *ngTemplateOutlet="
+            buildInTable;
+            context: { $implicit: data.processedData, options: { columns } }
+          "
+        ></ng-container>
+
+        <ng-template #buildInTable let-items let-options="options">
+          <table
+            class="hc-datatable-table"
+            *ngIf="data.value"
+            #table
+            role="table"
+            [ngStyle]="style"
+          >
+            <thead *ngIf="headerTemplate" class="hc-datatable-thead">
+              <ng-container
+                *ngTemplateOutlet="
+                  headerTemplate;
+                  context: { $implicit: options.columns }
+                "
+              ></ng-container>
+            </thead>
+            <tbody
+              class="hc-datatable-tbody"
+              *ngIf="bodyTemplate"
+              [hc-table-body]="options.columns"
+              [template]="bodyTemplate"
+            ></tbody>
+          </table>
+        </ng-template>
+      </div>
+
+      <div class="hc-datatable-footer" *ngIf="summaryTemplate">
+        <ng-container *ngTemplateOutlet="summaryTemplate"></ng-container>
+      </div>
+
+      <div style="margin-top: 20px" *ngIf="paginator.paginator">
+        <hc-pagination
+          [rows]="paginator.rows"
+          [pagination]="paginator.pagination"
+          [totalRecords]="paginator.totalRecords"
+          (pageChangeEvent)="paginator.onPageChange($event)"
+          [showCurrentPageReport]="paginator.showCurrentPageReport"
+          [currentPageReportTemplate]="paginator.currentPageReportTemplate"
+        ></hc-pagination>
+      </div>
     </div>
   `,
   styleUrls: ['table.component.scss'],
@@ -107,8 +117,13 @@ export class TableComponent implements AfterContentInit, OnChanges {
   optionsHeaderTemplate!: TemplateRef<TemplateDirective>
 
   @Input() columns: IColumn[] = []
+  @Input() responsiveLayout: 'stack' | 'scroll' = 'stack'
   @Input() responsive = false
+  @Input() gridlines = false
   @Input() style?: IStyle
+  @Input() scrollable = false
+  @Input() scrollDirection: 'vertical' | 'horizontal' | 'both' = 'both'
+  @Input() scrollHeight?: string
 
   @ContentChildren(TemplateDirective) templates!: QueryList<TemplateDirective>
   @ViewChild('table') tableViewChild!: ElementRef
@@ -154,5 +169,18 @@ export class TableComponent implements AfterContentInit, OnChanges {
           this.optionsHeaderTemplate = item.template
       }
     })
+  }
+
+  get containerClasses() {
+    return {
+      ['hc-datatable']: true,
+      ['hc-datatable-responsive-scroll']: this.responsiveLayout === 'scroll',
+      ['hc-datatable-gridlines']: this.gridlines,
+      ['hc-datatable-scrollable']: this.scrollable,
+      ['hc-datatable-scrollable-horizontal']:
+        this.scrollable && this.scrollDirection === 'horizontal',
+      ['hc-datatable-scrollable-both']:
+        this.scrollable && this.scrollDirection === 'both',
+    }
   }
 }

@@ -8,7 +8,10 @@ import { IMenuItem } from 'src/app/components/menu/menu-item.component'
   template: `
     <div class="wrapper-layout">
       <hc-sidebar>
-        <hc-logo [style]="{ margin: '1.5rem' }"></hc-logo>
+        <hc-logo
+          [style]="{ margin: '1.5rem', cursor: 'pointer' }"
+          routerLink="/home"
+        ></hc-logo>
         <hc-menu [model]="menu" [style]="{ margin: '0.25rem 1.5rem' }"></hc-menu>
       </hc-sidebar>
       <main style="margin: 4rem 4rem;">
@@ -20,7 +23,7 @@ import { IMenuItem } from 'src/app/components/menu/menu-item.component'
     `
       .wrapper-layout {
         display: grid;
-        grid-template-columns: 0.4fr 2.6fr;
+        grid-template-columns: 256px calc(100% - 256px);
       }
 
       aside {
@@ -128,6 +131,10 @@ export class DocsComponent {
             paths: 'exact',
             fragment: 'ignored',
           },
+        },
+        {
+          label: 'Scroll',
+          routerLink: '/docs/table/scroll',
         },
         { label: 'Toggle', routerLink: '/docs/table/toggle' },
       ],

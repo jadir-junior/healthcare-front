@@ -16,6 +16,7 @@
 
   --primary-default-rgb: 51, 108, 251;
   --primary-lightest: #ebf0ff;
+  --primary-light: #a9c1fd;
   --primary-default: #336cfb;
   --primary-hover: #558eff;
   --primary-dark: #1f58e7;
@@ -34,6 +35,7 @@
 
 @import './scss/typography.scss';
 @import './scss/docs';
+@import './scss/scrollbar';
 @import './app/components/badge/badge.component.scss';
 @import '~@ng-select/ng-select/themes/default.theme.css';
 

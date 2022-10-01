@@ -83,7 +83,7 @@ import { IColumn } from './../../../../components/table/table.component'
 
     <div class="hc-docs-section">
       <h5>Propriedades</h5>
-      <hc-table hcData hcPagination [value]="props" [columns]="cols" [responsive]="true">
+      <hc-table [value]="props" [columns]="cols" [responsive]="true">
         <ng-template hcTemplate="header" let-columns>
           <tr>
             <th *ngFor="let column of columns">{{ column.header }}</th>

@@ -9,7 +9,7 @@ import { TableService } from './table.service'
   selector: '[hcSortableColumn]',
   host: {
     'class': 'hc-sortable-column',
-    '[class.hc-highlight]': 'sorted',
+    '[class.hc-datatable-highlight]': 'sorted',
     '[attr.tabindex]': '0',
     '[attr.role]': '"columnheader"',
     '[attr.aria-sort]': 'sortOrder',
