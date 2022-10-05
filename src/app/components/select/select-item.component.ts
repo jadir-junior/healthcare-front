@@ -2,7 +2,7 @@ import { Component, EventEmitter, Input, Output, TemplateRef } from '@angular/co
 
 export interface ISelectItem<T> {
   label?: string
-  value: T
+  value?: T
   styleClass?: string
   icon?: string
   title?: string

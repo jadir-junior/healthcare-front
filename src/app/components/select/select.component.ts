@@ -67,8 +67,9 @@ export class SelectComponent<T> implements OnInit, ControlValueAccessor {
   overlay: HTMLDivElement | null = null
   optionsToDisplay!: T[]
   scrollHandler!: IConnectedOverlayScrollHandler
-  selectedOption!: ISelectItem<T>
+  selectedOption: ISelectItem<T> | T | null = null
   selectedItemTemplate!: TemplateRef<ISelectItem<T>>
+  selectedOptionUpdated = false
   value: T | null = null
 
   @Input() autoZIndex = true
@@ -106,6 +107,7 @@ export class SelectComponent<T> implements OnInit, ControlValueAccessor {
   set options(val: T[]) {
     this._options = val
     this.optionsToDisplay = this._options
+    // this.updateSelectedOption(this.value)
   }
 
   @Input() get disabled(): boolean {
@@ -136,7 +138,6 @@ export class SelectComponent<T> implements OnInit, ControlValueAccessor {
     return this.selectedOption ? this.getOptionLabel(this.selectedOption) : null
   }
 
-  onModelChange!: (value: T | null) => void
   onModelTouched!: () => void
 
   constructor(
@@ -146,6 +147,9 @@ export class SelectComponent<T> implements OnInit, ControlValueAccessor {
     public renderer: Renderer2
   ) {}
 
+  // eslint-disable-next-line @typescript-eslint/no-empty-function
+  onModelChange: (value: T | null) => void = () => {}
+
   ngOnInit(): void {
     this.optionsToDisplay = this.options
     this.labelId = this.id + '_label'
@@ -154,6 +158,9 @@ export class SelectComponent<T> implements OnInit, ControlValueAccessor {
 
   writeValue(value: T | null): void {
     this.value = value
+    if (value) {
+      this.updateSelectedOption(value)
+    }
     this.cd.markForCheck()
   }
 
@@ -178,11 +185,11 @@ export class SelectComponent<T> implements OnInit, ControlValueAccessor {
       : option
   }
 
-  getOptionValue(option: ISelectItem<T>) {
+  getOptionValue(option: ISelectItem<T> | T) {
     return this.optionValue
       ? ObjectUtils.resolveFieldData(option, this.optionValue)
-      : !this.optionLabel && option && option.value !== undefined
-      ? option.value
+      : !this.optionLabel && option && (option as ISelectItem<T>).value !== undefined
+      ? (option as ISelectItem<T>).value
       : option
   }
 
@@ -258,6 +265,39 @@ export class SelectComponent<T> implements OnInit, ControlValueAccessor {
     this.onModelChange(this.value)
     this.onChange.emit({ originalEvent: event, value: this.value })
     this.onClear.emit(event)
+  }
+
+  findOptionIndex(value: T, opts: T[]): number {
+    let index = -1
+    if (opts) {
+      for (let i = 0; i < opts.length; i++) {
+        if (
+          (value === null && this.getOptionValue(opts[i]) === null) ||
+          ObjectUtils.equals(value, this.getOptionValue(opts[i]))
+        ) {
+          index = i
+          break
+        }
+      }
+    }
+
+    return index
+  }
+
+  findOption(value: T, opts: T[]): T | null {
+    const index = this.findOptionIndex(value, opts)
+    return index !== -1 ? opts[index] : null
+  }
+
+  updateSelectedOption(value: T): void {
+    this.selectedOption = this.findOption(value, this.optionsToDisplay)
+
+    if (this.selectedOption) {
+      this.value = this.getOptionValue(this.selectedOption)
+      this.onModelChange(this.value)
+    }
+
+    this.selectedOptionUpdated = true
   }
 
   appendOverlay(): void {

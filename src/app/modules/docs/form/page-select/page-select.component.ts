@@ -1,3 +1,5 @@
+import { FormBuilder, FormGroup } from '@angular/forms'
+
 import { Component } from '@angular/core'
 
 interface ICity {
@@ -42,6 +44,30 @@ interface ICity {
           [(ngModel)]="selectedCity"
         ></hc-select>
       </div>
+      <div style="margin-top: 1.5rem;">
+        <h6 style="margin-bottom: 1rem;">ngModel Initial Value</h6>
+        <hc-select
+          placeholder="Select"
+          optionLabel="name"
+          [options]="cities"
+          [showClear]="true"
+          [style]="{ width: '256px' }"
+          [(ngModel)]="selectedInitialValue"
+        ></hc-select>
+      </div>
+      <div style="margin-top: 1.5rem;">
+        <h6 style="margin-bottom: 1rem;">formControlName Initial Value</h6>
+        <form [formGroup]="form" (submit)="onShow()">
+          <hc-select
+            placeholder="Select"
+            optionLabel="name"
+            formControlName="city"
+            [options]="cities"
+            [showClear]="true"
+            [style]="{ width: '256px' }"
+          ></hc-select>
+        </form>
+      </div>
     </hc-card>
   `,
   styles: [],
@@ -49,8 +75,12 @@ interface ICity {
 export class PageSelectComponent {
   cities: ICity[]
   selectedCity!: ICity
+  selectedInitialValue = { name: 'São Paulo', code: 'SP' }
+  form: FormGroup = this.fb.group({
+    city: [{ name: 'São Paulo', code: 'SP' }],
+  })
 
-  constructor() {
+  constructor(private fb: FormBuilder) {
     this.cities = [
       { name: 'New York', code: 'NY' },
       { name: 'Rome', code: 'RM' },
@@ -65,6 +95,7 @@ export class PageSelectComponent {
   }
 
   onShow() {
-    console.log(this.selectedCity)
+    console.log(this.selectedInitialValue)
+    console.log(this.form.value)
   }
 }
