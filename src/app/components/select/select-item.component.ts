@@ -43,6 +43,7 @@ export class SelectItemComponent<T> {
   get classes() {
     return {
       ['hc-select-item']: true,
+      ['hc-select-item-highlight']: this.selected,
     }
   }
 }

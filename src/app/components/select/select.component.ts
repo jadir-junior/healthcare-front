@@ -1,3 +1,11 @@
+import { TemplateDirective } from 'src/app/directives/template/template.directive'
+import {
+  AfterContentInit,
+  ContentChildren,
+  QueryList,
+  TemplateRef,
+  ViewRef,
+} from '@angular/core'
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import { ObjectUtils } from './../../common/object-utils/object-utils'
@@ -25,6 +33,7 @@ import {
   ConnectedOverlayScrollHandler,
   IConnectedOverlayScrollHandler,
 } from '../../common/connected-overlay-scroll-handler/connected-overlay-scroll-handler'
+import { ISelectItem } from './select-item.component'
 
 export const SELECT_VALUE_ACCESSOR: Provider = {
   provide: NG_VALUE_ACCESSOR,
@@ -47,8 +56,11 @@ export const SELECT_VALUE_ACCESSOR: Provider = {
     ]),
   ],
 })
-export class SelectComponent<T> implements OnInit, ControlValueAccessor {
+export class SelectComponent<T>
+  implements OnInit, AfterContentInit, ControlValueAccessor
+{
   _options: T[] = []
+  private _disabled = false
 
   documentClickListener: (() => void) | null = null
   documentResizeListener: (() => void) | null = null
@@ -63,7 +75,8 @@ export class SelectComponent<T> implements OnInit, ControlValueAccessor {
   overlay: HTMLDivElement | null = null
   optionsToDisplay!: T[]
   scrollHandler!: IConnectedOverlayScrollHandler
-  selectedOption!: T
+  selectedOption!: ISelectItem<T>
+  selectedItemTemplate!: TemplateRef<ISelectItem<T>>
   value: T | null = null
 
   @Input() autoZIndex = true
@@ -72,7 +85,6 @@ export class SelectComponent<T> implements OnInit, ControlValueAccessor {
   @Input() ariaLabelledBy?: string
   @Input() baseZIndex = 0
   @Input() dataKey?: string
-  @Input() disabled = false
   @Input() editable = false
   @Input() hideTransitionOptions = '0.1s linear'
   @Input() placeholder?: string
@@ -92,6 +104,9 @@ export class SelectComponent<T> implements OnInit, ControlValueAccessor {
   @Output() onShow = new EventEmitter<AnimationEvent>()
 
   @ViewChild('container') containerViewChild!: ElementRef
+  @ViewChild('in') accessibleViewChild!: ElementRef
+
+  @ContentChildren(TemplateDirective) templates!: QueryList<TemplateDirective>
 
   @Input() get options(): T[] {
     return this._options
@@ -106,12 +121,32 @@ export class SelectComponent<T> implements OnInit, ControlValueAccessor {
     }
   }
 
+  @Input() get disabled(): boolean {
+    return this._disabled
+  }
+
+  set disabled(isDisabled: boolean) {
+    if (isDisabled) {
+      this.focused = false
+
+      if (this.overlayVisible) {
+        this.hide()
+      }
+    }
+
+    this._disabled = isDisabled
+
+    if (!(this.cd as ViewRef).destroyed) {
+      this.cd.detectChanges()
+    }
+  }
+
   get isVisibleClearIcon(): boolean {
     return this.value !== null && this.value !== '' && this.showClear && !this.disabled
   }
 
   get label(): string | null {
-    return null
+    return this.selectedOption ? this.getOptionLabel(this.selectedOption) : null
   }
 
   onModelChange!: (value: T | null) => void
@@ -128,6 +163,16 @@ export class SelectComponent<T> implements OnInit, ControlValueAccessor {
     this.optionsToDisplay = this.options
     this.labelId = this.id + '_label'
     this.listId = this.id + '_list'
+  }
+
+  ngAfterContentInit(): void {
+    this.templates.forEach((item) => {
+      switch (item.getType()) {
+        case 'selectedItem':
+          this.selectedItemTemplate = item.template
+          break
+      }
+    })
   }
 
   writeValue(value: T | null): void {
@@ -156,9 +201,13 @@ export class SelectComponent<T> implements OnInit, ControlValueAccessor {
       : option
   }
 
-  // getOptionValue(option) {
-  //   // return this.optionValue
-  // }
+  getOptionValue(option: ISelectItem<T>) {
+    return this.optionValue
+      ? ObjectUtils.resolveFieldData(option, this.optionValue)
+      : !this.optionLabel && option && option.value !== undefined
+      ? option.value
+      : option
+  }
 
   // findOptionIndex(val: T, opts // findOption(val: T, opts: T[]): T | null {
   //   const index = this.findOptionIndex(val, opts)
@@ -209,6 +258,30 @@ export class SelectComponent<T> implements OnInit, ControlValueAccessor {
     }
 
     this.preventModelTouched = true
+  }
+
+  onItemClick(event: { originalEvent: Event; option: ISelectItem<T> }): void {
+    const option = event.option
+
+    this.selectItem(event.originalEvent, option)
+    this.accessibleViewChild.nativeElement.focus({ preventScroll: true })
+
+    setTimeout(() => {
+      this.hide()
+    }, 150)
+  }
+
+  selectItem(event: Event, option: ISelectItem<T>): void {
+    if (this.selectedOption !== option) {
+      this.selectedOption = option
+      this.value = this.getOptionValue(option)
+
+      this.onModelChange(this.value)
+      this.onChange.emit({
+        originalEvent: event,
+        value: this.value,
+      })
+    }
   }
 
   show(): void {
@@ -393,6 +466,7 @@ export class SelectComponent<T> implements OnInit, ControlValueAccessor {
       ['hc-select-clearable']: this.showClear && !this.disabled,
       ['hc-select-open']: this.overlayVisible,
       ['hc-select-focused']: this.focused,
+      ['hc-select-disabled']: this.disabled,
     }
   }
 
@@ -403,6 +477,13 @@ export class SelectComponent<T> implements OnInit, ControlValueAccessor {
       ['hc-select-placeholder']: true,
       ['hc-select-label-empty']:
         this.placeholder === null || this.placeholder?.length === 0,
+    }
+  }
+
+  get labelClasses() {
+    return {
+      ['hc-select-label']: true,
+      ['hc-select-inputtext']: true,
     }
   }
 }

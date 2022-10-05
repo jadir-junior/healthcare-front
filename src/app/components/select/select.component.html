@@ -6,6 +6,7 @@
 >
   <div class="hc-select-hidden-accessible">
     <input
+      #in
       type="text"
       readonly
       role="combobox"
@@ -20,6 +21,12 @@
       (focus)="onInputFocus($event)"
     />
   </div>
+  <span [attr.id]="labelId" *ngIf="label !== null" [ngClass]="labelClasses">
+    <ng-container *ngIf="!selectedItemTemplate">{{ label || 'empty' }}</ng-container>
+    <ng-container
+      *ngTemplateOutlet="selectedItemTemplate; context: { $implicit: selectedOption }"
+    ></ng-container>
+  </span>
   <span [ngClass]="placeholderClasses" *ngIf="!editable && label === null">
     {{ placeholder || 'empty' }}
   </span>
@@ -78,6 +85,8 @@
               <hc-select-item
                 [option]="option"
                 [label]="getOptionLabel(option)"
+                [selected]="selectedOption === option"
+                (onClick)="onItemClick($event)"
               ></hc-select-item>
             </ng-template>
           </ng-template>

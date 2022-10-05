@@ -9,15 +9,29 @@ interface ICity {
   selector: 'app-page-select',
   template: `
     <hc-card>
-      <hc-select
-        placeholder="Select city"
-        optionLabel="name"
-        [options]="cities"
-        [showClear]="true"
-        [style]="{ width: '256px' }"
-        [(ngModel)]="selectedCity"
-      ></hc-select>
-      <button (click)="onShow()">show</button>
+      <div>
+        <hc-select
+          placeholder="Select city"
+          optionLabel="name"
+          [options]="cities"
+          [showClear]="true"
+          [style]="{ width: '256px' }"
+          [(ngModel)]="selectedCity"
+        ></hc-select>
+        <button (click)="onShow()">show</button>
+      </div>
+      <div style="margin-top: 1.5rem;">
+        <h6 style="margin-bottom: 1rem;">Disabled</h6>
+        <hc-select
+          placeholder="Select"
+          optionLabel="name"
+          [disabled]="true"
+          [options]="cities"
+          [showClear]="true"
+          [style]="{ width: '256px' }"
+          [(ngModel)]="selectedCity"
+        ></hc-select>
+      </div>
     </hc-card>
   `,
   styles: [],
