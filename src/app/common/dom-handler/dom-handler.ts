@@ -32,6 +32,43 @@ export class DomHandler {
     }
   }
 
+  public static relativePosition(element: HTMLElement, target: HTMLElement): void {
+    const elementDimensions = element.offsetParent
+      ? { width: element.offsetWidth, height: element.offsetHeight }
+      : this.getHiddenElementDimensions(element)
+    const targetHeight = target.offsetHeight
+    const targetOffset = target.getBoundingClientRect()
+    const viewport = this.getViewport()
+
+    let top: number
+    let left: number
+
+    if (targetOffset.top + targetHeight + elementDimensions.height > viewport.height) {
+      top = -1 * elementDimensions.height
+      element.style.transformOrigin = 'bottom'
+      if (targetOffset.top + top < 0) {
+        top = -1 * targetOffset.top
+      }
+    } else {
+      top = targetHeight
+      element.style.transformOrigin = 'top'
+    }
+
+    if (elementDimensions.width > viewport.width) {
+      // element wider then viewport and cannot fit on screen (align at left side of viewpoert)
+      left = targetOffset.left * -1
+    } else if (targetOffset.left + elementDimensions.width > viewport.width) {
+      // element wider then viewport but can be fit on screen (align at right side of viewport)
+      left = (targetOffset.left + elementDimensions.width - viewport.width) * -1
+    } else {
+      // element fits on screen (align with target)
+      left = 0
+    }
+
+    element.style.top = top + 'px'
+    element.style.left = left + 'px'
+  }
+
   public static absolutePosition(element: HTMLElement, target: HTMLElement): void {
     const elementDimensions = element.offsetParent
       ? { width: element.offsetWidth, height: element.offsetHeight }
@@ -144,7 +181,7 @@ export class DomHandler {
   public static findSingleElement(
     element: HTMLElement,
     selector: string
-  ): HTMLElement | null {
+  ): HTMLElement | HTMLDivElement | null {
     if (element) {
       return element.querySelector(selector)
     }
