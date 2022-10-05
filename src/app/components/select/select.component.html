@@ -55,7 +55,7 @@
     (@overlayAnimation.start)="onOverlayAnimationStart($event)"
     (@overlayAnimation.done)="onOverlayAnimationEnd($event)"
   >
-    <div class="hc-select-items-wrapper">
+    <div class="hc-select-items-wrapper" [style.max-height]="scrollHeight || 'auto'">
       <ng-container>
         <ng-container
           *ngTemplateOutlet="

@@ -85,6 +85,7 @@ export class SelectComponent<T> implements OnInit, ControlValueAccessor {
   @Input() showClear = false
   @Input() showTransitionOptions = '0.12s cubic-bezier(0, 0, 0.2, 1)'
   @Input() selectIcon = 'expand_more'
+  @Input() scrollHeight = '200px'
   @Input() style?: IStyle
 
   @Output() onBlur = new EventEmitter<Event>()

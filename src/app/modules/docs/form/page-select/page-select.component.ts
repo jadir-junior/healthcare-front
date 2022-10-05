@@ -57,6 +57,10 @@ export class PageSelectComponent {
       { name: 'London', code: 'EDN' },
       { name: 'Istanbul', code: 'IST' },
       { name: 'Paris', code: 'PRS' },
+      { name: 'San Francisco', code: 'SF' },
+      { name: 'São Paulo', code: 'SP' },
+      { name: 'Ceara', code: 'CE' },
+      { name: 'Minas Gerais', code: 'MG' },
     ]
   }
 
