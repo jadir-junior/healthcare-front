@@ -50,6 +50,11 @@
   }
 }
 
+.hc-select-placeholder-empty {
+  overflow: hidden;
+  visibility: hidden;
+}
+
 .hc-select-disabled {
   background: var(--neutral-background);
   border-color: var(--neutral-divider);

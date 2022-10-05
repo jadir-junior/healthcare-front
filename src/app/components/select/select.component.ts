@@ -430,8 +430,10 @@ export class SelectComponent<T> implements OnInit, ControlValueAccessor {
       ['hc-select-label']: true,
       ['hc-select-inputtext']: true,
       ['hc-select-placeholder']: true,
-      ['hc-select-label-empty']:
-        this.placeholder === null || this.placeholder?.length === 0,
+      ['hc-select-placeholder-empty']:
+        this.placeholder === null ||
+        this.placeholder === undefined ||
+        this.placeholder?.length === 0,
     }
   }
 
