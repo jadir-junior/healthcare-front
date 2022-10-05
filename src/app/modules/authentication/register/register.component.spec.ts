@@ -21,7 +21,7 @@ describe('RegisterComponent', () => {
     expect(screen.getByRole('textbox', { name: 'name' })).toBeInTheDocument()
     expect(screen.getByRole('textbox', { name: 'email' })).toBeInTheDocument()
     expect(screen.getByLabelText(/password/i)).toBeInTheDocument()
-    expect(screen.getByRole('checkbox', { name: 'terms' })).toBeInTheDocument()
+    expect(screen.getByRole('switch', { name: 'terms' })).toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'sign up' })).toBeInTheDocument()
     expect(screen.getByText(/have an account/i)).toBeInTheDocument()
     expect(screen.getByRole('link', { name: /sign in/i })).toBeInTheDocument()
