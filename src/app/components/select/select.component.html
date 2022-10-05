@@ -1,0 +1,97 @@
+<div
+  #container
+  [ngClass]="containerClasses"
+  (click)="onMouseClick($event)"
+  [style]="style"
+>
+  <div class="hc-select-hidden-accessible">
+    <input
+      #in
+      type="text"
+      readonly
+      role="combobox"
+      aria-haspopup="listbox"
+      [disabled]="disabled"
+      [attr.placeholder]="placeholder"
+      [attr.aria-label]="ariaLabel"
+      [attr.aria-expanded]="false"
+      [attr.aria-labelledby]="ariaLabelledBy"
+      [attr.aria-activedescendant]="overlayVisible ? labelId : null"
+      (blur)="onInputBlur($event)"
+      (focus)="onInputFocus($event)"
+    />
+  </div>
+  <span [attr.id]="labelId" *ngIf="label !== null" [ngClass]="labelClasses">
+    <ng-container *ngIf="!selectedItemTemplate">{{ label || 'empty' }}</ng-container>
+    <ng-container
+      *ngTemplateOutlet="selectedItemTemplate; context: { $implicit: selectedOption }"
+    ></ng-container>
+  </span>
+  <span [ngClass]="placeholderClasses" *ngIf="!editable && label === null">
+    {{ placeholder || 'empty' }}
+  </span>
+  <i class="hc-select-clear-icon" (click)="clear($event)" *ngIf="isVisibleClearIcon"></i>
+  <div
+    role="button"
+    class="hc-select-trigger"
+    aria-label="select trigger"
+    aria-haspopup="listbox"
+    [attr.aria-expanded]="overlayVisible"
+  >
+    <span class="hc-select-trigger-icon material-symbols-outlined">
+      {{ selectIcon }}
+    </span>
+  </div>
+  <div
+    *ngIf="overlayVisible"
+    class="hc-select-panel"
+    [@overlayAnimation]="{
+      value: 'visible',
+      params: {
+        showTransitionParams: showTransitionOptions,
+        hideTransitionParams: hideTransitionOptions
+      }
+    }"
+    (@overlayAnimation.start)="onOverlayAnimationStart($event)"
+    (@overlayAnimation.done)="onOverlayAnimationEnd($event)"
+  >
+    <div class="hc-select-items-wrapper" [style.max-height]="scrollHeight || 'auto'">
+      <ng-container>
+        <ng-container
+          *ngTemplateOutlet="
+            buildInItems;
+            context: { $implicit: optionsToDisplay, options: {} }
+          "
+        ></ng-container>
+      </ng-container>
+
+      <ng-template #buildInItems let-items let-scrollerOptions="options">
+        <ul
+          #items
+          class="hc-select-items"
+          role="listbox"
+          [attr.id]="listId"
+          [ngClass]="scrollerOptions.contentStyleClass"
+          [style]="scrollerOptions.contentStyle"
+        >
+          <ng-container
+            *ngTemplateOutlet="
+              itemslist;
+              context: { $implicit: items, selectedOption: selectedOption }
+            "
+          ></ng-container>
+          <ng-template #itemslist let-options let-selectedOption="selectedOption">
+            <ng-template ngFor let-option let-i="index" [ngForOf]="options">
+              <hc-select-item
+                [option]="option"
+                [label]="getOptionLabel(option)"
+                [selected]="selectedOption === option"
+                (onClick)="onItemClick($event)"
+              ></hc-select-item>
+            </ng-template>
+          </ng-template>
+        </ul>
+      </ng-template>
+    </div>
+  </div>
+</div>
