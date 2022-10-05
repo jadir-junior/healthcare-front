@@ -1,12 +1,6 @@
-import { TemplateDirective } from 'src/app/directives/template/template.directive'
-import {
-  AfterContentInit,
-  ContentChildren,
-  QueryList,
-  TemplateRef,
-  ViewRef,
-} from '@angular/core'
 /* eslint-disable @typescript-eslint/no-explicit-any */
+
+import { TemplateRef, ViewRef } from '@angular/core'
 
 import { ObjectUtils } from './../../common/object-utils/object-utils'
 import { AnimationEvent, animate, style, transition, trigger } from '@angular/animations'
@@ -56,9 +50,7 @@ export const SELECT_VALUE_ACCESSOR: Provider = {
     ]),
   ],
 })
-export class SelectComponent<T>
-  implements OnInit, AfterContentInit, ControlValueAccessor
-{
+export class SelectComponent<T> implements OnInit, ControlValueAccessor {
   _options: T[] = []
   private _disabled = false
 
@@ -106,8 +98,6 @@ export class SelectComponent<T>
   @ViewChild('container') containerViewChild!: ElementRef
   @ViewChild('in') accessibleViewChild!: ElementRef
 
-  @ContentChildren(TemplateDirective) templates!: QueryList<TemplateDirective>
-
   @Input() get options(): T[] {
     return this._options
   }
@@ -115,10 +105,6 @@ export class SelectComponent<T>
   set options(val: T[]) {
     this._options = val
     this.optionsToDisplay = this._options
-
-    if (this.value) {
-      // this.selectedOption = this.findOption(this.value, this.optionsToDisplay)
-    }
   }
 
   @Input() get disabled(): boolean {
@@ -165,16 +151,6 @@ export class SelectComponent<T>
     this.listId = this.id + '_list'
   }
 
-  ngAfterContentInit(): void {
-    this.templates.forEach((item) => {
-      switch (item.getType()) {
-        case 'selectedItem':
-          this.selectedItemTemplate = item.template
-          break
-      }
-    })
-  }
-
   writeValue(value: T | null): void {
     this.value = value
     this.cd.markForCheck()
@@ -209,32 +185,11 @@ export class SelectComponent<T>
       : option
   }
 
-  // findOptionIndex(val: T, opts // findOption(val: T, opts: T[]): T | null {
-  //   const index = this.findOptionIndex(val, opts)
-  //   return index !== -1 ? opts[index] : null
-  // }: T[]): number {
-  //   let index = -1
-  //   if (opts) {
-  //     for (let i = 0; i < opts.length; i++) {
-  //       if (
-  //         // (val === null && this.getOptionValue(opts[i]) === null) ||
-  //         // isEqual(val, this.getOptionValue(opts[i]))
-  //       ) {
-  //         index = i
-  //         break
-  //       }
-  //     }
-  //   }
-
-  //   return index
-  // }
-
-  // findOption(val: T, opts: T[]): T | null {
-  //   const index = this.findOptionIndex(val, opts)
-  //   return index !== -1 ? opts[index] : null
-  // }
-
   onMouseClick(event: Event): void {
+    if (this.disabled) {
+      return
+    }
+
     this.onClick.emit(event)
 
     if (this.overlayVisible) {
