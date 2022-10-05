@@ -63,6 +63,7 @@ export class DocsComponent {
       items: [
         { label: 'Input Text', routerLink: '/docs/form/inputtext' },
         { label: 'Checkbox', routerLink: '/docs/form/checkbox' },
+        { label: 'Switch', routerLink: '/docs/form/switch' },
         { label: 'Select', routerLink: '/docs/form/select' },
       ],
     },
