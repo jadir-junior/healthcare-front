@@ -138,6 +138,10 @@ export class DocsComponent {
           label: 'Scroll',
           routerLink: '/docs/table/scroll',
         },
+        {
+          label: 'Row Expand',
+          routerLink: '/docs/table/rowexpand',
+        },
         { label: 'Toggle', routerLink: '/docs/table/toggle' },
       ],
     },
