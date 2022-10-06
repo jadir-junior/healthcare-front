@@ -148,6 +148,10 @@ export class DocsComponent {
           label: 'Pagination',
           routerLink: '/docs/data/pagination',
         },
+        {
+          label: 'Timeline',
+          routerLink: '/docs/data/timeline',
+        },
       ],
     },
     {
