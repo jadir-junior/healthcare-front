@@ -6,6 +6,7 @@ import { PageComponent } from './page/page.component'
 import { PageDynamicComponent } from './page-dynamic/page-dynamic.component'
 import { PageGridlinesComponent } from './page-gridlines/page-gridlines.component'
 import { PageLimitComponent } from './page-limit/page-limit.component'
+import { PageRowExpandComponent } from './page-row-expand/page-row-expand.component'
 import { PageScrollComponent } from './page-scroll/page-scroll.component'
 import { PageSelectAllComponent } from './page-select-all/page-select-all.component'
 import { PageToggleComponent } from './page-toggle/page-toggle.component'
@@ -48,6 +49,10 @@ const routes: Routes = [
   {
     path: 'scroll',
     component: PageScrollComponent,
+  },
+  {
+    path: 'rowexpand',
+    component: PageRowExpandComponent,
   },
   {
     path: 'toggle',

@@ -83,6 +83,7 @@ export interface IColumn {
               *ngIf="bodyTemplate"
               [hc-table-body]="options.columns"
               [template]="bodyTemplate"
+              [expandedRowTemplate]="expandedRowTemplate"
             ></tbody>
           </table>
         </ng-template>
@@ -115,6 +116,7 @@ export class TableComponent implements AfterContentInit, OnChanges {
   captionTemplate!: TemplateRef<TemplateDirective>
   summaryTemplate!: TemplateRef<TemplateDirective>
   optionsHeaderTemplate!: TemplateRef<TemplateDirective>
+  expandedRowTemplate!: TemplateRef<TemplateDirective>
 
   @Input() columns: IColumn[] = []
   @Input() responsiveLayout: 'stack' | 'scroll' = 'stack'
@@ -167,6 +169,10 @@ export class TableComponent implements AfterContentInit, OnChanges {
           break
         case 'optionsHeader':
           this.optionsHeaderTemplate = item.template
+          break
+        case 'rowexpansion':
+          this.expandedRowTemplate = item.template
+          break
       }
     })
   }
