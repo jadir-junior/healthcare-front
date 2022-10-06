@@ -5,6 +5,8 @@ import { NgModule } from '@angular/core'
 import { NgSelectModule } from '@ng-select/ng-select'
 import { PaginationDirective } from './pagination.directive'
 import { PaginationModule } from '../pagination/pagination.module'
+import { RowExpandDirective } from './row-expand.directive'
+import { RowTogglerDirective } from './row-toggler.directive'
 import { SelectAllComponent } from './select-all.component'
 import { SelectDirective } from './select.directive'
 import { SortDirective } from './sort.directive'
@@ -28,6 +30,8 @@ import { TableHeaderCheckboxComponent } from './table-header-checkbox.component'
     SortDirective,
     SelectAllComponent,
     TableBodyComponent,
+    RowTogglerDirective,
+    RowExpandDirective,
   ],
   imports: [CommonModule, PaginationModule, NgSelectModule, FormsModule],
   providers: [PaginationDirective],
@@ -44,6 +48,8 @@ import { TableHeaderCheckboxComponent } from './table-header-checkbox.component'
     NgSelectModule,
     FormsModule,
     TableBodyComponent,
+    RowTogglerDirective,
+    RowExpandDirective,
   ],
 })
 export class TableModule {}
