@@ -34,7 +34,7 @@ import { TableHeaderCheckboxComponent } from './table-header-checkbox.component'
     RowExpandDirective,
   ],
   imports: [CommonModule, PaginationModule, NgSelectModule, FormsModule],
-  providers: [PaginationDirective],
+  providers: [PaginationDirective, RowExpandDirective],
   exports: [
     TableComponent,
     SortableColumnDirective,

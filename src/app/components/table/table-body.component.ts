@@ -55,7 +55,7 @@ export class TableBodyComponent implements OnDestroy {
 
   @Input('hc-table-body') columns!: IColumn[]
   @Input() template!: TemplateRef<TemplateDirective>
-  @Input() expandedRowTemplate!: TemplateRef<TemplateDirective>
+  @Input() expandedRowTemplate?: TemplateRef<TemplateDirective>
 
   constructor(
     public data: DataService,
