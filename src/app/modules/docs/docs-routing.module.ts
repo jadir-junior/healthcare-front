@@ -24,6 +24,11 @@ const routes: Routes = [
         path: 'misc',
         loadChildren: () => import('./misc/misc.module').then((m) => m.MiscModule),
       },
+      {
+        path: 'overlay',
+        loadChildren: () =>
+          import('./overlay/overlay.module').then((m) => m.OverlayModule),
+      },
     ],
   },
 ]

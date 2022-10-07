@@ -167,6 +167,15 @@ export class DocsComponent {
         },
       ],
     },
+    {
+      label: 'Overlay',
+      items: [
+        {
+          label: 'Modal',
+          routerLink: '/docs/overlay/modal',
+        },
+      ],
+    },
   ]
 
   constructor(private router: Router, private route: ActivatedRoute) {}
