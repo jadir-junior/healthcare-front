@@ -1,4 +1,5 @@
 import { AvatarModule } from '../../components/avatar/avatar.module'
+import { ButtonModule } from 'src/app/components/button/button.module'
 import { CardModule } from './../../components/card/card.module'
 import { CommonModule } from '@angular/common'
 import { EditComponent } from './edit/edit.component'
@@ -28,6 +29,7 @@ import { UserRoutingModule } from './user-routing.module'
     InputModule,
     ReactiveFormsModule,
     SelectModule,
+    ButtonModule,
   ],
 })
 export class UserModule {}

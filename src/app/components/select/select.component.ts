@@ -485,4 +485,11 @@ export class SelectComponent<T> implements OnInit, ControlValueAccessor {
       ['hc-select-inputtext']: true,
     }
   }
+
+  get labelTitleClasses() {
+    return {
+      ['hc-select-label-title']: true,
+      ['hc-select-label-title-focus']: this.focused,
+    }
+  }
 }

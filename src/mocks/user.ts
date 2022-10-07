@@ -9,6 +9,9 @@ const ME = {
 
 const USER = {
   ...ME,
+  age: 33,
+  gender: 'MALE',
+  status: 'APPROVED',
   profileBackgroundImage:
     'https://images.unsplash.com/photo-1612521481292-29c419630420?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1464&q=80',
   description:
@@ -44,6 +47,11 @@ const USER = {
     },
   ],
   healthProblems: ['rhinitis', 'sinusitis'],
+  history: [
+    {
+      lastVisit: new Date(),
+    },
+  ],
 }
 
 export const profile = (req: RestRequest, res: ResponseComposition, ctx: RestContext) => {

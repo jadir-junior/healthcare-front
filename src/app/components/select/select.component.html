@@ -1,5 +1,5 @@
 <div style="display: flex; flex-direction: column">
-  <label class="hc-select-label-title" [attr.for]="id" *ngIf="labelTitle">
+  <label [ngClass]="labelTitleClasses" [attr.for]="id" *ngIf="labelTitle">
     {{ labelTitle }}
   </label>
   <div
