@@ -61,3 +61,17 @@ button {
   display: flex;
   align-items: center;
 }
+
+.hc-input-label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--neutral-gray);
+}
+
+.hc-input-label-focus {
+  color: var(--primary-default);
+}
+
+.hc-input-label-error {
+  color: var(--red-default);
+}
