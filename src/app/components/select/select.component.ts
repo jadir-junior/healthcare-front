@@ -80,6 +80,7 @@ export class SelectComponent<T> implements OnInit, ControlValueAccessor {
   @Input() dataKey?: string
   @Input() editable = false
   @Input() hideTransitionOptions = '0.1s linear'
+  @Input() labelTitle?: string
   @Input() placeholder?: string
   @Input() optionValue?: string
   @Input() optionLabel?: string

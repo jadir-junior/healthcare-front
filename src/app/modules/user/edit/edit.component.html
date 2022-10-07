@@ -2,7 +2,20 @@
   <h2 style="margin-bottom: 1.5rem">Edit account</h2>
   <hc-card>
     <form [formGroup]="form">
-      <hc-input formControlName="name"></hc-input>
+      <hc-input formControlName="name" id="name" label="Name"></hc-input>
+      <div style="margin-top: 0.5rem">
+        <div>
+          <hc-input type="number" formControlName="age" id="age" label="Age"></hc-input>
+        </div>
+        <div>
+          <hc-select
+            [options]="genders"
+            formControlName="gender"
+            id="gender"
+            labelTitle="Gender"
+          ></hc-select>
+        </div>
+      </div>
     </form>
   </hc-card>
 </div>

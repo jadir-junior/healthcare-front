@@ -10,7 +10,11 @@ import { Component } from '@angular/core'
 export class EditComponent {
   form: FormGroup = this.fb.group({
     name: ['', [Validators.required]],
+    age: ['', [Validators.required]],
+    gender: ['', [Validators.required]],
   })
+
+  genders = ['Female', 'Male']
 
   constructor(private fb: FormBuilder) {}
 }

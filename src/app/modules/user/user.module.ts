@@ -10,6 +10,7 @@ import { ProfileBackgroundComponent } from './components/profile-background/prof
 import { ProfileComponent } from './profile/profile.component'
 import { ReactiveFormsModule } from '@angular/forms'
 import { RemoveHttpUrlModule } from '../../pipes/remove-http-url/remove-http-url.module'
+import { SelectModule } from '../../components/select/select.module'
 import { TemplateModule } from '../../directives/template/template.module'
 import { UserRoutingModule } from './user-routing.module'
 
@@ -26,6 +27,7 @@ import { UserRoutingModule } from './user-routing.module'
     PhoneModule,
     InputModule,
     ReactiveFormsModule,
+    SelectModule,
   ],
 })
 export class UserModule {}
