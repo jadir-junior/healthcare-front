@@ -55,7 +55,7 @@ export class SkeletonComponent {
 
   get styles() {
     if (this.size) {
-      return { width: this.size, height: this.size }
+      return { width: this.size, height: this.size, borderRadius: this.borderRadius }
     } else {
       return { width: this.width, height: this.height }
     }
