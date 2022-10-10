@@ -1,50 +1,50 @@
 import { Component, OnInit } from '@angular/core'
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'
-
-import { UserService } from './../services/user.service'
+import { IProfile, UserService } from './../services/user.service'
 
 @Component({
   selector: 'app-edit',
-  templateUrl: './edit.component.html',
-  styleUrls: ['./edit.component.scss'],
+  template: `
+    <div class="hc-edit-container">
+      <h2 style="margin-bottom: 1.5rem">Edit account</h2>
+      <div class="hc-edit-wrapper-cards">
+        <hc-edit-user-account
+          *ngIf="user"
+          [user]="user"
+          (onEditUser)="onEditUser($event)"
+        ></hc-edit-user-account>
+      </div>
+    </div>
+  `,
+  styles: [
+    `
+      .hc-edit-container {
+        padding: 2rem;
+      }
+
+      .hc-edit-wrapper-cards {
+        display: grid;
+        grid-template-columns: 635px 1fr;
+        gap: 2rem;
+      }
+
+      .hc-form-control {
+        margin-bottom: 0.5rem;
+      }
+    `,
+  ],
 })
 export class EditComponent implements OnInit {
-  form: FormGroup = this.fb.group({
-    name: ['', [Validators.required]],
-    age: ['', [Validators.required]],
-    gender: ['', [Validators.required]],
-    phone: ['', [Validators.required]],
-    lastVisit: [{ value: '', disabled: true }],
-    status: ['', [Validators.required]],
-  })
-  genders = [
-    { code: 'FEMALE', description: 'Female' },
-    { code: 'MALE', description: 'Male' },
-  ]
-  status = [
-    { code: 'APPROVED', description: 'Approved ' },
-    { code: 'PENDING', description: 'Pending' },
-  ]
-  submitted = false
+  user!: IProfile
 
-  constructor(private fb: FormBuilder, private userService: UserService) {}
+  constructor(private userService: UserService) {}
 
   ngOnInit(): void {
     this.userService.getProfile().subscribe((user) => {
-      console.log(user)
-      this.form.patchValue({
-        name: user.name,
-        age: user.age,
-        gender: this.genders.find((g) => g.code === user.gender),
-        phone: user.contact.phone,
-        lastVisit: user.history[user.history.length - 1].lastVisit,
-        status: this.status.find((f) => f.code === user.status),
-      })
+      this.user = user
     })
   }
 
-  onSubmit({ value }: FormGroup): void {
-    this.submitted = true
-    console.log(value)
+  onEditUser(user: IProfile): void {
+    console.log(user)
   }
 }

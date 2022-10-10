@@ -3,6 +3,7 @@ import { ButtonModule } from 'src/app/components/button/button.module'
 import { CardModule } from './../../components/card/card.module'
 import { CommonModule } from '@angular/common'
 import { EditComponent } from './edit/edit.component'
+import { EditUserAccountComponent } from './components/edit-user-account/edit-user-account.component'
 import { IconModule } from './../../components/icon/icon.module'
 import { InputModule } from 'src/app/components/input/input.module'
 import { NgModule } from '@angular/core'
@@ -16,7 +17,12 @@ import { TemplateModule } from '../../directives/template/template.module'
 import { UserRoutingModule } from './user-routing.module'
 
 @NgModule({
-  declarations: [ProfileComponent, ProfileBackgroundComponent, EditComponent],
+  declarations: [
+    ProfileComponent,
+    ProfileBackgroundComponent,
+    EditComponent,
+    EditUserAccountComponent,
+  ],
   imports: [
     CommonModule,
     UserRoutingModule,
