@@ -1,4 +1,5 @@
 <div class="wrapper-input-and-error">
+  <label [attr.for]="id" *ngIf="label" [ngClass]="labelClasses">{{ label }}</label>
   <div
     class="wrapper-input"
     [ngClass]="{
@@ -14,6 +15,7 @@
       [disabled]="disabled"
       [attr.placeholder]="placeholder"
       [attr.aria-label]="ariaLabel"
+      [attr.id]="id"
       (focus)="onFocus()"
       (blur)="onBlur()"
       (change)="onChange(input.value)"

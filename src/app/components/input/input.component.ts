@@ -14,6 +14,8 @@ export class InputComponent implements ControlValueAccessor {
   @Input() formControlName!: string
   @Input() appendIcon?: string
   @Input() submitted = false
+  @Input() id?: string
+  @Input() label?: string
 
   @Output() appendIconClickEvent = new EventEmitter()
 
@@ -65,5 +67,15 @@ export class InputComponent implements ControlValueAccessor {
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled
+  }
+
+  get labelClasses() {
+    return {
+      ['hc-input-label']: true,
+      ['hc-input-label-focus']: this.isFocus,
+      ['hc-input-label-error']:
+        this.ngControl.invalid &&
+        (this.submitted || this.ngControl.dirty || this.ngControl.touched),
+    }
   }
 }

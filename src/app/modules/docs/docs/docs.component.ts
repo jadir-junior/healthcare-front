@@ -162,6 +162,10 @@ export class DocsComponent {
       label: 'Misc',
       items: [
         {
+          label: 'Skeleton',
+          routerLink: '/docs/misc/skeleton',
+        },
+        {
           label: 'Tag',
           routerLink: '/docs/misc/tag',
         },

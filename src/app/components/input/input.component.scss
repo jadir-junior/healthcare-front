@@ -8,6 +8,16 @@
   border-radius: 8px;
 }
 
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  appearance: none;
+  margin: 0;
+}
+
+input[type='number'] {
+  appearance: textfield;
+}
+
 input {
   width: 100%;
   font-size: 16px;
@@ -30,6 +40,7 @@ input {
   &:disabled {
     background-color: var(--neutral-background);
     border: 1px solid var(--neutral-divider);
+    color: var(--neutral-gray-light);
   }
 }
 
@@ -60,4 +71,18 @@ button {
   font-size: 14px;
   display: flex;
   align-items: center;
+}
+
+.hc-input-label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--neutral-gray);
+}
+
+.hc-input-label-focus {
+  color: var(--primary-default);
+}
+
+.hc-input-label-error {
+  color: var(--red-default);
 }

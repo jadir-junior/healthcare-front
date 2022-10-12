@@ -8,6 +8,7 @@
   transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
   border-radius: 6px;
   color: var(--neutral-black);
+  height: 50px;
 
   &:not(.hc-select-disabled):hover {
     border-color: var(--primary-light);
@@ -156,4 +157,14 @@
 .hc-select-item-highlight {
   background-color: var(--primary-default);
   color: var(--neutral-white);
+}
+
+.hc-select-label-title {
+  display: block;
+  color: var(--neutral-gray);
+  margin-bottom: 6px;
+}
+
+.hc-select-label-title-focus {
+  color: var(--primary-default);
 }

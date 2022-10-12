@@ -46,7 +46,7 @@ export class DropdownProfileComponent {
     {
       separator: true,
     },
-    { label: 'Account Settings' },
+    { label: 'Account Settings', command: () => this.goTo('user/edit') },
     {
       label: 'Sign Out',
       command: () => {

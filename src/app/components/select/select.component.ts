@@ -80,6 +80,7 @@ export class SelectComponent<T> implements OnInit, ControlValueAccessor {
   @Input() dataKey?: string
   @Input() editable = false
   @Input() hideTransitionOptions = '0.1s linear'
+  @Input() labelTitle?: string
   @Input() placeholder?: string
   @Input() optionValue?: string
   @Input() optionLabel?: string
@@ -482,6 +483,13 @@ export class SelectComponent<T> implements OnInit, ControlValueAccessor {
     return {
       ['hc-select-label']: true,
       ['hc-select-inputtext']: true,
+    }
+  }
+
+  get labelTitleClasses() {
+    return {
+      ['hc-select-label-title']: true,
+      ['hc-select-label-title-focus']: this.focused,
     }
   }
 }

@@ -28,8 +28,14 @@ interface IContact {
   address: IAddress
 }
 
+interface IHistory {
+  lastVisit: Date
+}
+
 export interface IProfile {
   name: string
+  age: number
+  gender: 'MALE' | 'FEMALE'
   profileBackgroundImage: string
   photo: string
   description: string
@@ -37,6 +43,8 @@ export interface IProfile {
   socialMedias: ISocialMedias
   events: IEvents[]
   healthProblems: string[]
+  status: 'APPROVED' | 'PENDING'
+  history: IHistory[]
 }
 
 export interface IMe {
