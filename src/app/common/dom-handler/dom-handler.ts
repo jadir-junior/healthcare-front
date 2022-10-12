@@ -20,8 +20,8 @@ export class DomHandler {
       : obj &&
           typeof obj === 'object' &&
           obj !== null &&
-          obj.nodeType === 1 &&
-          typeof obj.nodeName === 'string'
+          (obj as HTMLElement).nodeType === 1 &&
+          typeof (obj as HTMLElement).nodeName === 'string'
   }
 
   public static appendChild(element: HTMLElement, target: HTMLElement): void {
