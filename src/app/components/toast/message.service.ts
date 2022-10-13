@@ -17,6 +17,7 @@ export class MessageService {
   clearObserver = this.clearSource.asObservable()
 
   add(message: IMessage) {
+    console.log(message)
     if (message) {
       this.messageSource.next(message)
     }
