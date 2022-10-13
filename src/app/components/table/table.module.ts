@@ -16,6 +16,7 @@ import { TableBodyComponent } from './table-body.component'
 import { TableCheckBoxComponent } from './table-check-box.component'
 import { TableComponent } from './table.component'
 import { TableHeaderCheckboxComponent } from './table-header-checkbox.component'
+import { TableService } from './table.service'
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import { TableHeaderCheckboxComponent } from './table-header-checkbox.component'
     RowExpandDirective,
   ],
   imports: [CommonModule, PaginationModule, NgSelectModule, FormsModule],
-  providers: [PaginationDirective, RowExpandDirective],
+  providers: [PaginationDirective, RowExpandDirective, TableService],
   exports: [
     TableComponent,
     SortableColumnDirective,
