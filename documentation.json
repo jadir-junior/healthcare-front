@@ -1004,13 +1004,22 @@
         },
         {
             "name": "IMessage",
-            "id": "interface-IMessage-428e620c9efc85b87cdf0e351f8ced076eabfb4cabff3c52bcc4c401667e809e936fe609be155f9c44625e75c2b79676c4cac0aa2dce667f27d176a1f4a22931-1",
+            "id": "interface-IMessage-b41659c183f93a876cd3e9a12f02d664249c58a197a15b7dc67d9f896d136c2e77c5ea50ec8c5fd395d887d3904f411ca89406a40edc7bda9a742657db5aa199-1",
             "file": "src/app/components/toast/message.service.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { Injectable } from '@angular/core'\nimport { Subject } from 'rxjs'\n\nexport interface IMessage {\n  severity?: string\n  summary?: string\n  detail?: string\n  key?: string\n}\n\n@Injectable()\nexport class MessageService {\n  private messageSource = new Subject<IMessage>()\n  private clearSource = new Subject<string>()\n\n  messageObserver = this.messageSource.asObservable()\n  clearObserver = this.clearSource.asObservable()\n\n  add(message: IMessage) {\n    if (message) {\n      this.messageSource.next(message)\n    }\n  }\n}\n",
+            "sourceCode": "import { Injectable } from '@angular/core'\nimport { Subject } from 'rxjs'\n\nexport interface IMessage {\n  severity?: 'success' | 'error'\n  detail?: string\n  key?: string\n  closable?: boolean\n  life?: number\n  sticky?: boolean\n}\n\n@Injectable()\nexport class MessageService {\n  private messageSource = new Subject<IMessage>()\n  private clearSource = new Subject<string>()\n\n  messageObserver = this.messageSource.asObservable()\n  clearObserver = this.clearSource.asObservable()\n\n  add(message: IMessage) {\n    if (message) {\n      this.messageSource.next(message)\n    }\n  }\n}\n",
             "properties": [
+                {
+                    "name": "closable",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "boolean",
+                    "optional": true,
+                    "description": "",
+                    "line": 8
+                },
                 {
                     "name": "detail",
                     "deprecated": false,
@@ -1018,7 +1027,7 @@
                     "type": "string",
                     "optional": true,
                     "description": "",
-                    "line": 7
+                    "line": 6
                 },
                 {
                     "name": "key",
@@ -1027,25 +1036,34 @@
                     "type": "string",
                     "optional": true,
                     "description": "",
-                    "line": 8
+                    "line": 7
+                },
+                {
+                    "name": "life",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number",
+                    "optional": true,
+                    "description": "",
+                    "line": 9
                 },
                 {
                     "name": "severity",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "string",
+                    "type": "\"success\" | \"error\"",
                     "optional": true,
                     "description": "",
                     "line": 5
                 },
                 {
-                    "name": "summary",
+                    "name": "sticky",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "string",
+                    "type": "boolean",
                     "optional": true,
                     "description": "",
-                    "line": 6
+                    "line": 10
                 }
             ],
             "indexSignatures": [],
@@ -1140,6 +1158,38 @@
                     "optional": false,
                     "description": "",
                     "line": 12
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 165,
+            "methods": []
+        },
+        {
+            "name": "IOnClose",
+            "id": "interface-IOnClose-80635069464215183ff2ec9d3b210306fec628934a22746858667762f0f5e99e1c9fb7d96e2793e1a070cdc4e51fe476ed00e97b85a1ba9baaac3d94f36ce180",
+            "file": "src/app/components/toast/toast-item.component.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "import {\n  AfterViewInit,\n  Component,\n  EventEmitter,\n  Input,\n  NgZone,\n  OnDestroy,\n  Output,\n  ViewEncapsulation,\n} from '@angular/core'\nimport { animate, state, style, transition, trigger } from '@angular/animations'\n\nimport { IMessage } from './message.service'\n\nexport interface IOnClose {\n  index: number\n  message: IMessage\n}\n\n@Component({\n  selector: 'hc-toast-item',\n  template: `\n    <div\n      [ngClass]=\"classes\"\n      [@messageState]=\"{\n        value: 'visible',\n        params: {\n          showTransformParams: showTransformOptions,\n          showTransitionParams: showTransitionOptions\n        }\n      }\"\n    >\n      <div\n        class=\"hc-toast-message-content\"\n        role=\"alert\"\n        aria-live=\"assertive\"\n        aric-atomic=\"true\"\n      >\n        <span class=\"hc-toast-message-icon material-symbols-outlined\">info</span>\n        <div class=\"hc-toast-message-text\">\n          <div class=\"hc-toast-detail subtitle2\">{{ message.detail }}</div>\n        </div>\n        <button\n          type=\"button\"\n          class=\"hc-toast-icon-close\"\n          *ngIf=\"message.closable !== false\"\n        >\n          <span class=\"material-symbols-outlined\">close</span>\n        </button>\n      </div>\n    </div>\n  `,\n  styleUrls: ['toast.component.scss'],\n  animations: [\n    trigger('messageState', [\n      state(\n        'visible',\n        style({\n          transform: 'translateY(0)',\n          opacity: 1,\n        })\n      ),\n      transition('* => void', [\n        style({ transform: '{{showTransformParams}}', opacity: 0 }),\n        animate('{{showTransitionParams}}'),\n      ]),\n    ]),\n  ],\n  encapsulation: ViewEncapsulation.None,\n})\nexport class ToastItemComponent implements AfterViewInit, OnDestroy {\n  timeout: NodeJS.Timeout | null = null\n\n  @Input() index!: number\n  @Input() message!: IMessage\n  @Input() showTransformOptions!: string\n  @Input() showTransitionOptions!: string\n\n  @Output() onClose = new EventEmitter<IOnClose>()\n\n  constructor(private zone: NgZone) {}\n\n  ngAfterViewInit(): void {\n    this.initTimeout()\n  }\n\n  initTimeout() {\n    if (!this.message.sticky) {\n      this.zone.runOutsideAngular(() => {\n        this.timeout = setTimeout(() => {\n          this.onClose.emit({\n            index: this.index,\n            message: this.message,\n          })\n        }, this.message.life || 3000)\n      })\n    }\n  }\n\n  clearTimeout() {\n    if (this.timeout) {\n      clearTimeout(this.timeout)\n      this.timeout = null\n    }\n  }\n\n  get classes() {\n    return {\n      [`hc-toast-message-${this.message.severity}`]: true,\n      'hc-toast-message': true,\n    }\n  }\n\n  ngOnDestroy(): void {\n    this.clearTimeout()\n  }\n}\n",
+            "properties": [
+                {
+                    "name": "index",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number",
+                    "optional": false,
+                    "description": "",
+                    "line": 16
+                },
+                {
+                    "name": "message",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "IMessage",
+                    "optional": false,
+                    "description": "",
+                    "line": 17
                 }
             ],
             "indexSignatures": [],
@@ -2732,7 +2782,7 @@
         },
         {
             "name": "MessageService",
-            "id": "injectable-MessageService-428e620c9efc85b87cdf0e351f8ced076eabfb4cabff3c52bcc4c401667e809e936fe609be155f9c44625e75c2b79676c4cac0aa2dce667f27d176a1f4a22931",
+            "id": "injectable-MessageService-b41659c183f93a876cd3e9a12f02d664249c58a197a15b7dc67d9f896d136c2e77c5ea50ec8c5fd395d887d3904f411ca89406a40edc7bda9a742657db5aa199",
             "file": "src/app/components/toast/message.service.ts",
             "properties": [
                 {
@@ -2743,7 +2793,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 17
+                    "line": 19
                 },
                 {
                     "name": "clearSource",
@@ -2753,7 +2803,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 14,
+                    "line": 16,
                     "modifierKind": [
                         121
                     ]
@@ -2766,7 +2816,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 16
+                    "line": 18
                 },
                 {
                     "name": "messageSource",
@@ -2776,7 +2826,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 13,
+                    "line": 15,
                     "modifierKind": [
                         121
                     ]
@@ -2796,7 +2846,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 19,
+                    "line": 21,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -2816,7 +2866,7 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Injectable } from '@angular/core'\nimport { Subject } from 'rxjs'\n\nexport interface IMessage {\n  severity?: string\n  summary?: string\n  detail?: string\n  key?: string\n}\n\n@Injectable()\nexport class MessageService {\n  private messageSource = new Subject<IMessage>()\n  private clearSource = new Subject<string>()\n\n  messageObserver = this.messageSource.asObservable()\n  clearObserver = this.clearSource.asObservable()\n\n  add(message: IMessage) {\n    if (message) {\n      this.messageSource.next(message)\n    }\n  }\n}\n",
+            "sourceCode": "import { Injectable } from '@angular/core'\nimport { Subject } from 'rxjs'\n\nexport interface IMessage {\n  severity?: 'success' | 'error'\n  detail?: string\n  key?: string\n  closable?: boolean\n  life?: number\n  sticky?: boolean\n}\n\n@Injectable()\nexport class MessageService {\n  private messageSource = new Subject<IMessage>()\n  private clearSource = new Subject<string>()\n\n  messageObserver = this.messageSource.asObservable()\n  clearObserver = this.clearSource.asObservable()\n\n  add(message: IMessage) {\n    if (message) {\n      this.messageSource.next(message)\n    }\n  }\n}\n",
             "type": "injectable"
         },
         {
@@ -18920,9 +18970,12 @@
         },
         {
             "name": "ToastComponent",
-            "id": "component-ToastComponent-784ce6df06079867b23d624bc9fef042c2a67b6bfd52ddcc77cce71ef88cd02368b4b2ac4d088fd981992228350e3e0f867363f3b69bc9f4661f9f97e4badeb2",
+            "id": "component-ToastComponent-c3d21db55332c5c549ff88f6d5af099c9763d5247e6229c5fb3e59dd9c9f1a869c481d1201e6e85844b693a671e5e343a8f90737699c18e81bf9bab51da48f2a",
             "file": "src/app/components/toast/toast.component.ts",
-            "encapsulation": [],
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
+            "encapsulation": [
+                "ViewEncapsulation.None"
+            ],
             "entryComponents": [],
             "inputs": [],
             "outputs": [],
@@ -18932,15 +18985,33 @@
                 "toast.component.scss"
             ],
             "styles": [],
-            "template": "<div [ngClass]=\"'hc-toast hc-toast' + position\">\n  <hc-toast-item [message]=\"message\"></hc-toast-item>\n</div>\n",
+            "template": "<div #container [ngClass]=\"'hc-toast hc-toast-' + position\">\n  <hc-toast-item\n    *ngIf=\"message\"\n    @toastAnimation\n    [message]=\"message\"\n    [index]=\"1\"\n    [showTransformOptions]=\"showTransformOptions\"\n    [showTransitionOptions]=\"showTransitionOptions\"\n    (@toastAnimation.start)=\"onAnimationStart($event)\"\n    (onClose)=\"onMessageClose($event)\"\n  ></hc-toast-item>\n</div>\n",
             "templateUrl": [],
             "viewProviders": [],
             "inputsClass": [
                 {
+                    "name": "autoZIndex",
+                    "defaultValue": "true",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 57,
+                    "type": "boolean",
+                    "decorators": []
+                },
+                {
+                    "name": "baseZIndex",
+                    "defaultValue": "0",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 58,
+                    "type": "number",
+                    "decorators": []
+                },
+                {
                     "name": "key",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 19,
+                    "line": 59,
                     "type": "string",
                     "decorators": []
                 },
@@ -18949,21 +19020,88 @@
                     "defaultValue": "'top-right'",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 20,
+                    "line": 60,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "showTransformOptions",
+                    "defaultValue": "'translateY(100%)'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 61,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "showTransitionOptions",
+                    "defaultValue": "'300ms ease-out'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 62,
                     "type": "string",
                     "decorators": []
                 }
             ],
-            "outputsClass": [],
-            "propertiesClass": [
+            "outputsClass": [
                 {
-                    "name": "message",
+                    "name": "onClose",
+                    "defaultValue": "new EventEmitter<{ message: IMessage }>()",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "IMessage",
-                    "optional": true,
+                    "line": 64,
+                    "type": "EventEmitter"
+                }
+            ],
+            "propertiesClass": [
+                {
+                    "name": "cd",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "ChangeDetectorRef",
+                    "optional": false,
                     "description": "",
-                    "line": 16
+                    "line": 71,
+                    "modifierKind": [
+                        123
+                    ]
+                },
+                {
+                    "name": "config",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "HcConfig",
+                    "optional": false,
+                    "description": "",
+                    "line": 70,
+                    "modifierKind": [
+                        123
+                    ]
+                },
+                {
+                    "name": "containerViewChild",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "ElementRef<HTMLDivElement>",
+                    "optional": false,
+                    "description": "",
+                    "line": 66,
+                    "decorators": [
+                        {
+                            "name": "ViewChild",
+                            "stringifiedArguments": "'container'"
+                        }
+                    ]
+                },
+                {
+                    "name": "message",
+                    "defaultValue": "null",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "IMessage | null",
+                    "optional": false,
+                    "description": "",
+                    "line": 54
                 },
                 {
                     "name": "messageService",
@@ -18972,7 +19110,7 @@
                     "type": "MessageService",
                     "optional": false,
                     "description": "",
-                    "line": 22,
+                    "line": 69,
                     "modifierKind": [
                         123
                     ]
@@ -18984,7 +19122,7 @@
                     "type": "Subscription",
                     "optional": false,
                     "description": "",
-                    "line": 17
+                    "line": 55
                 }
             ],
             "methodsClass": [
@@ -18994,7 +19132,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 39,
+                    "line": 106,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -19004,9 +19142,65 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 24,
+                    "line": 74,
                     "deprecated": false,
                     "deprecationMessage": ""
+                },
+                {
+                    "name": "onAnimationStart",
+                    "args": [
+                        {
+                            "name": "event",
+                            "type": "AnimationEvent",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 84,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "event",
+                            "type": "AnimationEvent",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "onMessageClose",
+                    "args": [
+                        {
+                            "name": "event",
+                            "type": "IOnClose",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 96,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "event",
+                            "type": "IOnClose",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
                 }
             ],
             "deprecated": false,
@@ -19016,11 +19210,11 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input, OnDestroy, OnInit } from '@angular/core'\nimport { IMessage, MessageService } from './message.service'\n\nimport { Subscription } from 'rxjs'\n\n@Component({\n  selector: 'hc-toast',\n  template: `\n    <div [ngClass]=\"'hc-toast hc-toast' + position\">\n      <hc-toast-item [message]=\"message\"></hc-toast-item>\n    </div>\n  `,\n  styleUrls: ['toast.component.scss'],\n})\nexport class ToastComponent implements OnInit, OnDestroy {\n  message?: IMessage\n  messageSubscription!: Subscription\n\n  @Input() key?: string\n  @Input() position = 'top-right'\n\n  constructor(public messageService: MessageService) {}\n\n  ngOnInit(): void {\n    this.message = {\n      severity: 'success',\n      summary: 'Title',\n      detail: 'Message Content',\n    }\n    // this.messageSubscription = this.messageService.messageObserver.subscribe(\n    //   (message) => {\n    //     if (message) {\n    //       this.message = message\n    //     }\n    //   }\n    // )\n  }\n\n  ngOnDestroy(): void {\n    if (this.messageSubscription) {\n      this.messageSubscription.unsubscribe()\n    }\n  }\n}\n",
+            "sourceCode": "import {\n  AnimationEvent,\n  animateChild,\n  query,\n  transition,\n  trigger,\n} from '@angular/animations'\nimport {\n  ChangeDetectionStrategy,\n  ChangeDetectorRef,\n  Component,\n  ElementRef,\n  EventEmitter,\n  Input,\n  OnDestroy,\n  OnInit,\n  Output,\n  ViewChild,\n  ViewEncapsulation,\n} from '@angular/core'\nimport { IMessage, MessageService } from './message.service'\n\nimport { HcConfig } from '../../common/hc-config/hc-config.service'\nimport { IOnClose } from './toast-item.component'\nimport { Subscription } from 'rxjs'\nimport { ZIndexUtils } from '../../common/z-index-utils/z-index-utils'\n\n@Component({\n  selector: 'hc-toast',\n  template: `\n    <div #container [ngClass]=\"'hc-toast hc-toast-' + position\">\n      <hc-toast-item\n        *ngIf=\"message\"\n        @toastAnimation\n        [message]=\"message\"\n        [index]=\"1\"\n        [showTransformOptions]=\"showTransformOptions\"\n        [showTransitionOptions]=\"showTransitionOptions\"\n        (@toastAnimation.start)=\"onAnimationStart($event)\"\n        (onClose)=\"onMessageClose($event)\"\n      ></hc-toast-item>\n    </div>\n  `,\n  styleUrls: ['toast.component.scss'],\n  animations: [\n    trigger('toastAnimation', [\n      transition(':enter, :leave', [query('@*', animateChild())]),\n    ]),\n  ],\n  encapsulation: ViewEncapsulation.None,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class ToastComponent implements OnInit, OnDestroy {\n  message: IMessage | null = null\n  messageSubscription!: Subscription\n\n  @Input() autoZIndex = true\n  @Input() baseZIndex = 0\n  @Input() key?: string\n  @Input() position = 'top-right'\n  @Input() showTransformOptions = 'translateY(100%)'\n  @Input() showTransitionOptions = '300ms ease-out'\n\n  @Output() onClose = new EventEmitter<{ message: IMessage }>()\n\n  @ViewChild('container') containerViewChild!: ElementRef<HTMLDivElement>\n\n  constructor(\n    public messageService: MessageService,\n    public config: HcConfig,\n    public cd: ChangeDetectorRef\n  ) {}\n\n  ngOnInit(): void {\n    this.messageSubscription = this.messageService.messageObserver.subscribe(\n      (message) => {\n        if (message) {\n          this.message = message\n        }\n      }\n    )\n  }\n\n  onAnimationStart(event: AnimationEvent): void {\n    if (event.fromState === 'void') {\n      if (this.autoZIndex && this.containerViewChild.nativeElement.style.zIndex === '') {\n        ZIndexUtils.set(\n          'modal',\n          this.containerViewChild.nativeElement,\n          this.baseZIndex || this.config.zIndex.modal\n        )\n      }\n    }\n  }\n\n  onMessageClose(event: IOnClose) {\n    this.message = null\n\n    this.onClose.emit({\n      message: event.message,\n    })\n\n    this.cd.detectChanges()\n  }\n\n  ngOnDestroy(): void {\n    if (this.messageSubscription) {\n      this.messageSubscription.unsubscribe()\n    }\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": ".hc-toast {\n  opacity: 0.9;\n}\n\n.hc-toast-message {\n  margin: 0 0 1rem 0;\n  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);\n  border-radius: 6px;\n}\n\n.hc-toast-message-content {\n  padding: 1rem;\n  border-width: 0 0 0 6px;\n\n  .hc-toast-message-text {\n    margin: 0 0 0 6px;\n  }\n\n  .hc-toast-summary {\n    font-weight: 700;\n  }\n\n  .hc-toast-detail {\n    margin: 0.5rem 0 0 0;\n  }\n}\n\n.hc-toast-top-right {\n  top: 20px;\n  right: 20px;\n}\n",
+                    "data": ".hc-toast {\n  opacity: 0.9;\n  position: fixed;\n  width: 25rem;\n}\n\n.hc-toast-message {\n  margin: 0 0 1rem 0;\n  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);\n  border-radius: 4px;\n}\n\n.hc-toast-message-content {\n  padding: 1rem;\n  border-width: 0 0 0 6px;\n  display: flex;\n  align-items: center;\n\n  .hc-toast-message-icon {\n    font-size: 1.5rem;\n  }\n\n  .hc-toast-message-text {\n    flex: 1 1 auto;\n    margin: 0 0 0 6px;\n  }\n\n  .hc-toast-summary {\n    font-weight: 700;\n  }\n\n  .hc-toast-detail {\n    margin: 0;\n  }\n}\n\n.hc-toast-top-right {\n  top: 20px;\n  right: 20px;\n}\n\n.hc-toast-message-success {\n  background: var(--green-default);\n  color: var(--neutral-black);\n\n  .hc-toast-icon-close {\n    color: var(--neutral-black);\n  }\n}\n\n.hc-toast-message-error {\n  background: var(--red-default);\n  color: var(--neutral-white);\n\n  .hc-toast-icon-close {\n    color: var(--neutral-white);\n  }\n}\n\n.hc-toast-icon-close {\n  width: 1.5rem;\n  height: 1.5rem;\n  border-radius: 50%;\n  background: transparent;\n  transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;\n  border: none;\n  cursor: pointer;\n}\n",
                     "styleUrl": "toast.component.scss"
                 }
             ],
@@ -19036,13 +19230,43 @@
                         "type": "MessageService",
                         "deprecated": false,
                         "deprecationMessage": ""
+                    },
+                    {
+                        "name": "config",
+                        "type": "HcConfig",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    },
+                    {
+                        "name": "cd",
+                        "type": "ChangeDetectorRef",
+                        "deprecated": false,
+                        "deprecationMessage": ""
                     }
                 ],
-                "line": 20,
+                "line": 66,
                 "jsdoctags": [
                     {
                         "name": "messageService",
                         "type": "MessageService",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "config",
+                        "type": "HcConfig",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "cd",
+                        "type": "ChangeDetectorRef",
                         "deprecated": false,
                         "deprecationMessage": "",
                         "tagName": {
@@ -19058,9 +19282,11 @@
         },
         {
             "name": "ToastItemComponent",
-            "id": "component-ToastItemComponent-983d1db089ab5fa4f8cfa70047826828684e250d2e4775aa64ff89d900501be6ff05b833f79448504c24b0171fe94abf443b095bb71039e0904a3e9e2d7c279e",
+            "id": "component-ToastItemComponent-80635069464215183ff2ec9d3b210306fec628934a22746858667762f0f5e99e1c9fb7d96e2793e1a070cdc4e51fe476ed00e97b85a1ba9baaac3d94f36ce180",
             "file": "src/app/components/toast/toast-item.component.ts",
-            "encapsulation": [],
+            "encapsulation": [
+                "ViewEncapsulation.None"
+            ],
             "entryComponents": [],
             "inputs": [],
             "outputs": [],
@@ -19070,29 +19296,103 @@
                 "toast.component.scss"
             ],
             "styles": [],
-            "template": "<div [ngClass]=\"classes\">\n  <div\n    class=\"hc-toast-message-content\"\n    role=\"alert\"\n    aria-live=\"assertive\"\n    aric-atomic=\"true\"\n  >\n    <div class=\"hc-toast-message-text\">\n      <span class=\"hc-toast-message-icon material-symbols-outlined\">{{ icon }}</span>\n      <div class=\"hc-toast-summary\">{{ message?.summary }}</div>\n      <div class=\"hc-toast-detail\">{{ message?.detail }}</div>\n    </div>\n  </div>\n</div>\n",
+            "template": "<div\n  [ngClass]=\"classes\"\n  [@messageState]=\"{\n    value: 'visible',\n    params: {\n      showTransformParams: showTransformOptions,\n      showTransitionParams: showTransitionOptions\n    }\n  }\"\n>\n  <div\n    class=\"hc-toast-message-content\"\n    role=\"alert\"\n    aria-live=\"assertive\"\n    aric-atomic=\"true\"\n  >\n    <span class=\"hc-toast-message-icon material-symbols-outlined\">info</span>\n    <div class=\"hc-toast-message-text\">\n      <div class=\"hc-toast-detail subtitle2\">{{ message.detail }}</div>\n    </div>\n    <button\n      type=\"button\"\n      class=\"hc-toast-icon-close\"\n      *ngIf=\"message.closable !== false\"\n    >\n      <span class=\"material-symbols-outlined\">close</span>\n    </button>\n  </div>\n</div>\n",
             "templateUrl": [],
             "viewProviders": [],
             "inputsClass": [
                 {
+                    "name": "index",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 74,
+                    "type": "number",
+                    "decorators": []
+                },
+                {
                     "name": "message",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 26,
+                    "line": 75,
                     "type": "IMessage",
+                    "decorators": []
+                },
+                {
+                    "name": "showTransformOptions",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 76,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "showTransitionOptions",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 77,
+                    "type": "string",
                     "decorators": []
                 }
             ],
-            "outputsClass": [],
-            "propertiesClass": [],
+            "outputsClass": [
+                {
+                    "name": "onClose",
+                    "defaultValue": "new EventEmitter<IOnClose>()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 79,
+                    "type": "EventEmitter"
+                }
+            ],
+            "propertiesClass": [
+                {
+                    "name": "timeout",
+                    "defaultValue": "null",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "NodeJS.Timeout | null",
+                    "optional": false,
+                    "description": "",
+                    "line": 72
+                }
+            ],
             "methodsClass": [
                 {
-                    "name": "ngOnInit",
+                    "name": "clearTimeout",
                     "args": [],
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 30,
+                    "line": 100,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "initTimeout",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 87,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "ngAfterViewInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 83,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "ngOnDestroy",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 114,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -19104,11 +19404,11 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, Input, OnInit } from '@angular/core'\n\nimport { IMessage } from './message.service'\n\n@Component({\n  selector: 'hc-toast-item',\n  template: `\n    <div [ngClass]=\"classes\">\n      <div\n        class=\"hc-toast-message-content\"\n        role=\"alert\"\n        aria-live=\"assertive\"\n        aric-atomic=\"true\"\n      >\n        <div class=\"hc-toast-message-text\">\n          <span class=\"hc-toast-message-icon material-symbols-outlined\">{{ icon }}</span>\n          <div class=\"hc-toast-summary\">{{ message?.summary }}</div>\n          <div class=\"hc-toast-detail\">{{ message?.detail }}</div>\n        </div>\n      </div>\n    </div>\n  `,\n  styleUrls: ['toast.component.scss'],\n})\nexport class ToastItemComponent implements OnInit {\n  @Input() message?: IMessage\n\n  constructor() {}\n\n  ngOnInit(): void {}\n\n  get classes() {\n    return {\n      [`hc-toast-message-${this.message?.severity}`]: true,\n      'hc-toast-message': true,\n    }\n  }\n\n  get icon(): string {\n    switch (this.message?.severity) {\n      case 'success':\n        return 'done'\n      default:\n        return ''\n    }\n  }\n}\n",
+            "sourceCode": "import {\n  AfterViewInit,\n  Component,\n  EventEmitter,\n  Input,\n  NgZone,\n  OnDestroy,\n  Output,\n  ViewEncapsulation,\n} from '@angular/core'\nimport { animate, state, style, transition, trigger } from '@angular/animations'\n\nimport { IMessage } from './message.service'\n\nexport interface IOnClose {\n  index: number\n  message: IMessage\n}\n\n@Component({\n  selector: 'hc-toast-item',\n  template: `\n    <div\n      [ngClass]=\"classes\"\n      [@messageState]=\"{\n        value: 'visible',\n        params: {\n          showTransformParams: showTransformOptions,\n          showTransitionParams: showTransitionOptions\n        }\n      }\"\n    >\n      <div\n        class=\"hc-toast-message-content\"\n        role=\"alert\"\n        aria-live=\"assertive\"\n        aric-atomic=\"true\"\n      >\n        <span class=\"hc-toast-message-icon material-symbols-outlined\">info</span>\n        <div class=\"hc-toast-message-text\">\n          <div class=\"hc-toast-detail subtitle2\">{{ message.detail }}</div>\n        </div>\n        <button\n          type=\"button\"\n          class=\"hc-toast-icon-close\"\n          *ngIf=\"message.closable !== false\"\n        >\n          <span class=\"material-symbols-outlined\">close</span>\n        </button>\n      </div>\n    </div>\n  `,\n  styleUrls: ['toast.component.scss'],\n  animations: [\n    trigger('messageState', [\n      state(\n        'visible',\n        style({\n          transform: 'translateY(0)',\n          opacity: 1,\n        })\n      ),\n      transition('* => void', [\n        style({ transform: '{{showTransformParams}}', opacity: 0 }),\n        animate('{{showTransitionParams}}'),\n      ]),\n    ]),\n  ],\n  encapsulation: ViewEncapsulation.None,\n})\nexport class ToastItemComponent implements AfterViewInit, OnDestroy {\n  timeout: NodeJS.Timeout | null = null\n\n  @Input() index!: number\n  @Input() message!: IMessage\n  @Input() showTransformOptions!: string\n  @Input() showTransitionOptions!: string\n\n  @Output() onClose = new EventEmitter<IOnClose>()\n\n  constructor(private zone: NgZone) {}\n\n  ngAfterViewInit(): void {\n    this.initTimeout()\n  }\n\n  initTimeout() {\n    if (!this.message.sticky) {\n      this.zone.runOutsideAngular(() => {\n        this.timeout = setTimeout(() => {\n          this.onClose.emit({\n            index: this.index,\n            message: this.message,\n          })\n        }, this.message.life || 3000)\n      })\n    }\n  }\n\n  clearTimeout() {\n    if (this.timeout) {\n      clearTimeout(this.timeout)\n      this.timeout = null\n    }\n  }\n\n  get classes() {\n    return {\n      [`hc-toast-message-${this.message.severity}`]: true,\n      'hc-toast-message': true,\n    }\n  }\n\n  ngOnDestroy(): void {\n    this.clearTimeout()\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": ".hc-toast {\n  opacity: 0.9;\n}\n\n.hc-toast-message {\n  margin: 0 0 1rem 0;\n  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);\n  border-radius: 6px;\n}\n\n.hc-toast-message-content {\n  padding: 1rem;\n  border-width: 0 0 0 6px;\n\n  .hc-toast-message-text {\n    margin: 0 0 0 6px;\n  }\n\n  .hc-toast-summary {\n    font-weight: 700;\n  }\n\n  .hc-toast-detail {\n    margin: 0.5rem 0 0 0;\n  }\n}\n\n.hc-toast-top-right {\n  top: 20px;\n  right: 20px;\n}\n",
+                    "data": ".hc-toast {\n  opacity: 0.9;\n  position: fixed;\n  width: 25rem;\n}\n\n.hc-toast-message {\n  margin: 0 0 1rem 0;\n  box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);\n  border-radius: 4px;\n}\n\n.hc-toast-message-content {\n  padding: 1rem;\n  border-width: 0 0 0 6px;\n  display: flex;\n  align-items: center;\n\n  .hc-toast-message-icon {\n    font-size: 1.5rem;\n  }\n\n  .hc-toast-message-text {\n    flex: 1 1 auto;\n    margin: 0 0 0 6px;\n  }\n\n  .hc-toast-summary {\n    font-weight: 700;\n  }\n\n  .hc-toast-detail {\n    margin: 0;\n  }\n}\n\n.hc-toast-top-right {\n  top: 20px;\n  right: 20px;\n}\n\n.hc-toast-message-success {\n  background: var(--green-default);\n  color: var(--neutral-black);\n\n  .hc-toast-icon-close {\n    color: var(--neutral-black);\n  }\n}\n\n.hc-toast-message-error {\n  background: var(--red-default);\n  color: var(--neutral-white);\n\n  .hc-toast-icon-close {\n    color: var(--neutral-white);\n  }\n}\n\n.hc-toast-icon-close {\n  width: 1.5rem;\n  height: 1.5rem;\n  border-radius: 50%;\n  background: transparent;\n  transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;\n  border: none;\n  cursor: pointer;\n}\n",
                     "styleUrl": "toast.component.scss"
                 }
             ],
@@ -19118,11 +19418,30 @@
                 "description": "",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "args": [],
-                "line": 26
+                "args": [
+                    {
+                        "name": "zone",
+                        "type": "NgZone",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 79,
+                "jsdoctags": [
+                    {
+                        "name": "zone",
+                        "type": "NgZone",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
             },
             "implements": [
-                "OnInit"
+                "AfterViewInit",
+                "OnDestroy"
             ],
             "accessors": {
                 "classes": {
@@ -19131,16 +19450,7 @@
                         "name": "classes",
                         "type": "",
                         "returnType": "",
-                        "line": 32
-                    }
-                },
-                "icon": {
-                    "name": "icon",
-                    "getSignature": {
-                        "name": "icon",
-                        "type": "string",
-                        "returnType": "string",
-                        "line": 39
+                        "line": 107
                     }
                 }
             }
@@ -19366,13 +19676,13 @@
         },
         {
             "name": "AppRoutingModule",
-            "id": "module-AppRoutingModule-5189ddb7b9d5e51dc5bc45519933dee868a17cda0c792f258c66833cbbba962387ac88506aabfff1a4c249fe3d2bfd21a745bea9504b6d2d0295dd1b93a037f0",
+            "id": "module-AppRoutingModule-e01f3cbb8c9c8ed4fad5d4eb3b2fca56d1048021d4cede23be4a135580cd15042d37b530e0d5ae1f6ea855446caa81fbd8d0043a85fac5c00ac85d083de2e7a6",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "src/app/app-routing.module.ts",
             "methods": [],
-            "sourceCode": "import { RouterModule, Routes } from '@angular/router'\n\nimport { NgModule } from '@angular/core'\nimport { PageNotFoundComponent } from './modules/authentication/page-not-found/page-not-found.component'\nimport { AuthGuard } from './modules/authentication/auth.guard'\n\nconst routes: Routes = [\n  {\n    path: 'home',\n    canActivate: [AuthGuard],\n    loadChildren: () => \"import('./modules/home/home.module').then((m) => m.HomeModule)\",\n  },\n  {\n    path: 'auth',\n    loadChildren: () =>\n      \"import('./modules/authentication/authentication.module').then(\\\n        (m) => m.AuthenticationModule\\\n      )\",\n  },\n  {\n    path: 'patients',\n    loadChildren: () =>\n      \"import('./modules/patients/patients.module').then((m) => m.PatientsModule)\",\n  },\n  {\n    path: 'invoices',\n    loadChildren: () =>\n      \"import('./modules/invoices/invoices.module').then((m) => m.InvoicesModule)\",\n  },\n  {\n    path: 'docs',\n    loadChildren: () => \"import('./modules/docs/docs.module').then((m) => m.DocsModule)\",\n  },\n  {\n    path: '',\n    redirectTo: 'home',\n    pathMatch: 'full',\n  },\n  {\n    path: '**',\n    component: PageNotFoundComponent,\n  },\n]\n\n@NgModule({\n  imports: [RouterModule.forRoot(routes)],\n  exports: [RouterModule],\n})\nexport class AppRoutingModule {}\n",
+            "sourceCode": "import { RouterModule, Routes } from '@angular/router'\n\nimport { AuthGuard } from './modules/authentication/auth.guard'\nimport { NgModule } from '@angular/core'\nimport { PageNotFoundComponent } from './modules/authentication/page-not-found/page-not-found.component'\n\nconst routes: Routes = [\n  {\n    path: 'home',\n    canActivate: [AuthGuard],\n    loadChildren: () => \"import('./modules/home/home.module').then((m) => m.HomeModule)\",\n  },\n  {\n    path: 'auth',\n    loadChildren: () =>\n      \"import('./modules/authentication/authentication.module').then(\\\n        (m) => m.AuthenticationModule\\\n      )\",\n  },\n  {\n    path: 'patients',\n    loadChildren: () =>\n      \"import('./modules/patients/patients.module').then((m) => m.PatientsModule)\",\n  },\n  {\n    path: 'invoices',\n    loadChildren: () =>\n      \"import('./modules/invoices/invoices.module').then((m) => m.InvoicesModule)\",\n  },\n  // {\n  //   path: 'docs',\n  //   loadChildren: () => import('./modules/docs/docs.module').then((m) => m.DocsModule),\n  // },\n  {\n    path: '',\n    redirectTo: 'home',\n    pathMatch: 'full',\n  },\n  {\n    path: '**',\n    component: PageNotFoundComponent,\n  },\n]\n\n@NgModule({\n  imports: [RouterModule.forRoot(routes)],\n  exports: [RouterModule],\n})\nexport class AppRoutingModule {}\n",
             "children": [
                 {
                     "type": "providers",
@@ -22205,6 +22515,16 @@
                 "defaultValue": "animation([\n  animate('{{transition}}', style({ transform: '{{transform}}', opacity: 0 })),\n])"
             },
             {
+                "name": "injectInjectorToProps",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "src/app/common/inject-injector-to-props/inject-injector-to-props.decorator.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "",
+                "defaultValue": "makeDecorator({\n  name: 'injectInjectorToProps',\n  parameterName: 'injectInjectorToProps',\n  skipIfNoParametersOrOptions: true,\n  wrapper: (getStory, context) => {\n    const story = getStory(context) as {\n      props: ICollection\n      moduleMetadata: NgModuleMetadata\n    }\n\n    if (!story.moduleMetadata.providers) {\n      story.moduleMetadata.providers = []\n    }\n\n    story.moduleMetadata.providers.push({\n      provide: APP_INITIALIZER,\n      useFactory: (injector: Injector): void => {\n        Object.assign(story.props, { injector })\n      },\n      deps: [Injector],\n    })\n\n    return story\n  },\n})"
+            },
+            {
                 "name": "lastId",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -22432,7 +22752,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "(args) => ({\n  props: args,\n})"
+                "defaultValue": "(args) => ({\n  props: {\n    ...args,\n    showSuccess: (injector: Injector): void => {\n      injector.get(MessageService).add({ severity: 'success', detail: 'Message content' })\n    },\n    showError: (injector: Injector): void => {\n      injector.get(MessageService).add({ severity: 'error', detail: 'Message content' })\n    },\n  },\n  template: `\n    <div style=\"height: 600px\">\n      <hc-toast></hc-toast>\n      <button (click)=\"showSuccess(injector)\">Success</button>\n      <button (click)=\"showError(injector)\">Error</button>\n    </div>\n  `,\n})"
             },
             {
                 "name": "ThemeContained",
@@ -22771,6 +23091,18 @@
                     "defaultValue": "animation([\n  style({ transform: '{{transform}}', opacity: 0 }),\n  animate('{{transition}}'),\n])"
                 }
             ],
+            "src/app/common/inject-injector-to-props/inject-injector-to-props.decorator.ts": [
+                {
+                    "name": "injectInjectorToProps",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "src/app/common/inject-injector-to-props/inject-injector-to-props.decorator.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "defaultValue": "makeDecorator({\n  name: 'injectInjectorToProps',\n  parameterName: 'injectInjectorToProps',\n  skipIfNoParametersOrOptions: true,\n  wrapper: (getStory, context) => {\n    const story = getStory(context) as {\n      props: ICollection\n      moduleMetadata: NgModuleMetadata\n    }\n\n    if (!story.moduleMetadata.providers) {\n      story.moduleMetadata.providers = []\n    }\n\n    story.moduleMetadata.providers.push({\n      provide: APP_INITIALIZER,\n      useFactory: (injector: Injector): void => {\n        Object.assign(story.props, { injector })\n      },\n      deps: [Injector],\n    })\n\n    return story\n  },\n})"
+                }
+            ],
             "src/app/utils/unique-id/unique-id.ts": [
                 {
                     "name": "lastId",
@@ -22926,7 +23258,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "(args) => ({\n  props: args,\n})"
+                    "defaultValue": "(args) => ({\n  props: {\n    ...args,\n    showSuccess: (injector: Injector): void => {\n      injector.get(MessageService).add({ severity: 'success', detail: 'Message content' })\n    },\n    showError: (injector: Injector): void => {\n      injector.get(MessageService).add({ severity: 'error', detail: 'Message content' })\n    },\n  },\n  template: `\n    <div style=\"height: 600px\">\n      <hc-toast></hc-toast>\n      <button (click)=\"showSuccess(injector)\">Success</button>\n      <button (click)=\"showError(injector)\">Error</button>\n    </div>\n  `,\n})"
                 }
             ],
             "src/app/components/switch/switch.component.ts": [
@@ -23140,152 +23472,6 @@
                         ]
                     },
                     {
-                        "path": "docs",
-                        "loadChildren": "./modules/docs/docs.module#DocsModule",
-                        "children": [
-                            {
-                                "kind": "module",
-                                "children": [
-                                    {
-                                        "name": "routes",
-                                        "filename": "src/app/modules/docs/docs-routing.module.ts",
-                                        "module": "DocsRoutingModule",
-                                        "children": [
-                                            {
-                                                "path": "",
-                                                "component": "DocsComponent",
-                                                "children": [
-                                                    {
-                                                        "path": "table",
-                                                        "loadChildren": "./table/table.module#TableModule"
-                                                    },
-                                                    {
-                                                        "path": "form",
-                                                        "loadChildren": "./form/form.module#FormModule",
-                                                        "children": [
-                                                            {
-                                                                "kind": "module",
-                                                                "children": [
-                                                                    {
-                                                                        "name": "routes",
-                                                                        "filename": "src/app/modules/docs/form/form-routing.module.ts",
-                                                                        "module": "FormRoutingModule",
-                                                                        "children": [
-                                                                            {
-                                                                                "path": "inputtext",
-                                                                                "component": "PageInputTextComponent"
-                                                                            },
-                                                                            {
-                                                                                "path": "checkbox",
-                                                                                "component": "PageCheckboxComponent"
-                                                                            },
-                                                                            {
-                                                                                "path": "switch",
-                                                                                "component": "PageSwitchComponent"
-                                                                            },
-                                                                            {
-                                                                                "path": "select",
-                                                                                "component": "PageSelectComponent"
-                                                                            }
-                                                                        ],
-                                                                        "kind": "module"
-                                                                    }
-                                                                ],
-                                                                "module": "FormModule"
-                                                            }
-                                                        ]
-                                                    },
-                                                    {
-                                                        "path": "data",
-                                                        "loadChildren": "./data/data.module#DataModule",
-                                                        "children": [
-                                                            {
-                                                                "kind": "module",
-                                                                "children": [
-                                                                    {
-                                                                        "name": "routes",
-                                                                        "filename": "src/app/modules/docs/data/data-routing.module.ts",
-                                                                        "module": "DataRoutingModule",
-                                                                        "children": [
-                                                                            {
-                                                                                "path": "pagination",
-                                                                                "component": "PagePaginationComponent"
-                                                                            },
-                                                                            {
-                                                                                "path": "timeline",
-                                                                                "component": "PageTimelineComponent"
-                                                                            }
-                                                                        ],
-                                                                        "kind": "module"
-                                                                    }
-                                                                ],
-                                                                "module": "DataModule"
-                                                            }
-                                                        ]
-                                                    },
-                                                    {
-                                                        "path": "misc",
-                                                        "loadChildren": "./misc/misc.module#MiscModule",
-                                                        "children": [
-                                                            {
-                                                                "kind": "module",
-                                                                "children": [
-                                                                    {
-                                                                        "name": "routes",
-                                                                        "filename": "src/app/modules/docs/misc/misc-routing.module.ts",
-                                                                        "module": "MiscRoutingModule",
-                                                                        "children": [
-                                                                            {
-                                                                                "path": "skeleton",
-                                                                                "component": "PageSkeletonComponent"
-                                                                            },
-                                                                            {
-                                                                                "path": "tag",
-                                                                                "component": "PageTagComponent"
-                                                                            }
-                                                                        ],
-                                                                        "kind": "module"
-                                                                    }
-                                                                ],
-                                                                "module": "MiscModule"
-                                                            }
-                                                        ]
-                                                    },
-                                                    {
-                                                        "path": "overlay",
-                                                        "loadChildren": "./overlay/overlay.module#OverlayModule",
-                                                        "children": [
-                                                            {
-                                                                "kind": "module",
-                                                                "children": [
-                                                                    {
-                                                                        "name": "routes",
-                                                                        "filename": "src/app/modules/docs/overlay/overlay-routing.module.ts",
-                                                                        "module": "OverlayRoutingModule",
-                                                                        "children": [
-                                                                            {
-                                                                                "path": "modal",
-                                                                                "component": "PageModalComponent"
-                                                                            }
-                                                                        ],
-                                                                        "kind": "module"
-                                                                    }
-                                                                ],
-                                                                "module": "OverlayModule"
-                                                            }
-                                                        ]
-                                                    }
-                                                ]
-                                            }
-                                        ],
-                                        "kind": "module"
-                                    }
-                                ],
-                                "module": "DocsModule"
-                            }
-                        ]
-                    },
-                    {
                         "path": "",
                         "redirectTo": "home",
                         "pathMatch": "full"
@@ -23391,6 +23577,16 @@
                 "name": "HcConfig",
                 "coveragePercent": 0,
                 "coverageCount": "0/2",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/common/inject-injector-to-props/inject-injector-to-props.decorator.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "injectInjectorToProps",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
                 "status": "low"
             },
             {
@@ -24110,7 +24306,7 @@
                 "linktype": "interface",
                 "name": "IMessage",
                 "coveragePercent": 0,
-                "coverageCount": "0/5",
+                "coverageCount": "0/7",
                 "status": "low"
             },
             {
@@ -24119,7 +24315,16 @@
                 "linktype": "component",
                 "name": "ToastItemComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/4",
+                "coverageCount": "0/12",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/components/toast/toast-item.component.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "IOnClose",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
                 "status": "low"
             },
             {
@@ -24128,7 +24333,7 @@
                 "linktype": "component",
                 "name": "ToastComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/9",
+                "coverageCount": "0/19",
                 "status": "low"
             },
             {

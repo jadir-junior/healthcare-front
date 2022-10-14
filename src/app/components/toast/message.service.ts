@@ -6,18 +6,19 @@ export interface IMessage {
   detail?: string
   key?: string
   closable?: boolean
+  life?: number
+  sticky?: boolean
 }
 
 @Injectable()
 export class MessageService {
-  private messageSource = new Subject<IMessage>()
+  private messageSource = new Subject<IMessage | IMessage[]>()
   private clearSource = new Subject<string>()
 
   messageObserver = this.messageSource.asObservable()
   clearObserver = this.clearSource.asObservable()
 
   add(message: IMessage) {
-    console.log(message)
     if (message) {
       this.messageSource.next(message)
     }

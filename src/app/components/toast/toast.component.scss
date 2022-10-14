@@ -14,10 +14,10 @@
   padding: 1rem;
   border-width: 0 0 0 6px;
   display: flex;
-  align-items: flex-start;
+  align-items: center;
 
   .hc-toast-message-icon {
-    font-size: 2rem;
+    font-size: 1.5rem;
   }
 
   .hc-toast-message-text {
@@ -30,7 +30,7 @@
   }
 
   .hc-toast-detail {
-    margin: 0.5rem 0 0 0;
+    margin: 0;
   }
 }
 
@@ -58,8 +58,8 @@
 }
 
 .hc-toast-icon-close {
-  width: 2rem;
-  height: 2rem;
+  width: 1.5rem;
+  height: 1.5rem;
   border-radius: 50%;
   background: transparent;
   transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;

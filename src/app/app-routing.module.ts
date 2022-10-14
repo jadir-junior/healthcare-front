@@ -1,8 +1,8 @@
 import { RouterModule, Routes } from '@angular/router'
 
+import { AuthGuard } from './modules/authentication/auth.guard'
 import { NgModule } from '@angular/core'
 import { PageNotFoundComponent } from './modules/authentication/page-not-found/page-not-found.component'
-import { AuthGuard } from './modules/authentication/auth.guard'
 
 const routes: Routes = [
   {
@@ -27,10 +27,10 @@ const routes: Routes = [
     loadChildren: () =>
       import('./modules/invoices/invoices.module').then((m) => m.InvoicesModule),
   },
-  {
-    path: 'docs',
-    loadChildren: () => import('./modules/docs/docs.module').then((m) => m.DocsModule),
-  },
+  // {
+  //   path: 'docs',
+  //   loadChildren: () => import('./modules/docs/docs.module').then((m) => m.DocsModule),
+  // },
   {
     path: '',
     redirectTo: 'home',
