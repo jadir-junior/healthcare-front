@@ -4,15 +4,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { Injector } from '@angular/core'
 import { MessageService } from './message.service'
 import { ToastComponent } from './toast.component'
-import { ToastModule } from './toast.module'
+import { ToastItemComponent } from './toast-item.component'
 import { injectInjectorToProps } from '../../common/inject-injector-to-props/inject-injector-to-props.decorator'
 
 export default {
-  component: ToastComponent,
   title: 'Messages/Toast',
   decorators: [
     moduleMetadata({
-      imports: [ToastModule, BrowserAnimationsModule],
+      imports: [BrowserAnimationsModule],
+      declarations: [ToastComponent, ToastItemComponent],
+      providers: [MessageService],
     }),
     injectInjectorToProps,
   ],
@@ -21,7 +22,7 @@ export default {
   },
 } as Meta
 
-const Template: Story = (args) => ({
+export const Severity: Story = (args) => ({
   props: {
     ...args,
     showSuccess: (injector: Injector): void => {
@@ -41,5 +42,3 @@ const Template: Story = (args) => ({
     </div>
   `,
 })
-
-export const Severity = Template.bind({})

@@ -1004,12 +1004,12 @@
         },
         {
             "name": "IMessage",
-            "id": "interface-IMessage-b41659c183f93a876cd3e9a12f02d664249c58a197a15b7dc67d9f896d136c2e77c5ea50ec8c5fd395d887d3904f411ca89406a40edc7bda9a742657db5aa199-1",
+            "id": "interface-IMessage-820ac26388af51604fda4974d78cf9d984f58a6d6c95ab17a3d0c72c32f5be00e32f882e50ccc8d0a75003b40466232c00c835cd23c3c98bbfb6e30c3e78c00d-1",
             "file": "src/app/components/toast/message.service.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { Injectable } from '@angular/core'\nimport { Subject } from 'rxjs'\n\nexport interface IMessage {\n  severity?: 'success' | 'error'\n  detail?: string\n  key?: string\n  closable?: boolean\n  life?: number\n  sticky?: boolean\n}\n\n@Injectable()\nexport class MessageService {\n  private messageSource = new Subject<IMessage>()\n  private clearSource = new Subject<string>()\n\n  messageObserver = this.messageSource.asObservable()\n  clearObserver = this.clearSource.asObservable()\n\n  add(message: IMessage) {\n    if (message) {\n      this.messageSource.next(message)\n    }\n  }\n}\n",
+            "sourceCode": "import { Injectable } from '@angular/core'\nimport { Subject } from 'rxjs'\n\nexport interface IMessage {\n  severity?: 'success' | 'error'\n  detail?: string\n  key?: string\n  closable?: boolean\n  life?: number\n  sticky?: boolean\n}\n\n@Injectable()\nexport class MessageService {\n  private messageSource = new Subject<IMessage | IMessage[]>()\n  private clearSource = new Subject<string>()\n\n  messageObserver = this.messageSource.asObservable()\n  clearObserver = this.clearSource.asObservable()\n\n  add(message: IMessage) {\n    if (message) {\n      this.messageSource.next(message)\n    }\n  }\n}\n",
             "properties": [
                 {
                     "name": "closable",
@@ -1166,12 +1166,12 @@
         },
         {
             "name": "IOnClose",
-            "id": "interface-IOnClose-80635069464215183ff2ec9d3b210306fec628934a22746858667762f0f5e99e1c9fb7d96e2793e1a070cdc4e51fe476ed00e97b85a1ba9baaac3d94f36ce180",
+            "id": "interface-IOnClose-39f71cd172e45da441b9825e8849e5882983178979f0afbcec3fc35b365350d19248ac616e43bb0169c70b6ecff24cbd68b47465a1849dc0351a0b8cb6c34b67",
             "file": "src/app/components/toast/toast-item.component.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import {\n  AfterViewInit,\n  Component,\n  EventEmitter,\n  Input,\n  NgZone,\n  OnDestroy,\n  Output,\n  ViewEncapsulation,\n} from '@angular/core'\nimport { animate, state, style, transition, trigger } from '@angular/animations'\n\nimport { IMessage } from './message.service'\n\nexport interface IOnClose {\n  index: number\n  message: IMessage\n}\n\n@Component({\n  selector: 'hc-toast-item',\n  template: `\n    <div\n      [ngClass]=\"classes\"\n      [@messageState]=\"{\n        value: 'visible',\n        params: {\n          showTransformParams: showTransformOptions,\n          showTransitionParams: showTransitionOptions\n        }\n      }\"\n    >\n      <div\n        class=\"hc-toast-message-content\"\n        role=\"alert\"\n        aria-live=\"assertive\"\n        aric-atomic=\"true\"\n      >\n        <span class=\"hc-toast-message-icon material-symbols-outlined\">info</span>\n        <div class=\"hc-toast-message-text\">\n          <div class=\"hc-toast-detail subtitle2\">{{ message.detail }}</div>\n        </div>\n        <button\n          type=\"button\"\n          class=\"hc-toast-icon-close\"\n          *ngIf=\"message.closable !== false\"\n        >\n          <span class=\"material-symbols-outlined\">close</span>\n        </button>\n      </div>\n    </div>\n  `,\n  styleUrls: ['toast.component.scss'],\n  animations: [\n    trigger('messageState', [\n      state(\n        'visible',\n        style({\n          transform: 'translateY(0)',\n          opacity: 1,\n        })\n      ),\n      transition('* => void', [\n        style({ transform: '{{showTransformParams}}', opacity: 0 }),\n        animate('{{showTransitionParams}}'),\n      ]),\n    ]),\n  ],\n  encapsulation: ViewEncapsulation.None,\n})\nexport class ToastItemComponent implements AfterViewInit, OnDestroy {\n  timeout: NodeJS.Timeout | null = null\n\n  @Input() index!: number\n  @Input() message!: IMessage\n  @Input() showTransformOptions!: string\n  @Input() showTransitionOptions!: string\n\n  @Output() onClose = new EventEmitter<IOnClose>()\n\n  constructor(private zone: NgZone) {}\n\n  ngAfterViewInit(): void {\n    this.initTimeout()\n  }\n\n  initTimeout() {\n    if (!this.message.sticky) {\n      this.zone.runOutsideAngular(() => {\n        this.timeout = setTimeout(() => {\n          this.onClose.emit({\n            index: this.index,\n            message: this.message,\n          })\n        }, this.message.life || 3000)\n      })\n    }\n  }\n\n  clearTimeout() {\n    if (this.timeout) {\n      clearTimeout(this.timeout)\n      this.timeout = null\n    }\n  }\n\n  get classes() {\n    return {\n      [`hc-toast-message-${this.message.severity}`]: true,\n      'hc-toast-message': true,\n    }\n  }\n\n  ngOnDestroy(): void {\n    this.clearTimeout()\n  }\n}\n",
+            "sourceCode": "import {\n  AfterViewInit,\n  ChangeDetectionStrategy,\n  Component,\n  EventEmitter,\n  Input,\n  NgZone,\n  OnDestroy,\n  Output,\n  ViewEncapsulation,\n} from '@angular/core'\nimport { animate, state, style, transition, trigger } from '@angular/animations'\n\nimport { IMessage } from './message.service'\n\nexport interface IOnClose {\n  index: number\n  message: IMessage\n}\n\n@Component({\n  selector: 'hc-toast-item',\n  template: `\n    <div\n      [ngClass]=\"classes\"\n      [@messageState]=\"{\n        value: 'visible',\n        params: {\n          showTransformParams: showTransformOptions,\n          showTransitionParams: showTransitionOptions,\n          hideTransformParams: hideTransformOptions,\n          hideTransitionParams: hideTransitionOptions\n        }\n      }\"\n      (mouseenter)=\"onMouseEnter()\"\n      (mouseleave)=\"onMouseLeave()\"\n    >\n      <div\n        class=\"hc-toast-message-content\"\n        role=\"alert\"\n        aria-live=\"assertive\"\n        aric-atomic=\"true\"\n      >\n        <span class=\"hc-toast-message-icon material-symbols-outlined\">info</span>\n        <div class=\"hc-toast-message-text\">\n          <div class=\"hc-toast-detail subtitle2\">{{ message.detail }}</div>\n        </div>\n        <button\n          type=\"button\"\n          class=\"hc-toast-icon-close\"\n          *ngIf=\"message.closable !== false\"\n          (click)=\"onCloseIconClick($event)\"\n        >\n          <span class=\"material-symbols-outlined\">close</span>\n        </button>\n      </div>\n    </div>\n  `,\n  styleUrls: ['toast.component.scss'],\n  animations: [\n    trigger('messageState', [\n      state(\n        'visible',\n        style({\n          transform: 'translateY(0)',\n          opacity: 1,\n        })\n      ),\n      transition('void => *', [\n        style({ transform: '{{showTransformParams}}', opacity: 0 }),\n        animate('{{showTransitionParams}}'),\n      ]),\n      transition('* => void', [\n        animate(\n          '{{hideTransitionParams}}',\n          style({\n            height: 0,\n            opacity: 0,\n            transform: '{{hideTransformParams}}',\n          })\n        ),\n      ]),\n    ]),\n  ],\n  encapsulation: ViewEncapsulation.None,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class ToastItemComponent implements AfterViewInit, OnDestroy {\n  timeout: NodeJS.Timeout | null = null\n\n  @Input() index!: number\n  @Input() hideTransformOptions!: string\n  @Input() hideTransitionOptions!: string\n  @Input() message!: IMessage\n  @Input() showTransformOptions!: string\n  @Input() showTransitionOptions!: string\n\n  @Output() onClose = new EventEmitter<IOnClose>()\n\n  constructor(public zone: NgZone) {}\n\n  ngAfterViewInit(): void {\n    this.initTimeout()\n  }\n\n  initTimeout() {\n    if (!this.message.sticky) {\n      this.zone.runOutsideAngular(() => {\n        this.timeout = setTimeout(() => {\n          this.onClose.emit({\n            index: this.index,\n            message: this.message,\n          })\n        }, this.message.life || 3000)\n      })\n    }\n  }\n\n  onCloseIconClick(event: Event): void {\n    this.clearTimeout()\n\n    this.onClose.emit({\n      index: this.index,\n      message: this.message,\n    })\n\n    event.preventDefault()\n  }\n\n  clearTimeout() {\n    if (this.timeout) {\n      clearTimeout(this.timeout)\n      this.timeout = null\n    }\n  }\n\n  onMouseEnter(): void {\n    this.clearTimeout()\n  }\n\n  onMouseLeave(): void {\n    this.initTimeout()\n  }\n\n  get classes() {\n    return {\n      [`hc-toast-message-${this.message.severity}`]: true,\n      'hc-toast-message': true,\n    }\n  }\n\n  ngOnDestroy(): void {\n    this.clearTimeout()\n  }\n}\n",
             "properties": [
                 {
                     "name": "index",
@@ -1180,7 +1180,7 @@
                     "type": "number",
                     "optional": false,
                     "description": "",
-                    "line": 16
+                    "line": 17
                 },
                 {
                     "name": "message",
@@ -1189,7 +1189,7 @@
                     "type": "IMessage",
                     "optional": false,
                     "description": "",
-                    "line": 17
+                    "line": 18
                 }
             ],
             "indexSignatures": [],
@@ -2782,7 +2782,7 @@
         },
         {
             "name": "MessageService",
-            "id": "injectable-MessageService-b41659c183f93a876cd3e9a12f02d664249c58a197a15b7dc67d9f896d136c2e77c5ea50ec8c5fd395d887d3904f411ca89406a40edc7bda9a742657db5aa199",
+            "id": "injectable-MessageService-820ac26388af51604fda4974d78cf9d984f58a6d6c95ab17a3d0c72c32f5be00e32f882e50ccc8d0a75003b40466232c00c835cd23c3c98bbfb6e30c3e78c00d",
             "file": "src/app/components/toast/message.service.ts",
             "properties": [
                 {
@@ -2820,7 +2820,7 @@
                 },
                 {
                     "name": "messageSource",
-                    "defaultValue": "new Subject<IMessage>()",
+                    "defaultValue": "new Subject<IMessage | IMessage[]>()",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "",
@@ -2866,7 +2866,7 @@
             "deprecationMessage": "",
             "description": "",
             "rawdescription": "\n",
-            "sourceCode": "import { Injectable } from '@angular/core'\nimport { Subject } from 'rxjs'\n\nexport interface IMessage {\n  severity?: 'success' | 'error'\n  detail?: string\n  key?: string\n  closable?: boolean\n  life?: number\n  sticky?: boolean\n}\n\n@Injectable()\nexport class MessageService {\n  private messageSource = new Subject<IMessage>()\n  private clearSource = new Subject<string>()\n\n  messageObserver = this.messageSource.asObservable()\n  clearObserver = this.clearSource.asObservable()\n\n  add(message: IMessage) {\n    if (message) {\n      this.messageSource.next(message)\n    }\n  }\n}\n",
+            "sourceCode": "import { Injectable } from '@angular/core'\nimport { Subject } from 'rxjs'\n\nexport interface IMessage {\n  severity?: 'success' | 'error'\n  detail?: string\n  key?: string\n  closable?: boolean\n  life?: number\n  sticky?: boolean\n}\n\n@Injectable()\nexport class MessageService {\n  private messageSource = new Subject<IMessage | IMessage[]>()\n  private clearSource = new Subject<string>()\n\n  messageObserver = this.messageSource.asObservable()\n  clearObserver = this.clearSource.asObservable()\n\n  add(message: IMessage) {\n    if (message) {\n      this.messageSource.next(message)\n    }\n  }\n}\n",
             "type": "injectable"
         },
         {
@@ -18970,7 +18970,7 @@
         },
         {
             "name": "ToastComponent",
-            "id": "component-ToastComponent-c3d21db55332c5c549ff88f6d5af099c9763d5247e6229c5fb3e59dd9c9f1a869c481d1201e6e85844b693a671e5e343a8f90737699c18e81bf9bab51da48f2a",
+            "id": "component-ToastComponent-874f809749586f95dae4ebb22567f33023a199bb9718e229c2661dffb3a42ee4a51ddc146bebb081ce042fe7de1ff6454b536b060a86bad0613a6eaa13f5fab6",
             "file": "src/app/components/toast/toast.component.ts",
             "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [
@@ -18985,7 +18985,7 @@
                 "toast.component.scss"
             ],
             "styles": [],
-            "template": "<div #container [ngClass]=\"'hc-toast hc-toast-' + position\">\n  <hc-toast-item\n    *ngIf=\"message\"\n    @toastAnimation\n    [message]=\"message\"\n    [index]=\"1\"\n    [showTransformOptions]=\"showTransformOptions\"\n    [showTransitionOptions]=\"showTransitionOptions\"\n    (@toastAnimation.start)=\"onAnimationStart($event)\"\n    (onClose)=\"onMessageClose($event)\"\n  ></hc-toast-item>\n</div>\n",
+            "template": "<div #container [ngClass]=\"'hc-toast hc-toast-' + position\">\n  <hc-toast-item\n    *ngFor=\"let message of messages; let i = index\"\n    @toastAnimation\n    [message]=\"message\"\n    [index]=\"i\"\n    [showTransformOptions]=\"showTransformOptions\"\n    [showTransitionOptions]=\"showTransitionOptions\"\n    [hideTransformOptions]=\"hideTransformOptions\"\n    [hideTransitionOptions]=\"hideTransitionOptions\"\n    (onClose)=\"onToastClose($event)\"\n    (@toastAnimation.start)=\"onAnimationStart($event)\"\n    (@toastAnimation.done)=\"onAnimationEnd($event)\"\n  ></hc-toast-item>\n</div>\n",
             "templateUrl": [],
             "viewProviders": [],
             "inputsClass": [
@@ -18994,7 +18994,7 @@
                     "defaultValue": "true",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 57,
+                    "line": 62,
                     "type": "boolean",
                     "decorators": []
                 },
@@ -19003,15 +19003,33 @@
                     "defaultValue": "0",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 58,
+                    "line": 63,
                     "type": "number",
+                    "decorators": []
+                },
+                {
+                    "name": "hideTransformOptions",
+                    "defaultValue": "'translateY(-100%)'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 64,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "hideTransitionOptions",
+                    "defaultValue": "'250ms ease-in'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 65,
+                    "type": "string",
                     "decorators": []
                 },
                 {
                     "name": "key",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 59,
+                    "line": 66,
                     "type": "string",
                     "decorators": []
                 },
@@ -19020,8 +19038,26 @@
                     "defaultValue": "'top-right'",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 60,
+                    "line": 69,
                     "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "preventDuplicates",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 68,
+                    "type": "boolean",
+                    "decorators": []
+                },
+                {
+                    "name": "preventOpenDuplicates",
+                    "defaultValue": "false",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 67,
+                    "type": "boolean",
                     "decorators": []
                 },
                 {
@@ -19029,7 +19065,7 @@
                     "defaultValue": "'translateY(100%)'",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 61,
+                    "line": 70,
                     "type": "string",
                     "decorators": []
                 },
@@ -19038,7 +19074,7 @@
                     "defaultValue": "'300ms ease-out'",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 62,
+                    "line": 71,
                     "type": "string",
                     "decorators": []
                 }
@@ -19049,23 +19085,11 @@
                     "defaultValue": "new EventEmitter<{ message: IMessage }>()",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 64,
+                    "line": 73,
                     "type": "EventEmitter"
                 }
             ],
             "propertiesClass": [
-                {
-                    "name": "cd",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "ChangeDetectorRef",
-                    "optional": false,
-                    "description": "",
-                    "line": 71,
-                    "modifierKind": [
-                        123
-                    ]
-                },
                 {
                     "name": "config",
                     "deprecated": false,
@@ -19073,7 +19097,7 @@
                     "type": "HcConfig",
                     "optional": false,
                     "description": "",
-                    "line": 70,
+                    "line": 79,
                     "modifierKind": [
                         123
                     ]
@@ -19085,7 +19109,7 @@
                     "type": "ElementRef<HTMLDivElement>",
                     "optional": false,
                     "description": "",
-                    "line": 66,
+                    "line": 75,
                     "decorators": [
                         {
                             "name": "ViewChild",
@@ -19094,14 +19118,23 @@
                     ]
                 },
                 {
-                    "name": "message",
+                    "name": "messages",
                     "defaultValue": "null",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "IMessage | null",
+                    "type": "IMessage[] | null",
                     "optional": false,
                     "description": "",
-                    "line": 54
+                    "line": 58
+                },
+                {
+                    "name": "messagesArchieve",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "IMessage[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 59
                 },
                 {
                     "name": "messageService",
@@ -19110,7 +19143,7 @@
                     "type": "MessageService",
                     "optional": false,
                     "description": "",
-                    "line": 69,
+                    "line": 78,
                     "modifierKind": [
                         123
                     ]
@@ -19122,17 +19155,116 @@
                     "type": "Subscription",
                     "optional": false,
                     "description": "",
-                    "line": 55
+                    "line": 60
                 }
             ],
             "methodsClass": [
+                {
+                    "name": "add",
+                    "args": [
+                        {
+                            "name": "messages",
+                            "type": "IMessage[]",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 98,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "messages",
+                            "type": "IMessage[]",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "canAdd",
+                    "args": [
+                        {
+                            "name": "message",
+                            "type": "IMessage",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "boolean",
+                    "typeParameters": [],
+                    "line": 122,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "message",
+                            "type": "IMessage",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "containsMessage",
+                    "args": [
+                        {
+                            "name": "collection",
+                            "type": "IMessage[]",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        },
+                        {
+                            "name": "message",
+                            "type": "IMessage",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "boolean",
+                    "typeParameters": [],
+                    "line": 110,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "collection",
+                            "type": "IMessage[]",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "message",
+                            "type": "IMessage",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
                 {
                     "name": "ngOnDestroy",
                     "args": [],
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 106,
+                    "line": 166,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -19142,12 +19274,12 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 74,
+                    "line": 83,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
                 {
-                    "name": "onAnimationStart",
+                    "name": "onAnimationEnd",
                     "args": [
                         {
                             "name": "event",
@@ -19159,7 +19291,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 84,
+                    "line": 148,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -19175,7 +19307,35 @@
                     ]
                 },
                 {
-                    "name": "onMessageClose",
+                    "name": "onAnimationStart",
+                    "args": [
+                        {
+                            "name": "event",
+                            "type": "AnimationEvent",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 136,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "event",
+                            "type": "AnimationEvent",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "onToastClose",
                     "args": [
                         {
                             "name": "event",
@@ -19187,7 +19347,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 96,
+                    "line": 156,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -19210,7 +19370,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import {\n  AnimationEvent,\n  animateChild,\n  query,\n  transition,\n  trigger,\n} from '@angular/animations'\nimport {\n  ChangeDetectionStrategy,\n  ChangeDetectorRef,\n  Component,\n  ElementRef,\n  EventEmitter,\n  Input,\n  OnDestroy,\n  OnInit,\n  Output,\n  ViewChild,\n  ViewEncapsulation,\n} from '@angular/core'\nimport { IMessage, MessageService } from './message.service'\n\nimport { HcConfig } from '../../common/hc-config/hc-config.service'\nimport { IOnClose } from './toast-item.component'\nimport { Subscription } from 'rxjs'\nimport { ZIndexUtils } from '../../common/z-index-utils/z-index-utils'\n\n@Component({\n  selector: 'hc-toast',\n  template: `\n    <div #container [ngClass]=\"'hc-toast hc-toast-' + position\">\n      <hc-toast-item\n        *ngIf=\"message\"\n        @toastAnimation\n        [message]=\"message\"\n        [index]=\"1\"\n        [showTransformOptions]=\"showTransformOptions\"\n        [showTransitionOptions]=\"showTransitionOptions\"\n        (@toastAnimation.start)=\"onAnimationStart($event)\"\n        (onClose)=\"onMessageClose($event)\"\n      ></hc-toast-item>\n    </div>\n  `,\n  styleUrls: ['toast.component.scss'],\n  animations: [\n    trigger('toastAnimation', [\n      transition(':enter, :leave', [query('@*', animateChild())]),\n    ]),\n  ],\n  encapsulation: ViewEncapsulation.None,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class ToastComponent implements OnInit, OnDestroy {\n  message: IMessage | null = null\n  messageSubscription!: Subscription\n\n  @Input() autoZIndex = true\n  @Input() baseZIndex = 0\n  @Input() key?: string\n  @Input() position = 'top-right'\n  @Input() showTransformOptions = 'translateY(100%)'\n  @Input() showTransitionOptions = '300ms ease-out'\n\n  @Output() onClose = new EventEmitter<{ message: IMessage }>()\n\n  @ViewChild('container') containerViewChild!: ElementRef<HTMLDivElement>\n\n  constructor(\n    public messageService: MessageService,\n    public config: HcConfig,\n    public cd: ChangeDetectorRef\n  ) {}\n\n  ngOnInit(): void {\n    this.messageSubscription = this.messageService.messageObserver.subscribe(\n      (message) => {\n        if (message) {\n          this.message = message\n        }\n      }\n    )\n  }\n\n  onAnimationStart(event: AnimationEvent): void {\n    if (event.fromState === 'void') {\n      if (this.autoZIndex && this.containerViewChild.nativeElement.style.zIndex === '') {\n        ZIndexUtils.set(\n          'modal',\n          this.containerViewChild.nativeElement,\n          this.baseZIndex || this.config.zIndex.modal\n        )\n      }\n    }\n  }\n\n  onMessageClose(event: IOnClose) {\n    this.message = null\n\n    this.onClose.emit({\n      message: event.message,\n    })\n\n    this.cd.detectChanges()\n  }\n\n  ngOnDestroy(): void {\n    if (this.messageSubscription) {\n      this.messageSubscription.unsubscribe()\n    }\n  }\n}\n",
+            "sourceCode": "import {\n  AnimationEvent,\n  animateChild,\n  query,\n  transition,\n  trigger,\n} from '@angular/animations'\nimport {\n  ChangeDetectionStrategy,\n  ChangeDetectorRef,\n  Component,\n  ElementRef,\n  EventEmitter,\n  Input,\n  OnDestroy,\n  OnInit,\n  Output,\n  ViewChild,\n  ViewEncapsulation,\n} from '@angular/core'\nimport { IMessage, MessageService } from './message.service'\n\nimport { HcConfig } from '../../common/hc-config/hc-config.service'\nimport { IOnClose } from './toast-item.component'\nimport { ObjectUtils } from './../../common/object-utils/object-utils'\nimport { Subscription } from 'rxjs'\nimport { ZIndexUtils } from '../../common/z-index-utils/z-index-utils'\n\n@Component({\n  selector: 'hc-toast',\n  template: `\n    <div #container [ngClass]=\"'hc-toast hc-toast-' + position\">\n      <hc-toast-item\n        *ngFor=\"let message of messages; let i = index\"\n        @toastAnimation\n        [message]=\"message\"\n        [index]=\"i\"\n        [showTransformOptions]=\"showTransformOptions\"\n        [showTransitionOptions]=\"showTransitionOptions\"\n        [hideTransformOptions]=\"hideTransformOptions\"\n        [hideTransitionOptions]=\"hideTransitionOptions\"\n        (onClose)=\"onToastClose($event)\"\n        (@toastAnimation.start)=\"onAnimationStart($event)\"\n        (@toastAnimation.done)=\"onAnimationEnd($event)\"\n      ></hc-toast-item>\n    </div>\n  `,\n  styleUrls: ['toast.component.scss'],\n  animations: [\n    trigger('toastAnimation', [\n      transition(':enter, :leave', [query('@*', animateChild())]),\n    ]),\n  ],\n  encapsulation: ViewEncapsulation.None,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class ToastComponent implements OnInit, OnDestroy {\n  messages: IMessage[] | null = null\n  messagesArchieve!: IMessage[]\n  messageSubscription!: Subscription\n\n  @Input() autoZIndex = true\n  @Input() baseZIndex = 0\n  @Input() hideTransformOptions = 'translateY(-100%)'\n  @Input() hideTransitionOptions = '250ms ease-in'\n  @Input() key?: string\n  @Input() preventOpenDuplicates = false\n  @Input() preventDuplicates = false\n  @Input() position = 'top-right'\n  @Input() showTransformOptions = 'translateY(100%)'\n  @Input() showTransitionOptions = '300ms ease-out'\n\n  @Output() onClose = new EventEmitter<{ message: IMessage }>()\n\n  @ViewChild('container') containerViewChild!: ElementRef<HTMLDivElement>\n\n  constructor(\n    public messageService: MessageService,\n    public config: HcConfig,\n    private cd: ChangeDetectorRef\n  ) {}\n\n  ngOnInit(): void {\n    this.messageSubscription = this.messageService.messageObserver.subscribe(\n      (messages) => {\n        if (messages) {\n          if (messages instanceof Array) {\n            const filteredMessages = messages.filter((m) => this.canAdd(m))\n            this.add(filteredMessages)\n          } else if (this.canAdd(messages)) {\n            this.add([messages])\n          }\n        }\n      }\n    )\n  }\n\n  add(messages: IMessage[]): void {\n    this.messages = this.messages ? [...this.messages, ...messages] : [...messages]\n\n    if (this.preventDuplicates) {\n      this.messagesArchieve = this.messagesArchieve\n        ? [...this.messagesArchieve, ...messages]\n        : [...messages]\n    }\n\n    this.cd.markForCheck()\n  }\n\n  containsMessage(collection: IMessage[], message: IMessage): boolean {\n    if (!collection) {\n      return false\n    }\n\n    return (\n      collection.find((m) => {\n        return m.detail === message.detail && m.severity === message.severity\n      }) !== null\n    )\n  }\n\n  canAdd(message: IMessage): boolean {\n    let allow = this.key === message.key\n\n    if (allow && this.preventOpenDuplicates && this.messages) {\n      allow = !this.containsMessage(this.messages, message)\n    }\n\n    if (allow && this.preventDuplicates) {\n      allow = !this.containsMessage(this.messagesArchieve, message)\n    }\n\n    return allow\n  }\n\n  onAnimationStart(event: AnimationEvent): void {\n    if (event.fromState === 'void') {\n      if (this.autoZIndex && this.containerViewChild.nativeElement.style.zIndex === '') {\n        ZIndexUtils.set(\n          'modal',\n          this.containerViewChild.nativeElement,\n          this.baseZIndex || this.config.zIndex.modal\n        )\n      }\n    }\n  }\n\n  onAnimationEnd(event: AnimationEvent): void {\n    if (event.toState === 'void') {\n      if (this.autoZIndex && ObjectUtils.isEmpty(this.messages)) {\n        ZIndexUtils.clear(this.containerViewChild.nativeElement)\n      }\n    }\n  }\n\n  onToastClose(event: IOnClose) {\n    this.messages?.splice(event.index, 1)\n\n    this.onClose.emit({\n      message: event.message,\n    })\n\n    this.cd.detectChanges()\n  }\n\n  ngOnDestroy(): void {\n    if (this.messageSubscription) {\n      this.messageSubscription.unsubscribe()\n    }\n\n    if (this.containerViewChild && this.autoZIndex) {\n      ZIndexUtils.clear(this.containerViewChild.nativeElement)\n    }\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -19244,7 +19404,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 66,
+                "line": 75,
                 "jsdoctags": [
                     {
                         "name": "messageService",
@@ -19282,8 +19442,9 @@
         },
         {
             "name": "ToastItemComponent",
-            "id": "component-ToastItemComponent-80635069464215183ff2ec9d3b210306fec628934a22746858667762f0f5e99e1c9fb7d96e2793e1a070cdc4e51fe476ed00e97b85a1ba9baaac3d94f36ce180",
+            "id": "component-ToastItemComponent-39f71cd172e45da441b9825e8849e5882983178979f0afbcec3fc35b365350d19248ac616e43bb0169c70b6ecff24cbd68b47465a1849dc0351a0b8cb6c34b67",
             "file": "src/app/components/toast/toast-item.component.ts",
+            "changeDetection": "ChangeDetectionStrategy.OnPush",
             "encapsulation": [
                 "ViewEncapsulation.None"
             ],
@@ -19296,15 +19457,31 @@
                 "toast.component.scss"
             ],
             "styles": [],
-            "template": "<div\n  [ngClass]=\"classes\"\n  [@messageState]=\"{\n    value: 'visible',\n    params: {\n      showTransformParams: showTransformOptions,\n      showTransitionParams: showTransitionOptions\n    }\n  }\"\n>\n  <div\n    class=\"hc-toast-message-content\"\n    role=\"alert\"\n    aria-live=\"assertive\"\n    aric-atomic=\"true\"\n  >\n    <span class=\"hc-toast-message-icon material-symbols-outlined\">info</span>\n    <div class=\"hc-toast-message-text\">\n      <div class=\"hc-toast-detail subtitle2\">{{ message.detail }}</div>\n    </div>\n    <button\n      type=\"button\"\n      class=\"hc-toast-icon-close\"\n      *ngIf=\"message.closable !== false\"\n    >\n      <span class=\"material-symbols-outlined\">close</span>\n    </button>\n  </div>\n</div>\n",
+            "template": "<div\n  [ngClass]=\"classes\"\n  [@messageState]=\"{\n    value: 'visible',\n    params: {\n      showTransformParams: showTransformOptions,\n      showTransitionParams: showTransitionOptions,\n      hideTransformParams: hideTransformOptions,\n      hideTransitionParams: hideTransitionOptions\n    }\n  }\"\n  (mouseenter)=\"onMouseEnter()\"\n  (mouseleave)=\"onMouseLeave()\"\n>\n  <div\n    class=\"hc-toast-message-content\"\n    role=\"alert\"\n    aria-live=\"assertive\"\n    aric-atomic=\"true\"\n  >\n    <span class=\"hc-toast-message-icon material-symbols-outlined\">info</span>\n    <div class=\"hc-toast-message-text\">\n      <div class=\"hc-toast-detail subtitle2\">{{ message.detail }}</div>\n    </div>\n    <button\n      type=\"button\"\n      class=\"hc-toast-icon-close\"\n      *ngIf=\"message.closable !== false\"\n      (click)=\"onCloseIconClick($event)\"\n    >\n      <span class=\"material-symbols-outlined\">close</span>\n    </button>\n  </div>\n</div>\n",
             "templateUrl": [],
             "viewProviders": [],
             "inputsClass": [
                 {
+                    "name": "hideTransformOptions",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 92,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "hideTransitionOptions",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 93,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
                     "name": "index",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 74,
+                    "line": 91,
                     "type": "number",
                     "decorators": []
                 },
@@ -19312,7 +19489,7 @@
                     "name": "message",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 75,
+                    "line": 94,
                     "type": "IMessage",
                     "decorators": []
                 },
@@ -19320,7 +19497,7 @@
                     "name": "showTransformOptions",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 76,
+                    "line": 95,
                     "type": "string",
                     "decorators": []
                 },
@@ -19328,7 +19505,7 @@
                     "name": "showTransitionOptions",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 77,
+                    "line": 96,
                     "type": "string",
                     "decorators": []
                 }
@@ -19339,7 +19516,7 @@
                     "defaultValue": "new EventEmitter<IOnClose>()",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 79,
+                    "line": 98,
                     "type": "EventEmitter"
                 }
             ],
@@ -19352,7 +19529,19 @@
                     "type": "NodeJS.Timeout | null",
                     "optional": false,
                     "description": "",
-                    "line": 72
+                    "line": 89
+                },
+                {
+                    "name": "zone",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "NgZone",
+                    "optional": false,
+                    "description": "",
+                    "line": 100,
+                    "modifierKind": [
+                        123
+                    ]
                 }
             ],
             "methodsClass": [
@@ -19362,7 +19551,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 100,
+                    "line": 130,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -19372,7 +19561,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 87,
+                    "line": 106,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -19382,7 +19571,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 83,
+                    "line": 102,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -19392,7 +19581,55 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 114,
+                    "line": 152,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "onCloseIconClick",
+                    "args": [
+                        {
+                            "name": "event",
+                            "type": "Event",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 119,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "event",
+                            "type": "Event",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "onMouseEnter",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 137,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "onMouseLeave",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 141,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -19404,7 +19641,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import {\n  AfterViewInit,\n  Component,\n  EventEmitter,\n  Input,\n  NgZone,\n  OnDestroy,\n  Output,\n  ViewEncapsulation,\n} from '@angular/core'\nimport { animate, state, style, transition, trigger } from '@angular/animations'\n\nimport { IMessage } from './message.service'\n\nexport interface IOnClose {\n  index: number\n  message: IMessage\n}\n\n@Component({\n  selector: 'hc-toast-item',\n  template: `\n    <div\n      [ngClass]=\"classes\"\n      [@messageState]=\"{\n        value: 'visible',\n        params: {\n          showTransformParams: showTransformOptions,\n          showTransitionParams: showTransitionOptions\n        }\n      }\"\n    >\n      <div\n        class=\"hc-toast-message-content\"\n        role=\"alert\"\n        aria-live=\"assertive\"\n        aric-atomic=\"true\"\n      >\n        <span class=\"hc-toast-message-icon material-symbols-outlined\">info</span>\n        <div class=\"hc-toast-message-text\">\n          <div class=\"hc-toast-detail subtitle2\">{{ message.detail }}</div>\n        </div>\n        <button\n          type=\"button\"\n          class=\"hc-toast-icon-close\"\n          *ngIf=\"message.closable !== false\"\n        >\n          <span class=\"material-symbols-outlined\">close</span>\n        </button>\n      </div>\n    </div>\n  `,\n  styleUrls: ['toast.component.scss'],\n  animations: [\n    trigger('messageState', [\n      state(\n        'visible',\n        style({\n          transform: 'translateY(0)',\n          opacity: 1,\n        })\n      ),\n      transition('* => void', [\n        style({ transform: '{{showTransformParams}}', opacity: 0 }),\n        animate('{{showTransitionParams}}'),\n      ]),\n    ]),\n  ],\n  encapsulation: ViewEncapsulation.None,\n})\nexport class ToastItemComponent implements AfterViewInit, OnDestroy {\n  timeout: NodeJS.Timeout | null = null\n\n  @Input() index!: number\n  @Input() message!: IMessage\n  @Input() showTransformOptions!: string\n  @Input() showTransitionOptions!: string\n\n  @Output() onClose = new EventEmitter<IOnClose>()\n\n  constructor(private zone: NgZone) {}\n\n  ngAfterViewInit(): void {\n    this.initTimeout()\n  }\n\n  initTimeout() {\n    if (!this.message.sticky) {\n      this.zone.runOutsideAngular(() => {\n        this.timeout = setTimeout(() => {\n          this.onClose.emit({\n            index: this.index,\n            message: this.message,\n          })\n        }, this.message.life || 3000)\n      })\n    }\n  }\n\n  clearTimeout() {\n    if (this.timeout) {\n      clearTimeout(this.timeout)\n      this.timeout = null\n    }\n  }\n\n  get classes() {\n    return {\n      [`hc-toast-message-${this.message.severity}`]: true,\n      'hc-toast-message': true,\n    }\n  }\n\n  ngOnDestroy(): void {\n    this.clearTimeout()\n  }\n}\n",
+            "sourceCode": "import {\n  AfterViewInit,\n  ChangeDetectionStrategy,\n  Component,\n  EventEmitter,\n  Input,\n  NgZone,\n  OnDestroy,\n  Output,\n  ViewEncapsulation,\n} from '@angular/core'\nimport { animate, state, style, transition, trigger } from '@angular/animations'\n\nimport { IMessage } from './message.service'\n\nexport interface IOnClose {\n  index: number\n  message: IMessage\n}\n\n@Component({\n  selector: 'hc-toast-item',\n  template: `\n    <div\n      [ngClass]=\"classes\"\n      [@messageState]=\"{\n        value: 'visible',\n        params: {\n          showTransformParams: showTransformOptions,\n          showTransitionParams: showTransitionOptions,\n          hideTransformParams: hideTransformOptions,\n          hideTransitionParams: hideTransitionOptions\n        }\n      }\"\n      (mouseenter)=\"onMouseEnter()\"\n      (mouseleave)=\"onMouseLeave()\"\n    >\n      <div\n        class=\"hc-toast-message-content\"\n        role=\"alert\"\n        aria-live=\"assertive\"\n        aric-atomic=\"true\"\n      >\n        <span class=\"hc-toast-message-icon material-symbols-outlined\">info</span>\n        <div class=\"hc-toast-message-text\">\n          <div class=\"hc-toast-detail subtitle2\">{{ message.detail }}</div>\n        </div>\n        <button\n          type=\"button\"\n          class=\"hc-toast-icon-close\"\n          *ngIf=\"message.closable !== false\"\n          (click)=\"onCloseIconClick($event)\"\n        >\n          <span class=\"material-symbols-outlined\">close</span>\n        </button>\n      </div>\n    </div>\n  `,\n  styleUrls: ['toast.component.scss'],\n  animations: [\n    trigger('messageState', [\n      state(\n        'visible',\n        style({\n          transform: 'translateY(0)',\n          opacity: 1,\n        })\n      ),\n      transition('void => *', [\n        style({ transform: '{{showTransformParams}}', opacity: 0 }),\n        animate('{{showTransitionParams}}'),\n      ]),\n      transition('* => void', [\n        animate(\n          '{{hideTransitionParams}}',\n          style({\n            height: 0,\n            opacity: 0,\n            transform: '{{hideTransformParams}}',\n          })\n        ),\n      ]),\n    ]),\n  ],\n  encapsulation: ViewEncapsulation.None,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class ToastItemComponent implements AfterViewInit, OnDestroy {\n  timeout: NodeJS.Timeout | null = null\n\n  @Input() index!: number\n  @Input() hideTransformOptions!: string\n  @Input() hideTransitionOptions!: string\n  @Input() message!: IMessage\n  @Input() showTransformOptions!: string\n  @Input() showTransitionOptions!: string\n\n  @Output() onClose = new EventEmitter<IOnClose>()\n\n  constructor(public zone: NgZone) {}\n\n  ngAfterViewInit(): void {\n    this.initTimeout()\n  }\n\n  initTimeout() {\n    if (!this.message.sticky) {\n      this.zone.runOutsideAngular(() => {\n        this.timeout = setTimeout(() => {\n          this.onClose.emit({\n            index: this.index,\n            message: this.message,\n          })\n        }, this.message.life || 3000)\n      })\n    }\n  }\n\n  onCloseIconClick(event: Event): void {\n    this.clearTimeout()\n\n    this.onClose.emit({\n      index: this.index,\n      message: this.message,\n    })\n\n    event.preventDefault()\n  }\n\n  clearTimeout() {\n    if (this.timeout) {\n      clearTimeout(this.timeout)\n      this.timeout = null\n    }\n  }\n\n  onMouseEnter(): void {\n    this.clearTimeout()\n  }\n\n  onMouseLeave(): void {\n    this.initTimeout()\n  }\n\n  get classes() {\n    return {\n      [`hc-toast-message-${this.message.severity}`]: true,\n      'hc-toast-message': true,\n    }\n  }\n\n  ngOnDestroy(): void {\n    this.clearTimeout()\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -19426,7 +19663,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 79,
+                "line": 98,
                 "jsdoctags": [
                     {
                         "name": "zone",
@@ -19450,7 +19687,7 @@
                         "name": "classes",
                         "type": "",
                         "returnType": "",
-                        "line": 107
+                        "line": 145
                     }
                 }
             }
@@ -22752,7 +22989,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
-                "defaultValue": "(args) => ({\n  props: {\n    ...args,\n    showSuccess: (injector: Injector): void => {\n      injector.get(MessageService).add({ severity: 'success', detail: 'Message content' })\n    },\n    showError: (injector: Injector): void => {\n      injector.get(MessageService).add({ severity: 'error', detail: 'Message content' })\n    },\n  },\n  template: `\n    <div style=\"height: 600px\">\n      <hc-toast></hc-toast>\n      <button (click)=\"showSuccess(injector)\">Success</button>\n      <button (click)=\"showError(injector)\">Error</button>\n    </div>\n  `,\n})"
+                "defaultValue": "(args) => ({\n  props: {\n    ...args,\n    showSuccess: (injector: Injector): void => {\n      injector.get(MessageService).add({ severity: 'success', detail: 'Message content' })\n    },\n    showError: (injector: Injector): void => {\n      injector.get(MessageService).add({ severity: 'error', detail: 'Message content' })\n    },\n  },\n  template: `\n    <div style=\"height: 600px\">\n      <hc-toast></hc-toast>\n      <div style=\"display: flex; gap: 0.5rem\">\n        <button (click)=\"showSuccess(injector)\" style=\"width: 140px; height: 40px; background: var(--green-default); border: none; color: white; cursor: pointer\">Success</button>\n        <button (click)=\"showError(injector)\" style=\"width: 140px; height: 40px; background: var(--red-default); border: none; color: white; cursor: pointer\">Error</button>\n      </div>\n    </div>\n  `,\n})"
             },
             {
                 "name": "ThemeContained",
@@ -23258,7 +23495,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Story",
-                    "defaultValue": "(args) => ({\n  props: {\n    ...args,\n    showSuccess: (injector: Injector): void => {\n      injector.get(MessageService).add({ severity: 'success', detail: 'Message content' })\n    },\n    showError: (injector: Injector): void => {\n      injector.get(MessageService).add({ severity: 'error', detail: 'Message content' })\n    },\n  },\n  template: `\n    <div style=\"height: 600px\">\n      <hc-toast></hc-toast>\n      <button (click)=\"showSuccess(injector)\">Success</button>\n      <button (click)=\"showError(injector)\">Error</button>\n    </div>\n  `,\n})"
+                    "defaultValue": "(args) => ({\n  props: {\n    ...args,\n    showSuccess: (injector: Injector): void => {\n      injector.get(MessageService).add({ severity: 'success', detail: 'Message content' })\n    },\n    showError: (injector: Injector): void => {\n      injector.get(MessageService).add({ severity: 'error', detail: 'Message content' })\n    },\n  },\n  template: `\n    <div style=\"height: 600px\">\n      <hc-toast></hc-toast>\n      <div style=\"display: flex; gap: 0.5rem\">\n        <button (click)=\"showSuccess(injector)\" style=\"width: 140px; height: 40px; background: var(--green-default); border: none; color: white; cursor: pointer\">Success</button>\n        <button (click)=\"showError(injector)\" style=\"width: 140px; height: 40px; background: var(--red-default); border: none; color: white; cursor: pointer\">Error</button>\n      </div>\n    </div>\n  `,\n})"
                 }
             ],
             "src/app/components/switch/switch.component.ts": [
@@ -24315,7 +24552,7 @@
                 "linktype": "component",
                 "name": "ToastItemComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/12",
+                "coverageCount": "0/18",
                 "status": "low"
             },
             {
@@ -24333,7 +24570,7 @@
                 "linktype": "component",
                 "name": "ToastComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/19",
+                "coverageCount": "0/27",
                 "status": "low"
             },
             {
