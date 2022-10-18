@@ -6,13 +6,13 @@ import { SwitchModule } from './switch.module'
 import userEvent from '@testing-library/user-event'
 
 describe('SwitchComponent', () => {
-  it('should create a switch', async () => {
+  it('create a switch', async () => {
     const { container } = await render(SwitchComponent)
 
     expect(container).toBeInTheDocument()
   })
 
-  it('should create a switch with label', async () => {
+  it('create a switch with label', async () => {
     await render(SwitchComponent, {
       componentProperties: {
         label: 'Remember me',
@@ -32,6 +32,18 @@ describe('SwitchComponent', () => {
     expect(screen.getByRole('switch')).toHaveClass('hc-switch-disabled')
   })
 
+  it('create switch readonly', async () => {
+    await render(SwitchComponent, {
+      componentProperties: {
+        readonly: true,
+      },
+    })
+
+    await userEvent.click(screen.getByRole('switch'))
+
+    expect(screen.getByRole('switch')).not.toHaveClass('hc-switch-checked')
+  })
+
   it('switch disabled with form control', async () => {
     await render(
       `<form [formGroup]="form">
@@ -48,6 +60,24 @@ describe('SwitchComponent', () => {
     )
 
     expect(screen.getByRole('switch')).toHaveClass('hc-switch-disabled')
+  })
+
+  it('switch true with form control', async () => {
+    await render(
+      `<form [formGroup]="form">
+      <hc-switch formControlName="term"></hc-switch>
+    </form>`,
+      {
+        imports: [ReactiveFormsModule, SwitchModule],
+        componentProperties: {
+          form: new FormBuilder().group({
+            term: [true],
+          }),
+        },
+      }
+    )
+
+    expect(screen.getByRole('switch')).toHaveClass('hc-switch-checked')
   })
 
   it('toggle switch', async () => {

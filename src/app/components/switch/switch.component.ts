@@ -64,7 +64,7 @@ export class SwitchComponent implements ControlValueAccessor {
   @Input() id?: string
   @Input() label?: string
   @Input() readonly = false
-  @Input() tabindex?: number
+  @Input() tabindex: number | null = null
   @Input() disabled = false
 
   @Output() onChange = new EventEmitter<ISwitchOnChangeEvent>()

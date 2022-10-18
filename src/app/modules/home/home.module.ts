@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common'
 import { DropdownModule } from './../../components/dropdown/dropdown.module'
 import { DropdownNotificationsComponent } from './components/dropdown-notifications/dropdown-notifications.component'
 import { DropdownProfileComponent } from './components/dropdown-profile/dropdown-profile.component'
+import { FooterVersionComponent } from './components/footer-version/footer-version.component'
 import { HeaderComponent } from './components/header/header.component'
 import { HomeComponent } from './home.component'
 import { HomeRoutingModule } from './home-routing.module'
@@ -24,6 +25,7 @@ import { ToolbarModule } from './../../components/toolbar/toolbar.module'
     HeaderComponent,
     DropdownProfileComponent,
     DropdownNotificationsComponent,
+    FooterVersionComponent,
   ],
   imports: [
     CommonModule,

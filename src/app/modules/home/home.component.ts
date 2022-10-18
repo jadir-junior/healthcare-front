@@ -8,8 +8,13 @@ import { UserService } from './../user/services/user.service'
   selector: 'app-home',
   template: ` <div class="wrapper-home">
     <hc-sidebar>
-      <hc-logo [style]="{ margin: '1.5rem' }"></hc-logo>
-      <hc-menu [model]="menuItems" [style]="{ margin: '0.25rem 1.5rem' }"></hc-menu>
+      <div class="wrapper-menu">
+        <div>
+          <hc-logo [style]="{ margin: '1.5rem' }"></hc-logo>
+          <hc-menu [model]="menuItems" [style]="{ margin: '0.25rem 1.5rem' }"></hc-menu>
+        </div>
+        <hc-footer-version></hc-footer-version>
+      </div>
     </hc-sidebar>
     <div style="width: 100%;">
       <hc-header [user]="user"></hc-header>
@@ -22,6 +27,13 @@ import { UserService } from './../user/services/user.service'
     `
       .wrapper-home {
         display: flex;
+      }
+
+      .wrapper-menu {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 100vh;
       }
     `,
   ],
