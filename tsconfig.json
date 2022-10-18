@@ -26,6 +26,14 @@
     "strictInputAccessModifiers": true,
     "strictTemplates": true
   },
-  "include": ["src/**/*.ts"],
+  "include": [
+    "src/**/*.ts",
+    "src/assets/docs/table/scroll/component.old",
+    "src/assets/docs/table/gridlines/component.old",
+    "src/assets/docs/table/dynamic/component.old",
+    "src/assets/docs/table/common/import.old",
+    "src/assets/docs/table/basic/component.old",
+    "src/assets/docs/misc/tag/import.ts.old"
+  ],
   "exclude": ["src/assets/docs/**/*.ts"]
 }
