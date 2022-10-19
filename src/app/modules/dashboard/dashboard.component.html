@@ -9,6 +9,14 @@
         <p class="body2">{{ information.description }}</p>
       </div>
     </hc-card>
+
+    <hc-card header="Latest Notifications" [style]="{ 'margin-bottom': '2rem' }">
+      <hc-tabs>
+        <hc-tab-panel header="App Notifications">Content 1</hc-tab-panel>
+        <hc-tab-panel header="Feeds">Content 2</hc-tab-panel>
+      </hc-tabs>
+    </hc-card>
+
     <hc-card header="Last patients" styleClass="hc-card-body-no-padding">
       <hc-table [columns]="tableLastPatients" [value]="lastPatients" [responsive]="true">
         <ng-template hcTemplate="header" let-columns>

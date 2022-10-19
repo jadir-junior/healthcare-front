@@ -1,0 +1,77 @@
+.hc-tabview {
+  .hc-tabview-nav {
+    background: var(--neutral-white);
+    border: 1px solid var(--neutral-divider);
+    border-width: 0 0 2px 0;
+    display: flex;
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    flex: 1 1 auto;
+
+    li {
+      margin-right: 0;
+
+      .hc-tabview-nav-link {
+        border: solid var(--neutral-divider);
+        border-width: 0 0 2px 0;
+        border-color: transparent transparent var(--neutral-divider) transparent;
+        background: var(--neutral-white);
+        color: var(--neutral-black);
+        padding: 1.25rem;
+        font-weight: 700;
+        border-top-right-radius: 6px;
+        border-top-left-radius: 6px;
+        transition: box-shadow 0.2s;
+        margin: 0 0 -2px 0;
+        cursor: pointer;
+        user-select: none;
+        display: flex;
+        align-items: center;
+        position: relative;
+        text-decoration: none;
+        overflow: hidden;
+      }
+    }
+  }
+}
+
+.hc-tabview .hc-tabview-nav li.hc-tabview-highlight .hc-tabview-nav-link {
+  background: var(--neutral-white);
+  border-color: var(--primary-default);
+  color: var(--primary-default);
+}
+
+.hc-tabview
+  .hc-tabview-nav
+  li:not(.hc-tabview-highlight):not(.hc-tabview-disabled):hover
+  .hc-tabview-nav-link {
+  background: var(--neutral-white);
+  border-color: var(--neutral-gray);
+  color: var(--neutral-gray);
+}
+
+.hc-tabview-nav-container {
+  position: relative;
+}
+
+.hc-tabview-nav-content {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  overscroll-behavior: contain auto;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.hc-tabview-panels {
+  background: var(--neutral-white);
+  padding: 1.25rem;
+  border: 0 none;
+  color: var(--neutral-black);
+  border-bottom-right-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
