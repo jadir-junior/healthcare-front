@@ -17467,6 +17467,62 @@
             }
         },
         {
+            "name": "TabComponent",
+            "id": "component-TabComponent-464bc7d4d76701eed1d3211914987812160ab158312e74f99f51535dba85b6d9433f55bd6ed54f8774a6e891796cc275165490ed7e529bf3f65fdf28e528d958",
+            "file": "src/app/components/tab/tab.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "hc-tab",
+            "styleUrls": [],
+            "styles": [],
+            "template": "<div>\n  <div class=\"hc-tabview-nav-container\">\n    <div class=\"hc-tabview-nav-content\">\n      <!-- <ul class=\"hc-tabview-nav\" role=\"tablist\">\n        <ng-template ngFor let-tab [ngForOf]=\"tabs\">\n          <li role=\"presentation\">\n            <a role=\"tab\" class=\"hc-tabview-nav-link\"></a>\n          </li>\n        </ng-template>\n      </ul> -->\n    </div>\n  </div>\n  <div class=\"hc-tabview-panels\">\n    <ng-content></ng-content>\n  </div>\n</div>\n",
+            "templateUrl": [],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "tabPanels",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "QueryList<TabPanelComponent>",
+                    "optional": false,
+                    "description": "",
+                    "line": 29,
+                    "decorators": [
+                        {
+                            "name": "ContentChildren",
+                            "stringifiedArguments": "TabPanelComponent"
+                        }
+                    ]
+                },
+                {
+                    "name": "tabs",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "TabPanelComponent[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 31
+                }
+            ],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, ContentChildren } from '@angular/core'\n\nimport { QueryList } from '@angular/core'\nimport { TabPanelComponent } from './tab-panel.component'\n\n@Component({\n  selector: 'hc-tab',\n  template: `\n    <div>\n      <div class=\"hc-tabview-nav-container\">\n        <div class=\"hc-tabview-nav-content\">\n          <!-- <ul class=\"hc-tabview-nav\" role=\"tablist\">\n            <ng-template ngFor let-tab [ngForOf]=\"tabs\">\n              <li role=\"presentation\">\n                <a role=\"tab\" class=\"hc-tabview-nav-link\"></a>\n              </li>\n            </ng-template>\n          </ul> -->\n        </div>\n      </div>\n      <div class=\"hc-tabview-panels\">\n        <ng-content></ng-content>\n      </div>\n    </div>\n  `,\n  styles: [],\n})\nexport class TabComponent {\n  @ContentChildren(TabPanelComponent) tabPanels!: QueryList<TabPanelComponent>\n\n  tabs!: TabPanelComponent[]\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": ""
+        },
+        {
             "name": "TableBodyComponent",
             "id": "component-TableBodyComponent-9a23f9674910ad1c3f8ffeb56ba4d42adb0432304ecf34a52ed92f732161b97fce15af86fb18b0fcc6d1ad651f0245709c2a0cc806a195eb100be22f1978755b",
             "file": "src/app/components/table/table-body.component.ts",
@@ -18695,6 +18751,37 @@
                 "OnInit",
                 "OnDestroy"
             ]
+        },
+        {
+            "name": "TabPanelComponent",
+            "id": "component-TabPanelComponent-db9351a23e8ecff5e87fb166eb044113aaa01dd84385be42fa60f7762a383f3225f7e736be5981c50c845dacb9cdd81062ced03a0f88e3b47d8620376ad764ae",
+            "file": "src/app/components/tab/tab-panel.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "hc-tab-panel",
+            "styleUrls": [],
+            "styles": [],
+            "template": "<div class=\"hc-tabview-panel\" role=\"tabpanel\">\n  <ng-content></ng-content>\n</div>\n",
+            "templateUrl": [],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component } from '@angular/core'\n\n@Component({\n  selector: 'hc-tab-panel',\n  template: `\n    <div class=\"hc-tabview-panel\" role=\"tabpanel\">\n      <ng-content></ng-content>\n    </div>\n  `,\n  styles: [],\n})\nexport class TabPanelComponent {}\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": ""
         },
         {
             "name": "TagComponent",
@@ -22286,6 +22373,53 @@
             ]
         },
         {
+            "name": "TabModule",
+            "id": "module-TabModule-8668cc0f9fcbb5975bb9f008d02f62ccefe0d08c24ae8aec1ec7868d8ff69e8d9d2d3e1eb3f9265f36d253f3b59da2dce091177c15d3635c5e3ea4ebcc7ddb72",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "src/app/components/tab/tab.module.ts",
+            "methods": [],
+            "sourceCode": "import { CommonModule } from '@angular/common'\nimport { NgModule } from '@angular/core'\nimport { TabComponent } from './tab.component'\nimport { TabPanelComponent } from './tab-panel.component'\n\n@NgModule({\n  declarations: [TabComponent, TabPanelComponent],\n  imports: [CommonModule],\n  exports: [TabComponent],\n})\nexport class TabModule {}\n",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": [
+                        {
+                            "name": "TabComponent"
+                        },
+                        {
+                            "name": "TabPanelComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "imports",
+                    "elements": []
+                },
+                {
+                    "type": "exports",
+                    "elements": [
+                        {
+                            "name": "TabComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
             "name": "TagModule",
             "id": "module-TagModule-1d014b1fae06f6139df808761e27a4066df29c5337ca4bec6440d45cc755779a7dab5636eb72b92bf65caf8077cb01d9b63031597e211de2b406c63e837554ec",
             "description": "",
@@ -22938,8 +23072,8 @@
                 "file": "src/app/components/toast/toast.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "",
-                "defaultValue": "Template.bind({})"
+                "type": "Story",
+                "defaultValue": "(args) => ({\n  props: {\n    ...args,\n    showSuccess: (injector: Injector): void => {\n      injector.get(MessageService).add({ severity: 'success', detail: 'Message content' })\n    },\n    showError: (injector: Injector): void => {\n      injector.get(MessageService).add({ severity: 'error', detail: 'Message content' })\n    },\n  },\n  template: `\n    <div style=\"height: 600px\">\n      <hc-toast></hc-toast>\n      <div style=\"display: flex; gap: 0.5rem\">\n        <button (click)=\"showSuccess(injector)\" style=\"width: 140px; height: 40px; background: var(--green-default); border: none; color: white; cursor: pointer\">Success</button>\n        <button (click)=\"showError(injector)\" style=\"width: 140px; height: 40px; background: var(--red-default); border: none; color: white; cursor: pointer\">Error</button>\n      </div>\n    </div>\n  `,\n})"
             },
             {
                 "name": "showAnimation",
@@ -22980,16 +23114,6 @@
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "(args) => ({\n  props: args,\n  template: `\n    <hc-table [value]=\"products\" [responsive]=\"true\">\n      <ng-template hcTemplate=\"header\">\n        <tr>\n          <th>Code</th>\n          <th>Name</th>\n          <th>Category</th>\n          <th>Quantity</th>\n        </tr>\n      </ng-template>\n      <ng-template hcTemplate=\"body\" let-product>\n        <tr>\n          <td>{{product.code}}</td>\n          <td>{{product.name}}</td>\n          <td>{{product.category}}</td>\n          <td>{{product.quantity}}</td>\n        </tr>\n      </ng-template>\n    </hc-table>\n  `,\n})"
-            },
-            {
-                "name": "Template",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "src/app/components/toast/toast.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "(args) => ({\n  props: {\n    ...args,\n    showSuccess: (injector: Injector): void => {\n      injector.get(MessageService).add({ severity: 'success', detail: 'Message content' })\n    },\n    showError: (injector: Injector): void => {\n      injector.get(MessageService).add({ severity: 'error', detail: 'Message content' })\n    },\n  },\n  template: `\n    <div style=\"height: 600px\">\n      <hc-toast></hc-toast>\n      <div style=\"display: flex; gap: 0.5rem\">\n        <button (click)=\"showSuccess(injector)\" style=\"width: 140px; height: 40px; background: var(--green-default); border: none; color: white; cursor: pointer\">Success</button>\n        <button (click)=\"showError(injector)\" style=\"width: 140px; height: 40px; background: var(--red-default); border: none; color: white; cursor: pointer\">Error</button>\n      </div>\n    </div>\n  `,\n})"
             },
             {
                 "name": "ThemeContained",
@@ -23479,16 +23603,6 @@
             "src/app/components/toast/toast.stories.ts": [
                 {
                     "name": "Severity",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "src/app/components/toast/toast.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "defaultValue": "Template.bind({})"
-                },
-                {
-                    "name": "Template",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
                     "file": "src/app/components/toast/toast.stories.ts",
@@ -24279,6 +24393,24 @@
                 "status": "low"
             },
             {
+                "filePath": "src/app/components/tab/tab-panel.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "TabPanelComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/components/tab/tab.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "TabComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
                 "filePath": "src/app/components/table/data.service.ts",
                 "type": "injectable",
                 "linktype": "injectable",
@@ -24579,16 +24711,6 @@
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
                 "name": "Severity",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "src/app/components/toast/toast.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "Template",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"

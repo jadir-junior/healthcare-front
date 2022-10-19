@@ -5,6 +5,7 @@ import { DashboardComponent } from './dashboard.component'
 import { DashboardRoutingModule } from './dashboard-routing.module'
 import { IconModule } from './../../components/icon/icon.module'
 import { NgModule } from '@angular/core'
+import { TabModule } from '../../components/tab/tab.module'
 import { TableModule } from '../../components/table/table.module'
 import { TagModule } from '../../components/tag/tag.module'
 import { TemplateModule } from '../../directives/template/template.module'
@@ -23,6 +24,7 @@ import { TimelineModule } from './../../components/timeline/timeline.module'
     TableModule,
     AvatarModule,
     TagModule,
+    TabModule,
   ],
 })
 export class DashboardModule {}
