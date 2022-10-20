@@ -8,10 +8,12 @@ const routes: Routes = [
   {
     path: '',
     component: ProfileComponent,
+    data: { breadcrumb: 'User' },
   },
   {
     path: 'edit',
     component: EditComponent,
+    data: { breadcrumb: 'Edit' },
   },
 ]
 

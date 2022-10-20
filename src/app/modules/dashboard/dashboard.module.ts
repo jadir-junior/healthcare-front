@@ -1,4 +1,5 @@
 import { AvatarModule } from './../../components/avatar/avatar.module'
+import { BreadcrumbModule } from './../../components/breadcrumb/breadcrumb.module'
 import { CardModule } from './../../components/card/card.module'
 import { CommonModule } from '@angular/common'
 import { DashboardComponent } from './dashboard.component'
@@ -25,6 +26,7 @@ import { TimelineModule } from './../../components/timeline/timeline.module'
     AvatarModule,
     TagModule,
     TabModule,
+    BreadcrumbModule,
   ],
 })
 export class DashboardModule {}
