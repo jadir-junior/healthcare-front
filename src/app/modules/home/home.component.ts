@@ -1,7 +1,11 @@
+import { ActivatedRoute, Router } from '@angular/router'
 import { Component, OnInit } from '@angular/core'
 
+import { BreadcrumbService } from './../../components/breadcrumb/breadcrumb.service'
+import { IBreadcrumbItem } from '../../components/breadcrumb/breadcrumb.component'
 import { IMe } from '../user/services/user.service'
 import { IMenuItem } from './../../components/menu/menu-item.component'
+import { Observable } from 'rxjs'
 import { UserService } from './../user/services/user.service'
 
 @Component({
@@ -13,6 +17,9 @@ import { UserService } from './../user/services/user.service'
     </hc-sidebar>
     <div style="width: 100%;">
       <hc-header [user]="user"></hc-header>
+      <div style="margin-left: 1rem">
+        <hc-breadcrumb [model]="breadcrumbs$ | async"></hc-breadcrumb>
+      </div>
       <div>
         <router-outlet></router-outlet>
       </div>
@@ -53,10 +60,21 @@ export class HomeComponent implements OnInit {
     },
   ]
 
-  constructor(private userService: UserService) {}
+  breadcrumbs$: Observable<IBreadcrumbItem[]>
+
+  constructor(
+    private userService: UserService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private breadcrumbService: BreadcrumbService
+  ) {
+    this.breadcrumbs$ = this.breadcrumbService.breadcrumbs$
+    this.breadcrumbs$.subscribe((s) => console.log(s))
+  }
 
   ngOnInit(): void {
     this.getMe()
+    // this.buildBreadcrumb(this.route.root)
   }
 
   getMe(): void {
