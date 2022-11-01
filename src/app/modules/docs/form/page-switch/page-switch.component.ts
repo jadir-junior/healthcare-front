@@ -26,7 +26,6 @@ export class PageSwitchComponent {
   label = 'On'
 
   change(event: ISwitchOnChangeEvent) {
-    console.log(event)
     if (event.checked) {
       this.label = 'On'
     } else {
