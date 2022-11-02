@@ -1,4 +1,3 @@
-import { ActivatedRoute, Router } from '@angular/router'
 import { Component, OnInit } from '@angular/core'
 
 import { BreadcrumbService } from './../../components/breadcrumb/breadcrumb.service'
@@ -64,17 +63,13 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private userService: UserService,
-    private route: ActivatedRoute,
-    private router: Router,
     private breadcrumbService: BreadcrumbService
   ) {
     this.breadcrumbs$ = this.breadcrumbService.breadcrumbs$
-    this.breadcrumbs$.subscribe((s) => console.log(s))
   }
 
   ngOnInit(): void {
     this.getMe()
-    // this.buildBreadcrumb(this.route.root)
   }
 
   getMe(): void {
