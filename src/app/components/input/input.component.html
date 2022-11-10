@@ -18,7 +18,8 @@
       [attr.id]="id"
       (focus)="onFocus()"
       (blur)="onBlur()"
-      (change)="onChange(input.value)"
+      (change)="onInputChange(input.value)"
+      [inputMask]="inputMask"
     />
     <button
       *ngIf="appendIcon"

@@ -1,6 +1,7 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
 import { Component, ElementRef, EventEmitter, Input, Output } from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
+
+import { InputmaskOptions } from '@ngneat/input-mask'
 
 @Component({
   selector: 'hc-input',
@@ -12,10 +13,11 @@ export class InputComponent implements ControlValueAccessor {
   @Input() placeholder = ''
   @Input() ariaLabel?: string
   @Input() formControlName!: string
-  @Input() appendIcon?: string
   @Input() submitted = false
   @Input() id?: string
   @Input() label?: string
+  @Input() appendIcon?: string
+  @Input() inputMask!: InputmaskOptions<string>
 
   @Output() appendIconClickEvent = new EventEmitter()
 
@@ -40,19 +42,6 @@ export class InputComponent implements ControlValueAccessor {
     }
   }
 
-  onFocus(): void {
-    this.isFocus = true
-  }
-
-  onBlur(): void {
-    this.isFocus = false
-    this.onTouched()
-  }
-
-  onAppendIconClick() {
-    this.appendIconClickEvent.emit()
-  }
-
   writeValue(value: string): void {
     this.value = value
   }
@@ -67,6 +56,31 @@ export class InputComponent implements ControlValueAccessor {
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled
+  }
+
+  onAppendIconClick() {
+    this.appendIconClickEvent.emit()
+  }
+
+  onInputChange(value: string): void {
+    this.onChange(value)
+  }
+
+  onFocus(): void {
+    this.isFocus = true
+  }
+
+  onBlur(): void {
+    this.isFocus = false
+    this.onTouched()
+  }
+
+  removeCharacterSpecialFromMask(value: string): string {
+    if (this.inputMask) {
+      return value.replace(/[^a-zA-Z0-9]/g, '')
+    }
+
+    return value
   }
 
   get labelClasses() {

@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'
-import { FormBuilder, FormGroup, Validators } from '@angular/forms'
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 
 import { IProfile } from '../../services/user.service'
+import { createMask } from '@ngneat/input-mask'
 
 @Component({
   selector: 'hc-edit-user-account',
@@ -43,6 +44,7 @@ import { IProfile } from '../../services/user.service'
             id="phone"
             label="Phone number"
             [submitted]="submitted"
+            [inputMask]="phoneMask"
           ></hc-input>
         </div>
         <div class="form-control">
@@ -112,6 +114,8 @@ export class EditUserAccountComponent implements OnInit {
   ]
   submitted = false
 
+  phoneMask = createMask('(99) 9999-9999[9]')
+
   constructor(private fb: FormBuilder) {}
 
   ngOnInit(): void {
@@ -125,6 +129,10 @@ export class EditUserAccountComponent implements OnInit {
         status: this.status.find((f) => f.code === this.user.status),
       })
     }
+  }
+
+  get phone() {
+    return this.form.get('phone') as FormControl
   }
 
   onSubmit({ value, valid }: FormGroup): void {
