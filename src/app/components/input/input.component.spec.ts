@@ -1,14 +1,22 @@
-import { FormControl, NgControl, ReactiveFormsModule, Validators } from '@angular/forms'
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms'
 import { render, screen } from '@testing-library/angular'
 
-import { InputComponent } from './input.component'
+import { InputModule } from './input.module'
 import userEvent from '@testing-library/user-event'
 
 describe('InputComponent', () => {
   it('should create component input', async () => {
-    const { container } = await render(InputComponent, {
-      providers: [{ provide: NgControl, useValue: new FormControl() }],
-    })
+    const { container } = await render(
+      `<form [formGroup]="form">
+        <hc-input formControlName="login" ariaLabel="login"></hc-input>
+      </form>`,
+      {
+        imports: [InputModule, ReactiveFormsModule],
+        componentProperties: {
+          form: new FormBuilder().group({ login: [''] }),
+        },
+      }
+    )
 
     expect(container).toBeInTheDocument()
     expect(
@@ -17,12 +25,17 @@ describe('InputComponent', () => {
   })
 
   it('should get border primary color in focus', async () => {
-    await render(InputComponent, {
-      componentProperties: {
-        ariaLabel: 'login',
-      },
-      providers: [{ provide: NgControl, useValue: new FormControl() }],
-    })
+    await render(
+      `<form [formGroup]="form">
+        <hc-input formControlName="login" ariaLabel="login"></hc-input>
+       </form>`,
+      {
+        imports: [InputModule, ReactiveFormsModule],
+        componentProperties: {
+          form: new FormBuilder().group({ login: [''] }),
+        },
+      }
+    )
 
     expect(screen.getByRole('textbox', { name: 'login' })).toBeInTheDocument()
 
@@ -34,41 +47,54 @@ describe('InputComponent', () => {
   })
 
   it('input have placeholder', async () => {
-    await render(InputComponent, {
-      componentProperties: {
-        ariaLabel: 'login',
-        placeholder: 'Login',
-      },
-      providers: [{ provide: NgControl, useValue: new FormControl() }],
-    })
+    await render(
+      `<form [formGroup]="form">
+        <hc-input formControlName="login" ariaLabel="login" [placeholder]="placeholder"></hc-input>
+      </form>`,
+      {
+        imports: [InputModule, ReactiveFormsModule],
+        componentProperties: {
+          form: new FormBuilder().group({ login: [''] }),
+          placeholder: 'Login',
+        },
+      }
+    )
 
     expect(screen.getByPlaceholderText('Login')).toBeInTheDocument()
   })
 
   it('input have append button', async () => {
-    await render(InputComponent, {
-      componentProperties: {
-        ariaLabel: 'password',
-        placeholder: 'Password',
-        appendIcon: 'visibility',
-      },
-      providers: [{ provide: NgControl, useValue: new FormControl() }],
-    })
+    await render(
+      `<form [formGroup]="form">
+        <hc-input formControlName="password" ariaLabel="password" placeholder="password" appendIcon="visibility"></hc-input>
+      </form>`,
+      {
+        imports: [InputModule, ReactiveFormsModule],
+        componentProperties: {
+          form: new FormBuilder().group({ password: [''] }),
+        },
+      }
+    )
 
     expect(
       screen.getByRole('button', { name: /append-icon-button/i })
     ).toBeInTheDocument()
+
+    await userEvent.click(screen.getByRole('button', { name: /append-icon-button/i }))
   })
 
-  it.skip('input have a error', async () => {
-    await render(InputComponent, {
-      componentProperties: {
-        ariaLabel: 'login',
-      },
-      providers: [
-        { provide: NgControl, useValue: new FormControl('', [Validators.required]) },
-      ],
-    })
+  it('input have a error', async () => {
+    await render(
+      `<form [formGroup]="form">
+        <hc-input formControlName="login" ariaLabel="login" ></hc-input>
+      </form>`,
+      {
+        imports: [InputModule, ReactiveFormsModule],
+        componentProperties: {
+          form: new FormBuilder().group({ login: ['', [Validators.required]] }),
+        },
+      }
+    )
 
     const input = screen.getByRole('textbox', { name: 'login' })
     await userEvent.click(input)
@@ -77,24 +103,21 @@ describe('InputComponent', () => {
     await userEvent.tab()
 
     expect(screen.getByText('The login is required!'))
-    // expect(input.parentElement).toHaveClass('input-error')
+    expect(input.parentElement).toHaveClass('input-error')
   })
 
-  it.skip('input must be disabled', async () => {
-    const { fixture } = await render(InputComponent, {
-      componentProperties: {
-        ariaLabel: 'login',
-      },
-      providers: [
-        {
-          provide: NgControl,
-          useValue: new FormControl({ disabled: true }),
+  it('input must be disabled', async () => {
+    await render(
+      `<form [formGroup]="form">
+        <hc-input formControlName="login" ariaLabel="login"></hc-input>
+      </form>`,
+      {
+        imports: [InputModule, ReactiveFormsModule],
+        componentProperties: {
+          form: new FormBuilder().group({ login: [{ value: '', disabled: true }] }),
         },
-      ],
-      imports: [ReactiveFormsModule],
-    })
-
-    fixture.detectChanges()
+      }
+    )
 
     expect(screen.getByRole('textbox', { name: 'login' })).toBeDisabled()
   })

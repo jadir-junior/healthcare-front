@@ -5,6 +5,7 @@ import { AppRoutingModule } from './app-routing.module'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { BrowserModule } from '@angular/platform-browser'
 import { HttpClientModule } from '@angular/common/http'
+import { InputMaskModule } from '@ngneat/input-mask'
 import { MarkdownModule } from 'ngx-markdown'
 import { MswModule } from './components/msw/msw.module'
 import localePt from '@angular/common/locales/pt'
@@ -21,6 +22,7 @@ registerLocaleData(localePt, 'pt')
     MswModule,
     BrowserAnimationsModule,
     MarkdownModule.forRoot(),
+    InputMaskModule.forRoot({ inputSelector: 'input', isAsync: false }),
   ],
   providers: [
     {
