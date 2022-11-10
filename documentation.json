@@ -148,6 +148,38 @@
             "methods": []
         },
         {
+            "name": "IBreadcrumbItem",
+            "id": "interface-IBreadcrumbItem-1bec5631b53f020e7002a139a2cb15947fdd74a67b9070dd431ff4abc04caec9f26917531201ca03eed18924e1ecfcbda05be07c34cc55ae962b962a4ac4fcf8",
+            "file": "src/app/components/breadcrumb/breadcrumb.component.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "import { Component, Input } from '@angular/core'\n\nexport interface IBreadcrumbItem {\n  label: string\n  routerLink: string\n}\n\n@Component({\n  selector: 'hc-breadcrumb',\n  template: `\n    <div class=\"hc-breadcrumb\">\n      <ul>\n        <ng-template ngFor let-item let-end=\"last\" [ngForOf]=\"model\">\n          <li>\n            <a [routerLink]=\"item.routerLink\" class=\"hc-breadcrumb-link\">\n              <span class=\"hc-breadcrumb-text\">{{ item.label }}</span>\n            </a>\n          </li>\n          <li class=\"material-symbols-outlined\" *ngIf=\"!end\">chevron_right</li>\n        </ng-template>\n      </ul>\n    </div>\n  `,\n  styleUrls: ['breadcrumb.component.scss'],\n})\nexport class BreadcrumbComponent {\n  @Input() model?: IBreadcrumbItem[] | null\n}\n",
+            "properties": [
+                {
+                    "name": "label",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 4
+                },
+                {
+                    "name": "routerLink",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 5
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 165,
+            "methods": []
+        },
+        {
             "name": "ICity",
             "id": "interface-ICity-6e4b4044c96833151b325b0b0d56f2c2137c6997bef983c56ae7b18668cc99d67149d7e2b4925e0c0bd8519b545be44344f94f89b44f519733e24f88baeffa9a",
             "file": "src/app/modules/docs/form/page-select/page-select.component.ts",
@@ -2535,6 +2567,166 @@
                         "line": 36
                     }
                 }
+            },
+            "type": "injectable"
+        },
+        {
+            "name": "BreadcrumbService",
+            "id": "injectable-BreadcrumbService-afeb36c5fe93c6fd194720c5c89b32857b9d6f88c69c3e008e24aedcdb19a60fe117390b8b2166be3426581447f752f2ac33414def5d826d00648b38904af7cc",
+            "file": "src/app/components/breadcrumb/breadcrumb.service.ts",
+            "properties": [
+                {
+                    "name": "_breadcrumbs$",
+                    "defaultValue": "new BehaviorSubject<IBreadcrumbItem[]>([])",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 11,
+                    "modifierKind": [
+                        121,
+                        144
+                    ]
+                },
+                {
+                    "name": "breadcrumbs$",
+                    "defaultValue": "this._breadcrumbs$.asObservable()",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 13,
+                    "modifierKind": [
+                        144
+                    ]
+                }
+            ],
+            "methods": [
+                {
+                    "name": "addBreadcrumb",
+                    "args": [
+                        {
+                            "name": "route",
+                            "type": "ActivatedRouteSnapshot | null",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        },
+                        {
+                            "name": "parentUrl",
+                            "type": "string[]",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        },
+                        {
+                            "name": "breadcrumbs",
+                            "type": "IBreadcrumbItem[]",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 27,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "modifierKind": [
+                        121
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "route",
+                            "type": "ActivatedRouteSnapshot | null",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "parentUrl",
+                            "type": "string[]",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        },
+                        {
+                            "name": "breadcrumbs",
+                            "type": "IBreadcrumbItem[]",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "getLabel",
+                    "args": [
+                        {
+                            "name": "data",
+                            "type": "Data",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "any",
+                    "typeParameters": [],
+                    "line": 47,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "modifierKind": [
+                        121
+                    ],
+                    "jsdoctags": [
+                        {
+                            "name": "data",
+                            "type": "Data",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "description": "",
+            "rawdescription": "\n",
+            "sourceCode": "import { ActivatedRouteSnapshot, Data, NavigationEnd, Router } from '@angular/router'\nimport { BehaviorSubject, filter } from 'rxjs'\n\nimport { IBreadcrumbItem } from './breadcrumb.component'\nimport { Injectable } from '@angular/core'\n\n@Injectable({\n  providedIn: 'root',\n})\nexport class BreadcrumbService {\n  private readonly _breadcrumbs$ = new BehaviorSubject<IBreadcrumbItem[]>([])\n\n  readonly breadcrumbs$ = this._breadcrumbs$.asObservable()\n\n  constructor(private router: Router) {\n    this.router.events\n      .pipe(filter((event) => event instanceof NavigationEnd))\n      .subscribe(() => {\n        const root = this.router.routerState.snapshot.root\n        const breadcrumbs: IBreadcrumbItem[] = []\n        this.addBreadcrumb(root, [], breadcrumbs)\n\n        this._breadcrumbs$.next(breadcrumbs)\n      })\n  }\n\n  private addBreadcrumb(\n    route: ActivatedRouteSnapshot | null,\n    parentUrl: string[],\n    breadcrumbs: IBreadcrumbItem[]\n  ) {\n    if (route) {\n      const routeUrl = parentUrl.concat(route.url.map((url) => url.path))\n\n      if (route.data['breadcrumb']) {\n        const breadcrumb = {\n          label: this.getLabel(route.data),\n          routerLink: '/' + routeUrl.join('/'),\n        }\n        breadcrumbs.push(breadcrumb)\n      }\n\n      this.addBreadcrumb(route.firstChild, routeUrl, breadcrumbs)\n    }\n  }\n\n  private getLabel(data: Data) {\n    return typeof data['breadcrumb'] === 'function'\n      ? data['breadcrumb'](data)\n      : data['breadcrumb']\n  }\n}\n",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "router",
+                        "type": "Router",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 13,
+                "jsdoctags": [
+                    {
+                        "name": "router",
+                        "type": "Router",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
             },
             "type": "injectable"
         },
@@ -7246,6 +7438,53 @@
             }
         },
         {
+            "name": "BreadcrumbComponent",
+            "id": "component-BreadcrumbComponent-1bec5631b53f020e7002a139a2cb15947fdd74a67b9070dd431ff4abc04caec9f26917531201ca03eed18924e1ecfcbda05be07c34cc55ae962b962a4ac4fcf8",
+            "file": "src/app/components/breadcrumb/breadcrumb.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "hc-breadcrumb",
+            "styleUrls": [
+                "breadcrumb.component.scss"
+            ],
+            "styles": [],
+            "template": "<div class=\"hc-breadcrumb\">\n  <ul>\n    <ng-template ngFor let-item let-end=\"last\" [ngForOf]=\"model\">\n      <li>\n        <a [routerLink]=\"item.routerLink\" class=\"hc-breadcrumb-link\">\n          <span class=\"hc-breadcrumb-text\">{{ item.label }}</span>\n        </a>\n      </li>\n      <li class=\"material-symbols-outlined\" *ngIf=\"!end\">chevron_right</li>\n    </ng-template>\n  </ul>\n</div>\n",
+            "templateUrl": [],
+            "viewProviders": [],
+            "inputsClass": [
+                {
+                    "name": "model",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 27,
+                    "type": "IBreadcrumbItem[] | null",
+                    "decorators": []
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { Component, Input } from '@angular/core'\n\nexport interface IBreadcrumbItem {\n  label: string\n  routerLink: string\n}\n\n@Component({\n  selector: 'hc-breadcrumb',\n  template: `\n    <div class=\"hc-breadcrumb\">\n      <ul>\n        <ng-template ngFor let-item let-end=\"last\" [ngForOf]=\"model\">\n          <li>\n            <a [routerLink]=\"item.routerLink\" class=\"hc-breadcrumb-link\">\n              <span class=\"hc-breadcrumb-text\">{{ item.label }}</span>\n            </a>\n          </li>\n          <li class=\"material-symbols-outlined\" *ngIf=\"!end\">chevron_right</li>\n        </ng-template>\n      </ul>\n    </div>\n  `,\n  styleUrls: ['breadcrumb.component.scss'],\n})\nexport class BreadcrumbComponent {\n  @Input() model?: IBreadcrumbItem[] | null\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".hc-breadcrumb {\n  background: transparent;\n  padding: 1rem;\n  overflow-x: auto;\n\n  ul {\n    margin: 0;\n    padding: 0;\n    list-style-type: none;\n    display: flex;\n    align-items: center;\n    flex-wrap: nowrap;\n\n    li:last-child {\n      .hc-breadcrumb-text {\n        font-weight: 700;\n      }\n    }\n  }\n}\n\n.hc-breadcrumb-text {\n  line-height: 1;\n  color: var(--neutral-black);\n}\n\n.hc-breadcrumb-link {\n  transition: box-shadow 0.2s;\n  text-decoration: none;\n  cursor: pointer;\n}\n",
+                    "styleUrl": "breadcrumb.component.scss"
+                }
+            ],
+            "stylesData": ""
+        },
+        {
             "name": "ButtonComponent",
             "id": "component-ButtonComponent-79d2d5748950b147c86c219d259c062a48accf9856992e64d058bda15fb00ec3f143839c42049f84e2a0af2dc2800787f0c4950627bbca0eccdf5461408ee049",
             "file": "src/app/components/button/button.component.ts",
@@ -8313,7 +8552,7 @@
             "implements": [
                 "OnInit"
             ],
-            "templateData": "<div class=\"container\">\n  <div>\n    <hc-card header=\"Introduction\" [style]=\"{ 'margin-bottom': '2rem' }\">\n      <div\n        class=\"wrapper-introduction-information\"\n        *ngFor=\"let information of informationsIntroductions\"\n      >\n        <p class=\"small2\">{{ information.title }}</p>\n        <p class=\"body2\">{{ information.description }}</p>\n      </div>\n    </hc-card>\n    <hc-card header=\"Last patients\" styleClass=\"hc-card-body-no-padding\">\n      <hc-table [columns]=\"tableLastPatients\" [value]=\"lastPatients\" [responsive]=\"true\">\n        <ng-template hcTemplate=\"header\" let-columns>\n          <tr>\n            <th\n              *ngFor=\"let column of columns\"\n              [ngStyle]=\"column.header === 'Date' ? { 'text-align': 'right' } : null\"\n            >\n              {{ column.header }}\n            </th>\n          </tr>\n        </ng-template>\n        <ng-template hcTemplate=\"body\" let-patient>\n          <tr>\n            <td style=\"display: flex; align-items: center\">\n              <hc-avatar\n                [image]=\"patient.photo\"\n                [circle]=\"true\"\n                size=\"small\"\n                [style]=\"{ 'margin-right': '0.5rem' }\"\n              ></hc-avatar>\n              {{ patient.name }}\n            </td>\n            <td>{{ patient.visitTime | date: 'hh:mm' }}</td>\n            <td style=\"text-align: right\">{{ patient.date | date: 'dd/MM/yyyy' }}</td>\n          </tr>\n        </ng-template>\n      </hc-table>\n    </hc-card>\n\n    <hc-card\n      header=\"Last payments\"\n      styleClass=\"hc-card-body-no-padding\"\n      [style]=\"{ 'margin-top': '1.5rem' }\"\n    >\n      <hc-table\n        [columns]=\"columnsLastPayments\"\n        [value]=\"lastPayments\"\n        [responsive]=\"true\"\n      >\n        <ng-template hcTemplate=\"header\" let-columns>\n          <tr>\n            <th>Date</th>\n            <th>Recipient</th>\n            <th style=\"text-align: right; padding-right: 1.5rem\">Amount</th>\n          </tr>\n        </ng-template>\n        <ng-template hcTemplate=\"body\" let-payment>\n          <tr>\n            <td>{{ payment.date | date: 'dd/MM/yyyy' }}</td>\n            <td>{{ payment.recipient }}</td>\n            <td style=\"text-align: right\">\n              <hc-tag\n                [rounded]=\"true\"\n                severity=\"success\"\n                [style]=\"{ 'padding': '0.5rem 1.25rem' }\"\n              >\n                {{ payment.amount | currency }}\n              </hc-tag>\n            </td>\n          </tr>\n        </ng-template>\n      </hc-table>\n    </hc-card>\n  </div>\n  <div>\n    <hc-card>\n      <hc-timeline-events-and-meetings\n        title=\"Events\"\n        [timeline]=\"events\"\n      ></hc-timeline-events-and-meetings>\n      <hc-timeline-events-and-meetings\n        title=\"Meetings\"\n        [timeline]=\"meetings\"\n      ></hc-timeline-events-and-meetings>\n    </hc-card>\n  </div>\n</div>\n"
+            "templateData": "<div class=\"container\">\n  <div>\n    <hc-card header=\"Introduction\" [style]=\"{ 'margin-bottom': '2rem' }\">\n      <div\n        class=\"wrapper-introduction-information\"\n        *ngFor=\"let information of informationsIntroductions\"\n      >\n        <p class=\"small2\">{{ information.title }}</p>\n        <p class=\"body2\">{{ information.description }}</p>\n      </div>\n    </hc-card>\n\n    <hc-card header=\"Latest Notifications\" [style]=\"{ 'margin-bottom': '2rem' }\">\n      <hc-tabs>\n        <hc-tab-panel header=\"App Notifications\">Content 1</hc-tab-panel>\n        <hc-tab-panel header=\"Feeds\">Content 2</hc-tab-panel>\n      </hc-tabs>\n    </hc-card>\n\n    <hc-card header=\"Last patients\" styleClass=\"hc-card-body-no-padding\">\n      <hc-table [columns]=\"tableLastPatients\" [value]=\"lastPatients\" [responsive]=\"true\">\n        <ng-template hcTemplate=\"header\" let-columns>\n          <tr>\n            <th\n              *ngFor=\"let column of columns\"\n              [ngStyle]=\"column.header === 'Date' ? { 'text-align': 'right' } : null\"\n            >\n              {{ column.header }}\n            </th>\n          </tr>\n        </ng-template>\n        <ng-template hcTemplate=\"body\" let-patient>\n          <tr>\n            <td style=\"display: flex; align-items: center\">\n              <hc-avatar\n                [image]=\"patient.photo\"\n                [circle]=\"true\"\n                size=\"small\"\n                [style]=\"{ 'margin-right': '0.5rem' }\"\n              ></hc-avatar>\n              {{ patient.name }}\n            </td>\n            <td>{{ patient.visitTime | date: 'hh:mm' }}</td>\n            <td style=\"text-align: right\">{{ patient.date | date: 'dd/MM/yyyy' }}</td>\n          </tr>\n        </ng-template>\n      </hc-table>\n    </hc-card>\n\n    <hc-card\n      header=\"Last payments\"\n      styleClass=\"hc-card-body-no-padding\"\n      [style]=\"{ 'margin-top': '1.5rem' }\"\n    >\n      <hc-table\n        [columns]=\"columnsLastPayments\"\n        [value]=\"lastPayments\"\n        [responsive]=\"true\"\n      >\n        <ng-template hcTemplate=\"header\" let-columns>\n          <tr>\n            <th>Date</th>\n            <th>Recipient</th>\n            <th style=\"text-align: right; padding-right: 1.5rem\">Amount</th>\n          </tr>\n        </ng-template>\n        <ng-template hcTemplate=\"body\" let-payment>\n          <tr>\n            <td>{{ payment.date | date: 'dd/MM/yyyy' }}</td>\n            <td>{{ payment.recipient }}</td>\n            <td style=\"text-align: right\">\n              <hc-tag\n                [rounded]=\"true\"\n                severity=\"success\"\n                [style]=\"{ 'padding': '0.5rem 1.25rem' }\"\n              >\n                {{ payment.amount | currency }}\n              </hc-tag>\n            </td>\n          </tr>\n        </ng-template>\n      </hc-table>\n    </hc-card>\n  </div>\n  <div>\n    <hc-card>\n      <hc-timeline-events-and-meetings\n        title=\"Events\"\n        [timeline]=\"events\"\n      ></hc-timeline-events-and-meetings>\n      <hc-timeline-events-and-meetings\n        title=\"Meetings\"\n        [timeline]=\"meetings\"\n      ></hc-timeline-events-and-meetings>\n    </hc-card>\n  </div>\n</div>\n"
         },
         {
             "name": "DocsComponent",
@@ -9591,7 +9830,7 @@
         },
         {
             "name": "EditUserAccountComponent",
-            "id": "component-EditUserAccountComponent-2a83a494e1be85cfec169b79cfde3d9c218e43106a9399bb3448122237d8d80d79e3b74bca2521ff17031cae1615c328599c2d78767e17416286f512f5b6ca88",
+            "id": "component-EditUserAccountComponent-31344c323834030a25b58a73c004448f58e8cb8ed256beaf9be1c57a5d599b771efb92762c19989e3acc48763bf802c3af51aa30278fb3062d982fefdd312cf3",
             "file": "src/app/modules/user/components/edit-user-account/edit-user-account.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -9603,7 +9842,7 @@
             "styles": [
                 "\n      .hc-form-two-input {\n        display: flex;\n\n        div {\n          flex: 1;\n        }\n\n        div:first-child {\n          margin-right: 1rem;\n        }\n      }\n\n      .hc-form-button {\n        display: flex;\n        justify-content: flex-end;\n        padding-top: 1rem;\n      }\n    "
             ],
-            "template": "<hc-card>\n  <form [formGroup]=\"form\" (submit)=\"onSubmit(form)\">\n    <div class=\"hc-form-control\">\n      <hc-input\n        formControlName=\"name\"\n        id=\"name\"\n        label=\"Name\"\n        [submitted]=\"submitted\"\n      ></hc-input>\n    </div>\n    <div class=\"hc-form-control hc-form-two-input\">\n      <div>\n        <hc-input\n          type=\"number\"\n          formControlName=\"age\"\n          id=\"age\"\n          label=\"Age\"\n          [submitted]=\"submitted\"\n        ></hc-input>\n      </div>\n      <div>\n        <hc-select\n          [options]=\"genders\"\n          formControlName=\"gender\"\n          id=\"gender\"\n          labelTitle=\"Gender\"\n          optionLabel=\"description\"\n        ></hc-select>\n      </div>\n    </div>\n    <div class=\"form-control\">\n      <hc-input\n        type=\"tel\"\n        formControlName=\"phone\"\n        id=\"phone\"\n        label=\"Phone number\"\n        [submitted]=\"submitted\"\n      ></hc-input>\n    </div>\n    <div class=\"form-control\">\n      <hc-input\n        formControlName=\"lastVisit\"\n        id=\"lastVisit\"\n        label=\"Last visit\"\n      ></hc-input>\n    </div>\n    <div class=\"form-control\">\n      <hc-select\n        [options]=\"status\"\n        formControlName=\"status\"\n        id=\"status\"\n        labelTitle=\"Status\"\n        optionLabel=\"description\"\n      ></hc-select>\n    </div>\n    <div class=\"hc-form-button\">\n      <hc-button color=\"primary\" type=\"submit\">Save changes</hc-button>\n    </div>\n  </form>\n</hc-card>\n",
+            "template": "<hc-card>\n  <form [formGroup]=\"form\" (submit)=\"onSubmit(form)\">\n    <div class=\"hc-form-control\">\n      <hc-input\n        formControlName=\"name\"\n        id=\"name\"\n        label=\"Name\"\n        [submitted]=\"submitted\"\n      ></hc-input>\n    </div>\n    <div class=\"hc-form-control hc-form-two-input\">\n      <div>\n        <hc-input\n          type=\"number\"\n          formControlName=\"age\"\n          id=\"age\"\n          label=\"Age\"\n          [submitted]=\"submitted\"\n        ></hc-input>\n      </div>\n      <div>\n        <hc-select\n          [options]=\"genders\"\n          formControlName=\"gender\"\n          id=\"gender\"\n          labelTitle=\"Gender\"\n          optionLabel=\"description\"\n        ></hc-select>\n      </div>\n    </div>\n    <div class=\"form-control\">\n      <hc-input\n        type=\"tel\"\n        formControlName=\"phone\"\n        id=\"phone\"\n        label=\"Phone number\"\n        [submitted]=\"submitted\"\n        [inputMask]=\"phoneMask\"\n      ></hc-input>\n    </div>\n    <div class=\"form-control\">\n      <hc-input\n        formControlName=\"lastVisit\"\n        id=\"lastVisit\"\n        label=\"Last visit\"\n      ></hc-input>\n    </div>\n    <div class=\"form-control\">\n      <hc-select\n        [options]=\"status\"\n        formControlName=\"status\"\n        id=\"status\"\n        labelTitle=\"Status\"\n        optionLabel=\"description\"\n      ></hc-select>\n    </div>\n    <div class=\"hc-form-button\">\n      <hc-button color=\"primary\" type=\"submit\">Save changes</hc-button>\n    </div>\n  </form>\n</hc-card>\n",
             "templateUrl": [],
             "viewProviders": [],
             "inputsClass": [
@@ -9611,7 +9850,7 @@
                     "name": "user",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 93,
+                    "line": 95,
                     "type": "IProfile",
                     "decorators": []
                 }
@@ -9622,7 +9861,7 @@
                     "defaultValue": "new EventEmitter()",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 95,
+                    "line": 97,
                     "type": "EventEmitter"
                 }
             ],
@@ -9635,7 +9874,7 @@
                     "type": "FormGroup",
                     "optional": false,
                     "description": "",
-                    "line": 97
+                    "line": 99
                 },
                 {
                     "name": "genders",
@@ -9645,7 +9884,17 @@
                     "type": "[]",
                     "optional": false,
                     "description": "",
-                    "line": 105
+                    "line": 107
+                },
+                {
+                    "name": "phoneMask",
+                    "defaultValue": "createMask('(99) 9999-9999[9]')",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 117
                 },
                 {
                     "name": "status",
@@ -9655,7 +9904,7 @@
                     "type": "[]",
                     "optional": false,
                     "description": "",
-                    "line": 109
+                    "line": 111
                 },
                 {
                     "name": "submitted",
@@ -9665,7 +9914,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 113
+                    "line": 115
                 }
             ],
             "methodsClass": [
@@ -9675,7 +9924,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 117,
+                    "line": 121,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -9691,7 +9940,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 130,
+                    "line": 138,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -9713,7 +9962,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'\nimport { FormBuilder, FormGroup, Validators } from '@angular/forms'\n\nimport { IProfile } from '../../services/user.service'\n\n@Component({\n  selector: 'hc-edit-user-account',\n  template: `\n    <hc-card>\n      <form [formGroup]=\"form\" (submit)=\"onSubmit(form)\">\n        <div class=\"hc-form-control\">\n          <hc-input\n            formControlName=\"name\"\n            id=\"name\"\n            label=\"Name\"\n            [submitted]=\"submitted\"\n          ></hc-input>\n        </div>\n        <div class=\"hc-form-control hc-form-two-input\">\n          <div>\n            <hc-input\n              type=\"number\"\n              formControlName=\"age\"\n              id=\"age\"\n              label=\"Age\"\n              [submitted]=\"submitted\"\n            ></hc-input>\n          </div>\n          <div>\n            <hc-select\n              [options]=\"genders\"\n              formControlName=\"gender\"\n              id=\"gender\"\n              labelTitle=\"Gender\"\n              optionLabel=\"description\"\n            ></hc-select>\n          </div>\n        </div>\n        <div class=\"form-control\">\n          <hc-input\n            type=\"tel\"\n            formControlName=\"phone\"\n            id=\"phone\"\n            label=\"Phone number\"\n            [submitted]=\"submitted\"\n          ></hc-input>\n        </div>\n        <div class=\"form-control\">\n          <hc-input\n            formControlName=\"lastVisit\"\n            id=\"lastVisit\"\n            label=\"Last visit\"\n          ></hc-input>\n        </div>\n        <div class=\"form-control\">\n          <hc-select\n            [options]=\"status\"\n            formControlName=\"status\"\n            id=\"status\"\n            labelTitle=\"Status\"\n            optionLabel=\"description\"\n          ></hc-select>\n        </div>\n        <div class=\"hc-form-button\">\n          <hc-button color=\"primary\" type=\"submit\">Save changes</hc-button>\n        </div>\n      </form>\n    </hc-card>\n  `,\n  styles: [\n    `\n      .hc-form-two-input {\n        display: flex;\n\n        div {\n          flex: 1;\n        }\n\n        div:first-child {\n          margin-right: 1rem;\n        }\n      }\n\n      .hc-form-button {\n        display: flex;\n        justify-content: flex-end;\n        padding-top: 1rem;\n      }\n    `,\n  ],\n})\nexport class EditUserAccountComponent implements OnInit {\n  @Input() user!: IProfile\n\n  @Output() onEditUser = new EventEmitter()\n\n  form: FormGroup = this.fb.group({\n    name: ['', [Validators.required]],\n    age: ['', [Validators.required]],\n    gender: ['', [Validators.required]],\n    phone: ['', [Validators.required]],\n    lastVisit: [{ value: '', disabled: true }],\n    status: ['', [Validators.required]],\n  })\n  genders = [\n    { code: 'FEMALE', description: 'Female' },\n    { code: 'MALE', description: 'Male' },\n  ]\n  status = [\n    { code: 'APPROVED', description: 'Approved ' },\n    { code: 'PENDING', description: 'Pending' },\n  ]\n  submitted = false\n\n  constructor(private fb: FormBuilder) {}\n\n  ngOnInit(): void {\n    if (this.user) {\n      this.form.patchValue({\n        name: this.user.name,\n        age: this.user.age,\n        gender: this.genders.find((g) => g.code === this.user.gender),\n        phone: this.user.contact.phone,\n        lastVisit: this.user.history[this.user.history.length - 1].lastVisit,\n        status: this.status.find((f) => f.code === this.user.status),\n      })\n    }\n  }\n\n  onSubmit({ value, valid }: FormGroup): void {\n    this.submitted = true\n    if (valid) {\n      this.onEditUser.emit(value)\n    }\n  }\n}\n",
+            "sourceCode": "import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core'\nimport { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'\n\nimport { IProfile } from '../../services/user.service'\nimport { createMask } from '@ngneat/input-mask'\n\n@Component({\n  selector: 'hc-edit-user-account',\n  template: `\n    <hc-card>\n      <form [formGroup]=\"form\" (submit)=\"onSubmit(form)\">\n        <div class=\"hc-form-control\">\n          <hc-input\n            formControlName=\"name\"\n            id=\"name\"\n            label=\"Name\"\n            [submitted]=\"submitted\"\n          ></hc-input>\n        </div>\n        <div class=\"hc-form-control hc-form-two-input\">\n          <div>\n            <hc-input\n              type=\"number\"\n              formControlName=\"age\"\n              id=\"age\"\n              label=\"Age\"\n              [submitted]=\"submitted\"\n            ></hc-input>\n          </div>\n          <div>\n            <hc-select\n              [options]=\"genders\"\n              formControlName=\"gender\"\n              id=\"gender\"\n              labelTitle=\"Gender\"\n              optionLabel=\"description\"\n            ></hc-select>\n          </div>\n        </div>\n        <div class=\"form-control\">\n          <hc-input\n            type=\"tel\"\n            formControlName=\"phone\"\n            id=\"phone\"\n            label=\"Phone number\"\n            [submitted]=\"submitted\"\n            [inputMask]=\"phoneMask\"\n          ></hc-input>\n        </div>\n        <div class=\"form-control\">\n          <hc-input\n            formControlName=\"lastVisit\"\n            id=\"lastVisit\"\n            label=\"Last visit\"\n          ></hc-input>\n        </div>\n        <div class=\"form-control\">\n          <hc-select\n            [options]=\"status\"\n            formControlName=\"status\"\n            id=\"status\"\n            labelTitle=\"Status\"\n            optionLabel=\"description\"\n          ></hc-select>\n        </div>\n        <div class=\"hc-form-button\">\n          <hc-button color=\"primary\" type=\"submit\">Save changes</hc-button>\n        </div>\n      </form>\n    </hc-card>\n  `,\n  styles: [\n    `\n      .hc-form-two-input {\n        display: flex;\n\n        div {\n          flex: 1;\n        }\n\n        div:first-child {\n          margin-right: 1rem;\n        }\n      }\n\n      .hc-form-button {\n        display: flex;\n        justify-content: flex-end;\n        padding-top: 1rem;\n      }\n    `,\n  ],\n})\nexport class EditUserAccountComponent implements OnInit {\n  @Input() user!: IProfile\n\n  @Output() onEditUser = new EventEmitter()\n\n  form: FormGroup = this.fb.group({\n    name: ['', [Validators.required]],\n    age: ['', [Validators.required]],\n    gender: ['', [Validators.required]],\n    phone: ['', [Validators.required]],\n    lastVisit: [{ value: '', disabled: true }],\n    status: ['', [Validators.required]],\n  })\n  genders = [\n    { code: 'FEMALE', description: 'Female' },\n    { code: 'MALE', description: 'Male' },\n  ]\n  status = [\n    { code: 'APPROVED', description: 'Approved ' },\n    { code: 'PENDING', description: 'Pending' },\n  ]\n  submitted = false\n\n  phoneMask = createMask('(99) 9999-9999[9]')\n\n  constructor(private fb: FormBuilder) {}\n\n  ngOnInit(): void {\n    if (this.user) {\n      this.form.patchValue({\n        name: this.user.name,\n        age: this.user.age,\n        gender: this.genders.find((g) => g.code === this.user.gender),\n        phone: this.user.contact.phone,\n        lastVisit: this.user.history[this.user.history.length - 1].lastVisit,\n        status: this.status.find((f) => f.code === this.user.status),\n      })\n    }\n  }\n\n  get phone() {\n    return this.form.get('phone') as FormControl\n  }\n\n  onSubmit({ value, valid }: FormGroup): void {\n    this.submitted = true\n    if (valid) {\n      this.onEditUser.emit(value)\n    }\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "\n      .hc-form-two-input {\n        display: flex;\n\n        div {\n          flex: 1;\n        }\n\n        div:first-child {\n          margin-right: 1rem;\n        }\n      }\n\n      .hc-form-button {\n        display: flex;\n        justify-content: flex-end;\n        padding-top: 1rem;\n      }\n    \n",
@@ -9730,7 +9979,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 113,
+                "line": 117,
                 "jsdoctags": [
                     {
                         "name": "fb",
@@ -9745,7 +9994,18 @@
             },
             "implements": [
                 "OnInit"
-            ]
+            ],
+            "accessors": {
+                "phone": {
+                    "name": "phone",
+                    "getSignature": {
+                        "name": "phone",
+                        "type": "",
+                        "returnType": "",
+                        "line": 134
+                    }
+                }
+            }
         },
         {
             "name": "HeaderComponent",
@@ -9802,7 +10062,7 @@
         },
         {
             "name": "HomeComponent",
-            "id": "component-HomeComponent-c8766d1cd7e7ad493f9d68ff432693c97f83be3543d942a98832bcb5d4af0c239f6e3ba336c429abcb6fb0470a28620d13db18012699950cb10eccf66760b12e",
+            "id": "component-HomeComponent-f484f48fdb16c8902636a1beabb0796d27965328cc098dc3d530a1d4724a15e0baf42c58079e8985dd728926dbb5607beb7f55788a5cf70e80f448b6032c17fa",
             "file": "src/app/modules/home/home.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -9814,12 +10074,21 @@
             "styles": [
                 "\n      .wrapper-home {\n        display: flex;\n      }\n    "
             ],
-            "template": "<div class=\"wrapper-home\">   <hc-sidebar>\n     <hc-logo [style]=\"{ margin: '1.5rem' }\"></hc-logo>\n     <hc-menu [model]=\"menuItems\" [style]=\"{ margin: '0.25rem 1.5rem' }\"></hc-menu>\n   </hc-sidebar>\n   <div style=\"width: 100%;\">\n     <hc-header [user]=\"user\"></hc-header>\n     <div>\n       <router-outlet></router-outlet>\n     </div>\n   </div>\n </div>",
+            "template": "<div class=\"wrapper-home\">   <hc-sidebar>\n     <hc-logo [style]=\"{ margin: '1.5rem' }\"></hc-logo>\n     <hc-menu [model]=\"menuItems\" [style]=\"{ margin: '0.25rem 1.5rem' }\"></hc-menu>\n   </hc-sidebar>\n   <div style=\"width: 100%;\">\n     <hc-header [user]=\"user\"></hc-header>\n     <div style=\"margin-left: 1rem\">\n       <hc-breadcrumb [model]=\"breadcrumbs$ | async\"></hc-breadcrumb>\n     </div>\n     <div>\n       <router-outlet></router-outlet>\n     </div>\n   </div>\n </div>",
             "templateUrl": [],
             "viewProviders": [],
             "inputsClass": [],
             "outputsClass": [],
             "propertiesClass": [
+                {
+                    "name": "breadcrumbs$",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Observable<IBreadcrumbItem[]>",
+                    "optional": false,
+                    "description": "",
+                    "line": 62
+                },
                 {
                     "name": "menuItems",
                     "defaultValue": "[\n    {\n      label: 'MEDICINE',\n      items: [\n        { label: 'Dashboard', routerLink: 'dashboard', icon: 'dashboard' },\n        { label: 'Appontiments', routerLink: 'appointments', icon: 'vaccines' },\n        { label: 'Doctors', routerLink: 'doctors', icon: 'medication_liquid' },\n        { label: 'Departaments', routerLink: 'departaments', icon: 'group' },\n        { label: 'Patients', routerLink: 'patients', icon: 'badge' },\n        { label: 'Payments', routerLink: 'payments', icon: 'payments' },\n      ],\n    },\n    {\n      separator: true,\n    },\n    {\n      label: 'SETTINGS',\n      items: [\n        { label: 'Docs', routerLink: '/docs', icon: 'description' },\n        { label: 'Help', routerLink: 'help', icon: 'help' },\n      ],\n    },\n  ]",
@@ -9828,7 +10097,7 @@
                     "type": "IMenuItem[]",
                     "optional": false,
                     "description": "",
-                    "line": 32
+                    "line": 38
                 },
                 {
                     "name": "user",
@@ -9837,7 +10106,7 @@
                     "type": "IMe",
                     "optional": false,
                     "description": "",
-                    "line": 30
+                    "line": 36
                 }
             ],
             "methodsClass": [
@@ -9847,7 +10116,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 62,
+                    "line": 75,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -9857,7 +10126,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 58,
+                    "line": 71,
                     "deprecated": false,
                     "deprecationMessage": ""
                 }
@@ -9869,7 +10138,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, OnInit } from '@angular/core'\n\nimport { IMe } from '../user/services/user.service'\nimport { IMenuItem } from './../../components/menu/menu-item.component'\nimport { UserService } from './../user/services/user.service'\n\n@Component({\n  selector: 'app-home',\n  template: ` <div class=\"wrapper-home\">\n    <hc-sidebar>\n      <hc-logo [style]=\"{ margin: '1.5rem' }\"></hc-logo>\n      <hc-menu [model]=\"menuItems\" [style]=\"{ margin: '0.25rem 1.5rem' }\"></hc-menu>\n    </hc-sidebar>\n    <div style=\"width: 100%;\">\n      <hc-header [user]=\"user\"></hc-header>\n      <div>\n        <router-outlet></router-outlet>\n      </div>\n    </div>\n  </div>`,\n  styles: [\n    `\n      .wrapper-home {\n        display: flex;\n      }\n    `,\n  ],\n})\nexport class HomeComponent implements OnInit {\n  user!: IMe\n\n  menuItems: IMenuItem[] = [\n    {\n      label: 'MEDICINE',\n      items: [\n        { label: 'Dashboard', routerLink: 'dashboard', icon: 'dashboard' },\n        { label: 'Appontiments', routerLink: 'appointments', icon: 'vaccines' },\n        { label: 'Doctors', routerLink: 'doctors', icon: 'medication_liquid' },\n        { label: 'Departaments', routerLink: 'departaments', icon: 'group' },\n        { label: 'Patients', routerLink: 'patients', icon: 'badge' },\n        { label: 'Payments', routerLink: 'payments', icon: 'payments' },\n      ],\n    },\n    {\n      separator: true,\n    },\n    {\n      label: 'SETTINGS',\n      items: [\n        { label: 'Docs', routerLink: '/docs', icon: 'description' },\n        { label: 'Help', routerLink: 'help', icon: 'help' },\n      ],\n    },\n  ]\n\n  constructor(private userService: UserService) {}\n\n  ngOnInit(): void {\n    this.getMe()\n  }\n\n  getMe(): void {\n    this.userService.getMe().subscribe((me) => {\n      this.user = me\n    })\n  }\n}\n",
+            "sourceCode": "import { Component, OnInit } from '@angular/core'\n\nimport { BreadcrumbService } from './../../components/breadcrumb/breadcrumb.service'\nimport { IBreadcrumbItem } from '../../components/breadcrumb/breadcrumb.component'\nimport { IMe } from '../user/services/user.service'\nimport { IMenuItem } from './../../components/menu/menu-item.component'\nimport { Observable } from 'rxjs'\nimport { UserService } from './../user/services/user.service'\n\n@Component({\n  selector: 'app-home',\n  template: ` <div class=\"wrapper-home\">\n    <hc-sidebar>\n      <hc-logo [style]=\"{ margin: '1.5rem' }\"></hc-logo>\n      <hc-menu [model]=\"menuItems\" [style]=\"{ margin: '0.25rem 1.5rem' }\"></hc-menu>\n    </hc-sidebar>\n    <div style=\"width: 100%;\">\n      <hc-header [user]=\"user\"></hc-header>\n      <div style=\"margin-left: 1rem\">\n        <hc-breadcrumb [model]=\"breadcrumbs$ | async\"></hc-breadcrumb>\n      </div>\n      <div>\n        <router-outlet></router-outlet>\n      </div>\n    </div>\n  </div>`,\n  styles: [\n    `\n      .wrapper-home {\n        display: flex;\n      }\n    `,\n  ],\n})\nexport class HomeComponent implements OnInit {\n  user!: IMe\n\n  menuItems: IMenuItem[] = [\n    {\n      label: 'MEDICINE',\n      items: [\n        { label: 'Dashboard', routerLink: 'dashboard', icon: 'dashboard' },\n        { label: 'Appontiments', routerLink: 'appointments', icon: 'vaccines' },\n        { label: 'Doctors', routerLink: 'doctors', icon: 'medication_liquid' },\n        { label: 'Departaments', routerLink: 'departaments', icon: 'group' },\n        { label: 'Patients', routerLink: 'patients', icon: 'badge' },\n        { label: 'Payments', routerLink: 'payments', icon: 'payments' },\n      ],\n    },\n    {\n      separator: true,\n    },\n    {\n      label: 'SETTINGS',\n      items: [\n        { label: 'Docs', routerLink: '/docs', icon: 'description' },\n        { label: 'Help', routerLink: 'help', icon: 'help' },\n      ],\n    },\n  ]\n\n  breadcrumbs$: Observable<IBreadcrumbItem[]>\n\n  constructor(\n    private userService: UserService,\n    private breadcrumbService: BreadcrumbService\n  ) {\n    this.breadcrumbs$ = this.breadcrumbService.breadcrumbs$\n  }\n\n  ngOnInit(): void {\n    this.getMe()\n  }\n\n  getMe(): void {\n    this.userService.getMe().subscribe((me) => {\n      this.user = me\n    })\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "\n      .wrapper-home {\n        display: flex;\n      }\n    \n",
@@ -9884,13 +10153,28 @@
                         "type": "UserService",
                         "deprecated": false,
                         "deprecationMessage": ""
+                    },
+                    {
+                        "name": "breadcrumbService",
+                        "type": "BreadcrumbService",
+                        "deprecated": false,
+                        "deprecationMessage": ""
                     }
                 ],
-                "line": 54,
+                "line": 62,
                 "jsdoctags": [
                     {
                         "name": "userService",
                         "type": "UserService",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    },
+                    {
+                        "name": "breadcrumbService",
+                        "type": "BreadcrumbService",
                         "deprecated": false,
                         "deprecationMessage": "",
                         "tagName": {
@@ -10024,7 +10308,7 @@
         },
         {
             "name": "InputComponent",
-            "id": "component-InputComponent-10ffe1221e96d8cf63e139c3b026603c6c96bc72758fa1fe6c7886842d591c7952268d1fb68015163ac37e39fafe21c3bd566fd046b7f2e75a72166bf3303843",
+            "id": "component-InputComponent-5c2cc8ac37886fedb410200fcc6c33c21c1d7b2b2160d719d4fff1d61ef06c2de575cb23cd66cbbce5ebcf42940017398637830f378c349487fc1eb49e82c1f6",
             "file": "src/app/components/input/input.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -10045,7 +10329,7 @@
                     "name": "appendIcon",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 15,
+                    "line": 19,
                     "type": "string",
                     "decorators": []
                 },
@@ -10053,7 +10337,7 @@
                     "name": "ariaLabel",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 13,
+                    "line": 14,
                     "type": "string",
                     "decorators": []
                 },
@@ -10061,7 +10345,7 @@
                     "name": "formControlName",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 14,
+                    "line": 15,
                     "type": "string",
                     "decorators": []
                 },
@@ -10071,6 +10355,14 @@
                     "deprecationMessage": "",
                     "line": 17,
                     "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "inputMask",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 20,
+                    "type": "InputmaskOptions<>",
                     "decorators": []
                 },
                 {
@@ -10086,7 +10378,7 @@
                     "defaultValue": "''",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 12,
+                    "line": 13,
                     "type": "string",
                     "decorators": []
                 },
@@ -10104,7 +10396,7 @@
                     "defaultValue": "'text'",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 11,
+                    "line": 12,
                     "type": "\"text\" | \"tel\" | \"password\" | \"email\" | \"number\"",
                     "decorators": []
                 }
@@ -10115,7 +10407,7 @@
                     "defaultValue": "new EventEmitter()",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "line": 20,
+                    "line": 22,
                     "type": "EventEmitter"
                 }
             ],
@@ -10128,7 +10420,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 22
+                    "line": 24
                 },
                 {
                     "name": "isFocus",
@@ -10138,7 +10430,7 @@
                     "type": "",
                     "optional": false,
                     "description": "",
-                    "line": 23
+                    "line": 25
                 },
                 {
                     "name": "ngControl",
@@ -10147,7 +10439,7 @@
                     "type": "NgControl",
                     "optional": false,
                     "description": "",
-                    "line": 29,
+                    "line": 31,
                     "modifierKind": [
                         123
                     ]
@@ -10159,7 +10451,7 @@
                     "type": "function",
                     "optional": false,
                     "description": "",
-                    "line": 26
+                    "line": 28
                 },
                 {
                     "name": "onTouched",
@@ -10168,7 +10460,7 @@
                     "type": "function",
                     "optional": false,
                     "description": "",
-                    "line": 27
+                    "line": 29
                 },
                 {
                     "name": "value",
@@ -10177,7 +10469,7 @@
                     "type": "string",
                     "optional": false,
                     "description": "",
-                    "line": 24
+                    "line": 26
                 }
             ],
             "methodsClass": [
@@ -10187,7 +10479,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 52,
+                    "line": 61,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -10197,7 +10489,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 47,
+                    "line": 73,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -10207,9 +10499,37 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 43,
+                    "line": 69,
                     "deprecated": false,
                     "deprecationMessage": ""
+                },
+                {
+                    "name": "onInputChange",
+                    "args": [
+                        {
+                            "name": "value",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 65,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "value",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
                 },
                 {
                     "name": "registerNgControl",
@@ -10217,7 +10537,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 33,
+                    "line": 35,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -10242,7 +10562,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 60,
+                    "line": 49,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -10279,7 +10599,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 64,
+                    "line": 53,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -10289,6 +10609,34 @@
                             "deprecated": false,
                             "deprecationMessage": "",
                             "function": [],
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "name": "removeCharacterSpecialFromMask",
+                    "args": [
+                        {
+                            "name": "value",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "string",
+                    "typeParameters": [],
+                    "line": 78,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "value",
+                            "type": "string",
+                            "deprecated": false,
+                            "deprecationMessage": "",
                             "tagName": {
                                 "text": "param"
                             }
@@ -10308,7 +10656,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 68,
+                    "line": 57,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -10336,7 +10684,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 56,
+                    "line": 45,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "jsdoctags": [
@@ -10359,7 +10707,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component, ElementRef, EventEmitter, Input, Output } from '@angular/core'\nimport { ControlValueAccessor, NgControl } from '@angular/forms'\n\n@Component({\n  selector: 'hc-input',\n  templateUrl: 'input.component.html',\n  styleUrls: ['input.component.scss'],\n})\nexport class InputComponent implements ControlValueAccessor {\n  @Input() type: 'text' | 'tel' | 'password' | 'email' | 'number' = 'text'\n  @Input() placeholder = ''\n  @Input() ariaLabel?: string\n  @Input() formControlName!: string\n  @Input() appendIcon?: string\n  @Input() submitted = false\n  @Input() id?: string\n  @Input() label?: string\n\n  @Output() appendIconClickEvent = new EventEmitter()\n\n  disabled = false\n  isFocus = false\n  value!: string\n\n  onChange!: (value: string) => void\n  onTouched!: () => void\n\n  constructor(public ngControl: NgControl, private elem: ElementRef) {\n    this.registerNgControl()\n  }\n\n  registerNgControl(): void {\n    if (this.ngControl != null) {\n      this.ngControl.valueAccessor = this\n    } else {\n      throw new Error(\n        `You need pass the [\"formControlName\"] in the ${this.elem.nativeElement.tagName.toLowerCase()}`\n      )\n    }\n  }\n\n  onFocus(): void {\n    this.isFocus = true\n  }\n\n  onBlur(): void {\n    this.isFocus = false\n    this.onTouched()\n  }\n\n  onAppendIconClick() {\n    this.appendIconClickEvent.emit()\n  }\n\n  writeValue(value: string): void {\n    this.value = value\n  }\n\n  registerOnChange(fn: (value: string) => void): void {\n    this.onChange = fn\n  }\n\n  registerOnTouched(fn: () => void): void {\n    this.onTouched = fn\n  }\n\n  setDisabledState(isDisabled: boolean): void {\n    this.disabled = isDisabled\n  }\n\n  get labelClasses() {\n    return {\n      ['hc-input-label']: true,\n      ['hc-input-label-focus']: this.isFocus,\n      ['hc-input-label-error']:\n        this.ngControl.invalid &&\n        (this.submitted || this.ngControl.dirty || this.ngControl.touched),\n    }\n  }\n}\n",
+            "sourceCode": "import { Component, ElementRef, EventEmitter, Input, Output } from '@angular/core'\nimport { ControlValueAccessor, NgControl } from '@angular/forms'\n\nimport { InputmaskOptions } from '@ngneat/input-mask'\n\n@Component({\n  selector: 'hc-input',\n  templateUrl: 'input.component.html',\n  styleUrls: ['input.component.scss'],\n})\nexport class InputComponent implements ControlValueAccessor {\n  @Input() type: 'text' | 'tel' | 'password' | 'email' | 'number' = 'text'\n  @Input() placeholder = ''\n  @Input() ariaLabel?: string\n  @Input() formControlName!: string\n  @Input() submitted = false\n  @Input() id?: string\n  @Input() label?: string\n  @Input() appendIcon?: string\n  @Input() inputMask!: InputmaskOptions<unknown>\n\n  @Output() appendIconClickEvent = new EventEmitter()\n\n  disabled = false\n  isFocus = false\n  value!: string\n\n  onChange!: (value: string) => void\n  onTouched!: () => void\n\n  constructor(public ngControl: NgControl, private elem: ElementRef) {\n    this.registerNgControl()\n  }\n\n  registerNgControl(): void {\n    if (this.ngControl != null) {\n      this.ngControl.valueAccessor = this\n    } else {\n      throw new Error(\n        `You need pass the [\"formControlName\"] in the ${this.elem.nativeElement.tagName.toLowerCase()}`\n      )\n    }\n  }\n\n  writeValue(value: string): void {\n    this.value = value\n  }\n\n  registerOnChange(fn: (value: string) => void): void {\n    this.onChange = fn\n  }\n\n  registerOnTouched(fn: () => void): void {\n    this.onTouched = fn\n  }\n\n  setDisabledState(isDisabled: boolean): void {\n    this.disabled = isDisabled\n  }\n\n  onAppendIconClick() {\n    this.appendIconClickEvent.emit()\n  }\n\n  onInputChange(value: string): void {\n    this.onChange(value)\n  }\n\n  onFocus(): void {\n    this.isFocus = true\n  }\n\n  onBlur(): void {\n    this.isFocus = false\n    this.onTouched()\n  }\n\n  removeCharacterSpecialFromMask(value: string): string {\n    if (this.inputMask) {\n      return value.replace(/[^a-zA-Z0-9]/g, '')\n    }\n\n    return value\n  }\n\n  get labelClasses() {\n    return {\n      ['hc-input-label']: true,\n      ['hc-input-label-focus']: this.isFocus,\n      ['hc-input-label-error']:\n        this.ngControl.invalid &&\n        (this.submitted || this.ngControl.dirty || this.ngControl.touched),\n    }\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -10387,7 +10735,7 @@
                         "deprecationMessage": ""
                     }
                 ],
-                "line": 27,
+                "line": 29,
                 "jsdoctags": [
                     {
                         "name": "ngControl",
@@ -10419,11 +10767,11 @@
                         "name": "labelClasses",
                         "type": "",
                         "returnType": "",
-                        "line": 72
+                        "line": 86
                     }
                 }
             },
-            "templateData": "<div class=\"wrapper-input-and-error\">\n  <label [attr.for]=\"id\" *ngIf=\"label\" [ngClass]=\"labelClasses\">{{ label }}</label>\n  <div\n    class=\"wrapper-input\"\n    [ngClass]=\"{\n      'input-focus': isFocus,\n      'input-error':\n        ngControl.invalid && (submitted || ngControl.dirty || ngControl.touched)\n    }\"\n  >\n    <input\n      #input\n      [type]=\"type\"\n      [value]=\"value\"\n      [disabled]=\"disabled\"\n      [attr.placeholder]=\"placeholder\"\n      [attr.aria-label]=\"ariaLabel\"\n      [attr.id]=\"id\"\n      (focus)=\"onFocus()\"\n      (blur)=\"onBlur()\"\n      (change)=\"onChange(input.value)\"\n    />\n    <button\n      *ngIf=\"appendIcon\"\n      type=\"button\"\n      class=\"material-symbols-outlined append-icon\"\n      aria-label=\"append-icon-button\"\n      [disabled]=\"disabled\"\n      (click)=\"onAppendIconClick()\"\n      [ngClass]=\"{\n        'icon-error':\n          ngControl.invalid && (submitted || ngControl.dirty || ngControl.touched)\n      }\"\n    >\n      {{ appendIcon }}\n    </button>\n  </div>\n  <div\n    *ngIf=\"ngControl.invalid && (submitted || ngControl.dirty || ngControl.touched)\"\n    class=\"error-message\"\n  >\n    <span\n      class=\"material-symbols-outlined\"\n      style=\"font-size: 18px; margin-right: 4px; margin-top: 3px\"\n      >info</span\n    >\n    <p *ngIf=\"ngControl.errors?.['required']\">The {{ ngControl.name }} is required!</p>\n    <p *ngIf=\"ngControl.errors?.['email']\">Invalid email address</p>\n    <p *ngIf=\"ngControl.errors?.['passwordStrength']\">\n      Your password must be 8-20 characters long, contain letters uppercase and lowercase,\n      special characters\n    </p>\n  </div>\n</div>\n"
+            "templateData": "<div class=\"wrapper-input-and-error\">\n  <label [attr.for]=\"id\" *ngIf=\"label\" [ngClass]=\"labelClasses\">{{ label }}</label>\n  <div\n    class=\"wrapper-input\"\n    [ngClass]=\"{\n      'input-focus': isFocus,\n      'input-error':\n        ngControl.invalid && (submitted || ngControl.dirty || ngControl.touched)\n    }\"\n  >\n    <input\n      #input\n      [type]=\"type\"\n      [value]=\"value\"\n      [disabled]=\"disabled\"\n      [attr.placeholder]=\"placeholder\"\n      [attr.aria-label]=\"ariaLabel\"\n      [attr.id]=\"id\"\n      (focus)=\"onFocus()\"\n      (blur)=\"onBlur()\"\n      (change)=\"onInputChange(input.value)\"\n      [inputMask]=\"inputMask\"\n    />\n    <button\n      *ngIf=\"appendIcon\"\n      type=\"button\"\n      class=\"material-symbols-outlined append-icon\"\n      aria-label=\"append-icon-button\"\n      [disabled]=\"disabled\"\n      (click)=\"onAppendIconClick()\"\n      [ngClass]=\"{\n        'icon-error':\n          ngControl.invalid && (submitted || ngControl.dirty || ngControl.touched)\n      }\"\n    >\n      {{ appendIcon }}\n    </button>\n  </div>\n  <div\n    *ngIf=\"ngControl.invalid && (submitted || ngControl.dirty || ngControl.touched)\"\n    class=\"error-message\"\n  >\n    <span\n      class=\"material-symbols-outlined\"\n      style=\"font-size: 18px; margin-right: 4px; margin-top: 3px\"\n      >info</span\n    >\n    <p *ngIf=\"ngControl.errors?.['required']\">The {{ ngControl.name }} is required!</p>\n    <p *ngIf=\"ngControl.errors?.['email']\">Invalid email address</p>\n    <p *ngIf=\"ngControl.errors?.['passwordStrength']\">\n      Your password must be 8-20 characters long, contain letters uppercase and lowercase,\n      special characters\n    </p>\n  </div>\n</div>\n"
         },
         {
             "name": "InvoicesComponent",
@@ -13205,7 +13553,7 @@
         },
         {
             "name": "PageSwitchComponent",
-            "id": "component-PageSwitchComponent-3bcd81e574d0ef4badd776c8744a938a73a10651bacd7499df1273dcfc41348f538dcf8b11b7edd8558f7c4ef78326d7e31ee8693e1a9d5ebba9630530d62352",
+            "id": "component-PageSwitchComponent-62fe9640f777c2bbba9c9ddf3d4d1f60a36de31bf6c0dc2102563d87538acd9b7e7f206f463f8067323d7a7b0579beb5ecc9b097022ca3f805c97d9dec468c2f",
             "file": "src/app/modules/docs/form/page-switch/page-switch.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -13279,7 +13627,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core'\nimport { ISwitchOnChangeEvent } from './../../../../components/switch/switch.component'\n\n@Component({\n  selector: 'app-page-switch',\n  template: `\n    <div class=\"hc-docs-title\">\n      <h2>Switch</h2>\n      <p class=\"body1\">Switch é usado para selecionar um valor boolean</p>\n    </div>\n    <div class=\"hc-docs-components\">\n      <hc-card>\n        <h5>Basic</h5>\n        <hc-switch\n          [label]=\"label\"\n          [(ngModel)]=\"checked\"\n          (onChange)=\"change($event)\"\n        ></hc-switch>\n      </hc-card>\n    </div>\n  `,\n  styles: [],\n})\nexport class PageSwitchComponent {\n  checked = true\n  label = 'On'\n\n  change(event: ISwitchOnChangeEvent) {\n    console.log(event)\n    if (event.checked) {\n      this.label = 'On'\n    } else {\n      this.label = 'Off'\n    }\n  }\n}\n",
+            "sourceCode": "import { Component } from '@angular/core'\nimport { ISwitchOnChangeEvent } from './../../../../components/switch/switch.component'\n\n@Component({\n  selector: 'app-page-switch',\n  template: `\n    <div class=\"hc-docs-title\">\n      <h2>Switch</h2>\n      <p class=\"body1\">Switch é usado para selecionar um valor boolean</p>\n    </div>\n    <div class=\"hc-docs-components\">\n      <hc-card>\n        <h5>Basic</h5>\n        <hc-switch\n          [label]=\"label\"\n          [(ngModel)]=\"checked\"\n          (onChange)=\"change($event)\"\n        ></hc-switch>\n      </hc-card>\n    </div>\n  `,\n  styles: [],\n})\nexport class PageSwitchComponent {\n  checked = true\n  label = 'On'\n\n  change(event: ISwitchOnChangeEvent) {\n    if (event.checked) {\n      this.label = 'On'\n    } else {\n      this.label = 'Off'\n    }\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": ""
@@ -17467,62 +17815,6 @@
             }
         },
         {
-            "name": "TabComponent",
-            "id": "component-TabComponent-464bc7d4d76701eed1d3211914987812160ab158312e74f99f51535dba85b6d9433f55bd6ed54f8774a6e891796cc275165490ed7e529bf3f65fdf28e528d958",
-            "file": "src/app/components/tab/tab.component.ts",
-            "encapsulation": [],
-            "entryComponents": [],
-            "inputs": [],
-            "outputs": [],
-            "providers": [],
-            "selector": "hc-tab",
-            "styleUrls": [],
-            "styles": [],
-            "template": "<div>\n  <div class=\"hc-tabview-nav-container\">\n    <div class=\"hc-tabview-nav-content\">\n      <!-- <ul class=\"hc-tabview-nav\" role=\"tablist\">\n        <ng-template ngFor let-tab [ngForOf]=\"tabs\">\n          <li role=\"presentation\">\n            <a role=\"tab\" class=\"hc-tabview-nav-link\"></a>\n          </li>\n        </ng-template>\n      </ul> -->\n    </div>\n  </div>\n  <div class=\"hc-tabview-panels\">\n    <ng-content></ng-content>\n  </div>\n</div>\n",
-            "templateUrl": [],
-            "viewProviders": [],
-            "inputsClass": [],
-            "outputsClass": [],
-            "propertiesClass": [
-                {
-                    "name": "tabPanels",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "QueryList<TabPanelComponent>",
-                    "optional": false,
-                    "description": "",
-                    "line": 29,
-                    "decorators": [
-                        {
-                            "name": "ContentChildren",
-                            "stringifiedArguments": "TabPanelComponent"
-                        }
-                    ]
-                },
-                {
-                    "name": "tabs",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "TabPanelComponent[]",
-                    "optional": false,
-                    "description": "",
-                    "line": 31
-                }
-            ],
-            "methodsClass": [],
-            "deprecated": false,
-            "deprecationMessage": "",
-            "hostBindings": [],
-            "hostListeners": [],
-            "description": "",
-            "rawdescription": "\n",
-            "type": "component",
-            "sourceCode": "import { Component, ContentChildren } from '@angular/core'\n\nimport { QueryList } from '@angular/core'\nimport { TabPanelComponent } from './tab-panel.component'\n\n@Component({\n  selector: 'hc-tab',\n  template: `\n    <div>\n      <div class=\"hc-tabview-nav-container\">\n        <div class=\"hc-tabview-nav-content\">\n          <!-- <ul class=\"hc-tabview-nav\" role=\"tablist\">\n            <ng-template ngFor let-tab [ngForOf]=\"tabs\">\n              <li role=\"presentation\">\n                <a role=\"tab\" class=\"hc-tabview-nav-link\"></a>\n              </li>\n            </ng-template>\n          </ul> -->\n        </div>\n      </div>\n      <div class=\"hc-tabview-panels\">\n        <ng-content></ng-content>\n      </div>\n    </div>\n  `,\n  styles: [],\n})\nexport class TabComponent {\n  @ContentChildren(TabPanelComponent) tabPanels!: QueryList<TabPanelComponent>\n\n  tabs!: TabPanelComponent[]\n}\n",
-            "assetsDirs": [],
-            "styleUrlsData": "",
-            "stylesData": ""
-        },
-        {
             "name": "TableBodyComponent",
             "id": "component-TableBodyComponent-9a23f9674910ad1c3f8ffeb56ba4d42adb0432304ecf34a52ed92f732161b97fce15af86fb18b0fcc6d1ad651f0245709c2a0cc806a195eb100be22f1978755b",
             "file": "src/app/components/table/table-body.component.ts",
@@ -18754,7 +19046,7 @@
         },
         {
             "name": "TabPanelComponent",
-            "id": "component-TabPanelComponent-db9351a23e8ecff5e87fb166eb044113aaa01dd84385be42fa60f7762a383f3225f7e736be5981c50c845dacb9cdd81062ced03a0f88e3b47d8620376ad764ae",
+            "id": "component-TabPanelComponent-2efbd1083098d6ce4cacc63cc499a5b84f4400370a5177b2d495d6851010a7ee4b1f508f22167821048ce8879f345402c285312465caf8b4ede4036ed8a4ab17",
             "file": "src/app/components/tab/tab-panel.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -18764,12 +19056,48 @@
             "selector": "hc-tab-panel",
             "styleUrls": [],
             "styles": [],
-            "template": "<div class=\"hc-tabview-panel\" role=\"tabpanel\">\n  <ng-content></ng-content>\n</div>\n",
+            "template": "<div\n  class=\"hc-tabview-panel\"\n  role=\"tabpanel\"\n  [hidden]=\"!selected\"\n  [attr.aria-hidden]=\"!selected\"\n>\n  <ng-content></ng-content>\n</div>\n",
             "templateUrl": [],
             "viewProviders": [],
-            "inputsClass": [],
+            "inputsClass": [
+                {
+                    "name": "header",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 21,
+                    "type": "string",
+                    "decorators": []
+                },
+                {
+                    "name": "selected",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "line": 29,
+                    "type": "boolean",
+                    "decorators": []
+                }
+            ],
             "outputsClass": [],
-            "propertiesClass": [],
+            "propertiesClass": [
+                {
+                    "name": "_header",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "optional": false,
+                    "description": "",
+                    "line": 18
+                },
+                {
+                    "name": "_selected",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "boolean",
+                    "optional": false,
+                    "description": "",
+                    "line": 19
+                }
+            ],
             "methodsClass": [],
             "deprecated": false,
             "deprecationMessage": "",
@@ -18778,10 +19106,247 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { Component } from '@angular/core'\n\n@Component({\n  selector: 'hc-tab-panel',\n  template: `\n    <div class=\"hc-tabview-panel\" role=\"tabpanel\">\n      <ng-content></ng-content>\n    </div>\n  `,\n  styles: [],\n})\nexport class TabPanelComponent {}\n",
+            "sourceCode": "import { Component, Input } from '@angular/core'\n\n@Component({\n  selector: 'hc-tab-panel',\n  template: `\n    <div\n      class=\"hc-tabview-panel\"\n      role=\"tabpanel\"\n      [hidden]=\"!selected\"\n      [attr.aria-hidden]=\"!selected\"\n    >\n      <ng-content></ng-content>\n    </div>\n  `,\n  styles: [],\n})\nexport class TabPanelComponent {\n  _header!: string\n  _selected!: boolean\n\n  @Input() get header(): string {\n    return this._header\n  }\n\n  set header(header: string) {\n    this._header = header\n  }\n\n  @Input() get selected(): boolean {\n    return this._selected\n  }\n\n  set selected(val: boolean) {\n    this._selected = val\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
-            "stylesData": ""
+            "stylesData": "",
+            "accessors": {
+                "header": {
+                    "name": "header",
+                    "setSignature": {
+                        "name": "header",
+                        "type": "void",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "args": [
+                            {
+                                "name": "header",
+                                "type": "string",
+                                "deprecated": false,
+                                "deprecationMessage": ""
+                            }
+                        ],
+                        "returnType": "void",
+                        "line": 25,
+                        "jsdoctags": [
+                            {
+                                "name": "header",
+                                "type": "string",
+                                "deprecated": false,
+                                "deprecationMessage": "",
+                                "tagName": {
+                                    "text": "param"
+                                }
+                            }
+                        ]
+                    },
+                    "getSignature": {
+                        "name": "header",
+                        "type": "string",
+                        "returnType": "string",
+                        "line": 21
+                    }
+                },
+                "selected": {
+                    "name": "selected",
+                    "setSignature": {
+                        "name": "selected",
+                        "type": "void",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "args": [
+                            {
+                                "name": "val",
+                                "type": "boolean",
+                                "deprecated": false,
+                                "deprecationMessage": ""
+                            }
+                        ],
+                        "returnType": "void",
+                        "line": 33,
+                        "jsdoctags": [
+                            {
+                                "name": "val",
+                                "type": "boolean",
+                                "deprecated": false,
+                                "deprecationMessage": "",
+                                "tagName": {
+                                    "text": "param"
+                                }
+                            }
+                        ]
+                    },
+                    "getSignature": {
+                        "name": "selected",
+                        "type": "boolean",
+                        "returnType": "boolean",
+                        "line": 29
+                    }
+                }
+            }
+        },
+        {
+            "name": "TabsComponent",
+            "id": "component-TabsComponent-40676d5d562058ce51b7f8f35a96ae91696ae072f9a9c217b183d99484d74d0082926ce50caccef002b08c037296deb2a0d7af59ed69406c81ff6b1d46e137f8",
+            "file": "src/app/components/tab/tabs.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "hc-tabs",
+            "styleUrls": [
+                "tabs.component.scss"
+            ],
+            "styles": [],
+            "template": "<div class=\"hc-tabview\">\n  <div class=\"hc-tabview-nav-container\">\n    <div class=\"hc-tabview-nav-content\">\n      <ul class=\"hc-tabview-nav\" role=\"tablist\">\n        <ng-template ngFor let-tab [ngForOf]=\"tabs\">\n          <li\n            role=\"presentation\"\n            [ngClass]=\"{ 'hc-tabview-highlight': tab.selected }\"\n          >\n            <a\n              role=\"tab\"\n              class=\"hc-tabview-nav-link\"\n              [attr.aria-selected]=\"tab.selected\"\n              (click)=\"open(tab)\"\n            >\n              <span class=\"hc-tabview-title\">{{ tab.header }}</span>\n            </a>\n          </li>\n        </ng-template>\n      </ul>\n    </div>\n  </div>\n  <div class=\"hc-tabview-panels\">\n    <ng-content></ng-content>\n  </div>\n</div>\n",
+            "templateUrl": [],
+            "viewProviders": [],
+            "inputsClass": [],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "cd",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "ChangeDetectorRef",
+                    "optional": false,
+                    "description": "",
+                    "line": 48,
+                    "modifierKind": [
+                        123
+                    ]
+                },
+                {
+                    "name": "tabPanels",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "QueryList<TabPanelComponent>",
+                    "optional": false,
+                    "description": "",
+                    "line": 46,
+                    "decorators": [
+                        {
+                            "name": "ContentChildren",
+                            "stringifiedArguments": "TabPanelComponent"
+                        }
+                    ]
+                },
+                {
+                    "name": "tabs",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "TabPanelComponent[]",
+                    "optional": false,
+                    "description": "",
+                    "line": 44
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "findSelectedTab",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "TabPanelComponent | null",
+                    "typeParameters": [],
+                    "line": 54,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "initTabs",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 64,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "ngAfterContentInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 50,
+                    "deprecated": false,
+                    "deprecationMessage": ""
+                },
+                {
+                    "name": "open",
+                    "args": [
+                        {
+                            "name": "tab",
+                            "type": "TabPanelComponent",
+                            "deprecated": false,
+                            "deprecationMessage": ""
+                        }
+                    ],
+                    "optional": false,
+                    "returnType": "void",
+                    "typeParameters": [],
+                    "line": 74,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "jsdoctags": [
+                        {
+                            "name": "tab",
+                            "type": "TabPanelComponent",
+                            "deprecated": false,
+                            "deprecationMessage": "",
+                            "tagName": {
+                                "text": "param"
+                            }
+                        }
+                    ]
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import {\n  AfterContentInit,\n  ChangeDetectorRef,\n  Component,\n  ContentChildren,\n} from '@angular/core'\n\nimport { QueryList } from '@angular/core'\nimport { TabPanelComponent } from './tab-panel.component'\n\n@Component({\n  selector: 'hc-tabs',\n  template: `\n    <div class=\"hc-tabview\">\n      <div class=\"hc-tabview-nav-container\">\n        <div class=\"hc-tabview-nav-content\">\n          <ul class=\"hc-tabview-nav\" role=\"tablist\">\n            <ng-template ngFor let-tab [ngForOf]=\"tabs\">\n              <li\n                role=\"presentation\"\n                [ngClass]=\"{ 'hc-tabview-highlight': tab.selected }\"\n              >\n                <a\n                  role=\"tab\"\n                  class=\"hc-tabview-nav-link\"\n                  [attr.aria-selected]=\"tab.selected\"\n                  (click)=\"open(tab)\"\n                >\n                  <span class=\"hc-tabview-title\">{{ tab.header }}</span>\n                </a>\n              </li>\n            </ng-template>\n          </ul>\n        </div>\n      </div>\n      <div class=\"hc-tabview-panels\">\n        <ng-content></ng-content>\n      </div>\n    </div>\n  `,\n  styleUrls: ['tabs.component.scss'],\n})\nexport class TabsComponent implements AfterContentInit {\n  tabs!: TabPanelComponent[]\n\n  @ContentChildren(TabPanelComponent) tabPanels!: QueryList<TabPanelComponent>\n\n  constructor(public cd: ChangeDetectorRef) {}\n\n  ngAfterContentInit(): void {\n    this.initTabs()\n  }\n\n  findSelectedTab(): TabPanelComponent | null {\n    const tab = this.tabs.find((tab) => tab.selected)\n\n    if (tab) {\n      return tab\n    }\n\n    return null\n  }\n\n  initTabs(): void {\n    this.tabs = this.tabPanels.toArray()\n    const selectedTab = this.findSelectedTab()\n    if (!selectedTab && this.tabs.length) {\n      this.tabs[0].selected = true\n    }\n\n    this.cd.markForCheck()\n  }\n\n  open(tab: TabPanelComponent) {\n    if (!tab.selected) {\n      const selectedTab = this.findSelectedTab()\n\n      if (selectedTab) {\n        selectedTab.selected = false\n      }\n\n      tab.selected = true\n    }\n  }\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": ".hc-tabview {\n  .hc-tabview-nav {\n    background: var(--neutral-white);\n    border: 1px solid var(--neutral-divider);\n    border-width: 0 0 2px 0;\n    display: flex;\n    margin: 0;\n    padding: 0;\n    list-style-type: none;\n    flex: 1 1 auto;\n\n    li {\n      margin-right: 0;\n\n      .hc-tabview-nav-link {\n        border: solid var(--neutral-divider);\n        border-width: 0 0 2px 0;\n        border-color: transparent transparent var(--neutral-divider) transparent;\n        background: var(--neutral-white);\n        color: var(--neutral-black);\n        padding: 1.25rem;\n        font-weight: 700;\n        border-top-right-radius: 6px;\n        border-top-left-radius: 6px;\n        transition: box-shadow 0.2s;\n        margin: 0 0 -2px 0;\n        cursor: pointer;\n        user-select: none;\n        display: flex;\n        align-items: center;\n        position: relative;\n        text-decoration: none;\n        overflow: hidden;\n      }\n    }\n  }\n}\n\n.hc-tabview .hc-tabview-nav li.hc-tabview-highlight .hc-tabview-nav-link {\n  background: var(--neutral-white);\n  border-color: var(--primary-default);\n  color: var(--primary-default);\n}\n\n.hc-tabview\n  .hc-tabview-nav\n  li:not(.hc-tabview-highlight):not(.hc-tabview-disabled):hover\n  .hc-tabview-nav-link {\n  background: var(--neutral-white);\n  border-color: var(--neutral-gray);\n  color: var(--neutral-gray);\n}\n\n.hc-tabview-nav-container {\n  position: relative;\n}\n\n.hc-tabview-nav-content {\n  overflow-x: auto;\n  overflow-y: hidden;\n  scroll-behavior: smooth;\n  scrollbar-width: none;\n  overscroll-behavior: contain auto;\n\n  &::-webkit-scrollbar {\n    display: none;\n  }\n}\n\n.hc-tabview-panels {\n  background: var(--neutral-white);\n  padding: 1.25rem;\n  border: 0 none;\n  color: var(--neutral-black);\n  border-bottom-right-radius: 6px;\n  border-bottom-left-radius: 6px;\n}\n",
+                    "styleUrl": "tabs.component.scss"
+                }
+            ],
+            "stylesData": "",
+            "constructorObj": {
+                "name": "constructor",
+                "description": "",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "args": [
+                    {
+                        "name": "cd",
+                        "type": "ChangeDetectorRef",
+                        "deprecated": false,
+                        "deprecationMessage": ""
+                    }
+                ],
+                "line": 46,
+                "jsdoctags": [
+                    {
+                        "name": "cd",
+                        "type": "ChangeDetectorRef",
+                        "deprecated": false,
+                        "deprecationMessage": "",
+                        "tagName": {
+                            "text": "param"
+                        }
+                    }
+                ]
+            },
+            "implements": [
+                "AfterContentInit"
+            ]
         },
         {
             "name": "TagComponent",
@@ -19873,13 +20438,13 @@
     "modules": [
         {
             "name": "AppModule",
-            "id": "module-AppModule-e15521fc24f8b5d30803f98821874440e47dd9e67fb77fac14ead55495e5bb222506bfd3c04aa43c48ad04b1b1104c5505953792fbe7cc1f69965fee3b8fc1f4",
+            "id": "module-AppModule-75e482363843811716c31a78083ccf00223f82c5accf4082e297b262690c7aafcf5d5829eab0345d400570242c8ca3394cbae07c58b0287dbc4c58f690e8da02",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "src/app/app.module.ts",
             "methods": [],
-            "sourceCode": "import { LOCALE_ID, NgModule } from '@angular/core'\n\nimport { AppComponent } from './app.component'\nimport { AppRoutingModule } from './app-routing.module'\nimport { BrowserAnimationsModule } from '@angular/platform-browser/animations'\nimport { BrowserModule } from '@angular/platform-browser'\nimport { HttpClientModule } from '@angular/common/http'\nimport { MarkdownModule } from 'ngx-markdown'\nimport { MswModule } from './components/msw/msw.module'\nimport localePt from '@angular/common/locales/pt'\nimport { registerLocaleData } from '@angular/common'\n\nregisterLocaleData(localePt, 'pt')\n\n@NgModule({\n  declarations: [AppComponent],\n  imports: [\n    BrowserModule,\n    AppRoutingModule,\n    HttpClientModule,\n    MswModule,\n    BrowserAnimationsModule,\n    MarkdownModule.forRoot(),\n  ],\n  providers: [\n    {\n      provide: LOCALE_ID,\n      useValue: 'pt',\n    },\n  ],\n  bootstrap: [AppComponent],\n})\nexport class AppModule {}\n",
+            "sourceCode": "import { LOCALE_ID, NgModule } from '@angular/core'\n\nimport { AppComponent } from './app.component'\nimport { AppRoutingModule } from './app-routing.module'\nimport { BrowserAnimationsModule } from '@angular/platform-browser/animations'\nimport { BrowserModule } from '@angular/platform-browser'\nimport { HttpClientModule } from '@angular/common/http'\nimport { InputMaskModule } from '@ngneat/input-mask'\nimport { MarkdownModule } from 'ngx-markdown'\nimport { MswModule } from './components/msw/msw.module'\nimport localePt from '@angular/common/locales/pt'\nimport { registerLocaleData } from '@angular/common'\n\nregisterLocaleData(localePt, 'pt')\n\n@NgModule({\n  declarations: [AppComponent],\n  imports: [\n    BrowserModule,\n    AppRoutingModule,\n    HttpClientModule,\n    MswModule,\n    BrowserAnimationsModule,\n    MarkdownModule.forRoot(),\n    InputMaskModule.forRoot({ inputSelector: 'input', isAsync: false }),\n  ],\n  providers: [\n    {\n      provide: LOCALE_ID,\n      useValue: 'pt',\n    },\n  ],\n  bootstrap: [AppComponent],\n})\nexport class AppModule {}\n",
             "children": [
                 {
                     "type": "providers",
@@ -20230,6 +20795,50 @@
             ]
         },
         {
+            "name": "BreadcrumbModule",
+            "id": "module-BreadcrumbModule-584896e83380345bac4736e37cffd42ea82b8259c1ef48d061fdd96f081574c6b585b5846990de7481c75c3aa3e2cf3a371c0ae576e16fcf3080e1ffd98adec3",
+            "description": "",
+            "deprecationMessage": "",
+            "deprecated": false,
+            "file": "src/app/components/breadcrumb/breadcrumb.module.ts",
+            "methods": [],
+            "sourceCode": "import { BreadcrumbComponent } from './breadcrumb.component'\nimport { CommonModule } from '@angular/common'\nimport { NgModule } from '@angular/core'\nimport { RouterModule } from '@angular/router'\n\n@NgModule({\n  declarations: [BreadcrumbComponent],\n  imports: [CommonModule, RouterModule],\n  exports: [BreadcrumbComponent],\n})\nexport class BreadcrumbModule {}\n",
+            "children": [
+                {
+                    "type": "providers",
+                    "elements": []
+                },
+                {
+                    "type": "declarations",
+                    "elements": [
+                        {
+                            "name": "BreadcrumbComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "imports",
+                    "elements": []
+                },
+                {
+                    "type": "exports",
+                    "elements": [
+                        {
+                            "name": "BreadcrumbComponent"
+                        }
+                    ]
+                },
+                {
+                    "type": "bootstrap",
+                    "elements": []
+                },
+                {
+                    "type": "classes",
+                    "elements": []
+                }
+            ]
+        },
+        {
             "name": "ButtonModule",
             "id": "module-ButtonModule-56fa910fa0f69ac226a0ba0ed1ba8e681c665629a86f87d327e0a5ca22ccf8e1273011c31da2ab6e3a12759e1bef1704c5ff2544d8335243109805672ba9bb70",
             "description": "",
@@ -20434,13 +21043,13 @@
         },
         {
             "name": "DashboardModule",
-            "id": "module-DashboardModule-f1bb5b76f0ea111a0812f94ce078a71c1dc18ef29920ca42b759da772e3d2e41226a1fd580ad853c080898823c029f95ebfb127b26855a41076ce635ad7282c8",
+            "id": "module-DashboardModule-48c0dd7ce8fcde177e271fb050e9e3c771a65b3ca49535db8f4b6b302e4e2f2d9197a0cdd00e33aafcd9d30cfc387439c1cb44a6a25c44284effc0a0ed31e4d5",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "src/app/modules/dashboard/dashboard.module.ts",
             "methods": [],
-            "sourceCode": "import { AvatarModule } from './../../components/avatar/avatar.module'\nimport { CardModule } from './../../components/card/card.module'\nimport { CommonModule } from '@angular/common'\nimport { DashboardComponent } from './dashboard.component'\nimport { DashboardRoutingModule } from './dashboard-routing.module'\nimport { IconModule } from './../../components/icon/icon.module'\nimport { NgModule } from '@angular/core'\nimport { TableModule } from '../../components/table/table.module'\nimport { TagModule } from '../../components/tag/tag.module'\nimport { TemplateModule } from '../../directives/template/template.module'\nimport { TimelineEventsAndMeetingsComponent } from './components/timeline-events-and-meetings/timeline-events-and-meetings.component'\nimport { TimelineModule } from './../../components/timeline/timeline.module'\n\n@NgModule({\n  declarations: [DashboardComponent, TimelineEventsAndMeetingsComponent],\n  imports: [\n    CommonModule,\n    DashboardRoutingModule,\n    CardModule,\n    TimelineModule,\n    TemplateModule,\n    IconModule,\n    TableModule,\n    AvatarModule,\n    TagModule,\n  ],\n})\nexport class DashboardModule {}\n",
+            "sourceCode": "import { AvatarModule } from './../../components/avatar/avatar.module'\nimport { BreadcrumbModule } from './../../components/breadcrumb/breadcrumb.module'\nimport { CardModule } from './../../components/card/card.module'\nimport { CommonModule } from '@angular/common'\nimport { DashboardComponent } from './dashboard.component'\nimport { DashboardRoutingModule } from './dashboard-routing.module'\nimport { IconModule } from './../../components/icon/icon.module'\nimport { NgModule } from '@angular/core'\nimport { TabModule } from '../../components/tab/tab.module'\nimport { TableModule } from '../../components/table/table.module'\nimport { TagModule } from '../../components/tag/tag.module'\nimport { TemplateModule } from '../../directives/template/template.module'\nimport { TimelineEventsAndMeetingsComponent } from './components/timeline-events-and-meetings/timeline-events-and-meetings.component'\nimport { TimelineModule } from './../../components/timeline/timeline.module'\n\n@NgModule({\n  declarations: [DashboardComponent, TimelineEventsAndMeetingsComponent],\n  imports: [\n    CommonModule,\n    DashboardRoutingModule,\n    CardModule,\n    TimelineModule,\n    TemplateModule,\n    IconModule,\n    TableModule,\n    AvatarModule,\n    TagModule,\n    TabModule,\n    BreadcrumbModule,\n  ],\n})\nexport class DashboardModule {}\n",
             "children": [
                 {
                     "type": "providers",
@@ -20464,6 +21073,9 @@
                             "name": "AvatarModule"
                         },
                         {
+                            "name": "BreadcrumbModule"
+                        },
+                        {
                             "name": "CardModule"
                         },
                         {
@@ -20471,6 +21083,9 @@
                         },
                         {
                             "name": "IconModule"
+                        },
+                        {
+                            "name": "TabModule"
                         },
                         {
                             "name": "TableModule"
@@ -20502,13 +21117,13 @@
         },
         {
             "name": "DashboardRoutingModule",
-            "id": "module-DashboardRoutingModule-162f5b2c1db5ddba67ad3e77bfd5f3cc092003de7af9ff39f453041e07020ef0a8ef38b02f3bac0c75ebb704ae95d3e8405e94fb0820d4c1dbd90504618ce9cb",
+            "id": "module-DashboardRoutingModule-cda88b61793414e6650944c6acf78606f302103f424a7674cc0e64e4da2022f23628e51e58251a8fadac20f6f65cdb0cf6783152f331b66697a04fddf0fd8374",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "src/app/modules/dashboard/dashboard-routing.module.ts",
             "methods": [],
-            "sourceCode": "import { RouterModule, Routes } from '@angular/router'\n\nimport { DashboardComponent } from './dashboard.component'\nimport { NgModule } from '@angular/core'\n\nconst routes: Routes = [\n  {\n    path: '',\n    component: DashboardComponent,\n  },\n]\n\n@NgModule({\n  imports: [RouterModule.forChild(routes)],\n  exports: [RouterModule],\n})\nexport class DashboardRoutingModule {}\n",
+            "sourceCode": "import { RouterModule, Routes } from '@angular/router'\n\nimport { DashboardComponent } from './dashboard.component'\nimport { NgModule } from '@angular/core'\n\nconst routes: Routes = [\n  {\n    path: '',\n    component: DashboardComponent,\n    data: { breadcrumb: 'Dashboard' },\n  },\n]\n\n@NgModule({\n  imports: [RouterModule.forChild(routes)],\n  exports: [RouterModule],\n})\nexport class DashboardRoutingModule {}\n",
             "children": [
                 {
                     "type": "providers",
@@ -20916,13 +21531,13 @@
         },
         {
             "name": "HomeModule",
-            "id": "module-HomeModule-932e05bea3c8f32cc187f9dc14dc0f746b1b556d85893b30bfdb1a0bea5acd63d4f7a6bb8ba342ec2d82a1c99e1d0e03ac4508f349662a29d2cee5782dc5e3dd",
+            "id": "module-HomeModule-981454600738f78e3b8ff5cf2a14e6ff270ce9f0f936b6971f0342a89122747a85a85656f961ae4f3883e8445a16926435723b3aa8bb687be93669a4c0c90329",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "src/app/modules/home/home.module.ts",
             "methods": [],
-            "sourceCode": "import { AvatarModule } from './../../components/avatar/avatar.module'\nimport { BadgeModule } from './../../components/badge/badge.module'\nimport { ButtonModule } from './../../components/button/button.module'\nimport { CardModule } from './../../components/card/card.module'\nimport { CommonModule } from '@angular/common'\nimport { DropdownModule } from './../../components/dropdown/dropdown.module'\nimport { DropdownNotificationsComponent } from './components/dropdown-notifications/dropdown-notifications.component'\nimport { DropdownProfileComponent } from './components/dropdown-profile/dropdown-profile.component'\nimport { HeaderComponent } from './components/header/header.component'\nimport { HomeComponent } from './home.component'\nimport { HomeRoutingModule } from './home-routing.module'\nimport { IconModule } from 'src/app/components/icon/icon.module'\nimport { LogoModule } from './../../components/logo/logo.module'\nimport { MenuModule } from './../../components/menu/menu.module'\nimport { NgModule } from '@angular/core'\nimport { SearchModule } from './../../components/search/search.module'\nimport { SidebarModule } from './../../components/sidebar/sidebar.module'\nimport { TemplateModule } from './../../directives/template/template.module'\nimport { ToolbarModule } from './../../components/toolbar/toolbar.module'\n\n@NgModule({\n  declarations: [\n    HomeComponent,\n    HeaderComponent,\n    DropdownProfileComponent,\n    DropdownNotificationsComponent,\n  ],\n  imports: [\n    CommonModule,\n    HomeRoutingModule,\n    SidebarModule,\n    MenuModule,\n    LogoModule,\n    DropdownModule,\n    CardModule,\n    AvatarModule,\n    ToolbarModule,\n    TemplateModule,\n    SearchModule,\n    ButtonModule,\n    BadgeModule,\n    IconModule,\n  ],\n})\nexport class HomeModule {}\n",
+            "sourceCode": "import { AvatarModule } from './../../components/avatar/avatar.module'\nimport { BadgeModule } from './../../components/badge/badge.module'\nimport { BreadcrumbModule } from './../../components/breadcrumb/breadcrumb.module'\nimport { ButtonModule } from './../../components/button/button.module'\nimport { CardModule } from './../../components/card/card.module'\nimport { CommonModule } from '@angular/common'\nimport { DropdownModule } from './../../components/dropdown/dropdown.module'\nimport { DropdownNotificationsComponent } from './components/dropdown-notifications/dropdown-notifications.component'\nimport { DropdownProfileComponent } from './components/dropdown-profile/dropdown-profile.component'\nimport { HeaderComponent } from './components/header/header.component'\nimport { HomeComponent } from './home.component'\nimport { HomeRoutingModule } from './home-routing.module'\nimport { IconModule } from 'src/app/components/icon/icon.module'\nimport { LogoModule } from './../../components/logo/logo.module'\nimport { MenuModule } from './../../components/menu/menu.module'\nimport { NgModule } from '@angular/core'\nimport { SearchModule } from './../../components/search/search.module'\nimport { SidebarModule } from './../../components/sidebar/sidebar.module'\nimport { TemplateModule } from './../../directives/template/template.module'\nimport { ToolbarModule } from './../../components/toolbar/toolbar.module'\n\n@NgModule({\n  declarations: [\n    HomeComponent,\n    HeaderComponent,\n    DropdownProfileComponent,\n    DropdownNotificationsComponent,\n  ],\n  imports: [\n    CommonModule,\n    HomeRoutingModule,\n    SidebarModule,\n    MenuModule,\n    LogoModule,\n    DropdownModule,\n    CardModule,\n    AvatarModule,\n    ToolbarModule,\n    TemplateModule,\n    SearchModule,\n    ButtonModule,\n    BadgeModule,\n    IconModule,\n    BreadcrumbModule,\n  ],\n})\nexport class HomeModule {}\n",
             "children": [
                 {
                     "type": "providers",
@@ -20953,6 +21568,9 @@
                         },
                         {
                             "name": "BadgeModule"
+                        },
+                        {
+                            "name": "BreadcrumbModule"
                         },
                         {
                             "name": "ButtonModule"
@@ -21005,13 +21623,13 @@
         },
         {
             "name": "HomeRoutingModule",
-            "id": "module-HomeRoutingModule-c51790189f6ee5fa95799b9d10942184514266c6b53b0869f5439194b0f3fe96bd8bb545588151f31a0401b9dfdfbbb6dc54ba3925f4e54755f6b9f0038954a8",
+            "id": "module-HomeRoutingModule-0988aeb9c35b298ef8b098354d92b77d10850d0a3d28c98cbefb3880118193933580ab4d6d65dda0f69e22630cc6c80a6ee0373688d04a56aee8a5e0b6283b0d",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "src/app/modules/home/home-routing.module.ts",
             "methods": [],
-            "sourceCode": "import { RouterModule, Routes } from '@angular/router'\n\nimport { HomeComponent } from './home.component'\nimport { NgModule } from '@angular/core'\n\nconst routes: Routes = [\n  {\n    path: '',\n    redirectTo: 'dashboard',\n    pathMatch: 'full',\n  },\n  {\n    path: '',\n    component: HomeComponent,\n    children: [\n      {\n        path: 'dashboard',\n        loadChildren: () =>\n          \"import('../dashboard/dashboard.module').then((m) => m.DashboardModule)\",\n      },\n      {\n        path: 'user',\n        loadChildren: () => \"import('../user/user.module').then((m) => m.UserModule)\",\n      },\n    ],\n  },\n]\n\n@NgModule({\n  imports: [RouterModule.forChild(routes)],\n  exports: [RouterModule],\n})\nexport class HomeRoutingModule {}\n",
+            "sourceCode": "import { RouterModule, Routes } from '@angular/router'\n\nimport { HomeComponent } from './home.component'\nimport { NgModule } from '@angular/core'\n\nconst routes: Routes = [\n  {\n    path: '',\n    redirectTo: 'dashboard',\n    pathMatch: 'full',\n  },\n  {\n    path: '',\n    component: HomeComponent,\n    data: { breadcrumb: 'Home' },\n    children: [\n      {\n        path: 'dashboard',\n        loadChildren: () =>\n          \"import('../dashboard/dashboard.module').then((m) => m.DashboardModule)\",\n      },\n      {\n        path: 'user',\n        loadChildren: () => \"import('../user/user.module').then((m) => m.UserModule)\",\n      },\n    ],\n  },\n]\n\n@NgModule({\n  imports: [RouterModule.forChild(routes)],\n  exports: [RouterModule],\n})\nexport class HomeRoutingModule {}\n",
             "children": [
                 {
                     "type": "providers",
@@ -21085,13 +21703,13 @@
         },
         {
             "name": "InputModule",
-            "id": "module-InputModule-4b0ccae0bb52d6a5359764a0fb0b9e9bd98ed9eba34d3f6a624166e81f79fd4a2fb036cd619113586d27743e62730878ef1141dec8c9f8707e016ba0f7fcfc86",
+            "id": "module-InputModule-a6b76b811759638f2e0a260a0ebf7768a24182df3806c5298b3304a283b770df71ed2814e39d3742a365ce065dab9d63da604b4dd8c1ec44b4c6610d7dddc90d",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "src/app/components/input/input.module.ts",
             "methods": [],
-            "sourceCode": "import { CommonModule } from '@angular/common'\nimport { InputComponent } from './input.component'\nimport { NgModule } from '@angular/core'\n\n@NgModule({\n  declarations: [InputComponent],\n  imports: [CommonModule],\n  exports: [InputComponent],\n})\nexport class InputModule {}\n",
+            "sourceCode": "import { CommonModule } from '@angular/common'\nimport { InputComponent } from './input.component'\nimport { InputMaskModule } from '@ngneat/input-mask'\nimport { NgModule } from '@angular/core'\n\n@NgModule({\n  declarations: [InputComponent],\n  imports: [CommonModule, InputMaskModule],\n  exports: [InputComponent],\n})\nexport class InputModule {}\n",
             "children": [
                 {
                     "type": "providers",
@@ -22374,13 +22992,13 @@
         },
         {
             "name": "TabModule",
-            "id": "module-TabModule-8668cc0f9fcbb5975bb9f008d02f62ccefe0d08c24ae8aec1ec7868d8ff69e8d9d2d3e1eb3f9265f36d253f3b59da2dce091177c15d3635c5e3ea4ebcc7ddb72",
+            "id": "module-TabModule-623d166f0a540434f25b4134637a3aaa0a25654ff933006914b62dc79941c66efd53fa3b1f670e5ff048f1de78ee57ca62f7033730d87a51a22341dabcf8adbc",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "src/app/components/tab/tab.module.ts",
             "methods": [],
-            "sourceCode": "import { CommonModule } from '@angular/common'\nimport { NgModule } from '@angular/core'\nimport { TabComponent } from './tab.component'\nimport { TabPanelComponent } from './tab-panel.component'\n\n@NgModule({\n  declarations: [TabComponent, TabPanelComponent],\n  imports: [CommonModule],\n  exports: [TabComponent],\n})\nexport class TabModule {}\n",
+            "sourceCode": "import { CommonModule } from '@angular/common'\nimport { NgModule } from '@angular/core'\nimport { TabPanelComponent } from './tab-panel.component'\nimport { TabsComponent } from './tabs.component'\n\n@NgModule({\n  declarations: [TabsComponent, TabPanelComponent],\n  imports: [CommonModule],\n  exports: [TabsComponent, TabPanelComponent],\n})\nexport class TabModule {}\n",
             "children": [
                 {
                     "type": "providers",
@@ -22390,10 +23008,10 @@
                     "type": "declarations",
                     "elements": [
                         {
-                            "name": "TabComponent"
+                            "name": "TabPanelComponent"
                         },
                         {
-                            "name": "TabPanelComponent"
+                            "name": "TabsComponent"
                         }
                     ]
                 },
@@ -22405,7 +23023,10 @@
                     "type": "exports",
                     "elements": [
                         {
-                            "name": "TabComponent"
+                            "name": "TabPanelComponent"
+                        },
+                        {
+                            "name": "TabsComponent"
                         }
                     ]
                 },
@@ -22728,13 +23349,13 @@
         },
         {
             "name": "UserRoutingModule",
-            "id": "module-UserRoutingModule-a326f7a4d78cd48cffa38c84c4651db293ad8443d236daab3c4d2265561f7d3f0c4ec76fa81e2ee9c42a7f4fc1e771790d9329695206ff71f631e62ae7414bf2",
+            "id": "module-UserRoutingModule-c9780f5c5935d8a7e4cfa0a98c2b6e04b3055d20d983ea51b8e31273b782d5345f2558ec261f2a253902a7136ad9219d7da6e40c892d3c27c1ae600684a3aaf4",
             "description": "",
             "deprecationMessage": "",
             "deprecated": false,
             "file": "src/app/modules/user/user-routing.module.ts",
             "methods": [],
-            "sourceCode": "import { RouterModule, Routes } from '@angular/router'\n\nimport { EditComponent } from './edit/edit.component'\nimport { NgModule } from '@angular/core'\nimport { ProfileComponent } from './profile/profile.component'\n\nconst routes: Routes = [\n  {\n    path: '',\n    component: ProfileComponent,\n  },\n  {\n    path: 'edit',\n    component: EditComponent,\n  },\n]\n\n@NgModule({\n  imports: [RouterModule.forChild(routes)],\n  exports: [RouterModule],\n})\nexport class UserRoutingModule {}\n",
+            "sourceCode": "import { RouterModule, Routes } from '@angular/router'\n\nimport { EditComponent } from './edit/edit.component'\nimport { NgModule } from '@angular/core'\nimport { ProfileComponent } from './profile/profile.component'\n\nconst routes: Routes = [\n  {\n    path: '',\n    component: ProfileComponent,\n    data: { breadcrumb: 'User' },\n  },\n  {\n    path: 'edit',\n    component: EditComponent,\n    data: { breadcrumb: 'Edit' },\n  },\n]\n\n@NgModule({\n  imports: [RouterModule.forChild(routes)],\n  exports: [RouterModule],\n})\nexport class UserRoutingModule {}\n",
             "children": [
                 {
                     "type": "providers",
@@ -23674,6 +24295,9 @@
                                             {
                                                 "path": "",
                                                 "component": "HomeComponent",
+                                                "data": {
+                                                    "breadcrumb": "Home"
+                                                },
                                                 "children": [
                                                     {
                                                         "path": "dashboard",
@@ -23689,7 +24313,10 @@
                                                                         "children": [
                                                                             {
                                                                                 "path": "",
-                                                                                "component": "DashboardComponent"
+                                                                                "component": "DashboardComponent",
+                                                                                "data": {
+                                                                                    "breadcrumb": "Dashboard"
+                                                                                }
                                                                             }
                                                                         ],
                                                                         "kind": "module"
@@ -23713,11 +24340,17 @@
                                                                         "children": [
                                                                             {
                                                                                 "path": "",
-                                                                                "component": "ProfileComponent"
+                                                                                "component": "ProfileComponent",
+                                                                                "data": {
+                                                                                    "breadcrumb": "User"
+                                                                                }
                                                                             },
                                                                             {
                                                                                 "path": "edit",
-                                                                                "component": "EditComponent"
+                                                                                "component": "EditComponent",
+                                                                                "data": {
+                                                                                    "breadcrumb": "Edit"
+                                                                                }
                                                                             }
                                                                         ],
                                                                         "kind": "module"
@@ -24022,6 +24655,33 @@
                 "status": "low"
             },
             {
+                "filePath": "src/app/components/breadcrumb/breadcrumb.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "BreadcrumbComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/2",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/components/breadcrumb/breadcrumb.component.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "IBreadcrumbItem",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "src/app/components/breadcrumb/breadcrumb.service.ts",
+                "type": "injectable",
+                "linktype": "injectable",
+                "name": "BreadcrumbService",
+                "coveragePercent": 0,
+                "coverageCount": "0/6",
+                "status": "low"
+            },
+            {
                 "filePath": "src/app/components/button/button.component.ts",
                 "type": "component",
                 "linktype": "component",
@@ -24151,7 +24811,7 @@
                 "linktype": "component",
                 "name": "InputComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/25",
+                "coverageCount": "0/28",
                 "status": "low"
             },
             {
@@ -24398,16 +25058,16 @@
                 "linktype": "component",
                 "name": "TabPanelComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/1",
+                "coverageCount": "0/5",
                 "status": "low"
             },
             {
-                "filePath": "src/app/components/tab/tab.component.ts",
+                "filePath": "src/app/components/tab/tabs.component.ts",
                 "type": "component",
                 "linktype": "component",
-                "name": "TabComponent",
+                "name": "TabsComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/3",
+                "coverageCount": "0/9",
                 "status": "low"
             },
             {
@@ -25135,7 +25795,7 @@
                 "linktype": "component",
                 "name": "HomeComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/6",
+                "coverageCount": "0/7",
                 "status": "low"
             },
             {
@@ -25208,7 +25868,7 @@
                 "linktype": "component",
                 "name": "EditUserAccountComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/10",
+                "coverageCount": "0/11",
                 "status": "low"
             },
             {
