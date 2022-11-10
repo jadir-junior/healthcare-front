@@ -17,7 +17,7 @@ export class InputComponent implements ControlValueAccessor {
   @Input() id?: string
   @Input() label?: string
   @Input() appendIcon?: string
-  @Input() inputMask!: InputmaskOptions<string>
+  @Input() inputMask!: InputmaskOptions<unknown>
 
   @Output() appendIconClickEvent = new EventEmitter()
 
