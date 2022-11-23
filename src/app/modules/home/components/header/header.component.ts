@@ -17,7 +17,7 @@ import { IMe } from './../../../user/services/user.service'
           <hc-search placeholder="Search" [style]="{ 'width': '350px' }"></hc-search>
         </ng-template>
         <ng-template hcTemplate="right">
-          <div class="wrapper-button-and-badge" #notificationTarget>
+          <div class="wrapper-button-and-badge">
             <hc-badge value="5"></hc-badge>
             <hc-button
               icon="notifications"
@@ -25,7 +25,7 @@ import { IMe } from './../../../user/services/user.service'
               [style]="{
                 'margin-right': '0.5rem'
               }"
-              (onClick)="dropdownNotificiations.toggle($event, notificationTarget)"
+              (onClick)="dropdownNotificiations.toggle($event)"
             ></hc-button>
             <hc-dropdown
               #dropdownNotificiations
@@ -38,11 +38,11 @@ import { IMe } from './../../../user/services/user.service'
               ></hc-dropdown-notifications>
             </hc-dropdown>
           </div>
-          <div #actualTarget *ngIf="user">
+          <div *ngIf="user">
             <hc-avatar
               [image]="user.photo"
               [style]="{ cursor: 'pointer' }"
-              (click)="dropdown.toggle($event, actualTarget)"
+              (click)="dropdown.toggle($event)"
             ></hc-avatar>
             <hc-dropdown #dropdown [style]="{ width: '275px' }">
               <hc-dropdown-profile [user]="user"></hc-dropdown-profile>

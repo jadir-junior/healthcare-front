@@ -14,7 +14,7 @@ import { IStyle } from './../../common/models/style.model'
       (mouseenter)="onMouseEnter()"
       (mouseleave)="onMouseLeave()"
       (blur)="onBlur()"
-      (click)="click()"
+      (click)="click($event)"
     >
       <ng-content></ng-content>
       <span class="material-symbols-outlined" *ngIf="icon">{{ icon }}</span>
@@ -37,9 +37,9 @@ export class ButtonComponent {
 
   @Output() onClick = new EventEmitter<Event>()
 
-  click(): void {
+  click(event: Event): void {
     this.isPressed = true
-    this.onClick.emit()
+    this.onClick.emit(event)
   }
 
   onMouseEnter(): void {
