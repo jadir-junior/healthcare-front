@@ -24,7 +24,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "allowedCommonJsDependencies": ["query-string", "msw", "lodash"],
+            "allowedCommonJsDependencies": ["query-string", "msw", "lodash", "inputmask"],
             "outputPath": "dist/healthcare-front",
             "index": "src/index.html",
             "main": "src/main.ts",
