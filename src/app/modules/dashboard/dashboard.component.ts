@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core'
+import { FormBuilder, FormGroup, Validators } from '@angular/forms'
 import { ILastPayments, PaymentsService } from '../../services/payments/payments.service'
 
 import { AppointmentsService } from '../appointments/appointments.service'
@@ -19,6 +20,10 @@ interface IIntroduction {
   providers: [TableService],
 })
 export class DashboardComponent implements OnInit {
+  form: FormGroup = this.fb.group({
+    textarea: ['', [Validators.required]],
+  })
+
   informationsIntroductions: IIntroduction[] = [
     {
       title: 'Address',
@@ -139,7 +144,8 @@ export class DashboardComponent implements OnInit {
 
   constructor(
     private appointmentsService: AppointmentsService,
-    private paymentsService: PaymentsService
+    private paymentsService: PaymentsService,
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
