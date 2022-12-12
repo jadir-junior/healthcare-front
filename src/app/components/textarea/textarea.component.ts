@@ -1,10 +1,29 @@
-import { AfterContentInit, Component, Injector, Input } from '@angular/core'
+/* eslint-disable @typescript-eslint/no-empty-function */
+import {
+  AfterContentInit,
+  ChangeDetectionStrategy,
+  Component,
+  Injector,
+  Input,
+  Provider,
+  forwardRef,
+} from '@angular/core'
 import { ControlValueAccessor, NgControl } from '@angular/forms'
+
+import { NG_VALUE_ACCESSOR } from '@angular/forms'
+
+const TEXTAREA_VALUE_ACCESSOR: Provider = {
+  provide: NG_VALUE_ACCESSOR,
+  multi: true,
+  useExisting: forwardRef(() => TextareaComponent),
+}
 
 @Component({
   selector: 'hc-textarea',
   templateUrl: 'textarea.component.html',
-  styles: [],
+  styleUrls: ['textarea.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [TEXTAREA_VALUE_ACCESSOR],
 })
 export class TextareaComponent implements ControlValueAccessor, AfterContentInit {
   @Input() placeholder = ''
@@ -21,7 +40,7 @@ export class TextareaComponent implements ControlValueAccessor, AfterContentInit
   formControl!: NgControl
 
   onChange!: (value: string) => void
-  onTouched!: () => void
+  onTouched = () => {}
 
   constructor(private injector: Injector) {}
 
@@ -37,7 +56,7 @@ export class TextareaComponent implements ControlValueAccessor, AfterContentInit
     this.onChange = fn
   }
 
-  registerOnTouched(fn: () => void): void {
+  registerOnTouched(fn: VoidFunction): void {
     this.onTouched = fn
   }
 
@@ -66,11 +85,10 @@ export class TextareaComponent implements ControlValueAccessor, AfterContentInit
 
   get labelClasses() {
     return {
-      ['hc-text-label']: true,
-      ['hc-text-label-focus']: this.isFocus,
-      ['hc-text-label-error']:
-        this.formControl.invalid &&
-        (this.submitted || this.formControl.dirty || this.formControl.touched),
+      ['hc-textarea-label']: true,
+      ['hc-textarea-label-focus']: this.isFocus,
+      ['hc-textarea-label-error']:
+        this.formControl.invalid && (this.formControl.dirty || this.formControl.touched),
     }
   }
 }

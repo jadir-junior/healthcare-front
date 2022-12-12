@@ -1,5 +1,7 @@
 <div class="container">
-  <hc-textarea formControlName="textarea" label="Textarea"></hc-textarea>
+  <form [formGroup]="form">
+    <hc-textarea id="textarea" formControlName="textarea" label="Textarea"></hc-textarea>
+  </form>
   <div>
     <hc-card header="Introduction" [style]="{ 'margin-bottom': '2rem' }">
       <div

@@ -1,0 +1,18 @@
+.hc-wrapper-input-and-error {
+  display: flex;
+  flex-direction: column;
+}
+
+.hc-textarea-label {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--neutral-gray);
+}
+
+.hc-textarea-label-focus {
+  color: var(--primary-default);
+}
+
+.hc-textarea-label-error {
+  color: var(--red-default);
+}
