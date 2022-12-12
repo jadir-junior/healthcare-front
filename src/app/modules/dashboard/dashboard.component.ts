@@ -21,7 +21,7 @@ interface IIntroduction {
 })
 export class DashboardComponent implements OnInit {
   form: FormGroup = this.fb.group({
-    textarea: ['', [Validators.required]],
+    textarea: [{ value: 'Test area', disabled: true }, [Validators.required]],
   })
 
   informationsIntroductions: IIntroduction[] = [

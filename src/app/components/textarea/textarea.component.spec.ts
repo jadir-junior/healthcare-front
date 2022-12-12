@@ -98,4 +98,23 @@ describe('TextareaComponent', () => {
 
     expect(screen.getByLabelText(/textarea/i)).toHaveClass('hc-textarea-error')
   })
+
+  it('should be disabled when disable', async () => {
+    await render(
+      `<form [formGroup]="form">
+      <hc-textarea ariaLabel="textarea" formControlName="text" label="text"></hc-textarea>
+    </form>`,
+      {
+        declarations: [TextareaComponent],
+        imports: [ReactiveFormsModule],
+        componentProperties: {
+          form: new FormBuilder().group({
+            text: [{ value: '', disabled: true }, [Validators.required]],
+          }),
+        },
+      }
+    )
+
+    expect(screen.getByLabelText(/textarea/i)).toBeDisabled()
+  })
 })

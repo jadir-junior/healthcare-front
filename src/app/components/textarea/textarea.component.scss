@@ -23,6 +23,13 @@
   border: 1px solid var(--neutral-gray);
   border-radius: 0.5rem;
   padding: 0.875rem 1rem;
+  color: var(--neutral-black);
+
+  &:disabled {
+    background-color: var(--neutral-background);
+    border-color: var(--neutral-divider);
+    color: var(--neutral-gray-light);
+  }
 }
 
 .hc-textarea-focus {
