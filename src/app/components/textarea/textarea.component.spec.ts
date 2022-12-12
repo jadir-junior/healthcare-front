@@ -21,7 +21,7 @@ describe('TextareaComponent', () => {
     expect(container).toBeInTheDocument()
   })
 
-  it('should change a color of label when focus', async () => {
+  it('should change the color of label when focus', async () => {
     await render(
       `<form [formGroup]="form">
       <hc-textarea ariaLabel="textarea" formControlName="text" label="text"></hc-textarea>
@@ -40,7 +40,7 @@ describe('TextareaComponent', () => {
     expect(screen.getByText('text')).toHaveClass('hc-textarea-label-focus')
   })
 
-  it('should change a color of label to red when textarea is invalid', async () => {
+  it('should change the color of label to red when textarea is invalid', async () => {
     await render(
       `<form [formGroup]="form">
       <hc-textarea ariaLabel="textarea" formControlName="text" label="text"></hc-textarea>
@@ -58,5 +58,44 @@ describe('TextareaComponent', () => {
     await userEvent.click(screen.getByText('text'))
 
     expect(screen.getByText('text')).toHaveClass('hc-textarea-label-error')
+  })
+
+  it('should change the border color of textarea when textarea is focus', async () => {
+    await render(
+      `<form [formGroup]="form">
+      <hc-textarea ariaLabel="textarea" formControlName="text" label="text"></hc-textarea>
+    </form>`,
+      {
+        declarations: [TextareaComponent],
+        imports: [ReactiveFormsModule],
+        componentProperties: {
+          form: new FormBuilder().group({ text: ['', [Validators.required]] }),
+        },
+      }
+    )
+
+    await userEvent.click(screen.getByLabelText(/textarea/i))
+
+    expect(screen.getByLabelText(/textarea/i)).toHaveClass('hc-textarea-focus')
+  })
+
+  it('should change the border color of textarea to red when it is invalid', async () => {
+    await render(
+      `<form [formGroup]="form">
+      <hc-textarea ariaLabel="textarea" formControlName="text" label="text"></hc-textarea>
+    </form>`,
+      {
+        declarations: [TextareaComponent],
+        imports: [ReactiveFormsModule],
+        componentProperties: {
+          form: new FormBuilder().group({ text: ['', [Validators.required]] }),
+        },
+      }
+    )
+
+    await userEvent.click(screen.getByLabelText(/textarea/i))
+    await userEvent.click(screen.getByText('text'))
+
+    expect(screen.getByLabelText(/textarea/i)).toHaveClass('hc-textarea-error')
   })
 })

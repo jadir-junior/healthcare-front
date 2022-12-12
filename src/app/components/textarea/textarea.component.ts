@@ -91,4 +91,13 @@ export class TextareaComponent implements ControlValueAccessor, AfterContentInit
         this.formControl.invalid && (this.formControl.dirty || this.formControl.touched),
     }
   }
+
+  get textareaClasses() {
+    return {
+      'hc-textarea': true,
+      'hc-textarea-focus': this.isFocus,
+      'hc-textarea-error':
+        this.formControl.invalid && (this.formControl.dirty || this.formControl.touched),
+    }
+  }
 }
