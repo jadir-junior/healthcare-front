@@ -33,7 +33,7 @@ export interface ITimelineEventsAndMettings {
               class="small2"
               style="color: var(--neutral-gray); display: flex; align-items: center;"
             >
-              {{ event.date | date: 'short' }}
+              {{ event.date | date : 'short' }}
               <hc-icon
                 size="small"
                 icon="schedule"

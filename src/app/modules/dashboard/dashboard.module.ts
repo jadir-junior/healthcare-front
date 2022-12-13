@@ -10,6 +10,7 @@ import { TabModule } from '../../components/tab/tab.module'
 import { TableModule } from '../../components/table/table.module'
 import { TagModule } from '../../components/tag/tag.module'
 import { TemplateModule } from '../../directives/template/template.module'
+import { TextareaModule } from '../../components/textarea/textarea.module'
 import { TimelineEventsAndMeetingsComponent } from './components/timeline-events-and-meetings/timeline-events-and-meetings.component'
 import { TimelineModule } from './../../components/timeline/timeline.module'
 
@@ -27,6 +28,7 @@ import { TimelineModule } from './../../components/timeline/timeline.module'
     TagModule,
     TabModule,
     BreadcrumbModule,
+    TextareaModule,
   ],
 })
 export class DashboardModule {}
