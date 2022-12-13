@@ -52,8 +52,8 @@ import { isEmpty } from 'lodash'
               <div class="hc-custom-content" *ngIf="event.description">
                 <div>{{ event.user }}</div>
                 <div>
-                  {{ event.dateInitial | date: 'dd/MM/yyyy' }} até
-                  {{ event.dateEnd | date: 'dd/MM/yyyy' }}
+                  {{ event.dateInitial | date : 'dd/MM/yyyy' }} até
+                  {{ event.dateEnd | date : 'dd/MM/yyyy' }}
                 </div>
                 <div style="margin-top: 1rem;">
                   <span class="hc-custom-content-description">Motivo:</span>
