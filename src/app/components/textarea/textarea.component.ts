@@ -40,7 +40,7 @@ export class TextareaComponent implements ControlValueAccessor, AfterContentInit
   formControl!: NgControl
 
   onChange!: (value: string) => void
-  onTouched = () => {}
+  onTouched!: () => void
 
   constructor(private injector: Injector) {}
 
@@ -65,10 +65,6 @@ export class TextareaComponent implements ControlValueAccessor, AfterContentInit
   }
 
   onInputChange(value: string): void {
-    if (this.disabled) {
-      return
-    }
-
     this.value = value
 
     this.onChange(this.value)

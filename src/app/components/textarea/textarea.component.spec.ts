@@ -117,4 +117,44 @@ describe('TextareaComponent', () => {
 
     expect(screen.getByLabelText(/textarea/i)).toBeDisabled()
   })
+
+  it('should digit a value and return value to form', async () => {
+    await render(
+      `<form [formGroup]="form">
+      <hc-textarea ariaLabel="textarea" formControlName="text" label="text"></hc-textarea>
+    </form>`,
+      {
+        declarations: [TextareaComponent],
+        imports: [ReactiveFormsModule],
+        componentProperties: {
+          form: new FormBuilder().group({ text: ['', [Validators.required]] }),
+        },
+      }
+    )
+
+    await userEvent.type(screen.getByLabelText(/textarea/i), 'this is a test')
+
+    expect(screen.getByLabelText(/textarea/i)).toHaveValue('this is a test')
+  })
+
+  it('should digit a value and it does not fill when disabled', async () => {
+    await render(
+      `<form [formGroup]="form">
+      <hc-textarea ariaLabel="textarea" formControlName="text" label="text"></hc-textarea>
+    </form>`,
+      {
+        declarations: [TextareaComponent],
+        imports: [ReactiveFormsModule],
+        componentProperties: {
+          form: new FormBuilder().group({
+            text: [{ value: '', disabled: true }, [Validators.required]],
+          }),
+        },
+      }
+    )
+
+    await userEvent.type(screen.getByLabelText(/textarea/i), 'this is a test')
+
+    expect(screen.getByLabelText(/textarea/i)).not.toHaveValue('this is a test')
+  })
 })
