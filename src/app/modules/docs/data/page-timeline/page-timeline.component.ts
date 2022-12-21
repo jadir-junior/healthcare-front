@@ -75,6 +75,9 @@ import { isEmpty } from 'lodash'
             </ng-template>
           </hc-timeline>
         </div>
+
+        <h5 style="margin: 1rem 0">Customized</h5>
+        <div class="hc-wrapper-timeline"></div>
       </hc-card>
     </div>
   `,
@@ -103,6 +106,7 @@ export class PageTimelineComponent {
     },
   ]
   eventsYears = [2020, 2021, 2022, 2023, '']
+
   eventsCustomized = [
     {
       status: 'DESLIGADO',

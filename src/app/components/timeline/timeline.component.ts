@@ -1,5 +1,6 @@
 import {
   AfterContentInit,
+  ChangeDetectionStrategy,
   Component,
   ContentChildren,
   Input,
@@ -51,6 +52,7 @@ import { TemplateDirective } from './../../directives/template/template.directiv
     </div>
   `,
   styleUrls: ['timeline.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TimelineComponent<T> implements AfterContentInit {
   @Input() align = 'left'
