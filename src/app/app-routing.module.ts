@@ -27,10 +27,10 @@ const routes: Routes = [
     loadChildren: () =>
       import('./modules/invoices/invoices.module').then((m) => m.InvoicesModule),
   },
-  // {
-  //   path: 'docs',
-  //   loadChildren: () => import('./modules/docs/docs.module').then((m) => m.DocsModule),
-  // },
+  {
+    path: 'docs',
+    loadChildren: () => import('./modules/docs/docs.module').then((m) => m.DocsModule),
+  },
   {
     path: '',
     redirectTo: 'home',

@@ -12,7 +12,7 @@ export interface ITimelineEventsAndMettings {
   selector: 'hc-timeline-events-and-meetings',
   template: `
     <h5 class="hc-timeline-title">{{ title }}</h5>
-    <hc-timeline [value]="timeline">
+    <hc-timeline [value]="timeline" [opposite]="false">
       <ng-template hcTemplate="marker" let-event>
         <span class="custom-marker" [style.backgroundColor]="event.color">
           <hc-icon

@@ -1,5 +1,6 @@
 import {
   AfterContentInit,
+  ChangeDetectionStrategy,
   Component,
   ContentChildren,
   Input,
@@ -19,7 +20,7 @@ import { TemplateDirective } from './../../directives/template/template.directiv
         class="hc-timeline-event"
         [style]="style"
       >
-        <div class="hc-timeline-event-opposite">
+        <div [ngClass]="{ 'hc-timeline-event-opposite': opposite }">
           <ng-container
             *ngTemplateOutlet="oppositeTemplate; context: { $implicit: event }"
           ></ng-container>
@@ -51,12 +52,15 @@ import { TemplateDirective } from './../../directives/template/template.directiv
     </div>
   `,
   styleUrls: ['timeline.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TimelineComponent<T> implements AfterContentInit {
+  @Input() align = 'left'
   @Input() value: T[] = []
   @Input() layout: 'vertical' | 'horizontal' = 'vertical'
   @Input() style?: IStyle
   @Input() styleClass!: string
+  @Input() opposite = true
 
   contentTemplate!: TemplateRef<TemplateDirective>
   markerTemplate?: TemplateRef<TemplateDirective>
@@ -87,8 +91,9 @@ export class TimelineComponent<T> implements AfterContentInit {
   get classes() {
     return {
       'hc-timeline': true,
-      ['hc-timeline-vertical']: this.layout === 'vertical',
-      ['hc-timeline-horizontal']: this.layout === 'horizontal',
+      'hc-timeline-vertical': this.layout === 'vertical',
+      'hc-timeline-horizontal': this.layout === 'horizontal',
+      'hc-timeline-left': this.align === 'left',
     }
   }
 }

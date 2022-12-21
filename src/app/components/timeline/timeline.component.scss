@@ -7,10 +7,29 @@
     .hc-timeline-event-connector {
       width: 2px;
     }
+
+    .hc-timeline-event-opposite {
+      padding: 0 1rem;
+      flex: 1;
+    }
+
+    .hc-timeline-event-content {
+      padding: 0 1rem;
+    }
   }
 
   .hc-timeline-event-connector {
     background-color: var(--neutral-divider);
+  }
+}
+
+.hc-timeline-left {
+  .hc-timeline-event-opposite {
+    text-align: right;
+  }
+
+  .hc-timeline-event-content {
+    text-align: left;
   }
 }
 
@@ -80,7 +99,8 @@
 
 .hc-timeline-event-content {
   padding: 0 1rem;
-  width: 100%;
+  // width: 100%;
+  flex: 1;
 }
 
 .hc-timeline-event:last-child {
