@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core'
+import { Component, Input, ViewEncapsulation } from '@angular/core'
 
 @Component({
   selector: 'hc-skeleton',
@@ -40,6 +40,7 @@ import { Component, Input } from '@angular/core'
       }
     `,
   ],
+  encapsulation: ViewEncapsulation.ShadowDom,
 })
 export class SkeletonComponent {
   @Input() width = '100%'
