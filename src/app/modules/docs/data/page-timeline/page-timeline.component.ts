@@ -52,8 +52,8 @@ import { isEmpty } from 'lodash'
               <div class="hc-custom-content" *ngIf="event.description">
                 <div>{{ event.user }}</div>
                 <div>
-                  {{ event.dateInitial | date: 'dd/MM/yyyy' }} até
-                  {{ event.dateEnd | date: 'dd/MM/yyyy' }}
+                  {{ event.dateInitial | date : 'dd/MM/yyyy' }} até
+                  {{ event.dateEnd | date : 'dd/MM/yyyy' }}
                 </div>
                 <div style="margin-top: 1rem;">
                   <span class="hc-custom-content-description">Motivo:</span>
@@ -63,6 +63,21 @@ import { isEmpty } from 'lodash'
             </ng-template>
           </hc-timeline>
         </div>
+
+        <h5 style="margin: 1rem 0">Opposite Contennt</h5>
+        <div class="hc-wrapper-timeline">
+          <hc-timeline [value]="eventsOpposite">
+            <ng-template hcTemplate="content" let-event>
+              <small>{{ event.date | date : 'short' }}</small>
+            </ng-template>
+            <ng-template hcTemplate="opposite" let-event>
+              {{ event.status }}
+            </ng-template>
+          </hc-timeline>
+        </div>
+
+        <h5 style="margin: 1rem 0">Customized</h5>
+        <div class="hc-wrapper-timeline"></div>
       </hc-card>
     </div>
   `,
@@ -72,7 +87,26 @@ import { isEmpty } from 'lodash'
 export class PageTimelineComponent {
   isEmpty = isEmpty
 
+  eventsOpposite = [
+    {
+      status: 'Ordered',
+      date: new Date('2022-12-21T10:30'),
+    },
+    {
+      status: 'Processing',
+      date: new Date('2022-12-21T14:00'),
+    },
+    {
+      status: 'Shipped',
+      date: new Date('2022-12-21T16:15'),
+    },
+    {
+      status: 'Delivered',
+      date: new Date('2022-12-22T10:00'),
+    },
+  ]
   eventsYears = [2020, 2021, 2022, 2023, '']
+
   eventsCustomized = [
     {
       status: 'DESLIGADO',

@@ -22,6 +22,19 @@
   }
 }
 
+.hc-custom-connector {
+  height: 2px;
+  width: 100%;
+  background-color: var(--neutral-divider);
+  flex-grow: 1;
+  position: absolute;
+  z-index: -1;
+}
+
+.hc-custom-connector-primary {
+  background-color: var(--primary-default);
+}
+
 .hc-custom-opposite {
   display: flex;
   flex: 1;

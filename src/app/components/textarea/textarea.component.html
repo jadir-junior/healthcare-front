@@ -1,0 +1,16 @@
+<div class="hc-wrapper-input-and-error">
+  <label [attr.for]="id" *ngIf="label" [ngClass]="labelClasses">{{ label }}</label>
+  <textarea
+    #textarea
+    [cols]="cols"
+    [rows]="rows"
+    [ngClass]="textareaClasses"
+    [value]="value"
+    [disabled]="disabled"
+    [attr.aria-label]="ariaLabel"
+    [attr.id]="id"
+    (focus)="onFocus()"
+    (blur)="onBlur()"
+    (keyup)="onInputChange(textarea.value)"
+  ></textarea>
+</div>
