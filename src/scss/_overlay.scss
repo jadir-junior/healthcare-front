@@ -1,0 +1,17 @@
+@keyframes hc-overlay-enter-animation {
+  from {
+    background-color: transparent;
+  }
+  to {
+    background-color: var(--maskbg);
+  }
+}
+
+@keyframes hc-overlay-leave-animation {
+  from {
+    background-color: var(--maskbg);
+  }
+  to {
+    background-color: transparent;
+  }
+}

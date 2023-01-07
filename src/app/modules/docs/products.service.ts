@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http'
 import { IPagination } from 'src/app/models/pagination.model'
 import { Injectable } from '@angular/core'
-import { MswService } from 'src/app/components/msw/msw.service'
 import { Observable } from 'rxjs'
 import { environment } from 'src/environments/environment'
 import { stringify } from 'query-string'
@@ -23,7 +22,7 @@ export interface IProduct {
   providedIn: 'root',
 })
 export class ProductsService {
-  constructor(private http: HttpClient, private mswService: MswService) {}
+  constructor(private http: HttpClient) {}
 
   getProducts(
     page: number,

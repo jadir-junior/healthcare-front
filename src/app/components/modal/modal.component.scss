@@ -84,14 +84,5 @@
 }
 
 .hc-modal-overlay-leave {
-  animation: hc-modal-overlay-leave-animation 150ms forwards;
-}
-
-@keyframes hc-modal-overlay-leave-animation {
-  from {
-    background-color: var(--maskbg);
-  }
-  to {
-    background-color: transpaten;
-  }
+  animation: hc-overlay-leave-animation 150ms forwards;
 }
