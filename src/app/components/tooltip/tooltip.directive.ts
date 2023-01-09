@@ -18,7 +18,6 @@ import { HcConfig } from '../../common/hc-config/hc-config.service'
 import { ZIndexUtils } from '../../common/z-index-utils/z-index-utils'
 
 export interface ITooltipOptions {
-  showDelay?: number
   disabled?: boolean
   positionStyle?: string
   tooltipLabel: string
@@ -32,6 +31,7 @@ export interface ITooltipOptions {
   tooltipStyleClass?: string
   life?: number
   hideDelay?: number
+  showDelay?: number
 }
 
 @Directive({
@@ -56,9 +56,12 @@ export class TooltipDirective implements AfterViewInit, OnChanges, OnDestroy {
   @Input('hcTooltip') text!: string
   @Input() life?: number
   @Input() hideDelay?: number
+  @Input() showDelay?: number
   @Input() tooltipPosition: 'right' | 'left' | 'top' | 'bottom' = 'right'
   @Input() fitContent = true
   @Input() tooltipEvent: 'hover' | 'focus' = 'hover'
+  @Input() appendTo?: HTMLElement | string
+  @Input() escape = true
   @Input('tooltipDisabled') get disabled(): boolean {
     return this._disabled
   }
@@ -137,6 +140,12 @@ export class TooltipDirective implements AfterViewInit, OnChanges, OnDestroy {
     if (changes['hideDelay']) {
       this.setOptions({
         hideDelay: changes['hideDelay'].currentValue,
+      })
+    }
+
+    if (changes['showDelay']) {
+      this.setOptions({
+        showDelay: changes['showDelay'].currentValue,
       })
     }
 
