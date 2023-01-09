@@ -286,4 +286,28 @@ export class DomHandler {
 
     return height
   }
+
+  public static fadeIn(element: HTMLElement, duration: number): void {
+    element.style.opacity = '0'
+
+    let last = +new Date()
+    let opacity = 0
+    const tick = function () {
+      opacity =
+        +element.style.opacity.replace(',', '.') +
+        (new Date().getTime() - last) / duration
+      element.style.opacity = String(opacity)
+      last = +new Date()
+
+      if (+opacity < 1) {
+        if (typeof window.requestAnimationFrame === 'function') {
+          requestAnimationFrame(tick)
+        } else {
+          setTimeout(tick, 16)
+        }
+      }
+    }
+
+    tick()
+  }
 }

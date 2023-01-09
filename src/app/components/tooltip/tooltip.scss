@@ -1,0 +1,76 @@
+.hc-tooltip {
+  position: absolute;
+  display: none;
+  padding: 0.25rem 0.5rem;
+  max-width: 12.5rem;
+
+  &.hc-tooltip-right,
+  &.hc-tooltip-left {
+    padding: 0 0.25rem;
+  }
+
+  &.hc-tooltip-top,
+  &.hc-tooltip-bottom {
+    padding: 0.25rem 0;
+  }
+
+  .hc-tooltip-text {
+    white-space: pre-line;
+    word-break: break-word;
+    background: #495057;
+    color: var(--neutral-white);
+    padding: 0.75rem 0.75rem;
+    box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+  }
+}
+
+.hc-tooltip-arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+}
+
+.hc-tooltip-right {
+  .hc-tooltip-arrow {
+    top: 50%;
+    left: 0;
+    margin-top: -0.25rem;
+    border-width: 0.25rem 0.25rem 0.25rem 0;
+    border-right-color: #495057;
+  }
+}
+
+.hc-tooltip-left {
+  .hc-tooltip-arrow {
+    top: 50%;
+    right: 0;
+    margin-top: -0.25rem;
+    border-width: 0.25rem 0 0.25rem 0.25rem;
+    border-left-color: #495057;
+  }
+}
+
+.hc-tooltip-top {
+  padding: 0.25rem 0;
+
+  .hc-tooltip-arrow {
+    bottom: 0;
+    left: 50%;
+    margin-left: -0.25rem;
+    border-width: 0.25rem 0.25rem 0;
+    border-top-color: #495057;
+  }
+}
+
+.hc-tooltip-bottom {
+  .hc-tooltip-arrow {
+    top: 0;
+    left: 50%;
+    margin-left: -0.25rem;
+    border-width: 0 0.25rem 0.25rem;
+    border-bottom-color: #495057;
+  }
+}

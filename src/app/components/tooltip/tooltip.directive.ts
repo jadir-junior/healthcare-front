@@ -5,10 +5,16 @@ import {
   Input,
   NgZone,
   OnChanges,
+  OnDestroy,
   SimpleChanges,
 } from '@angular/core'
+import {
+  ConnectedOverlayScrollHandler,
+  IConnectedOverlayScrollHandler,
+} from '../../common/connected-overlay-scroll-handler/connected-overlay-scroll-handler'
 
 import { DomHandler } from '../../common/dom-handler/dom-handler'
+import { HcConfig } from '../../common/hc-config/hc-config.service'
 import { ZIndexUtils } from '../../common/z-index-utils/z-index-utils'
 
 export interface ITooltipOptions {
@@ -24,22 +30,43 @@ export interface ITooltipOptions {
   positionTop: number
   positionLeft: number
   tooltipStyleClass?: string
+  life?: number
+  hideDelay?: number
 }
 
 @Directive({
   selector: '[hcTooltip]',
 })
-export class TooltipDirective implements AfterViewInit, OnChanges {
+export class TooltipDirective implements AfterViewInit, OnChanges, OnDestroy {
   mouseEnterListener?: () => void
-  showTimeout: undefined | number | NodeJS.Timeout = undefined
-  hideTimeout: undefined | number | NodeJS.Timeout = undefined
+  mouseLeaveListener?: () => void
+  clickListener?: () => void
+  focusListener?: () => void
+  blurListener?: () => void
+  showTimeout?: null | number
+  hideTimeout?: null | number
   timeout: null | number = null
-  container!: HTMLElement
+  container: HTMLElement | null = null
   active = false
   tooltipText!: HTMLDivElement
-  fitContent = true
+  resizeListener?: (() => void) | null
+  scrollHandler?: IConnectedOverlayScrollHandler | null
+  _disabled = false
 
   @Input('hcTooltip') text!: string
+  @Input() life?: number
+  @Input() hideDelay?: number
+  @Input() tooltipPosition: 'right' | 'left' | 'top' | 'bottom' = 'right'
+  @Input() fitContent = true
+  @Input() tooltipEvent: 'hover' | 'focus' = 'hover'
+  @Input('tooltipDisabled') get disabled(): boolean {
+    return this._disabled
+  }
+
+  set disabled(value: boolean) {
+    this._disabled = value
+    this.deactivate()
+  }
 
   _tooltipOptions: ITooltipOptions = {
     tooltipLabel: '',
@@ -52,27 +79,108 @@ export class TooltipDirective implements AfterViewInit, OnChanges {
     positionLeft: 0,
   }
 
-  constructor(public zone: NgZone, public el: ElementRef) {}
+  constructor(public zone: NgZone, public el: ElementRef, public config: HcConfig) {}
 
   ngAfterViewInit(): void {
     this.zone.runOutsideAngular(() => {
       if (this._tooltipOptions.tooltipEvent === 'hover') {
-        // this.mouseEnterListener =
+        this.mouseEnterListener = this.onMouseEnter.bind(this)
+        this.mouseLeaveListener = this.onMouseLeave.bind(this)
+        this.clickListener = this.onClick.bind(this)
+        this.el.nativeElement.addEventListener('mouseenter', this.mouseEnterListener)
+        this.el.nativeElement.addEventListener('mouseleave', this.mouseLeaveListener)
+        this.el.nativeElement.addEventListener('click', this.clickListener)
+      } else if (this._tooltipOptions.tooltipEvent === 'focus') {
+        this.focusListener = this.onFocus.bind(this)
+        this.blurListener = this.onBlur.bind(this)
+
+        const target = this.getTarget(this.el.nativeElement)
+        if (target) {
+          target.addEventListener('focus', this.focusListener)
+          target.addEventListener('blur', this.blurListener)
+        }
       }
     })
   }
 
   ngOnChanges(changes: SimpleChanges): void {
+    if (changes['tooltipPosition']) {
+      this.setOptions({
+        tooltipPosition: changes['tooltipPosition'].currentValue,
+      })
+    }
+
+    if (changes['tooltipEvent']) {
+      this.setOptions({
+        tooltipEvent: changes['tooltipEvent'].currentValue,
+      })
+    }
+
+    if (changes['appendTo']) {
+      this.setOptions({
+        appendTo: changes['appendTo'].currentValue,
+      })
+    }
+
+    if (changes['tooltipZIndex']) {
+      this.setOptions({
+        tooltipZIndex: changes['tooltipZIndex'].currentValue,
+      })
+    }
+
+    if (changes['escape']) {
+      this.setOptions({
+        escape: changes['escape'].currentValue,
+      })
+    }
+
+    if (changes['hideDelay']) {
+      this.setOptions({
+        hideDelay: changes['hideDelay'].currentValue,
+      })
+    }
+
+    if (changes['life']) {
+      this.setOptions({
+        life: changes['life'].currentValue,
+      })
+    }
+
+    if (changes['positionTop']) {
+      this.setOptions({
+        positionTop: changes['positionTop'].currentValue,
+      })
+    }
+
+    if (changes['positionLeft']) {
+      this.setOptions({
+        positionLeft: changes['positionLeft'].currentValue,
+      })
+    }
+
+    if (changes['disabled']) {
+      this.setOptions({
+        disabled: changes['disabled'].currentValue,
+      })
+    }
+
     if (changes['text']) {
       this.setOptions({
-        ...this._tooltipOptions,
         tooltipLabel: changes['text'].currentValue,
       })
 
-      // if (this.active) {
-      // } else {
-      //   this.hide()
-      // }
+      if (this.active) {
+        if (changes['text'].currentValue) {
+          if (this.container && this.container.offsetParent) {
+            this.updateText()
+            this.align()
+          } else {
+            this.show()
+          }
+        }
+      } else {
+        this.hide()
+      }
     }
 
     if (changes['tooltipOptions']) {
@@ -80,10 +188,31 @@ export class TooltipDirective implements AfterViewInit, OnChanges {
         ...this._tooltipOptions,
         ...changes['tooltipOptions'].currentValue,
       }
+
+      this.deactivate()
+
+      if (this.active) {
+        if (this._tooltipOptions.tooltipLabel) {
+          if (this.container && this.container.offsetParent) {
+            this.updateText()
+            this.align()
+          } else {
+            this.show()
+          }
+        } else {
+          this.hide()
+        }
+      }
     }
   }
 
-  setOptions(option: ITooltipOptions) {
+  getTarget(element: HTMLElement): HTMLElement | null {
+    return DomHandler.hasClass(element, 'hc-inputwrapper')
+      ? DomHandler.findSingleElement(element, 'input')
+      : element
+  }
+
+  setOptions(option: Partial<ITooltipOptions>) {
     this._tooltipOptions = { ...this._tooltipOptions, ...option }
   }
 
@@ -91,6 +220,22 @@ export class TooltipDirective implements AfterViewInit, OnChanges {
     if (!this.container && !this.showTimeout) {
       this.activate()
     }
+  }
+
+  onMouseLeave(): void {
+    this.deactivate()
+  }
+
+  onClick(): void {
+    this.deactivate()
+  }
+
+  onFocus(): void {
+    this.activate()
+  }
+
+  onBlur(): void {
+    this.deactivate()
   }
 
   hide(): void {
@@ -111,19 +256,31 @@ export class TooltipDirective implements AfterViewInit, OnChanges {
         DomHandler.removeChild(this.container, this._tooltipOptions.appendTo)
       }
     }
+
+    this.unbindDocumentResizeListener()
+    this.unbindScrollListener()
+    this.clearTimeouts()
+    this.container = null
+    this.scrollHandler = null
   }
 
-  // clearTimeout(): void {
-  //   if (this.timeout) {
-  //     this.timeout = null
-  //   }
-  // }
+  clearShowTimeout() {
+    if (this.showTimeout) {
+      clearTimeout(this.showTimeout)
+      this.showTimeout = null
+    }
+  }
 
   clearHideTimeout(): void {
     if (this.hideTimeout) {
       clearTimeout(this.hideTimeout)
-      this.hideTimeout = undefined
+      this.hideTimeout = null
     }
+  }
+
+  clearTimeouts(): void {
+    this.clearShowTimeout()
+    this.clearHideTimeout()
   }
 
   updateText(): void {
@@ -176,13 +333,15 @@ export class TooltipDirective implements AfterViewInit, OnChanges {
   }
 
   preAlign(position: string): void {
-    this.container.style.left = '-999px'
-    this.container.style.top = '-999px'
+    if (this.container) {
+      this.container.style.left = '-999px'
+      this.container.style.top = '-999px'
 
-    const defaultClassName = 'hc-tooltip hc-tooltip-' + position
-    this.container.className = this._tooltipOptions?.tooltipStyleClass
-      ? defaultClassName + ' ' + this._tooltipOptions.tooltipStyleClass
-      : defaultClassName
+      const defaultClassName = 'hc-tooltip hc-tooltip-' + position
+      this.container.className = this._tooltipOptions?.tooltipStyleClass
+        ? defaultClassName + ' ' + this._tooltipOptions.tooltipStyleClass
+        : defaultClassName
+    }
   }
 
   getHostOffset(): { left: number; top: number } {
@@ -201,16 +360,138 @@ export class TooltipDirective implements AfterViewInit, OnChanges {
   }
 
   alignTop(): void {
-    this.preAlign('top')
-    const hostOffset = this.getHostOffset()
-    const left =
-      hostOffset.left +
-      (DomHandler.getOuterWidth(this.el.nativeElement) -
-        DomHandler.getOuterWidth(this.container)) /
-        2
-    const top = hostOffset.top - DomHandler.getOuterHeight(this.container)
-    this.container.style.left = left + this._tooltipOptions.positionLeft + 'px'
-    this.container.style.top = top + this._tooltipOptions.positionTop + 'px'
+    if (this.container) {
+      this.preAlign('top')
+      const hostOffset = this.getHostOffset()
+      const left =
+        hostOffset.left +
+        (DomHandler.getOuterWidth(this.el.nativeElement) -
+          DomHandler.getOuterWidth(this.container)) /
+          2
+      const top = hostOffset.top - DomHandler.getOuterHeight(this.container)
+      this.setContainerStyleLeftAndTop(left, top)
+    }
+  }
+
+  alignBottom(): void {
+    if (this.container) {
+      this.preAlign('bottom')
+      const hostOffset = this.getHostOffset()
+      const left =
+        hostOffset.left +
+        (DomHandler.getOuterWidth(this.el.nativeElement) -
+          DomHandler.getOuterWidth(this.container)) /
+          2
+      const top = hostOffset.top + DomHandler.getOuterHeight(this.el.nativeElement)
+      this.setContainerStyleLeftAndTop(left, top)
+    }
+  }
+
+  alignRight(): void {
+    if (this.container) {
+      this.preAlign('right')
+      const hostOffset = this.getHostOffset()
+      const left = hostOffset.left + DomHandler.getOuterWidth(this.el.nativeElement)
+      const top =
+        hostOffset.top +
+        (DomHandler.getOuterHeight(this.el.nativeElement) -
+          DomHandler.getOuterHeight(this.container)) /
+          2
+      this.setContainerStyleLeftAndTop(left, top)
+    }
+  }
+
+  alignLeft(): void {
+    if (this.container) {
+      this.preAlign('left')
+      const hostOffset = this.getHostOffset()
+      const left = hostOffset.left - DomHandler.getOuterWidth(this.container)
+      const top =
+        hostOffset.top +
+        (DomHandler.getOuterHeight(this.el.nativeElement) -
+          DomHandler.getOuterHeight(this.container)) /
+          2
+      this.setContainerStyleLeftAndTop(left, top)
+    }
+  }
+
+  setContainerStyleLeftAndTop(left: number, top: number): void {
+    if (this.container) {
+      this.container.style.left = left + this._tooltipOptions['positionLeft'] + 'px'
+      this.container.style.top = top + this._tooltipOptions['positionTop'] + 'px'
+    }
+  }
+
+  isOutOfBounds(): boolean {
+    if (this.container) {
+      const offset = this.container.getBoundingClientRect()
+      const targetTop = offset.top
+      const targetLeft = offset.left
+      const width = DomHandler.getOuterWidth(this.container)
+      const height = DomHandler.getOuterHeight(this.container)
+      const viewport = DomHandler.getViewport()
+
+      return (
+        targetLeft + width > viewport.width ||
+        targetLeft < 0 ||
+        targetTop < 0 ||
+        targetTop + height > viewport.height
+      )
+    } else {
+      return false
+    }
+  }
+
+  positionTop(): void {
+    this.alignTop()
+    if (this.isOutOfBounds()) {
+      this.alignBottom()
+      if (this.isOutOfBounds()) {
+        this.alignRight()
+        if (this.isOutOfBounds()) {
+          this.alignLeft()
+        }
+      }
+    }
+  }
+
+  positionBottom(): void {
+    this.alignBottom()
+    if (this.isOutOfBounds()) {
+      this.alignTop()
+      if (this.isOutOfBounds()) {
+        this.alignRight()
+        if (this.isOutOfBounds()) {
+          this.alignLeft()
+        }
+      }
+    }
+  }
+
+  positionLeft(): void {
+    this.alignLeft()
+    if (this.isOutOfBounds()) {
+      this.alignRight()
+      if (this.isOutOfBounds()) {
+        this.alignTop()
+        if (this.isOutOfBounds()) {
+          this.alignBottom
+        }
+      }
+    }
+  }
+
+  positionRight(): void {
+    this.alignRight()
+    if (this.isOutOfBounds()) {
+      this.alignLeft()
+      if (this.isOutOfBounds()) {
+        this.alignTop()
+        if (this.isOutOfBounds()) {
+          this.alignBottom()
+        }
+      }
+    }
   }
 
   align(): void {
@@ -218,17 +499,76 @@ export class TooltipDirective implements AfterViewInit, OnChanges {
 
     switch (position) {
       case 'top':
-        this.alignTop()
+        this.positionTop()
+        break
+      case 'bottom':
+        this.positionBottom()
+        break
+      case 'left':
+        this.positionLeft()
+        break
+      case 'right':
+        this.positionRight()
+        break
+    }
+  }
+
+  onWindowResize(): void {
+    this.hide()
+  }
+
+  bindDocumentResizeListener(): void {
+    this.zone.runOutsideAngular(() => {
+      this.resizeListener = this.onWindowResize.bind(this)
+      window.addEventListener('resize', this.resizeListener)
+    })
+  }
+
+  unbindDocumentResizeListener(): void {
+    if (this.resizeListener) {
+      window.removeEventListener('resize', this.resizeListener)
+      this.resizeListener = null
+    }
+  }
+
+  bindScrollListener(): void {
+    if (!this.scrollHandler) {
+      this.scrollHandler = new ConnectedOverlayScrollHandler(
+        this.el.nativeElement,
+        () => {
+          if (this.container) {
+            this.hide()
+          }
+        }
+      )
+    }
+  }
+
+  unbindScrollListener(): void {
+    if (this.scrollHandler) {
+      this.scrollHandler.unbindScrollListener()
     }
   }
 
   show(): void {
-    if (!this._tooltipOptions.tooltipLabel || !this._tooltipOptions.disabled) {
+    if (!this._tooltipOptions.tooltipLabel || this._tooltipOptions.disabled) {
       return
     }
 
     this.create()
     this.align()
+    if (this.container) {
+      DomHandler.fadeIn(this.container, 250)
+
+      if (this._tooltipOptions.tooltipZIndex === 'auto') {
+        ZIndexUtils.set('tooltip', this.container, this.config.zIndex.tooltip)
+      } else {
+        this.container.style.zIndex = this._tooltipOptions.tooltipZIndex
+      }
+    }
+
+    this.bindDocumentResizeListener()
+    this.bindScrollListener()
   }
 
   activate(): void {
@@ -236,9 +576,71 @@ export class TooltipDirective implements AfterViewInit, OnChanges {
     this.clearHideTimeout()
 
     if (this._tooltipOptions.showDelay) {
-      this.showTimeout = setTimeout(() => {
+      this.showTimeout = window.setTimeout(() => {
         this.show()
       }, this._tooltipOptions.showDelay)
+    } else {
+      this.show()
+    }
+
+    if (this._tooltipOptions.life) {
+      const duration = this._tooltipOptions.showDelay
+        ? this._tooltipOptions.life + this._tooltipOptions.showDelay
+        : this._tooltipOptions.life
+      this.hideTimeout = window.setTimeout(() => {
+        this.hide()
+      }, duration)
+    }
+  }
+
+  deactivate(): void {
+    this.active = false
+    this.clearShowTimeout()
+
+    if (this._tooltipOptions.hideDelay) {
+      this.clearHideTimeout()
+      this.hideTimeout = window.setTimeout(() => {
+        this.hide()
+      }, this._tooltipOptions.hideDelay)
+    } else {
+      this.hide()
+    }
+  }
+
+  unbindEvents(): void {
+    if (this._tooltipOptions.tooltipEvent === 'hover') {
+      this.el.nativeElement.removeEventListener('mouseenter', this.mouseEnterListener)
+      this.el.nativeElement.removeEventListener('mouseleave', this.mouseLeaveListener)
+      this.el.nativeElement.removeEventListener('click', this.clickListener)
+    } else if (this._tooltipOptions.tooltipEvent === 'focus') {
+      const target = this.getTarget(this.el.nativeElement)
+
+      if (target) {
+        if (this.focusListener) {
+          target.removeEventListener('focus', this.focusListener)
+        }
+
+        if (this.blurListener) {
+          target.removeEventListener('blur', this.blurListener)
+        }
+      }
+    }
+
+    this.unbindDocumentResizeListener()
+  }
+
+  ngOnDestroy(): void {
+    this.unbindEvents()
+
+    if (this.container) {
+      ZIndexUtils.clear(this.container)
+    }
+
+    this.remove()
+
+    if (this.scrollHandler) {
+      this.scrollHandler.destroy()
+      this.scrollHandler = null
     }
   }
 }
