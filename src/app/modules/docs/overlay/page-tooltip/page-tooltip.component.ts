@@ -57,6 +57,17 @@ import { Component } from '@angular/core'
           escape
         </div>
       </div>
+      <h5 style="margin-bottom: 1.5rem;">Show Without Arrow - tooltip withou arrow</h5>
+      <div style="display: flex; gap: 40px; margin-bottom: 1.5rem;">
+        <div
+          hcTooltip="tooltip"
+          appendTo="target"
+          [showTooltipArrow]="false"
+          tooltipPosition="top"
+        >
+          without arrow
+        </div>
+      </div>
     </hc-card>
   `,
   styles: [],

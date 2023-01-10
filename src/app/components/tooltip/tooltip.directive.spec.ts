@@ -162,4 +162,19 @@ describe('TooltipDirective', () => {
 
     expect(screen.queryByText('tooltip')).not.toBeInTheDocument()
   })
+
+  it('create a tooltip without arrow', async () => {
+    await render(
+      `
+        <div data-testid="tooltip" [showTooltipArrow]="false" hcTooltip="tooltip" appendTo="target">This is a test</div>
+       `,
+      {
+        imports: [TooltipModule],
+      }
+    )
+
+    await userEvent.hover(screen.getByTestId('tooltip'))
+
+    expect(screen.queryByLabelText('tooltip-arrow')).not.toBeInTheDocument()
+  })
 })

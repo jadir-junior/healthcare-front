@@ -307,6 +307,7 @@ export class TooltipDirective implements AfterViewInit, OnChanges, OnDestroy {
     if (this.showTooltipArrow) {
       const tooltipArrow = document.createElement('div')
       tooltipArrow.className = 'hc-tooltip-arrow'
+      tooltipArrow.setAttribute('aria-label', 'tooltip-arrow')
       this.container.appendChild(tooltipArrow)
     }
 
