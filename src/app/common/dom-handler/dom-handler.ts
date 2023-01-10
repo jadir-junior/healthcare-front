@@ -256,4 +256,58 @@ export class DomHandler {
   public static setAttribute(element: HTMLElement, name: string, value: string): void {
     element.setAttribute(name, value)
   }
+
+  public static removeChild(element: HTMLElement, target: HTMLElement) {
+    if (this.isElement(target)) {
+      target.removeChild(element)
+    } else {
+      throw `Cannot remove ${element} from ${target}`
+    }
+  }
+
+  public static getOuterWidth(el: HTMLElement, margin?: string): number {
+    let width = el.offsetWidth
+
+    if (margin) {
+      const style = getComputedStyle(el)
+      width += parseFloat(style.marginLeft) + parseFloat(style.marginRight)
+    }
+
+    return width
+  }
+
+  public static getOuterHeight(el: HTMLElement, margin?: string): number {
+    let height = el.offsetHeight
+
+    if (margin) {
+      const style = getComputedStyle(el)
+      height += parseFloat(style.marginTop) + parseFloat(style.marginBottom)
+    }
+
+    return height
+  }
+
+  public static fadeIn(element: HTMLElement, duration: number): void {
+    element.style.opacity = '0'
+
+    let last = +new Date()
+    let opacity = 0
+    const tick = function () {
+      opacity =
+        +element.style.opacity.replace(',', '.') +
+        (new Date().getTime() - last) / duration
+      element.style.opacity = String(opacity)
+      last = +new Date()
+
+      if (+opacity < 1) {
+        if (typeof window.requestAnimationFrame === 'function') {
+          requestAnimationFrame(tick)
+        } else {
+          setTimeout(tick, 16)
+        }
+      }
+    }
+
+    tick()
+  }
 }

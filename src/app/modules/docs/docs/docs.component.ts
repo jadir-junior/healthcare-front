@@ -178,6 +178,10 @@ export class DocsComponent {
           label: 'Modal',
           routerLink: '/docs/overlay/modal',
         },
+        {
+          label: 'Tootltip',
+          routerLink: '/docs/overlay/tooltip',
+        },
       ],
     },
   ]
