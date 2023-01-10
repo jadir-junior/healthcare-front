@@ -177,4 +177,42 @@ describe('TooltipDirective', () => {
 
     expect(screen.queryByLabelText('tooltip-arrow')).not.toBeInTheDocument()
   })
+
+  it('create a tooltip with color default primary', async () => {
+    await render(
+      `
+        <div data-testid="tooltip"  hcTooltip="tooltip" appendTo="target">This is a test</div>
+       `,
+      {
+        imports: [TooltipModule],
+      }
+    )
+
+    await userEvent.hover(screen.getByTestId('tooltip'))
+
+    expect(screen.queryByLabelText('tooltip-text')).toHaveClass('hc-tooltip-text-primary')
+    expect(screen.queryByLabelText('tooltip-arrow')).toHaveClass(
+      'hc-tooltip-arrow-primary'
+    )
+  })
+
+  it('create a tooltip with color secondary', async () => {
+    await render(
+      `
+        <div data-testid="tooltip"  hcTooltip="tooltip" appendTo="target" tooltipColor="secondary">This is a test</div>
+       `,
+      {
+        imports: [TooltipModule],
+      }
+    )
+
+    await userEvent.hover(screen.getByTestId('tooltip'))
+
+    expect(screen.queryByLabelText('tooltip-text')).toHaveClass(
+      'hc-tooltip-text-secondary'
+    )
+    expect(screen.queryByLabelText('tooltip-arrow')).toHaveClass(
+      'hc-tooltip-arrow-secondary'
+    )
+  })
 })

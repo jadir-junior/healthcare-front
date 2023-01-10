@@ -68,6 +68,18 @@ import { Component } from '@angular/core'
           without arrow
         </div>
       </div>
+      <h5 style="margin-bottom: 1.5rem;">Color</h5>
+      <div style="display: flex; gap: 40px; margin-bottom: 1.5rem;">
+        <div hcTooltip="tooltip" appendTo="target" tooltipPosition="top">Primary</div>
+        <div
+          hcTooltip="tooltip"
+          appendTo="target"
+          tooltipPosition="top"
+          tooltipColor="secondary"
+        >
+          Primary
+        </div>
+      </div>
     </hc-card>
   `,
   styles: [],

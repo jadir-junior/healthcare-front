@@ -55,6 +55,7 @@ export class TooltipDirective implements AfterViewInit, OnChanges, OnDestroy {
 
   @Input('hcTooltip') text!: string
   @Input() ariaLabel?: string
+  @Input() tooltipColor?: 'primary' | 'secondary' = 'primary'
   @Input() life?: number
   @Input() hideDelay?: number
   @Input() showDelay?: number
@@ -306,13 +307,14 @@ export class TooltipDirective implements AfterViewInit, OnChanges, OnDestroy {
 
     if (this.showTooltipArrow) {
       const tooltipArrow = document.createElement('div')
-      tooltipArrow.className = 'hc-tooltip-arrow'
+      tooltipArrow.className = `hc-tooltip-arrow hc-tooltip-arrow-${this.tooltipColor}`
       tooltipArrow.setAttribute('aria-label', 'tooltip-arrow')
       this.container.appendChild(tooltipArrow)
     }
 
     this.tooltipText = document.createElement('div')
-    this.tooltipText.className = 'hc-tooltip-text'
+    this.tooltipText.className = `hc-tooltip-text hc-tooltip-text-${this.tooltipColor}`
+    this.tooltipText.setAttribute('aria-label', 'tooltip-text')
 
     this.updateText()
 
