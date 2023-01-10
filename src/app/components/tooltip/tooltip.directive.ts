@@ -54,6 +54,7 @@ export class TooltipDirective implements AfterViewInit, OnChanges, OnDestroy {
   _disabled = false
 
   @Input('hcTooltip') text!: string
+  @Input() ariaLabel?: string
   @Input() life?: number
   @Input() hideDelay?: number
   @Input() showDelay?: number
@@ -62,6 +63,7 @@ export class TooltipDirective implements AfterViewInit, OnChanges, OnDestroy {
   @Input() tooltipEvent: 'hover' | 'focus' = 'hover'
   @Input() appendTo?: HTMLElement | string
   @Input() escape = true
+  @Input() showTooltipArrow = true
   @Input('tooltipDisabled') get disabled(): boolean {
     return this._disabled
   }
@@ -152,18 +154,6 @@ export class TooltipDirective implements AfterViewInit, OnChanges, OnDestroy {
     if (changes['life']) {
       this.setOptions({
         life: changes['life'].currentValue,
-      })
-    }
-
-    if (changes['positionTop']) {
-      this.setOptions({
-        positionTop: changes['positionTop'].currentValue,
-      })
-    }
-
-    if (changes['positionLeft']) {
-      this.setOptions({
-        positionLeft: changes['positionLeft'].currentValue,
       })
     }
 
@@ -310,10 +300,15 @@ export class TooltipDirective implements AfterViewInit, OnChanges, OnDestroy {
     }
 
     this.container = document.createElement('div')
+    if (this.ariaLabel) {
+      this.container.setAttribute('aria-label', this.ariaLabel)
+    }
 
-    const tooltipArrow = document.createElement('div')
-    tooltipArrow.className = 'hc-tooltip-arrow'
-    this.container.appendChild(tooltipArrow)
+    if (this.showTooltipArrow) {
+      const tooltipArrow = document.createElement('div')
+      tooltipArrow.className = 'hc-tooltip-arrow'
+      this.container.appendChild(tooltipArrow)
+    }
 
     this.tooltipText = document.createElement('div')
     this.tooltipText.className = 'hc-tooltip-text'
