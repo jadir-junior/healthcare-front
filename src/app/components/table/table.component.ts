@@ -111,12 +111,12 @@ export interface IColumn {
   providers: [DataService],
 })
 export class TableComponent implements AfterContentInit, OnChanges {
-  bodyTemplate!: TemplateRef<TemplateDirective>
-  headerTemplate!: TemplateRef<TemplateDirective>
-  captionTemplate!: TemplateRef<TemplateDirective>
-  summaryTemplate!: TemplateRef<TemplateDirective>
-  optionsHeaderTemplate!: TemplateRef<TemplateDirective>
-  expandedRowTemplate!: TemplateRef<TemplateDirective>
+  bodyTemplate!: TemplateRef<any>
+  headerTemplate!: TemplateRef<any>
+  captionTemplate!: TemplateRef<any>
+  summaryTemplate!: TemplateRef<any>
+  optionsHeaderTemplate!: TemplateRef<any>
+  expandedRowTemplate!: TemplateRef<any>
 
   @Input() columns: IColumn[] = []
   @Input() responsiveLayout: 'stack' | 'scroll' = 'stack'

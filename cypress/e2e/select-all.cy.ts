@@ -13,6 +13,10 @@ describe('Select All', () => {
     cy.visit('/docs/table/selectall?page=1&limit=5')
   })
 
+  afterEach(async () => {
+    cy.closeMockServiceWork()
+  })
+
   it('"SELECT ALL" pages', () => {
     cy.getByTestId('checkbox header').click()
     cy.getByLabelText('select all').click()

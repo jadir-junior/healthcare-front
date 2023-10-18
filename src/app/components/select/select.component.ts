@@ -68,7 +68,7 @@ export class SelectComponent<T> implements OnInit, ControlValueAccessor {
   optionsToDisplay!: T[]
   scrollHandler!: IConnectedOverlayScrollHandler
   selectedOption: ISelectItem<T> | T | null = null
-  selectedItemTemplate!: TemplateRef<ISelectItem<T>>
+  selectedItemTemplate!: TemplateRef<any>
   selectedOptionUpdated = false
   value: T | null = null
 
