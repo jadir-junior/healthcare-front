@@ -28,7 +28,10 @@ export class InputComponent implements ControlValueAccessor {
   onChange!: (value: string) => void
   onTouched!: () => void
 
-  constructor(public ngControl: NgControl, private elem: ElementRef) {
+  constructor(
+    public ngControl: NgControl,
+    private elem: ElementRef
+  ) {
     this.registerNgControl()
   }
 

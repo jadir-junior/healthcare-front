@@ -5,7 +5,11 @@
   user-select: none;
   background-color: var(--neutral-white);
   border: 1px solid var(--neutral-gray);
-  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  transition:
+    background-color 0.2s,
+    color 0.2s,
+    border-color 0.2s,
+    box-shadow 0.2s;
   border-radius: 6px;
   color: var(--neutral-black);
   height: 50px;
@@ -85,7 +89,11 @@
 .hc-select-inputtext {
   font-size: 1rem;
   padding: 0.75rem;
-  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  transition:
+    background-color 0.2s,
+    color 0.2s,
+    border-color 0.2s,
+    box-shadow 0.2s;
   appearance: none;
   border-radius: 6px;
 }

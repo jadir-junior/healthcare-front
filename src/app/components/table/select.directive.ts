@@ -75,7 +75,10 @@ export class SelectDirective implements OnChanges {
   @Output() rowSelectEvent = new EventEmitter<IRowSelectEvent>()
   @Output() selectAllChange = new EventEmitter<IHeaderCheckboxEvent>()
 
-  constructor(private tableService: TableService, public data: DataService) {}
+  constructor(
+    private tableService: TableService,
+    public data: DataService
+  ) {}
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['selection']) {

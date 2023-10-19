@@ -129,7 +129,11 @@
   height: 22px;
   color: var(--neutral-black);
   border-radius: 6px;
-  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  transition:
+    background-color 0.2s,
+    color 0.2s,
+    border-color 0.2s,
+    box-shadow 0.2s;
   display: flex;
   justify-content: center;
   align-items: center;

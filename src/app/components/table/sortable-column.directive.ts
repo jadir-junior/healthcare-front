@@ -22,7 +22,10 @@ export class SortableColumnDirective implements OnInit, OnDestroy {
   sortOrder!: string
   subscription: Subscription
 
-  constructor(private tableService: TableService, public sort: SortDirective) {
+  constructor(
+    private tableService: TableService,
+    public sort: SortDirective
+  ) {
     this.subscription = this.tableService.sortSource$.subscribe(() => {
       this.updateSortState()
     })
