@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import {
   AfterContentInit,
   ChangeDetectionStrategy,
@@ -62,10 +63,10 @@ export class TimelineComponent<T> implements AfterContentInit {
   @Input() styleClass!: string
   @Input() opposite = true
 
-  contentTemplate!: TemplateRef<TemplateDirective>
-  markerTemplate?: TemplateRef<TemplateDirective>
-  connectorTemplate?: TemplateRef<TemplateDirective>
-  oppositeTemplate!: TemplateRef<TemplateDirective>
+  contentTemplate!: TemplateRef<any>
+  markerTemplate?: TemplateRef<any>
+  connectorTemplate?: TemplateRef<any>
+  oppositeTemplate!: TemplateRef<any>
 
   @ContentChildren(TemplateDirective) templates!: QueryList<TemplateDirective>
 

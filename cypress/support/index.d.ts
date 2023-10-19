@@ -7,5 +7,6 @@ declare namespace Cypress {
     getByTestId(dataTestIdAttribute: string): Chainable<JQuery<HTMLElement>>
     getAllByTestId(dataTestIdAttribute: string): Chainable<JQuery<HTMLElement>>
     startMockServiceWork(): void
+    closeMockServiceWork(): void
   }
 }

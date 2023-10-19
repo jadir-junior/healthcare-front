@@ -19,3 +19,7 @@ Cypress.Commands.add('getAllByTestId', (selector) => {
 Cypress.Commands.add('startMockServiceWork', () => {
   window.localStorage.setItem('MSW', JSON.stringify(true))
 })
+
+Cypress.Commands.add('closeMockServiceWork', () => {
+  window.localStorage.setItem('MSW', JSON.stringify(false))
+})

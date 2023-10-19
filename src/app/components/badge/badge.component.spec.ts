@@ -25,6 +25,6 @@ describe('BadgeComponent', () => {
       },
     })
 
-    expect(screen.getByRole(/badge/i)).toHaveClass('hc-badge-danger')
+    expect(screen.getByRole('badge')).toHaveClass('hc-badge-danger')
   })
 })

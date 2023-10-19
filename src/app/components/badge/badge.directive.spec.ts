@@ -21,9 +21,9 @@ describe('BadgeDirective', () => {
       imports: [BadgeModule],
     })
 
-    expect(screen.getByRole(/badge/i)).toBeInTheDocument()
+    expect(screen.getByRole('badge')).toBeInTheDocument()
     expect(screen.getByText('8')).toBeInTheDocument()
-    expect(screen.getByRole(/badge/i)).toHaveClass('hc-badge-danger')
+    expect(screen.getByRole('badge')).toHaveClass('hc-badge-danger')
   })
 
   it('create a badge with directive with value null', async () => {
@@ -31,6 +31,6 @@ describe('BadgeDirective', () => {
       imports: [BadgeModule],
     })
 
-    expect(screen.getByRole(/badge/i)).toHaveClass('hc-badge-dot')
+    expect(screen.getByRole('badge')).toHaveClass('hc-badge-dot')
   })
 })

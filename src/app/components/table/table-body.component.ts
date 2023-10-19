@@ -54,8 +54,10 @@ export class TableBodyComponent implements OnDestroy {
   subscription!: Subscription
 
   @Input('hc-table-body') columns!: IColumn[]
-  @Input() template!: TemplateRef<TemplateDirective>
-  @Input() expandedRowTemplate?: TemplateRef<TemplateDirective>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  @Input() template!: TemplateRef<any>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  @Input() expandedRowTemplate?: TemplateRef<any>
 
   constructor(
     public data: DataService,

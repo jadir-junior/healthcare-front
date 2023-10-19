@@ -32,7 +32,8 @@ export class SelectItemComponent<T> {
   @Input() label?: string
   @Input() selected = false
   @Input() option!: ISelectItem<T>
-  @Input() template!: TemplateRef<HTMLElement>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  @Input() template!: TemplateRef<any>
 
   @Output() onClick = new EventEmitter<{ originalEvent: Event; option: ISelectItem<T> }>()
 
