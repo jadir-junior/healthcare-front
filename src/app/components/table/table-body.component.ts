@@ -12,7 +12,6 @@ import { IColumn } from 'src/app/components/table/table.component'
 import { RowExpandDirective } from './row-expand.directive'
 import { Subscription } from 'rxjs'
 import { TableService } from './table.service'
-import { TemplateDirective } from '../../directives/template/template.directive'
 
 @Component({
   selector: '[hc-table-body]',
