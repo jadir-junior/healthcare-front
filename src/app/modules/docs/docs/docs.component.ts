@@ -186,7 +186,10 @@ export class DocsComponent {
     },
   ]
 
-  constructor(private router: Router, private route: ActivatedRoute) {}
+  constructor(
+    private router: Router,
+    private route: ActivatedRoute
+  ) {}
 
   goToRoute(route: string): void {
     this.router.navigate([route], { relativeTo: this.route })

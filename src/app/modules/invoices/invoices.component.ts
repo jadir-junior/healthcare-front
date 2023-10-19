@@ -43,7 +43,10 @@ export class InvoicesComponent implements OnInit {
   hcDtOptions!: any
   invoices: IInvoice[] = []
 
-  constructor(private datePipe: DatePipe, private currencyPipe: CurrencyPipe) {}
+  constructor(
+    private datePipe: DatePipe,
+    private currencyPipe: CurrencyPipe
+  ) {}
 
   ngOnInit(): void {
     this.invoices = RESPONSE.map((row) => ({

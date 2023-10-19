@@ -6,7 +6,10 @@ import { Router } from '@angular/router'
   providedIn: 'root',
 })
 export class AuthGuard {
-  constructor(private localStorage: LocalStorageService, private router: Router) {}
+  constructor(
+    private localStorage: LocalStorageService,
+    private router: Router
+  ) {}
 
   canActivate(): boolean {
     const token = this.localStorage.get('HC_TOKEN')

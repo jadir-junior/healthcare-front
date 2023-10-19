@@ -85,7 +85,11 @@ export class TooltipDirective implements AfterViewInit, OnChanges, OnDestroy {
     positionLeft: 0,
   }
 
-  constructor(public zone: NgZone, public el: ElementRef, public config: HcConfig) {}
+  constructor(
+    public zone: NgZone,
+    public el: ElementRef,
+    public config: HcConfig
+  ) {}
 
   ngAfterViewInit(): void {
     this.zone.runOutsideAngular(() => {

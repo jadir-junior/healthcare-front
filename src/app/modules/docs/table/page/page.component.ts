@@ -39,7 +39,7 @@ import { IMeta } from 'src/app/models/pagination.model'
             <td>{{ product.code }}</td>
             <td>{{ product.name }}</td>
             <td>{{ product.description }}</td>
-            <td>{{ product.price | currency : 'USD' }}</td>
+            <td>{{ product.price | currency: 'USD' }}</td>
             <td>{{ product.category }}</td>
             <td>{{ product.quantity }}</td>
             <td>{{ product.inventoryStatus }}</td>

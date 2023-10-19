@@ -58,7 +58,10 @@ export class CreatePatientComponent {
   })
   submitted = false
 
-  constructor(private fb: FormBuilder, private patientsService: PatientsService) {}
+  constructor(
+    private fb: FormBuilder,
+    private patientsService: PatientsService
+  ) {}
 
   onSubmit({ value, valid }: FormGroup) {
     this.submitted = true

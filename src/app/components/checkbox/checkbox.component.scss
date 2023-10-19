@@ -35,7 +35,11 @@
   width: 1.5rem;
   height: 1.5rem;
   border-radius: 0.4rem;
-  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  transition:
+    background-color 0.2s,
+    color 0.2s,
+    border-color 0.2s,
+    box-shadow 0.2s;
 }
 
 .hc-checkbox-highlight {

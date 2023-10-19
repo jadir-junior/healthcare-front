@@ -20,7 +20,10 @@ export class BaseTableService {
   cols: IColumn[] = []
   _selectedColumns: IColumn[] = []
 
-  constructor(private route: ActivatedRoute, private router: Router) {
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
     this.route.queryParams.subscribe((params) => {
       if (Object.keys(params).length !== 0) {
         const { page, limit, sortColumn, sortDirection } = params as IParams

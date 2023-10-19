@@ -77,7 +77,11 @@
 
 .hc-switch-slider {
   background: var(--neutral-gray);
-  transition: background-color 0.2s, color 0.2s, border-color 0.2s, box-shadow 0.2s;
+  transition:
+    background-color 0.2s,
+    color 0.2s,
+    border-color 0.2s,
+    box-shadow 0.2s;
   border-radius: 30px;
   position: absolute;
   cursor: pointer;

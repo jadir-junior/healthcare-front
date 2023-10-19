@@ -127,7 +127,10 @@ export class ModalComponent implements AfterContentInit {
     }
   }
 
-  constructor(public config: HcConfig, public zone: NgZone) {}
+  constructor(
+    public config: HcConfig,
+    public zone: NgZone
+  ) {}
 
   ngAfterContentInit(): void {
     this.templates.forEach((item) => {
