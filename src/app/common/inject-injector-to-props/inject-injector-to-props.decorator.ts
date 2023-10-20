@@ -1,10 +1,7 @@
 import { APP_INITIALIZER, Injector } from '@angular/core'
-import {
-  ICollection,
-  NgModuleMetadata,
-} from '@storybook/angular/dist/ts3.9/client/preview/types'
 
 import { makeDecorator } from '@storybook/addons'
+import { ICollection, NgModuleMetadata } from '@storybook/angular/dist/client/types'
 
 export const injectInjectorToProps = makeDecorator({
   name: 'injectInjectorToProps',
